@@ -8,7 +8,7 @@ public class FoodDeliveryyApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FoodDeliveryyApplication.class, args);
-        System.out.println("System started sucessfsfully");
+        System.out.println("System started sucessfsfullyy");
 
     }
 

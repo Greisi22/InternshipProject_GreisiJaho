@@ -26,6 +26,7 @@ public class loginController {
         String email = (String) requestBody.get("email");
         String password = (String) requestBody.get("password");
 
+
         User userCredentials = logInservice.checkCredintials(email, password);
         if (userCredentials != null) {
             return ResponseEntity.status(HttpStatus.OK).body(userCredentials);

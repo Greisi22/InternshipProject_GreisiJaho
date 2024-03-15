@@ -15,10 +15,22 @@ public class logInService {
         this.loginRepo = loginRepo;
     }
 
+
+
     public void saveInformation(String email, String password)
     {
-
       User user = new User(email, password);
+      user.setUserRole("y");
       loginRepo.save(user);
+
+    }
+
+    public void registerUser(String email, String password, String role)
+    {
+        User user = new User(email, password, role);
+
+        System.out.println("User id is: " + user.getUserId());
+        loginRepo.save(user);
+
     }
 }

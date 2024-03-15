@@ -28,4 +28,26 @@ public ResponseEntity<String> login(@RequestBody Map<String, Object> requestBody
 
     return ResponseEntity.status(HttpStatus.OK).body("Logged in! " + email + " " + password);
 }
+
+
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody Map<String, Object> requestBody) {
+        String email = (String) requestBody.get("email");
+        String password = (String) requestBody.get("password");
+        String role = (String) requestBody.get("role");
+
+        if(role == null || email == null || password == null)
+        {
+            return ResponseEntity.status(HttpStatus.OK).body("One of the arguments is missing!");
+        }
+
+
+        logInservice.registerUser(email, password, role);
+
+        return ResponseEntity.status(HttpStatus.OK).body("You are registered!");
+    }
+
+
+
 }

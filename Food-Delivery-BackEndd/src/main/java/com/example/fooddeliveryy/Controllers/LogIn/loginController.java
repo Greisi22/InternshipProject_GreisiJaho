@@ -1,11 +1,13 @@
 package com.example.fooddeliveryy.Controllers.LogIn;
 
+import com.example.fooddeliveryy.Entities.User;
 import com.example.fooddeliveryy.Services.LogIn.logInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RequestMapping
@@ -20,15 +22,17 @@ public class loginController {
     }
 
     @PostMapping("/login")
-public ResponseEntity<String> login(@RequestBody Map<String, Object> requestBody) {
-    String email = (String) requestBody.get("email");
-    String password = (String) requestBody.get("password");
+    public ResponseEntity<?> login(@RequestBody Map<String, Object> requestBody) {
+        String email = (String) requestBody.get("email");
+        String password = (String) requestBody.get("password");
 
-        logInservice.saveInformation(email, password);
-
-    return ResponseEntity.status(HttpStatus.OK).body("Logged in! " + email + " " + password);
-}
-
+        User userCredentials = logInservice.checkCredintials(email, password);
+        if (userCredentials != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(userCredentials);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
+    }
 
 
     @PostMapping("/register")
@@ -37,8 +41,7 @@ public ResponseEntity<String> login(@RequestBody Map<String, Object> requestBody
         String password = (String) requestBody.get("password");
         String role = (String) requestBody.get("role");
 
-        if(role == null || email == null || password == null)
-        {
+        if (role == null || email == null || password == null) {
             return ResponseEntity.status(HttpStatus.OK).body("One of the arguments is missing!");
         }
 
@@ -47,7 +50,6 @@ public ResponseEntity<String> login(@RequestBody Map<String, Object> requestBody
 
         return ResponseEntity.status(HttpStatus.OK).body("You are registered!");
     }
-
 
 
 }

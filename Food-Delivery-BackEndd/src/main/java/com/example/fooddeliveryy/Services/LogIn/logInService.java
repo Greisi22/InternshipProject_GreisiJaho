@@ -5,6 +5,8 @@ import com.example.fooddeliveryy.Repositories.logInRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class logInService {
 
@@ -16,14 +18,21 @@ public class logInService {
     }
 
 
+    public User checkCredintials(String email, String password) {
+        Optional<User> optionalUser = loginRepo.findByUserEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if(user.getUserPassword().equals(password)) {
+                return user;
+            } else {
+                return null;
+            }
 
-    public void saveInformation(String email, String password)
-    {
-      User user = new User(email, password);
-      user.setUserRole("y");
-      loginRepo.save(user);
-
+        }
+    return null;
     }
+
+
 
     public void registerUser(String email, String password, String role)
     {

@@ -35,7 +35,6 @@ public class loginController {
         }
     }
 
-
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody Map<String, Object> requestBody) {
         String email = (String) requestBody.get("email");
@@ -45,7 +44,6 @@ public class loginController {
         if (role == null || email == null || password == null) {
             return ResponseEntity.status(HttpStatus.OK).body("One of the arguments is missing!");
         }
-
 
         logInservice.registerUser(email, password, role);
 

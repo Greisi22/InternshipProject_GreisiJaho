@@ -8,28 +8,29 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int UserId;
 
-    private String UserEmail;
+    private String userEmail;
     private String userPassword;
     private String userRole;
 
-    public User() {
+    public User(){
 
     }
+
     public User(String userEmail, String userPassword) {
-        UserEmail = userEmail;
+        userEmail = userEmail;
         this.userPassword = userPassword;
     }
 
 
     public User(String userEmail, String userPassword, String userRole) {
-        UserEmail = userEmail;
+        this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userRole = userRole;
     }
 
     public User(int userId, String userEmail, String userPassword, String userRole) {
         UserId = userId;
-        UserEmail = userEmail;
+        userEmail = userEmail;
         this.userPassword = userPassword;
         this.userRole = userRole;
     }
@@ -43,11 +44,11 @@ public class User {
     }
 
     public String getUserEmail() {
-        return UserEmail;
+        return userEmail;
     }
 
     public void setUserEmail(String userEmail) {
-        UserEmail = userEmail;
+        userEmail = userEmail;
     }
 
     public String getUserPassword() {
@@ -70,7 +71,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "UserId=" + UserId +
-                ", UserEmail='" + UserEmail + '\'' +
+                ", UserEmail='" + userEmail + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userRole='" + userRole + '\'' +
                 '}';

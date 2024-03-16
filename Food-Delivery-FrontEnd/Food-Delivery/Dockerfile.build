@@ -1,0 +1,14 @@
+FROM node:21-alpine as builder
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm run  build
+
+
+#Stage 2
+FROM alpine
+WORKDIR /app
+COPY --from=builder /app/build /app/build
+
+
+CMD [ "echo","Finished" ]

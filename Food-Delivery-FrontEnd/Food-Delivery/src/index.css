@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root{
+    height: 100%;
+}
+
+.recharts-layer .recharts-pie-sector
+{
+    outline-width : 0
+}
+
+.light{
+    --background: #fff
+}
+
+.dark{
+    --background: #000
+}
+
+/* added this piece code for date range picker custom */
+.react-datepicker__header {
+  background-color: #fff; 
+}
+.react-datepicker__day--in-range,
+.react-datepicker__day--selected {
+    background-color: #18A0FB;
+}
+/*_______________________________________________*/

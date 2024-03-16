@@ -20,9 +20,10 @@ public class logInService {
 
     public User checkCredintials(String email, String password) {
         Optional<User> optionalUser = loginRepo.findByUserEmail(email);
+        System.out.println("User: " + optionalUser);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            if(user.getUserPassword().equals(password)) {
+            if (user.getUserPassword().equals(password)) {
                 return user;
             } else {
                 return null;
@@ -33,13 +34,13 @@ public class logInService {
     }
 
 
-
-    public void registerUser(String email, String password, String role)
-    {
-        User user = new User(email, password, role);
-
-        System.out.println("User id is: " + user.getUserId());
-        loginRepo.save(user);
-
+    public String registerUser(String email, String password, String role) {
+        if (loginRepo.existsByUserEmail(email)) {
+            return "This email is already used!";
+        } else {
+            User user = new User(email, password, role);
+            loginRepo.save(user);
+            return null;
+        }
     }
 }

@@ -1,10 +1,11 @@
+import ENTRY from "./pages/Entry";
 
 
 const App = () => {
     return (
-        <div className="bg-light h-[100%]">
-           prova prova
-        </div>
+       <>
+       <ENTRY/>
+       </>
     );
 };
 

@@ -1,0 +1,9 @@
+.entryContainer {
+    background-image: url('../../assets/Entry.png');
+    background-size: 100% 90%; /* Stretch the background image to cover the entire container */
+    background-repeat: no-repeat;
+    background-position: center;
+    /* height: 100vh; */
+    z-index: -10000;
+
+}

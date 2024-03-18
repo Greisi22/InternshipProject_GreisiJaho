@@ -4,7 +4,9 @@ import "./styles/entry.css"
 
 const ENTRY: FunctionComponent = () => {
   return (
-   <NavBar></NavBar>
+   <div className="entryContainer">
+    <NavBar></NavBar>
+   </div>
   );
 };
 

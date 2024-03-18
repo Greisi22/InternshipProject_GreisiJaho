@@ -16,10 +16,10 @@ function classNames(...classes) {
 
 export default function NavBar() {
     return (
-        <Disclosure as="nav" className="h-20 align-center" style={{backgroundColor: "rgba(91, 77, 77, 0.33)"}}>
+        <Disclosure as="nav" className="h-24 align-center pt-4" style={{backgroundColor: "rgba(91, 77, 77, 0.33)"}}>
             {({ open }) => (
                 <>
-                    <div className="mx-auto max-w-7xl px-2 md:px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-2 md:px-6 lg:px-8 align-center">
                         <div className="relative flex h-16 items-center justify-between">
                             <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start mr-10">
                                 <div className="flex flex-shrink-0 items-center mr-5">

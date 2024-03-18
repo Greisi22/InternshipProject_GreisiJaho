@@ -1,9 +1,29 @@
 .entryContainer {
-    background-image: url('../../assets/Entry.png');
-    background-size: 100% 90%; /* Stretch the background image to cover the entire container */
+    background-image: url('../../assets/entryWithoutBlur.png');
+    background-size: 100% 100%; /* Stretch the background image to cover the entire container */
     background-repeat: no-repeat;
     background-position: center;
-    /* height: 100vh; */
-    z-index: -10000;
+    height: 130vh;
+    backdrop-filter: blur(2px); /* Adjust the blur value as needed */
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.entryContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../assets/entryWithoutBlur.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    filter: blur(1.5px);
+    z-index: -1;
+}
+
+.entryContent {
+    position: relative; 
 
 }

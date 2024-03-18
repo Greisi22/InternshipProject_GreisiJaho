@@ -1,4 +1,4 @@
-package com.example.fooddeliveryy.Controllers.SuperAdmin;
+package com.example.fooddeliveryy.Controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,7 +7,7 @@ import java.util.Map;
 
 @RequestMapping
 @RestController
-public class ControlRestaurantController {
+public class RestaurantController {
 
     @GetMapping("/getRestaurant")
     public ResponseEntity<?> getRestaurant(@RequestBody Map<String, Object> requestBody) {

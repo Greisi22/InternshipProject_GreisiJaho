@@ -100,4 +100,7 @@ public class Product {
                 ", isAvailable=" + isAvailable +
                 '}';
     }
+
+
+
 }

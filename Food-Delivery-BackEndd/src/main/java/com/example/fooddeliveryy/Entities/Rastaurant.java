@@ -25,10 +25,13 @@ public class Rastaurant {
     private double averageRating;
 
     private boolean isOpen;
+    @ManyToOne
+    private RestaurantManager restaurantManager ;
+    private int restaurantManagerId;
 
 
-
-    public Rastaurant( String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
+    public Rastaurant( String address, List<Menu> menu, List<String> openingHours, String phoneNumber,
+                       String website, double averageRating, boolean isOpen, int restaurantManagerId) {
 
         this.address = address;
         this.menu = menu;
@@ -38,13 +41,15 @@ public class Rastaurant {
         this.averageRating = averageRating;
         this.isOpen = isOpen;
         menu = new ArrayList<>();
+        restaurantManagerId = restaurantManager.getUserId();
     }
 
     public Rastaurant() {
 
     }
 
-    public Rastaurant(long id, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
+    public Rastaurant(long id, String address, List<Menu> menu, List<String> openingHours,
+                      String phoneNumber, String website, double averageRating, boolean isOpen,int restaurantManagerId) {
         this.id = id;
         this.address = address;
         this.menu = menu;
@@ -53,6 +58,7 @@ public class Rastaurant {
         this.website = website;
         this.averageRating = averageRating;
         this.isOpen = isOpen;
+        restaurantManagerId = restaurantManager.getUserId();
     }
 
     public long getId() {
@@ -126,6 +132,16 @@ public class Rastaurant {
         isOpen = open;
     }
 
+
+
+    public int getRestaurantManagerId() {
+        return restaurantManagerId;
+    }
+
+    public void setRestaurantManagerId(int restaurantManagerId) {
+        this.restaurantManagerId = restaurantManagerId;
+    }
+
     @Override
     public String toString() {
         return "Rastaurant{" +
@@ -137,6 +153,7 @@ public class Rastaurant {
                 ", website='" + website + '\'' +
                 ", averageRating=" + averageRating +
                 ", isOpen=" + isOpen +
+                ", restaurantManagerId=" + restaurantManagerId +
                 '}';
     }
 }

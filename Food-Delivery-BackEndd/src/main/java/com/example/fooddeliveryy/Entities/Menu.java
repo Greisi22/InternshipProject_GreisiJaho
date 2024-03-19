@@ -1,5 +1,6 @@
 package com.example.fooddeliveryy.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class Menu {
     @ManyToOne
     private Rastaurant restaurant;
     private String name;
+    @JsonBackReference
     @OneToMany
     private List<Product> products;
     private String description;

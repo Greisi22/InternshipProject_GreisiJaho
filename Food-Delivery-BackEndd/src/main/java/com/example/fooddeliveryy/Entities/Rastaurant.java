@@ -1,5 +1,6 @@
 package com.example.fooddeliveryy.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,7 +14,8 @@ public class Rastaurant {
     @Column(nullable = true)
     private String address;
     @Column(nullable = true)
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany
+    @JsonBackReference
     private List<Menu> menu;
     @Column(nullable = true)
     private List<String> openingHours;
@@ -27,8 +29,7 @@ public class Rastaurant {
     private boolean isOpen;
 
 
-
-    public Rastaurant( String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
+    public Rastaurant(String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
 
         this.address = address;
         this.menu = menu;
@@ -72,7 +73,7 @@ public class Rastaurant {
     }
 
     public void setMenu(Menu menu) {
-        if(this.menu == null){
+        if (this.menu == null) {
             this.menu = new ArrayList<>();
             this.menu.add(menu);
         }
@@ -131,7 +132,7 @@ public class Rastaurant {
         return "Rastaurant{" +
                 "id=" + id +
                 ", address='" + address + '\'' +
-                ", menu=" + menu +
+//                ", menu=" + menu +
                 ", openingHours=" + openingHours +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", website='" + website + '\'' +

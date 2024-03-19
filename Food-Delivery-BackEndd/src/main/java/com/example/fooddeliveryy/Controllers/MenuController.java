@@ -1,8 +1,6 @@
 package com.example.fooddeliveryy.Controllers;
 
 import com.example.fooddeliveryy.Entities.Menu;
-import com.example.fooddeliveryy.Entities.Product;
-import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Services.MenuService;
 import com.example.fooddeliveryy.Services.RestaurantService;
 import org.springframework.http.HttpStatus;
@@ -10,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/menus")
@@ -27,16 +24,12 @@ public class MenuController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<Menu> createMenu(@RequestBody Map<String, Object> requestBody) {
-        String name = (String) requestBody.get("name");
-        List<Product> products = null;
-        String description = (String) requestBody.get("description");
-        Rastaurant restaurant =  restaurantService.getRestaurantById((int) requestBody.get("restuarantId"));
-        Menu menu = new Menu(restaurant, name, products, description);
-        System.out.println("Menu: " + menu);
-        Menu createdMenu = menuService.createMenu(menu);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdMenu);
+    public ResponseEntity<Menu> createMenu(@RequestBody Menu menuReciver) {
+        Menu menu = menuService.createMenu(menuReciver);
+        return ResponseEntity.status(HttpStatus.CREATED).body(menu);
     }
+
+
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Menu> getMenuById(@PathVariable Long id) {

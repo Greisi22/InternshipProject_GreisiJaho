@@ -1,35 +1,40 @@
 package com.example.fooddeliveryy.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
+@Table
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    @Column(nullable = true)
     private String description;
+    @Column(nullable = true)
     private double price;
+    @Column(nullable = true)
     private List<String> ingredients;
-    private String category;    //Desset ....
-    private boolean isAvailable;
+    @Column(nullable = true)
+    private String category;   //Desset ....
+    @Column(nullable = true)
+    private int amount;
+
     @ManyToOne
     private Menu menu;
 
     public Product() {
     }
 
-    public Product(long id, String name, String description, double price, List<String> ingredients, String category, boolean isAvailable) {
+    public Product(long id, String name, String description, double price, List<String> ingredients, String category) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.ingredients = ingredients;
         this.category = category;
-        this.isAvailable = isAvailable;
     }
 
     public Menu getMenu() {
@@ -80,14 +85,6 @@ public class Product {
         this.category = category;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-
     @Override
     public String toString() {
         return "Product{" +
@@ -97,10 +94,8 @@ public class Product {
                 ", price=" + price +
                 ", ingredients=" + ingredients +
                 ", category='" + category + '\'' +
-                ", isAvailable=" + isAvailable +
                 '}';
     }
-
 
 
 }

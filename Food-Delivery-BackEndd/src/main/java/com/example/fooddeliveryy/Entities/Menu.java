@@ -1,16 +1,16 @@
 package com.example.fooddeliveryy.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 public class Menu {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     private Rastaurant restaurant;
     private String name;
@@ -29,6 +29,21 @@ public class Menu {
         this.products = products;
         this.description = description;
         this.chefs = chefs;
+    }
+
+    public Menu(Rastaurant restaurant, String name, List<Product> products, String description) {
+        this.restaurant = restaurant;
+        this.name = name;
+        this.products = products;
+        this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Rastaurant getRestaurant() {

@@ -61,6 +61,7 @@ private final RestaurantService restaurantService;
 //        }
         System.out.println("Greisi mos ha shume mut se tjerat jan haram!");
         Rastaurant rastaurant = new Rastaurant();
+        System.out.println(restaurantService.getRestaurantById(1));
         System.out.println("Restoranti eshte ky: " + rastaurant);
         String prova = restaurantService.createRestaurant(rastaurant);
 

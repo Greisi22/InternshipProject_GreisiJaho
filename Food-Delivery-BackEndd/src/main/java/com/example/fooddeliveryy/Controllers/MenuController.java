@@ -1,27 +1,39 @@
 package com.example.fooddeliveryy.Controllers;
 
 import com.example.fooddeliveryy.Entities.Menu;
+import com.example.fooddeliveryy.Entities.Product;
+import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Services.MenuService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.fooddeliveryy.Services.RestaurantService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/menus")
 public class MenuController {
 
-    private final MenuService menuService;
 
-    @Autowired
-    public MenuController(MenuService menuService) {
+    private final MenuService menuService;
+    private final RestaurantService restaurantService;
+
+    public MenuController(MenuService menuService, RestaurantService restaurantService) {
         this.menuService = menuService;
+        this.restaurantService = restaurantService;
     }
 
+
     @PostMapping("/create")
-    public ResponseEntity<Menu> createMenu(@RequestBody Menu menu) {
+    public ResponseEntity<Menu> createMenu(@RequestBody Map<String, Object> requestBody) {
+        String name = (String) requestBody.get("name");
+        List<Product> products = null;
+        String description = (String) requestBody.get("description");
+        Rastaurant restaurant =  restaurantService.getRestaurantById((int) requestBody.get("restuarantId"));
+        Menu menu = new Menu(restaurant, name, products, description);
+        System.out.println("Menu: " + menu);
         Menu createdMenu = menuService.createMenu(menu);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMenu);
     }

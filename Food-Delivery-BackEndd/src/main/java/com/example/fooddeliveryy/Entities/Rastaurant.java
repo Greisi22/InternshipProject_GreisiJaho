@@ -1,8 +1,6 @@
 package com.example.fooddeliveryy.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +8,41 @@ import java.util.List;
 @Entity
 public class Rastaurant {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = true)
     private String address;
+    @Column(nullable = true)
     @OneToMany(mappedBy = "restaurant")
     private List<Menu> menu;
+    @Column(nullable = true)
     private List<String> openingHours;
+    @Column(nullable = true)
     private String phoneNumber;
+    @Column(nullable = true)
     private String website;
+    @Column(nullable = true)
     private double averageRating;
+
     private boolean isOpen;
+
+
+
+    public Rastaurant( String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
+
+        this.address = address;
+        this.menu = menu;
+        this.openingHours = openingHours;
+        this.phoneNumber = phoneNumber;
+        this.website = website;
+        this.averageRating = averageRating;
+        this.isOpen = isOpen;
+        menu = new ArrayList<>();
+    }
+
+    public Rastaurant() {
+
+    }
 
     public Rastaurant(long id, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
         this.id = id;
@@ -29,7 +53,6 @@ public class Rastaurant {
         this.website = website;
         this.averageRating = averageRating;
         this.isOpen = isOpen;
-        menu = new ArrayList<>();
     }
 
     public long getId() {
@@ -101,5 +124,19 @@ public class Rastaurant {
 
     public void setOpen(boolean open) {
         isOpen = open;
+    }
+
+    @Override
+    public String toString() {
+        return "Rastaurant{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", menu=" + menu +
+                ", openingHours=" + openingHours +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", website='" + website + '\'' +
+                ", averageRating=" + averageRating +
+                ", isOpen=" + isOpen +
+                '}';
     }
 }

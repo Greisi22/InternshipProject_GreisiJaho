@@ -1,40 +1,46 @@
 package com.example.fooddeliveryy.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.*;
-
-import jakarta.persistence .*;
-
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "restaurant")
 public class Rastaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "restaurant_id")
     private long id;
+
     @Column(nullable = true)
     private String address;
-    @Column(nullable = true)
+
     @OneToMany
     @JsonBackReference
     private List<Menu> menu;
+
     @Column(nullable = true)
     private List<String> openingHours;
+
     @Column(nullable = true)
     private String phoneNumber;
+
     @Column(nullable = true)
     private String website;
+
     @Column(nullable = true)
     private double averageRating;
 
     private boolean isOpen;
 
+    @ManyToOne
+    @JoinColumn(name = "restaurant_manager_id")
+    private User restaurantManager;
+
+
+    public Rastaurant() {}
 
     public Rastaurant(String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
-
         this.address = address;
         this.menu = menu;
         this.openingHours = openingHours;
@@ -42,11 +48,6 @@ public class Rastaurant {
         this.website = website;
         this.averageRating = averageRating;
         this.isOpen = isOpen;
-        menu = new ArrayList<>();
-    }
-
-    public Rastaurant() {
-
     }
 
     public Rastaurant(long id, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
@@ -60,122 +61,77 @@ public class Rastaurant {
         this.isOpen = isOpen;
     }
 
-    @Entity
-    public class Rastaurant {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private long id;
-        @Column(nullable = true)
-        private String address;
-        @Column(nullable = true)
-        @OneToMany
-        @JsonBackReference
-        private List<Menu> menu;
-        @Column(nullable = true)
-        private List<String> openingHours;
-        @Column(nullable = true)
-        private String phoneNumber;
-        @Column(nullable = true)
-        private String website;
-        @Column(nullable = true)
-        private double averageRating;
+    public long getId() {
+        return id;
+    }
 
-        private boolean isOpen;
+    public void setId(long id) {
+        this.id = id;
+    }
 
+    public String getAddress() {
+        return address;
+    }
 
-        public Rastaurant(String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-            this.address = address;
-            this.menu = menu;
-            this.openingHours = openingHours;
-            this.phoneNumber = phoneNumber;
-            this.website = website;
-            this.averageRating = averageRating;
-            this.isOpen = isOpen;
-            menu = new ArrayList<>();
-        }
+    public List<Menu> getMenu() {
+        return menu;
+    }
 
+    public void setMenu(List<Menu> menu) {
+        this.menu = menu;
+    }
 
-        public Rastaurant() {
+    public List<String> getOpeningHours() {
+        return openingHours;
+    }
 
-        }
+    public void setOpeningHours(List<String> openingHours) {
+        this.openingHours = openingHours;
+    }
 
-        public Rastaurant(long id, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
-            this.id = id;
-            this.address = address;
-            this.menu = menu;
-            this.openingHours = openingHours;
-            this.phoneNumber = phoneNumber;
-            this.website = website;
-            this.averageRating = averageRating;
-            this.isOpen = isOpen;
-        }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-        public long getId() {
-            return id;
-        }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
+    public String getWebsite() {
+        return website;
+    }
 
-    public void setMenu(Menu menu) {
-        if (this.menu == null) {
-            this.menu = new ArrayList<>();
-            this.menu.add(menu);
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
-        public void setId(long id) {
-            this.id = id;
+    public double getAverageRating() {
+        return averageRating;
+    }
 
-        }
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
+    }
 
-        public String getAddress() {
-            return address;
-        }
+    public boolean isOpen() {
+        return isOpen;
+    }
 
-        public void setAddress(String address) {
-            this.address = address;
-        }
+    public void setOpen(boolean open) {
+        isOpen = open;
+    }
 
-        public void setMenu(Menu menu) {
-            if (this.menu == null) {
-                this.menu = new ArrayList<>();
-                this.menu.add(menu);
-            }
-        }
+    public User getRestaurantManager() {
+        return restaurantManager;
+    }
 
-        public List<Menu> getAllMenu() {
-            return menu;
-        }
-
-        public void setAllMenu(List<Menu> menu) {
-            this.menu = menu;
-        }
-
-        public List<String> getOpeningHours() {
-            return openingHours;
-        }
-
-        public void setOpeningHours(List<String> openingHours) {
-            this.openingHours = openingHours;
-        }
-
-        public String getPhoneNumber() {
-            return phoneNumber;
-        }
-
-        public void setPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-        }
-
-        public String getWebsite() {
-            return website;
-        }
-
-        public void setWebsite(String website) {
-            this.website = website;
-        }
-
-        public double getAverageRating() {
-            return averageRating;
-        }
+    public void setRestaurantManager(User restaurantManager) {
+        this.restaurantManager = restaurantManager;
+    }
 
 
     @Override
@@ -183,39 +139,13 @@ public class Rastaurant {
         return "Rastaurant{" +
                 "id=" + id +
                 ", address='" + address + '\'' +
-//                ", menu=" + menu +
+                ", menu=" + menu +
                 ", openingHours=" + openingHours +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", website='" + website + '\'' +
                 ", averageRating=" + averageRating +
                 ", isOpen=" + isOpen +
+                ", restaurantManager=" + restaurantManager +
                 '}';
-
-        public void setAverageRating(double averageRating) {
-            this.averageRating = averageRating;
-        }
-
-        public boolean isOpen() {
-            return isOpen;
-        }
-
-        public void setOpen(boolean open) {
-            isOpen = open;
-        }
-
-        @Override
-        public String toString() {
-            return "Rastaurant{" +
-                    "id=" + id +
-                    ", address='" + address + '\'' +
-//                ", menu=" + menu +
-                    ", openingHours=" + openingHours +
-                    ", phoneNumber='" + phoneNumber + '\'' +
-                    ", website='" + website + '\'' +
-                    ", averageRating=" + averageRating +
-                    ", isOpen=" + isOpen +
-                    '}';
-        }
-
-
     }
+}

@@ -1,7 +1,7 @@
 package com.example.fooddeliveryy.Entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -17,7 +17,8 @@ public class Menu {
 
     private String name;
 
-    @ManyToMany
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "menu_product",
             joinColumns = @JoinColumn(name = "menu_id"),

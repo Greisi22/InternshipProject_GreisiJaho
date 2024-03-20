@@ -3,6 +3,7 @@ package com.example.fooddeliveryy.Controllers;
 import com.example.fooddeliveryy.Entities.Menu;
 import com.example.fooddeliveryy.Services.MenuService;
 import com.example.fooddeliveryy.Services.RestaurantService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class MenuController {
 
 
     @PostMapping("/create")
+    @Transactional
     public ResponseEntity<Menu> createMenu(@RequestBody Menu menuReciver) {
         Menu menu = menuService.createMenu(menuReciver);
         return ResponseEntity.status(HttpStatus.CREATED).body(menu);

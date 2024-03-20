@@ -2,42 +2,42 @@ package com.example.fooddeliveryy.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
+@Table(name = "menu")
 public class Menu {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "restaurant_id")
     private Rastaurant restaurant;
+
     private String name;
-    @JsonBackReference
-    @OneToMany
+
+    @ManyToMany
+    @JoinTable(
+            name = "menu_product",
+            joinColumns = @JoinColumn(name = "menu_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     private List<Product> products;
+
     private String description;
+
     private List<String> chefs;
 
     public Menu() {
     }
 
-    public Menu(Long id, Rastaurant restaurant, String name, List<Product> products, String description, List<String> chefs) {
-        this.id = id;
+    public Menu(Rastaurant restaurant, String name, List<Product> products, String description, List<String> chefs) {
         this.restaurant = restaurant;
         this.name = name;
         this.products = products;
         this.description = description;
         this.chefs = chefs;
-    }
-
-    public Menu(Rastaurant restaurant, String name, List<Product> products, String description) {
-        this.restaurant = restaurant;
-        this.name = name;
-        this.products = products;
-        this.description = description;
     }
 
     public Long getId() {

@@ -1,7 +1,6 @@
 package com.example.fooddeliveryy.Entities;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
@@ -18,31 +17,31 @@ public class Product {
     @Column(nullable = true)
     private List<String> ingredients;
     @Column(nullable = true)
-    private String category;   //Desset ....
+    private String category;   // Dessert, etc.
     @Column(nullable = true)
     private int amount;
 
-    @ManyToOne
-    private Menu menu;
+    @ManyToMany(mappedBy = "products")
+    private List<Menu> menus;
 
     public Product() {
     }
 
-    public Product(long id, String name, String description, double price, List<String> ingredients, String category) {
-        this.id = id;
+    public Product(String name, String description, double price, List<String> ingredients, String category, int amount) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.ingredients = ingredients;
         this.category = category;
+        this.amount = amount;
     }
 
-    public Menu getMenu() {
-        return menu;
+    public long getId() {
+        return id;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -85,6 +84,14 @@ public class Product {
         this.category = category;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -94,8 +101,7 @@ public class Product {
                 ", price=" + price +
                 ", ingredients=" + ingredients +
                 ", category='" + category + '\'' +
+                ", amount=" + amount +
                 '}';
     }
-
-
 }

@@ -15,7 +15,7 @@ public class Rastaurant {
     @Column(nullable = true)
     private String address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "restaurant")
     @JsonBackReference
     private List<Menu> menu;
 
@@ -36,7 +36,6 @@ public class Rastaurant {
     @ManyToOne
     @JoinColumn(name = "restaurant_manager_id")
     private User restaurantManager;
-
 
     public Rastaurant() {}
 

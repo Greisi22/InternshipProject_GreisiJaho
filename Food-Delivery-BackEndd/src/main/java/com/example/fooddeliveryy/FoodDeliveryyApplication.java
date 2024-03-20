@@ -11,6 +11,8 @@ public class FoodDeliveryyApplication {
         SpringApplication.run(FoodDeliveryyApplication.class, args);
         System.out.println("System started sucessfsfullyy");
 
+
+
     }
 
 

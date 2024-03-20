@@ -3,6 +3,7 @@ package com.example.fooddeliveryy.Entities;
 import jakarta.persistence.*;
 
 @Entity
+@Table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,15 +13,12 @@ public class User {
     private String userPassword;
     private String userRole;
 
-    public User(){
-
-    }
+    public User() {}
 
     public User(String userEmail, String userPassword) {
-        userEmail = userEmail;
+        this.userEmail = userEmail;
         this.userPassword = userPassword;
     }
-
 
     public User(String userEmail, String userPassword, String userRole) {
         this.userEmail = userEmail;
@@ -29,8 +27,8 @@ public class User {
     }
 
     public User(int userId, String userEmail, String userPassword, String userRole) {
-        UserId = userId;
-        userEmail = userEmail;
+        this.UserId = userId;
+        this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userRole = userRole;
     }
@@ -48,7 +46,7 @@ public class User {
     }
 
     public void setUserEmail(String userEmail) {
-        userEmail = userEmail;
+        this.userEmail = userEmail;
     }
 
     public String getUserPassword() {
@@ -71,7 +69,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "UserId=" + UserId +
-                ", UserEmail='" + userEmail + '\'' +
+                ", userEmail='" + userEmail + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userRole='" + userRole + '\'' +
                 '}';

@@ -1,10 +1,64 @@
 package com.example.fooddeliveryy.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.*;
+
 import jakarta.persistence .*;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
+@Entity
+public class Rastaurant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(nullable = true)
+    private String address;
+    @Column(nullable = true)
+    @OneToMany
+    @JsonBackReference
+    private List<Menu> menu;
+    @Column(nullable = true)
+    private List<String> openingHours;
+    @Column(nullable = true)
+    private String phoneNumber;
+    @Column(nullable = true)
+    private String website;
+    @Column(nullable = true)
+    private double averageRating;
+
+    private boolean isOpen;
+
+
+    public Rastaurant(String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
+
+        this.address = address;
+        this.menu = menu;
+        this.openingHours = openingHours;
+        this.phoneNumber = phoneNumber;
+        this.website = website;
+        this.averageRating = averageRating;
+        this.isOpen = isOpen;
+        menu = new ArrayList<>();
+    }
+
+    public Rastaurant() {
+
+    }
+
+    public Rastaurant(long id, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
+        this.id = id;
+        this.address = address;
+        this.menu = menu;
+        this.openingHours = openingHours;
+        this.phoneNumber = phoneNumber;
+        this.website = website;
+        this.averageRating = averageRating;
+        this.isOpen = isOpen;
+    }
 
     @Entity
     public class Rastaurant {
@@ -41,6 +95,7 @@ import java.util.List;
             menu = new ArrayList<>();
         }
 
+
         public Rastaurant() {
 
         }
@@ -60,8 +115,15 @@ import java.util.List;
             return id;
         }
 
+
+    public void setMenu(Menu menu) {
+        if (this.menu == null) {
+            this.menu = new ArrayList<>();
+            this.menu.add(menu);
+
         public void setId(long id) {
             this.id = id;
+
         }
 
         public String getAddress() {
@@ -115,6 +177,20 @@ import java.util.List;
             return averageRating;
         }
 
+
+    @Override
+    public String toString() {
+        return "Rastaurant{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+//                ", menu=" + menu +
+                ", openingHours=" + openingHours +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", website='" + website + '\'' +
+                ", averageRating=" + averageRating +
+                ", isOpen=" + isOpen +
+                '}';
+
         public void setAverageRating(double averageRating) {
             this.averageRating = averageRating;
         }
@@ -140,5 +216,6 @@ import java.util.List;
                     ", isOpen=" + isOpen +
                     '}';
         }
+
 
     }

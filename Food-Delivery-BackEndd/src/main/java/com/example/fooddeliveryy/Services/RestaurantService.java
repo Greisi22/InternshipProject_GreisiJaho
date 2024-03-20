@@ -32,17 +32,8 @@ public class RestaurantService {
         return rastaurant;
     }
 
-    public String createRestaurant (Rastaurant restaurant)
-    {
-        if(restaurant == null)
-        {
-            return null;
-        }
 
-        System.out.println("Restoarunt qtu: " + restaurant);
-        rastaurantRepo.save(restaurant);
-
-        return "T'lumt bytha!";
+    public Rastaurant save(Rastaurant restaurant) {
+        return rastaurantRepo.save(restaurant);
     }
-
 }

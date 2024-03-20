@@ -32,13 +32,13 @@ public class loginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, Object> requestBody) {
-        String email = (String) requestBody.get("email");
-        String password = (String) requestBody.get("password");
+        String userEmail = (String) requestBody.get("email");
+        String userPassword = (String) requestBody.get("password");
 
         UserDTO userDTO = null;
         Map<String, Object> map = new HashMap<>();
         try {
-            User userCredentials = logInservice.checkCredintials(email, password);
+            User userCredentials = logInservice.checkCredintials(userEmail, userPassword);
             if (userCredentials != null) {
                 userDTO = userMapper.userToUserDTO(userCredentials);
             }

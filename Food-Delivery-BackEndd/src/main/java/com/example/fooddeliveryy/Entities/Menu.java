@@ -92,7 +92,7 @@ public class Menu {
     public String toString() {
         return "Menu{" +
                 "id=" + id +
-                ", restaurant=" + restaurant +
+                ", restaurant=" + restaurant.getId() +
                 ", name='" + name + '\'' +
                 ", products=" + products +
                 ", description='" + description + '\'' +

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -38,6 +40,16 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/get/all")
+    public ResponseEntity<?> getAllProduct(@PathVariable long productId) {
+        List<Product> product = productService.getAllProducts();
+        if (product != null) {
+            return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 
     @PutMapping("/update/{productId}")

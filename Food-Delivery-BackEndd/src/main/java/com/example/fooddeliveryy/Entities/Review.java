@@ -4,6 +4,7 @@ package com.example.fooddeliveryy.Entities;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "review")
 public class Review {
 
     @Id
@@ -13,8 +14,23 @@ public class Review {
     private int rating;
     private String date;
 
+
+
     @ManyToOne
+    @JoinColumn(name = "restaurant_id")
     private Rastaurant restaurant;
+
+    public Review(long id, String reviewText, int rating, String date, Rastaurant restaurant) {
+        Id = id;
+        this.reviewText = reviewText;
+        this.rating = rating;
+        this.date = date;
+        this.restaurant = restaurant;
+    }
+
+    public Review() {
+
+    }
 
     public long getId() {
         return Id;
@@ -46,6 +62,14 @@ public class Review {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public Rastaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Rastaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     @Override

@@ -31,19 +31,40 @@ private final RestaurantService restaurantService;
         return ResponseEntity.status(HttpStatus.IM_USED).body(res);
     }
 
+
+    @PostMapping("/create")
+    public ResponseEntity<String> createRestaurant(@RequestBody Map<String, Object> requestBody) {
+        String name = (String) requestBody.get("name");
+        String address = (String) requestBody.get("address");
+        String openingHours = (String) requestBody.get("openingHours");
+        String phoneNumber = (String) requestBody.get("phoneNumber");
+        String website = (String) requestBody.get("website");
+        String averageRating = (String) requestBody.get("averageRating");
+        String isOpen = (String) requestBody.get("isOpen");
+        String restaurantManager = (String) requestBody.get("restaurantManager");
+
+        if (name == null || address == null || phoneNumber == null || website == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required fields are missing.");
+        }
+
+        // Call the service method to create the restaurant
+        return restaurantService.createRestaurant(name, address, openingHours, phoneNumber,
+                website, averageRating, isOpen, restaurantManager);
+    }
+
     @GetMapping("/getRestaurant")
     public ResponseEntity<?> getRestaurant(@RequestBody Map<String, Object> requestBody) {
 
         return null;
     }
 
-    @PutMapping("/updateRestaurant")
-    public ResponseEntity<?> updateRestaurant(@RequestBody Map<String, Object> requestBody) {
-        return null;
-    }
-
-    @DeleteMapping("/deleteRestaurant")
-    public ResponseEntity<?> deleteRestaurant(@RequestBody Map<String, Object> requestBody) {
-        return null;
-    }
+//    @PutMapping("/updateRestaurant")
+//    public ResponseEntity<?> updateRestaurant(@RequestBody Map<String, Object> requestBody) {
+//        return null;
+//    }
+//
+//    @DeleteMapping("/deleteRestaurant")
+//    public ResponseEntity<?> deleteRestaurant(@RequestBody Map<String, Object> requestBody) {
+//        return null;
+//    }
 }

@@ -38,7 +38,7 @@ public class Rastaurant {
     private boolean isOpen;
 
     @OneToMany(mappedBy = "restaurant")
-    @JsonBackReference("reviewsBackReference")
+    @JsonBackReference
     private List<Review> reviews;
 
     @ManyToOne

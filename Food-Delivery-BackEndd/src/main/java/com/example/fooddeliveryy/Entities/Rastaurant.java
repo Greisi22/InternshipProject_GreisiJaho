@@ -33,6 +33,10 @@ public class Rastaurant {
 
     private boolean isOpen;
 
+    @OneToMany(mappedBy = "restaurant")
+    @JsonBackReference
+    private List<Review> reviews;
+
     @ManyToOne
     @JoinColumn(name = "restaurant_manager_id")
     private User restaurantManager;

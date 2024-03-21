@@ -12,11 +12,15 @@ public class Rastaurant {
     @Column(name = "restaurant_id")
     private long id;
 
+
+    @Column(nullable = true)
+    private String name;
+
     @Column(nullable = true)
     private String address;
 
     @OneToMany(mappedBy = "restaurant")
-    @JsonBackReference
+    @JsonBackReference("menuBackReference")
     private List<Menu> menu;
 
     @Column(nullable = true)
@@ -34,16 +38,19 @@ public class Rastaurant {
     private boolean isOpen;
 
     @OneToMany(mappedBy = "restaurant")
-    @JsonBackReference
+    @JsonBackReference("reviewsBackReference")
     private List<Review> reviews;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_manager_id")
     private User restaurantManager;
 
-    public Rastaurant() {}
+    public Rastaurant() {
 
-    public Rastaurant(String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
+    }
+
+    public Rastaurant(String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews) {
+        this.name = name;
         this.address = address;
         this.menu = menu;
         this.openingHours = openingHours;
@@ -51,9 +58,11 @@ public class Rastaurant {
         this.website = website;
         this.averageRating = averageRating;
         this.isOpen = isOpen;
+        this.reviews = reviews;
     }
 
-    public Rastaurant(long id, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen) {
+    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews) {
+        this.name = name;
         this.id = id;
         this.address = address;
         this.menu = menu;
@@ -62,6 +71,19 @@ public class Rastaurant {
         this.website = website;
         this.averageRating = averageRating;
         this.isOpen = isOpen;
+        this.reviews = reviews;
+    }
+
+    public Rastaurant(String name, String address, List<String> openingHours, String phoneNumber,
+                      String website, double averageRating, boolean isOpen, User restaurantManager) {
+        this.name = name;
+        this.address = address;
+        this.openingHours = openingHours;
+        this.phoneNumber = phoneNumber;
+        this.website = website;
+        this.averageRating = averageRating;
+        this.isOpen = isOpen;
+        this.restaurantManager = restaurantManager;
     }
 
     public long getId() {
@@ -71,6 +93,15 @@ public class Rastaurant {
     public void setId(long id) {
         this.id = id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
     public String getAddress() {
         return address;

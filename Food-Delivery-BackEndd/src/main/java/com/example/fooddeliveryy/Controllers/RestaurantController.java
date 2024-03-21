@@ -14,8 +14,8 @@ import java.util.Map;
 @RestController
 public class RestaurantController {
 
-private final RestaurantService restaurantService;
-@Autowired
+    private final RestaurantService restaurantService;
+    @Autowired
     public RestaurantController(RestaurantService restaurantService) {
         this.restaurantService = restaurantService;
     }
@@ -57,11 +57,3 @@ private final RestaurantService restaurantService;
 
 
 }
-//    @PostMapping("/create")
-//    public ResponseEntity<?> createRestaurant(@RequestBody Rastaurant restaurant) {
-//
-//
-//        Rastaurant res = restaurantService.save(restaurant);
-//
-//        return ResponseEntity.status(HttpStatus.IM_USED).body(res);
-//    }

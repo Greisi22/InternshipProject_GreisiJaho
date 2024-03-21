@@ -28,7 +28,7 @@ public class RestaurantService {
     public String createRestaurant(String name, String address, List<String> openingHours, String phoneNumber,
                                    String website, double averageRating, boolean isOpen, Long restaurantManagerId) {
 
-        // Check if the user making the request has the role of a restaurant manager
+
         User manager = loginRepo.findByUserId(restaurantManagerId).orElse(null);
 
 
@@ -36,8 +36,9 @@ public class RestaurantService {
             return "You are not authorized to create a restaurant.";
         }
 
+
         // Check if the restaurant name already exists
-        if (restaurantRepo.findByName(name)) {
+        if (restaurantRepo.findByName(name) != null) {
             return "This restaurant name is already in use.";
         }
 

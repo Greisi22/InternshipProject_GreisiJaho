@@ -8,7 +8,7 @@ import java.util.Optional;
 @Repository
 public interface logInRepo extends JpaRepository<User, Integer> {
     Optional<User> findByUserEmail(String email);
+    Optional<User> findByUserId(Long id);
     boolean existsByUserEmail(String email);
 
-    boolean findByUserRole(String role);
 }

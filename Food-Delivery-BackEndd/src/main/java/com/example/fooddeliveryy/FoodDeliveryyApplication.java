@@ -12,7 +12,6 @@ public class FoodDeliveryyApplication {
         System.out.println("System started sucessfsfullyy");
 
 
-
     }
 
 

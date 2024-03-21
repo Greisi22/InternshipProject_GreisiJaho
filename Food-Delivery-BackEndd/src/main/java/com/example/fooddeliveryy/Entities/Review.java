@@ -1,6 +1,7 @@
 package com.example.fooddeliveryy.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,6 +19,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
+    @JsonBackReference
     private Rastaurant restaurant;
 
     public Review(long id, String reviewText, int rating, String date, Rastaurant restaurant) {

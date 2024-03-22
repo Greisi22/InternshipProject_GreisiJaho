@@ -26,7 +26,7 @@ public class RestaurantService {
     }
 
     public String createRestaurant(String name, String address, List<String> openingHours, String phoneNumber,
-                                   String website, double averageRating, boolean isOpen, Long restaurantManagerId) {
+                                   String website, double averageRating, boolean isOpen, Long restaurantManagerId, int discount) {
 
 
         User manager = loginRepo.findByUserId(restaurantManagerId).orElse(null);
@@ -44,23 +44,16 @@ public class RestaurantService {
 
         // Create and save the restaurant
         Rastaurant restaurant = new Rastaurant(name, address, openingHours, phoneNumber, website,
-                averageRating, isOpen, manager);
+                averageRating, isOpen, manager,discount);
         restaurantRepo.save(restaurant);
 
         return "Restaurant created successfully!";
     }
+    public List<Rastaurant> getRestaurantsWithDiscount() {
+        return restaurantRepo.findByDiscountGreaterThan(0);
+    }
+
+
 
 }
 
-//    public Rastaurant getRestaurantById(long id)
-//    {
-//        Optional<Rastaurant> optionalRastaurant =  rastaurantRepo.findById(id);
-//
-//        if(!optionalRastaurant.isPresent())
-//        {
-//            return null;
-//        }
-//        Rastaurant rastaurant =  optionalRastaurant.get();
-//
-//        return rastaurant;
-//    }

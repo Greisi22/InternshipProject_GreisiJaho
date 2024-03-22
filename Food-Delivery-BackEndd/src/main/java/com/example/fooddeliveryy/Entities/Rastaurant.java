@@ -35,6 +35,7 @@ public class Rastaurant {
     @Column(nullable = true)
     private double averageRating;
 
+    @Column(nullable = true)
     private boolean isOpen;
 
     @OneToMany(mappedBy = "restaurant")
@@ -45,11 +46,15 @@ public class Rastaurant {
     @JoinColumn(name = "restaurant_manager_id")
     private User restaurantManager;
 
+
+    @Column(nullable = true)
+    private int discount;
+
     public Rastaurant() {
 
     }
 
-    public Rastaurant(String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews) {
+    public Rastaurant(String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, int discount) {
         this.name = name;
         this.address = address;
         this.menu = menu;
@@ -59,9 +64,10 @@ public class Rastaurant {
         this.averageRating = averageRating;
         this.isOpen = isOpen;
         this.reviews = reviews;
+        this.discount = discount;
     }
 
-    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews) {
+    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, int discount) {
         this.name = name;
         this.id = id;
         this.address = address;
@@ -72,10 +78,11 @@ public class Rastaurant {
         this.averageRating = averageRating;
         this.isOpen = isOpen;
         this.reviews = reviews;
+        this.discount = discount;
     }
 
     public Rastaurant(String name, String address, List<String> openingHours, String phoneNumber,
-                      String website, double averageRating, boolean isOpen, User restaurantManager) {
+                      String website, double averageRating, boolean isOpen, User restaurantManager, int discount) {
         this.name = name;
         this.address = address;
         this.openingHours = openingHours;
@@ -84,6 +91,7 @@ public class Rastaurant {
         this.averageRating = averageRating;
         this.isOpen = isOpen;
         this.restaurantManager = restaurantManager;
+        this.discount = discount;
     }
 
     public long getId() {
@@ -167,6 +175,13 @@ public class Rastaurant {
         this.restaurantManager = restaurantManager;
     }
 
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
 
     @Override
     public String toString() {
@@ -182,4 +197,6 @@ public class Rastaurant {
                 ", restaurantManager=" + restaurantManager +
                 '}';
     }
+
+
 }

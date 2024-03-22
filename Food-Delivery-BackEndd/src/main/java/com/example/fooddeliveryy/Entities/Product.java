@@ -24,6 +24,9 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private List<Menu> menus;
 
+    @ManyToMany(mappedBy = "products")
+    private List<Order> ordered;
+
     public Product() {
     }
 

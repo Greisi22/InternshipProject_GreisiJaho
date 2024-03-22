@@ -3,18 +3,11 @@ package com.example.fooddeliveryy.Controllers;
 
 import com.example.fooddeliveryy.Entities.Order;
 import com.example.fooddeliveryy.Services.OrderService;
-import com.example.fooddeliveryy.Services.RestaurantService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RequestMapping("/order")
 @RestController
@@ -28,9 +21,38 @@ public class OrderController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createOrder(@RequestBody Order order ) {
-        System.out.println("Order: " + order);
-        return ResponseEntity.status(HttpStatus.OK).body(order);
+       Order order1 =  orderService.saveOrder(order);
+        return ResponseEntity.status(HttpStatus.OK).body(order1);
+    }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+        Order order = orderService.getOrderById(id);
+        return ResponseEntity.ok().body(order);
+    }
+
+    @GetMapping("/get/all")
+    public ResponseEntity<List<Order>> getAllOrders() {
+        List<Order> order = orderService.getAllOrders();
+        return ResponseEntity.ok().body(order);
+    }
+
+    @GetMapping("/get/amout")
+    public ResponseEntity<Integer> getAllOrdersAmout() {
+        List<Order> order = orderService.getAllOrders();
+        return ResponseEntity.ok().body(order.size());
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order order) {
+        Order updatedOrder = orderService.updateMenu(id, order);
+        return ResponseEntity.ok().body(updatedOrder);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

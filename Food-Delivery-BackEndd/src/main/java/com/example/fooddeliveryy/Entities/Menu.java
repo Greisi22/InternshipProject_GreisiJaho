@@ -30,8 +30,7 @@ public class Menu {
 
     private List<String> chefs;
 
-    @ManyToMany(mappedBy = "menu")
-    private List<Order> orders;
+
 
     public Menu() {
     }

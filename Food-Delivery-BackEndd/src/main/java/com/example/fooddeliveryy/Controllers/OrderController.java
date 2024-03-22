@@ -1,6 +1,7 @@
 package com.example.fooddeliveryy.Controllers;
 
 
+import com.example.fooddeliveryy.Entities.Order;
 import com.example.fooddeliveryy.Services.OrderService;
 import com.example.fooddeliveryy.Services.RestaurantService;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping("order")
+@RequestMapping("/order")
 @RestController
 public class OrderController {
 
@@ -26,26 +27,10 @@ public class OrderController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createOrder(@RequestBody Map<String, Object> requestBody) {
+    public ResponseEntity<?> createOrder(@RequestBody Order order ) {
+        System.out.println("Order: " + order);
+        return ResponseEntity.status(HttpStatus.OK).body(order);
 
-        Map<String, Object> restaurant = (Map<String, Object>) requestBody.get("restaurant");
-        Map<String, List<Object>> products = (Map<String, List<Object>>) requestBody.get("products");
-
-        Map<String, Object> map = new HashMap<>();
-
-        if (restaurant == null ||products == null  ) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required fields are missing.");
-        }
-
-        String message = orderService.
-
-        if (message == null) {
-            map.put("message", "Register was successful!");
-            return ResponseEntity.status(HttpStatus.OK).body(map.toString());
-        } else {
-            map.put("message", message);
-            return ResponseEntity.status(HttpStatus.IM_USED).body(map.toString());
-        }
     }
 
 }

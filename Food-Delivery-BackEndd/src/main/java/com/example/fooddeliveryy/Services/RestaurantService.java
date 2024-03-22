@@ -1,58 +1,76 @@
 package com.example.fooddeliveryy.Services;
 
+import com.example.fooddeliveryy.Entities.Menu;
+import com.example.fooddeliveryy.Entities.Product;
 import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Entities.User;
+import com.example.fooddeliveryy.Repositories.MenuRepository;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import com.example.fooddeliveryy.Repositories.logInRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RestaurantService {
 
     private final RestaurantRepo restaurantRepo;
-    private final logInRepo loginRepo;
+
+    private final MenuService menuService;
 
     @Autowired
-    public RestaurantService(RestaurantRepo restaurantRepo, logInRepo loginRepo) {
+    public RestaurantService(RestaurantRepo restaurantRepo, MenuService menuService) {
         this.restaurantRepo = restaurantRepo;
-        this.loginRepo = loginRepo;
+        this.menuService = menuService;
     }
 
-    public Rastaurant save(Rastaurant restaurant) {
+
+    public Rastaurant createRestaurant(Rastaurant restaurant) {
+        if (restaurant.getMenu() != null) {
+            List<Menu> restaurantMenus = new ArrayList<>();
+            for (Menu menu : restaurant.getMenu()) {
+                Menu restaurantMenu = menuService.getMenuById(menu.getId());
+                if (restaurantMenu == null) {
+                    throw new IllegalArgumentException("Menu not found with ID: " + menu.getId());
+                } else {
+                    restaurantMenus.add(restaurantMenu);
+                }
+            }
+            restaurant.setMenu(restaurantMenus);
+        }
+
         return restaurantRepo.save(restaurant);
     }
 
-    public String createRestaurant(String name, String address, List<String> openingHours, String phoneNumber,
-                                   String website, double averageRating, boolean isOpen, Long restaurantManagerId, int discount) {
-
-
-        User manager = loginRepo.findByUserId(restaurantManagerId).orElse(null);
-
-
-        if (manager == null || !manager.getUserRole().equals("RestaurantManager")) {
-            return "You are not authorized to create a restaurant.";
-        }
-
-
-        // Check if the restaurant name already exists
-        if (restaurantRepo.findByName(name) != null) {
-            return "This restaurant name is already in use.";
-        }
-
-        // Create and save the restaurant
-        Rastaurant restaurant = new Rastaurant(name, address, openingHours, phoneNumber, website,
-                averageRating, isOpen, manager,discount);
-        restaurantRepo.save(restaurant);
-
-        return "Restaurant created successfully!";
-    }
     public List<Rastaurant> getRestaurantsWithDiscount() {
         return restaurantRepo.findByDiscountGreaterThan(0);
     }
 
+
+    public Rastaurant getRestaurantById(long id) {
+        Optional<Rastaurant> restaurantOptional = restaurantRepo.findById(id);
+        return restaurantOptional.orElse(null);
+    }
+
+    public List<Rastaurant> getAllRestaurants() {
+        return restaurantRepo.findAll();
+    }
+
+    public Rastaurant updateRestaurant(long id, Rastaurant restaurant) {
+        if (restaurantRepo.existsById(id)) {
+            restaurant.setId(id);
+            return restaurantRepo.save(restaurant);
+        } else {
+            return null;
+        }
+    }
+
+    public void deleteRestaurant(long id) {
+        restaurantRepo.deleteById(id);
+    }
 
 
 }

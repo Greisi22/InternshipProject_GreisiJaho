@@ -9,7 +9,7 @@ import java.util.List;
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
@@ -30,6 +30,9 @@ public class Menu {
 
     private List<String> chefs;
 
+    @ManyToMany(mappedBy = "menu")
+    private List<Order> orders;
+
     public Menu() {
     }
 
@@ -41,11 +44,11 @@ public class Menu {
         this.chefs = chefs;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

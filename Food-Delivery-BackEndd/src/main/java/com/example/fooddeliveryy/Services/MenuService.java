@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class MenuService {
     private final MenuRepository menuRepository;
-    private final ProductService productService; // Assuming you have a ProductService
+    private final ProductService productService;
 
     @Autowired
     public MenuService(MenuRepository menuRepository, ProductService productService) {
@@ -36,7 +36,7 @@ public class MenuService {
         return menuRepository.save(menu);
     }
 
-    public Menu getMenuById(Long id) {
+    public Menu getMenuById(long id) {
         Optional<Menu> menuOptional = menuRepository.findById(id);
         return menuOptional.orElse(null);
     }
@@ -45,7 +45,7 @@ public class MenuService {
         return menuRepository.findAll();
     }
 
-    public Menu updateMenu(Long id, Menu menu) {
+    public Menu updateMenu(long id, Menu menu) {
         if (menuRepository.existsById(id)) {
             menu.setId(id);
             return menuRepository.save(menu);
@@ -54,7 +54,7 @@ public class MenuService {
         }
     }
 
-    public void deleteMenu(Long id) {
+    public void deleteMenu(long id) {
         menuRepository.deleteById(id);
     }
 }

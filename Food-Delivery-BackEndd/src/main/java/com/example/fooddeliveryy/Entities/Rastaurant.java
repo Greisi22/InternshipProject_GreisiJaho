@@ -13,29 +13,29 @@ public class Rastaurant {
     private long id;
 
 
-    @Column(nullable = true)
+
     private String name;
 
-    @Column(nullable = true)
+
     private String address;
 
     @OneToMany(mappedBy = "restaurant")
     @JsonBackReference("menuBackReference")
     private List<Menu> menu;
 
-    @Column(nullable = true)
+
     private List<String> openingHours;
 
-    @Column(nullable = true)
+
     private String phoneNumber;
 
-    @Column(nullable = true)
+
     private String website;
 
-    @Column(nullable = true)
+
     private double averageRating;
 
-    @Column(nullable = true)
+
     private boolean isOpen;
 
     @OneToMany(mappedBy = "restaurant")
@@ -46,9 +46,11 @@ public class Rastaurant {
     @JoinColumn(name = "restaurant_manager_id")
     private User restaurantManager;
 
-
-    @Column(nullable = true)
     private int discount;
+
+    @OneToMany(mappedBy = "restaurant")
+    @JsonBackReference("orderBackReference")
+    private List<Order> order;
 
     public Rastaurant() {
 

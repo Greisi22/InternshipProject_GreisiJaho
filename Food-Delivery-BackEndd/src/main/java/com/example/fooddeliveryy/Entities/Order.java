@@ -1,4 +1,5 @@
 package com.example.fooddeliveryy.Entities;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,43 +11,49 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private Long id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Rastaurant restaurant;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "order_product",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
+
     private List<Product> products;
 
-    @Column(nullable = false)
+
     private LocalDateTime orderTime;
 
-    @Column(nullable = false)
+
     private double totalPrice;
 
-    public Order() {
-        this.orderTime = LocalDateTime.now();
-    }
 
-    public Order(Rastaurant restaurant, List<Product> products,  double totalPrice) {
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Order(long id, Rastaurant restaurant, List<Product> products, LocalDateTime orderTime, double totalPrice, User user) {
+        this.id = id;
         this.restaurant = restaurant;
         this.products = products;
-        this.orderTime = LocalDateTime.now();
+        this.orderTime = orderTime;
         this.totalPrice = totalPrice;
+        this.user = user;
+    }
+
+    public Order() {
 
     }
 
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -64,7 +71,6 @@ public class Order {
 
     public void setProducts(List<Product> products) {
         this.products = products;
-
     }
 
     public LocalDateTime getOrderTime() {
@@ -80,6 +86,15 @@ public class Order {
     }
 
     public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -90,6 +105,7 @@ public class Order {
                 ", products=" + products +
                 ", orderTime=" + orderTime +
                 ", totalPrice=" + totalPrice +
+                ", user=" + user +
                 '}';
     }
 }

@@ -1,10 +1,10 @@
 package com.example.fooddeliveryy.Controllers;
 
-import com.example.fooddeliveryy.DTO.RestaurantResponseDTO;
 import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import com.example.fooddeliveryy.Services.RestaurantService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,37 +33,38 @@ public class RestaurantController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<String> createRestaurant(@RequestBody Map<String, Object> requestBody) {
-        String name = (String) requestBody.get("name");
-        String address = (String) requestBody.get("address");
-        List<String> openingHours = (List<String>) requestBody.get("openingHours");
-        String phoneNumber = (String) requestBody.get("phoneNumber");
-        String website = (String) requestBody.get("website");
-        double averageRating = (double) requestBody.get("averageRating");
-        Boolean isOpen = (Boolean) requestBody.get("isOpen");
-        Map<String, Object> restaurantManagerData = (Map<String, Object>) requestBody.get("restaurantManager");
-        Long restaurantManagerId = ((Number) restaurantManagerData.get("userId")).longValue();
-        int discount = (Integer) requestBody.get("discount");
+    @Transactional
+    public ResponseEntity<Rastaurant> createResaurant(@RequestBody Rastaurant rest) {
 
-        Map<String, Object> map = new HashMap<>();
-
-        if (name == null || address == null || phoneNumber == null || website == null
-                || restaurantManagerId == null || openingHours == null || averageRating == 0 || isOpen == null || discount == 0 ) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Required fields are missing.");
-        }
-
-        String message = restaurantService.createRestaurant(name, address, openingHours, phoneNumber,
-                website, averageRating, isOpen, restaurantManagerId, discount);
-
-        if (message == null) {
-            map.put("message", "Register was successful!");
-            return ResponseEntity.status(HttpStatus.OK).body(map.toString());
-        } else {
-            map.put("message", message);
-            return ResponseEntity.status(HttpStatus.IM_USED).body(map.toString());
-        }
+        Rastaurant restaurant = restaurantService.createRestaurant(rest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
     }
 
+
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Rastaurant> getRestaurantById(@PathVariable long id) {
+        Rastaurant restaurant = restaurantService.getRestaurantById(id);
+        return ResponseEntity.ok().body(restaurant);
+    }
+
+    @GetMapping("/get/all")
+    public ResponseEntity<List<Rastaurant>> getAllRestaurants() {
+        List<Rastaurant> restaurants = restaurantService.getAllRestaurants();
+        return ResponseEntity.ok().body(restaurants);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Rastaurant> updateRestaurant(@PathVariable long id, @RequestBody Rastaurant rest) {
+        Rastaurant updatedRestaurant = restaurantService.updateRestaurant(id, rest);
+        return ResponseEntity.ok().body(updatedRestaurant);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteRestaurant(@PathVariable long id) {
+        restaurantService.deleteRestaurant(id);
+        return ResponseEntity.noContent().build();
+    }
 
 
     @GetMapping("/{name}")
@@ -71,7 +72,6 @@ public class RestaurantController {
         Optional<Rastaurant> restaurantOptional = Optional.ofNullable(restaurantRepo.findByName(name));
 
         if (restaurantOptional.isPresent()) {
-//            RestaurantResponseDTO restaurantDTO = restaurantMapper.restaurantToRestaurantResponseDTO(restaurantOptional.get());
             return ResponseEntity.status(HttpStatus.OK).body(restaurantOptional);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Restaurant not found with name: " + name);
@@ -84,7 +84,6 @@ public class RestaurantController {
 
         return ResponseEntity.ok(restaurantsWithDiscount);
     }
-
 
 
 

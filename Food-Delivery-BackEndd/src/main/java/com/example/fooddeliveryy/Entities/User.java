@@ -1,5 +1,6 @@
 package com.example.fooddeliveryy.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long  userId;
+    private long  userId;
 
     @Column(name = "user_email")
     private String userEmail;
@@ -22,6 +23,11 @@ public class User {
 
     @OneToMany(mappedBy = "restaurantManager")
     private List<Rastaurant> managedRestaurants;
+
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference("orderBackReference")
+    private List<Order> order;
 
     public User() {}
 
@@ -36,18 +42,18 @@ public class User {
         this.userRole = userRole;
     }
 
-    public User(Long  userId, String userEmail, String userPassword, String userRole) {
+    public User(long  userId, String userEmail, String userPassword, String userRole) {
         this.userId = userId;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userRole = userRole;
     }
 
-    public Long  getUserId() {
+    public long  getUserId() {
         return userId;
     }
 
-    public void setUserId(Long  userId) {
+    public void setUserId(long  userId) {
         this.userId = userId;
     }
 

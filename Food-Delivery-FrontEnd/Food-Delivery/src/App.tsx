@@ -1,10 +1,13 @@
-import ENTRY from "./pages/Entry";
-
+import DiscountRestaurants from "./component/EntryPage/DiscountRestaurants";
+import NavBar from "./component/EntryPage/navBarDiscRes";
 
 const App = () => {
+    
     return (
        <>
-       <ENTRY/>
+            <NavBar/>
+       <DiscountRestaurants/>
+  
        </>
     );
 };

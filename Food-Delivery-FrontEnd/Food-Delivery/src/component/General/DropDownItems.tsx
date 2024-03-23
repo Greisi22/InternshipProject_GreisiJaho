@@ -2,9 +2,9 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
-export default function NavMenu() {
+export default function DropDownItems() {
   return (
-    <div className="fixed  w-56 text-right">
+    <div className="fixed  w-56 text-right z-20">
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
@@ -148,7 +148,7 @@ export default function NavMenu() {
   )
 }
 
-function EditInactiveIcon(props) {
+function EditInactiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -166,7 +166,7 @@ function EditInactiveIcon(props) {
   )
 }
 
-function EditActiveIcon(props) {
+function EditActiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -184,7 +184,7 @@ function EditActiveIcon(props) {
   )
 }
 
-function DuplicateInactiveIcon(props) {
+function DuplicateInactiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -208,7 +208,7 @@ function DuplicateInactiveIcon(props) {
   )
 }
 
-function DuplicateActiveIcon(props) {
+function DuplicateActiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -232,7 +232,7 @@ function DuplicateActiveIcon(props) {
   )
 }
 
-function ArchiveInactiveIcon(props) {
+function ArchiveInactiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -263,7 +263,7 @@ function ArchiveInactiveIcon(props) {
   )
 }
 
-function ArchiveActiveIcon(props) {
+function ArchiveActiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -294,7 +294,7 @@ function ArchiveActiveIcon(props) {
   )
 }
 
-function MoveInactiveIcon(props) {
+function MoveInactiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -309,7 +309,7 @@ function MoveInactiveIcon(props) {
   )
 }
 
-function MoveActiveIcon(props) {
+function MoveActiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -324,7 +324,7 @@ function MoveActiveIcon(props) {
   )
 }
 
-function DeleteInactiveIcon(props) {
+function DeleteInactiveIcon(props: any) {
   return (
     <svg
       {...props}
@@ -347,7 +347,7 @@ function DeleteInactiveIcon(props) {
   )
 }
 
-function DeleteActiveIcon(props) {
+function DeleteActiveIcon(props: any) {
   return (
     <svg
       {...props}

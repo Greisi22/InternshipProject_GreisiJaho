@@ -5,7 +5,7 @@ const App = () => {
     
     return (
        <>
-       <h1></h1>
+       <h2></h2>
             <NavBar/>
        <DiscountRestaurants/>
   

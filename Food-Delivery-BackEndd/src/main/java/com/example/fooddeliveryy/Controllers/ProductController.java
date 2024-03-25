@@ -2,6 +2,7 @@ package com.example.fooddeliveryy.Controllers;
 
 
 import com.example.fooddeliveryy.Entities.Product;
+import com.example.fooddeliveryy.Repositories.ProductRepository;
 import com.example.fooddeliveryy.Services.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +15,11 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final ProductRepository productRepository;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, ProductRepository productRepository) {
         this.productService = productService;
+        this.productRepository = productRepository;
     }
 
 
@@ -40,6 +43,21 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/get/amount")
+    public ResponseEntity<?> getAmount() {
+        List<Product> products = productRepository.findAll();
+        if (products == null) {
+            return ResponseEntity.notFound().build();
+        }
+        int amont = 0;
+        for(Product prodoct: products){
+            amont += prodoct.getAmount();
+        }
+
+        return ResponseEntity.ok(amont);
+    }
+
     @GetMapping("/get/all")
     public ResponseEntity<?> getAllProduct(@PathVariable long productId) {
         List<Product> product = productService.getAllProducts();

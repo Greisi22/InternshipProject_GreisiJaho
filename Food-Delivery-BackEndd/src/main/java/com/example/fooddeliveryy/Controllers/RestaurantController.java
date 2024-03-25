@@ -10,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RequestMapping("restaurant")
@@ -53,6 +51,15 @@ public class RestaurantController {
         List<Rastaurant> restaurants = restaurantService.getAllRestaurants();
         return ResponseEntity.ok().body(restaurants);
     }
+
+    @GetMapping("/get/amount")
+    public ResponseEntity<?> getHowManyRestaurants() {
+        System.out.println("prova");
+        List<Rastaurant> restaurants = restaurantService.getAllRestaurants();
+        System.out.println("Size: " + restaurants.size());
+        return ResponseEntity.ok().body(restaurants.size());
+    }
+
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Rastaurant> updateRestaurant(@PathVariable long id, @RequestBody Rastaurant rest) {

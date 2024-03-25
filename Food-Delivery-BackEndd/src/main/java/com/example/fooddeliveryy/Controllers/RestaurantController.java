@@ -52,6 +52,15 @@ public class RestaurantController {
         return ResponseEntity.ok().body(restaurants);
     }
 
+    @GetMapping("/get/amount")
+    public ResponseEntity<?> getHowManyRestaurants() {
+        System.out.println("prova");
+        List<Rastaurant> restaurants = restaurantService.getAllRestaurants();
+        System.out.println("Size: " + restaurants.size());
+        return ResponseEntity.ok().body(restaurants.size());
+    }
+
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Rastaurant> updateRestaurant(@PathVariable long id, @RequestBody Rastaurant rest) {
         Rastaurant updatedRestaurant = restaurantService.updateRestaurant(id, rest);

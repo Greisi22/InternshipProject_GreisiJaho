@@ -13,6 +13,13 @@ function classNames(...classes) {
 }
 
 export default function NavBar() {
+
+    const handleRestorantData = (category) =>{
+
+   // bejme console restorantet me kte kategory 
+
+    }
+
     return (
         <Disclosure as="nav" className="h-24 align-center pt-4" >
             {() => (
@@ -32,6 +39,7 @@ export default function NavBar() {
                                             <a
                                                 key={item.name}
                                                 href={item.href}
+                                                onClick={handleRestorantData}
                                                 className={classNames(
                                                     item.current
                                                         ? 'rounded-[20px] border-[1px] border-darkYellow text-darkYellow'

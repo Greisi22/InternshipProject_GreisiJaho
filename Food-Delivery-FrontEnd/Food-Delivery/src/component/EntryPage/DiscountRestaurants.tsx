@@ -5,6 +5,8 @@ import Restaurant3 from '../../assets/Restaurant3.jpeg';
 import Restaurant4 from '../../assets/Restaurant4.jpeg';
 
 const DiscountRestaurants: FunctionComponent = () => {
+  
+
     return (
         <div className="flex flex-row overflow-x-auto h-52 restarant-wrapper">
             <div className="overflow-hidden snap-center m-2 w-96 min-w-[320px] relative">

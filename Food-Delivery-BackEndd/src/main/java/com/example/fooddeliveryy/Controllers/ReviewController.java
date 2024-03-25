@@ -1,6 +1,8 @@
 package com.example.fooddeliveryy.Controllers;
 
+import com.example.fooddeliveryy.DTO.ReviewDTO;
 import com.example.fooddeliveryy.Entities.Review;
+import com.example.fooddeliveryy.Mapping.ReviewMapper;
 import com.example.fooddeliveryy.Services.ReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +16,11 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewService reviewService;
+    private final ReviewMapper reviewMapper;
 
-    public ReviewController(ReviewService reviewService) {
+    public ReviewController(ReviewService reviewService, ReviewMapper reviewMapper) {
         this.reviewService = reviewService;
+        this.reviewMapper = reviewMapper;
     }
 
     @PostMapping("/create")
@@ -36,10 +40,10 @@ public class ReviewController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getBestReviews(@PathVariable Long id){
-
       try{
           List<Review> reviewList =  reviewService.getBestReviews(id);
-          return ResponseEntity.status(HttpStatus.OK).body(reviewList);
+          List<ReviewDTO> reviewDTO = reviewMapper.reviewsToReviewDTOs(reviewList);
+          return ResponseEntity.status(HttpStatus.OK).body(reviewDTO);
       }
         catch (Exception e){
             System.out.println("Error: " + e);

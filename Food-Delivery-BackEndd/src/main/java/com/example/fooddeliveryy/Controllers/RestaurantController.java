@@ -1,5 +1,6 @@
 package com.example.fooddeliveryy.Controllers;
 
+import com.example.fooddeliveryy.DTO.RestaurantDTO;
 import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
@@ -29,7 +30,6 @@ public class RestaurantController {
     }
 
 
-
     @PostMapping("/create")
     @Transactional
     public ResponseEntity<Rastaurant> createResaurant(@RequestBody Rastaurant rest) {
@@ -37,7 +37,6 @@ public class RestaurantController {
         Rastaurant restaurant = restaurantService.createRestaurant(rest);
         return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
     }
-
 
 
     @GetMapping("/get/{id}")
@@ -86,9 +85,10 @@ public class RestaurantController {
     @GetMapping("/discount")
     public ResponseEntity<?> getRestaurantWithDiscount() {
         List<Rastaurant> restaurantsWithDiscount = restaurantService.getRestaurantsWithDiscount();
-        return ResponseEntity.ok().body(restaurantsWithDiscount);
-    }
 
+        List<RestaurantDTO> restaurantDTOS = restaurantMapper.restaurantsToRestaurantDTOs(restaurantsWithDiscount);
+        return ResponseEntity.ok().body(restaurantDTOS);
+    }
 
 
 }

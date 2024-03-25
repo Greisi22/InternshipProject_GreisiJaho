@@ -2,6 +2,7 @@ package com.example.fooddeliveryy.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -11,7 +12,6 @@ public class Rastaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "restaurant_id")
     private long id;
-
 
 
     private String name;
@@ -39,11 +39,13 @@ public class Rastaurant {
     private boolean isOpen;
 
     @OneToMany(mappedBy = "restaurant")
-    @JsonBackReference
+    @JsonBackReference("reviewsBackReference")
     private List<Review> reviews;
 
+    private List<String> images;
     @ManyToOne
     @JoinColumn(name = "restaurant_manager_id")
+    @JsonBackReference
     private User restaurantManager;
 
     private int discount;
@@ -57,6 +59,24 @@ public class Rastaurant {
 
     public Rastaurant() {
 
+    }
+
+    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, List<String> images, User restaurantManager, int discount, List<Order> order, List<String> category) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.menu = menu;
+        this.openingHours = openingHours;
+        this.phoneNumber = phoneNumber;
+        this.website = website;
+        this.averageRating = averageRating;
+        this.isOpen = isOpen;
+        this.reviews = reviews;
+        this.images = images;
+        this.restaurantManager = restaurantManager;
+        this.discount = discount;
+        this.order = order;
+        this.category = category;
     }
 
     public Rastaurant(String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, int discount, List<String> category) {
@@ -197,6 +217,30 @@ public class Rastaurant {
 
     public void setCategory(List<String> category) {
         this.category = category;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
     }
 
     @Override

@@ -22,6 +22,7 @@ public class User {
     private String userRole;
 
     @OneToMany(mappedBy = "restaurantManager")
+    @JsonBackReference
     private List<Rastaurant> managedRestaurants;
 
 

@@ -54,9 +54,7 @@ public class RestaurantController {
 
     @GetMapping("/get/amount")
     public ResponseEntity<?> getHowManyRestaurants() {
-        System.out.println("prova");
         List<Rastaurant> restaurants = restaurantService.getAllRestaurants();
-        System.out.println("Size: " + restaurants.size());
         return ResponseEntity.ok().body(restaurants.size());
     }
 
@@ -88,8 +86,7 @@ public class RestaurantController {
     @GetMapping("/discount")
     public ResponseEntity<?> getRestaurantWithDiscount() {
         List<Rastaurant> restaurantsWithDiscount = restaurantService.getRestaurantsWithDiscount();
-
-        return ResponseEntity.ok(restaurantsWithDiscount);
+        return ResponseEntity.ok().body(restaurantsWithDiscount);
     }
 
 

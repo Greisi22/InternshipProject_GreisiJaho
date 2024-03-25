@@ -46,7 +46,18 @@ public class RestaurantService {
     }
 
     public List<Rastaurant> getRestaurantsWithDiscount() {
-        return restaurantRepo.findByDiscountGreaterThan(0);
+
+        List<Rastaurant> restaurants = restaurantRepo.findAll();
+
+        List<Rastaurant> restaurantWithDiscount = new ArrayList<>();
+
+        for(Rastaurant res : restaurants){
+            if(res.getDiscount() != 0)
+            {
+               restaurantWithDiscount.add(res);
+            }
+        }
+        return restaurantWithDiscount;
     }
 
 
@@ -56,6 +67,7 @@ public class RestaurantService {
     }
 
     public List<Rastaurant> getAllRestaurants() {
+
         return restaurantRepo.findAll();
     }
 

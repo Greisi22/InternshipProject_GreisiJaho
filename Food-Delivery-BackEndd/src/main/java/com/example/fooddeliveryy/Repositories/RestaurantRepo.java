@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface RestaurantRepo extends JpaRepository<Rastaurant, Long> {
     Rastaurant findByName(String name);
-    List<Rastaurant> findByDiscountGreaterThan(int discount);
+//    List<Rastaurant> findByDiscountGreaterThan(int discount);
 
 }

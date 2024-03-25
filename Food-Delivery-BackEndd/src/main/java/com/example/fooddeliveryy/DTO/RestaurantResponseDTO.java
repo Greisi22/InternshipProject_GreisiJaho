@@ -13,8 +13,10 @@ public class RestaurantResponseDTO {
     private boolean isOpen;
     private int discount;
 
+    private List<String> category;
+
     public RestaurantResponseDTO(String name, String address, List<String> openingHours, String phoneNumber,
-                         String website, double averageRating, boolean isOpen, int discount) {
+                         String website, double averageRating, boolean isOpen, int discount, List<String> category) {
         this.name = name;
         this.address = address;
         this.openingHours = openingHours;
@@ -23,6 +25,7 @@ public class RestaurantResponseDTO {
         this.averageRating = averageRating;
         this.isOpen = isOpen;
         this.discount = discount;
+        this.category = category;
     }
 
 
@@ -89,5 +92,13 @@ public class RestaurantResponseDTO {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public List<String> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<String> category) {
+        this.category = category;
     }
 }

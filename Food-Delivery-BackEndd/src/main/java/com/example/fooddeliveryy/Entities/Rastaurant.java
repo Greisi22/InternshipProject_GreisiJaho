@@ -52,11 +52,14 @@ public class Rastaurant {
     @JsonBackReference("orderBackReference")
     private List<Order> order;
 
+
+    private List<String> category;
+
     public Rastaurant() {
 
     }
 
-    public Rastaurant(String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, int discount) {
+    public Rastaurant(String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, int discount, List<String> category) {
         this.name = name;
         this.address = address;
         this.menu = menu;
@@ -67,9 +70,10 @@ public class Rastaurant {
         this.isOpen = isOpen;
         this.reviews = reviews;
         this.discount = discount;
+        this.category = category;
     }
 
-    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, int discount) {
+    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, int discount, List<String> category) {
         this.name = name;
         this.id = id;
         this.address = address;
@@ -81,10 +85,11 @@ public class Rastaurant {
         this.isOpen = isOpen;
         this.reviews = reviews;
         this.discount = discount;
+        this.category = category;
     }
 
     public Rastaurant(String name, String address, List<String> openingHours, String phoneNumber,
-                      String website, double averageRating, boolean isOpen, User restaurantManager, int discount) {
+                      String website, double averageRating, boolean isOpen, User restaurantManager, int discount, List<String> category) {
         this.name = name;
         this.address = address;
         this.openingHours = openingHours;
@@ -94,6 +99,7 @@ public class Rastaurant {
         this.isOpen = isOpen;
         this.restaurantManager = restaurantManager;
         this.discount = discount;
+        this.category = category;
     }
 
     public long getId() {
@@ -185,6 +191,14 @@ public class Rastaurant {
         this.discount = discount;
     }
 
+    public List<String> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<String> category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Rastaurant{" +
@@ -194,9 +208,10 @@ public class Rastaurant {
                 ", openingHours=" + openingHours +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", website='" + website + '\'' +
-                ", averageRating=" + averageRating +
-                ", isOpen=" + isOpen +
-                ", restaurantManager=" + restaurantManager +
+                ", averageRating=" + averageRating + '\'' +
+                ", isOpen=" + isOpen + '\'' +
+                ", restaurantManager=" + restaurantManager + '\'' +
+                ", category=" + category +
                 '}';
     }
 

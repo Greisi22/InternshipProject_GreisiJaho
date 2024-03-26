@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function RetrvieAllProducts() {
-  return (
-    <div>RetrvieAllProducts</div>
-  )
+    return <div>RetrvieAllProducts</div>;
 }
 
-export default RetrvieAllProducts
+export default RetrvieAllProducts;

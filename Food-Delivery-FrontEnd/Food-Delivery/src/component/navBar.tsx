@@ -1,12 +1,13 @@
+import React from 'react';
 import { Disclosure } from '@headlessui/react';
-import DropDownItems from '../General/DropDownItems';
-import { getDiscountRestaurantCache } from '../../cache/entry';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import NavMenu from './Menu';
 
 const navigation = [
-    { name: 'Vegan', href: '#', current: true },
-    { name: 'Sushi', href: '#', current: false },
-    { name: 'Pizza & Fast food', href: '#', current: false },
-    { name: 'Other', href: '#', current: false },
+    { name: 'Home', href: '#', current: true },
+    { name: 'Menu', href: '#', current: false },
+    { name: 'Service', href: '#', current: false },
+    { name: 'Calendar', href: '#', current: false },
 ];
 
 function classNames(...classes) {
@@ -14,20 +15,23 @@ function classNames(...classes) {
 }
 
 export default function NavBar() {
-    const handleRestorantData = async (category: string) => {
-        const response = await getDiscountRestaurantCache(category);
-        console.log('Response', response);
-    };
-
     return (
-        <Disclosure as="nav" className="h-24 align-center pt-4">
-            {() => (
+        <Disclosure as="nav" className="h-24 align-center pt-4" style={{backgroundColor: "rgba(91, 77, 77, 0.33)"}}>
+            {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 md:px-6 lg:px-8 align-center">
                         <div className="relative flex h-16 items-center justify-between">
                             <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start mr-10">
-                                <div>
-                                    <h1>Up to -40% 🎊 Tasty Rush exclusive deals</h1>
+                                <div className="flex flex-shrink-0 items-center mr-5">
+                                    <img
+                                        className="h-8 w-auto"
+                                        src="../assets/logo.png"
+                                        alt="Your Company"
+                                    />
+                                </div>
+                                <div >
+                                    <h1 className='text-white text-3xl'>Tasty Rush</h1>
+                                    <p className='text-white text-xs ml-14'>Food Delivery</p>
                                 </div>
                             </div>
 
@@ -38,12 +42,11 @@ export default function NavBar() {
                                             <a
                                                 key={item.name}
                                                 href={item.href}
-                                                onClick={() => handleRestorantData(item.name)}
                                                 className={classNames(
                                                     item.current
-                                                        ? 'rounded-[20px] border-[1px] border-darkYellow text-darkYellow'
-                                                        : 'text-black hover:bg-darkYellow  hover:rounded-[20px]',
-                                                    'rounded-md px-5 py-2 text-md font-medium',
+                                                        ? 'bg-gray-900 text-white'
+                                                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                    'rounded-md px-3 py-2 text-md font-medium',
                                                 )}
                                                 aria-current={item.current ? 'page' : undefined}>
                                                 {item.name}
@@ -52,7 +55,7 @@ export default function NavBar() {
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-end md:hidden">
-                                    <DropDownItems />
+                                    <NavMenu />
                                 </div>
                             </div>
                         </div>

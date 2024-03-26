@@ -10,14 +10,10 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Rastaurant restaurant;
-
     private String name;
-
-
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "menu_product",
@@ -25,16 +21,9 @@ public class Menu {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> products;
-
     private String description;
-
     private List<String> chefs;
-
-
-
-    public Menu() {
-    }
-
+    public Menu() {}
     public Menu(Rastaurant restaurant, String name, List<Product> products, String description, List<String> chefs) {
         this.restaurant = restaurant;
         this.name = name;

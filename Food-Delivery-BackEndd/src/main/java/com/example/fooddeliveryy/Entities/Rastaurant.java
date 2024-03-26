@@ -12,56 +12,31 @@ public class Rastaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "restaurant_id")
     private long id;
-
-
     private String name;
-
-
     private String address;
-
     @OneToMany(mappedBy = "restaurant")
     @JsonBackReference("menuBackReference")
     private List<Menu> menu;
-
-
     private List<String> openingHours;
-
-
     private String phoneNumber;
-
-
     private String website;
-
-
     private double averageRating;
-
-
     private boolean isOpen;
-
     @OneToMany(mappedBy = "restaurant")
     @JsonBackReference("reviewsBackReference")
     private List<Review> reviews;
-
     private List<String> images;
     @ManyToOne
     @JoinColumn(name = "restaurant_manager_id")
     @JsonBackReference
     private User restaurantManager;
-
     private int discount;
-
     @OneToMany(mappedBy = "restaurant")
     @JsonBackReference("orderBackReference")
     private List<Order> order;
-
-
     private List<String> category;
 
-    public Rastaurant() {
-
-    }
-
-    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, List<String> images, User restaurantManager, int discount, List<Order> order, List<String> category) {
+    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, List<String> images, User restaurantManager, int discount, List<Order> order, List<String> category, List<String> categories) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -77,50 +52,22 @@ public class Rastaurant {
         this.discount = discount;
         this.order = order;
         this.category = category;
+        this.categories = categories;
     }
 
-    public Rastaurant(String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, int discount, List<String> category) {
-        this.name = name;
-        this.address = address;
-        this.menu = menu;
-        this.openingHours = openingHours;
-        this.phoneNumber = phoneNumber;
-        this.website = website;
-        this.averageRating = averageRating;
-        this.isOpen = isOpen;
-        this.reviews = reviews;
-        this.discount = discount;
-        this.category = category;
+    public List<String> getCategories() {
+        return categories;
     }
 
-    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, int discount, List<String> category) {
-        this.name = name;
-        this.id = id;
-        this.address = address;
-        this.menu = menu;
-        this.openingHours = openingHours;
-        this.phoneNumber = phoneNumber;
-        this.website = website;
-        this.averageRating = averageRating;
-        this.isOpen = isOpen;
-        this.reviews = reviews;
-        this.discount = discount;
-        this.category = category;
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 
-    public Rastaurant(String name, String address, List<String> openingHours, String phoneNumber,
-                      String website, double averageRating, boolean isOpen, User restaurantManager, int discount, List<String> category) {
-        this.name = name;
-        this.address = address;
-        this.openingHours = openingHours;
-        this.phoneNumber = phoneNumber;
-        this.website = website;
-        this.averageRating = averageRating;
-        this.isOpen = isOpen;
-        this.restaurantManager = restaurantManager;
-        this.discount = discount;
-        this.category = category;
-    }
+    private List<String> categories;
+    public Rastaurant() {}
+
+
+
 
     public long getId() {
         return id;
@@ -258,6 +205,4 @@ public class Rastaurant {
                 ", category=" + category +
                 '}';
     }
-
-
 }

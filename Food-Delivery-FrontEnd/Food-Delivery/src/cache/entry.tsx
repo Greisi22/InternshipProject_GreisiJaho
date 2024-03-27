@@ -19,7 +19,7 @@ async function putDiscountRestaurantCache() {
             }
 
             categories.forEach(categoryy => {
-                const lowerCategory = categoryy.toLowerCase(); // Convert category to lowercase
+                const lowerCategory = categoryy.toLowerCase(); 
                 if (!discountRestaurantCache[lowerCategory]) {
                     discountRestaurantCache[lowerCategory] = [];
                 }

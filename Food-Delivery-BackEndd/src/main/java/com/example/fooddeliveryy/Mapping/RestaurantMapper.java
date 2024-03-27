@@ -13,7 +13,7 @@ public interface RestaurantMapper {
     @Mapping(source = "name", target = "name")
     @Mapping(source = "images", target = "images")
     @Mapping(source = "discount", target = "discount")
+    @Mapping(source = "category", target = "category")
     RestaurantDTO restaurantToRestaurantDTO(Rastaurant restaurant);
-
     List<RestaurantDTO> restaurantsToRestaurantDTOs(List<Rastaurant> restaurants);
 }

@@ -7,10 +7,14 @@ public class RestaurantDTO {
     private int discount;
     private List<String> images;
 
-    public RestaurantDTO(String name, int discount, List<String> images) {
-        this.name = name;
-        this.discount = discount;
-        this.images = images;
+    private List<String> category;
+
+    public List<String> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<String> category) {
+        this.category = category;
     }
 
     public String getName() {

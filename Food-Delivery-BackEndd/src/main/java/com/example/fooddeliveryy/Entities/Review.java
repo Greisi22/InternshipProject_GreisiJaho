@@ -14,9 +14,6 @@ public class Review {
     private String reviewText;
     private int rating;
     private String date;
-
-
-
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @JsonBackReference

@@ -20,16 +20,11 @@ public class Product {
     private String category;   // Dessert, etc.
     @Column(nullable = true)
     private int amount;
-
     @ManyToMany(mappedBy = "products")
     private List<Menu> menus;
-
     @ManyToMany(mappedBy = "products")
     private List<Order> ordered;
-
-    public Product() {
-    }
-
+    public Product() {}
     public Product(String name, String description, double price, List<String> ingredients, String category, int amount) {
         this.name = name;
         this.description = description;

@@ -1,6 +1,7 @@
 package com.example.fooddeliveryy.Entities;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,14 +25,8 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
 
     private List<Product> products;
-
-
     private LocalDateTime orderTime;
-
-
     private double totalPrice;
-
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

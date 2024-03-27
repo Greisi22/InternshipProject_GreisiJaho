@@ -1,15 +1,12 @@
-import DiscountRestaurants from "./component/EntryPage/DiscountRestaurants";
-import NavBar from "./component/EntryPage/navBarDiscRes";
+import EntryPage from './pages/EntryPage';
+import {Routes, Route } from 'react-router-dom';
 
 const App = () => {
     
     return (
-       <>
-       <h3></h3>
-            <NavBar/>
-       <DiscountRestaurants/>
-  
-       </>
+    <Routes>
+        <Route path="/" element={<EntryPage />}/>
+    </Routes>
     );
 };
 

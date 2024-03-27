@@ -1,18 +1,12 @@
-export function retrieveDiscountRestaurant() {
-    const fetchData = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/restaurant/discount');
+import axiosInstance, { ApiResponse } from '../../../config/axios';
 
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
-
-            const result = await response.json();
-            return result;
-        } catch (error) {
-            console.log('error: ', error);
-        }
-    };
-
-    return fetchData();
+export async function retrieveDiscountRestaurant() {
+  try {
+    const response = await axiosInstance.get<ApiResponse>('/restaurant/discount');
+    console.log("THis is response: " , response.data)
+    return response.data;
+  } catch (error) {
+    console.log('error: ', error);
+    throw new Error('Failed to fetch data');
+  }
 }

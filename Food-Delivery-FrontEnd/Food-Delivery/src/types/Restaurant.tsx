@@ -1,4 +1,5 @@
+
 export interface Restaurant {
-    category: string;
+    category: string[];
 
 }

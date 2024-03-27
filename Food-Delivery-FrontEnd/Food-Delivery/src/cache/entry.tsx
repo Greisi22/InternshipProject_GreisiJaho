@@ -6,16 +6,25 @@ const discountRestaurantCache: Record<string, Restaurant[]> = {};
 async function putDiscountRestaurantCache() {
     try {
         const restaurants = await retrieveDiscountRestaurant();
+        console.log("restaurants: ", restaurants);
+
+        if (!Array.isArray(restaurants)) {
+            throw new Error('Invalid data returned from retrieveDiscountRestaurant');
+        }
 
         restaurants.forEach((restaurant: Restaurant) => {
-            const category = restaurant.category;
-            // Check if the category exists in the cache
-            if (!discountRestaurantCache[category]) {
-                // If not, initialize it as an empty array
-                discountRestaurantCache[category] = [];
+            const categories = restaurant.category; 
+            if (!Array.isArray(categories)) {
+                throw new Error('Invalid categories data in restaurant object');
             }
-            // Push the restaurant into the category array
-            discountRestaurantCache[category].push(restaurant);
+
+            categories.forEach(categoryy => {
+                const lowerCategory = categoryy.toLowerCase(); // Convert category to lowercase
+                if (!discountRestaurantCache[lowerCategory]) {
+                    discountRestaurantCache[lowerCategory] = [];
+                }
+                discountRestaurantCache[lowerCategory].push(restaurant);
+            });
         });
 
         console.log('Discounted restaurants cached successfully:', discountRestaurantCache);
@@ -25,11 +34,11 @@ async function putDiscountRestaurantCache() {
 }
 
 export async function getDiscountRestaurantCache(category: string) {
-    if (category in discountRestaurantCache) {
-        return discountRestaurantCache[category];
+    const lowerCategory = category.toLowerCase(); // Convert input category to lowercase
+    if (lowerCategory in discountRestaurantCache) {
+        return discountRestaurantCache[lowerCategory];
     } else {
-        // If the category is not in the cache, fetch and cache the data
         await putDiscountRestaurantCache();
-        return discountRestaurantCache[category] || [];
+        return discountRestaurantCache[lowerCategory] || [];
     }
 }

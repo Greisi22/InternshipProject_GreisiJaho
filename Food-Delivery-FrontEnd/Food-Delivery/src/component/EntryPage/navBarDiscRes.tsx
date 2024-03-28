@@ -1,13 +1,36 @@
 import { Disclosure } from '@headlessui/react';
-import DropDownItems from '../General/DropDownItems';
 import { getDiscountRestaurantCache } from '../../cache/entry';
+import Menu from '../General/Menu';
+import AccessAlarmOutlinedIcon from '@mui/icons-material/AccessAlarmOutlined';
+import LocalPizzaOutlinedIcon from '@mui/icons-material/LocalPizzaOutlined';
+import FoodBankOutlinedIcon from '@mui/icons-material/FoodBankOutlined';
+import "./style/DiscountRestaurant.css"
+
+const menuItems = [
+    { icon: null, name: 'Categories' },
+    {
+        icon: <FoodBankOutlinedIcon />,
+        name: 'Sushi',
+    },
+    {
+        icon: <LocalPizzaOutlinedIcon />,
+        name: 'Pizza & Fast food',
+    },
+    {
+        icon: <AccessAlarmOutlinedIcon />,
+        name: 'vegan',
+    }
+];
 
 const navigation = [
-    { name: 'Vegan', href: '#', current: true },
-    { name: 'Sushi', href: '#', current: false },
-    { name: 'Pizza & Fast food', href: '#', current: false },
-    { name: 'Other', href: '#', current: false },
+    { name: 'Vegan', current: true },
+    { name: 'Sushi', current: false },
+    { name: 'Pizza & Fast food', current: false },
+    { name: 'other', current: false },
 ];
+
+
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -37,22 +60,23 @@ export default function NavBar() {
                                         {navigation.map((item) => (
                                             <a
                                                 key={item.name}
-                                                href={item.href}
+                                                
                                                 onClick={() => handleRestorantData(item.name)}
                                                 className={classNames(
                                                     item.current
-                                                        ? 'rounded-[20px] border-[1px] border-darkYellow text-darkYellow'
+                                                        ? 'rounded-[20px] border-[1px] border-darkYellow text-darkYellow item'
                                                         : 'text-black hover:bg-darkYellow  hover:rounded-[20px]',
-                                                    'rounded-md px-5 py-2 text-md font-medium',
+                                                    'rounded-md px-5 py-2 text-md font-medium item',
                                                 )}
                                                 aria-current={item.current ? 'page' : undefined}>
-                                                {item.name}
+                                                {item.name != "other" ? item.name :   <span className='mb-4'><Menu items={menuItems}/> </span>}
                                             </a>
                                         ))}
+
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-end md:hidden">
-                                    <DropDownItems />
+                                    <Menu items={menuItems}/>
                                 </div>
                             </div>
                         </div>

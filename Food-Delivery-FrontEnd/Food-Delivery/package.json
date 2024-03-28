@@ -15,8 +15,14 @@
     "test": "jest"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
+    "@mui/core": "^5.0.0-alpha.54",
+    "@mui/icons-material": "^5.15.14",
+    "@mui/joy": "^5.0.0-beta.32",
+    "@mui/material": "^5.15.14",
     "antd": "^5.15.3",
     "axios": "^1.6.8",
     "jest-environment-jsdom": "^29.7.0",

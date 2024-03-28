@@ -1,5 +1,5 @@
 // axiosInstance.ts
-import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosInstance} from 'axios';
 
 // Define types for API responses
 interface ApiResponse {
@@ -15,7 +15,7 @@ interface ApiError {
 
 // Create Axios instance
 const instance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:8080/',
+  baseURL: 'http://localhost:8081/',
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',

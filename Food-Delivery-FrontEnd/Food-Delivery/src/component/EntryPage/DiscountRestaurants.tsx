@@ -3,6 +3,7 @@ import './style/DiscountRestaurant.css';
 import Restaurant2 from '../../assets/Restaurant2.jpg';
 import Restaurant3 from '../../assets/Restaurant3.jpeg';
 import Restaurant4 from '../../assets/Restaurant4.jpeg';
+import NavBar from './navBarDiscRes';
 
 const DiscountRestaurants: FunctionComponent = () => {
     const mockadata= [{
@@ -26,11 +27,12 @@ const DiscountRestaurants: FunctionComponent = () => {
     },
 ]
     return (
-        <div className="flex flex-row snap-x overflow-x-auto h-52 restarant-wrapper ">
-         
+        <>
+<NavBar/>
+<div className="flex flex-row snap-x overflow-x-auto h-52 restarant-wrapper ">
          {mockadata.map((restaurant, index) => (
 
-            <div className="overflow-hidden snap-center m-2  relative truncate rounded-md specific-restaurant">
+            <div key={index} className="overflow-hidden snap-center m-2  relative truncate rounded-md specific-restaurant">
                 <img className="object-cover w-full h-full image-restuarant" src={restaurant.image} />
                 <div className="absolute bottom-0 left-0 h-full w-140  shadoww">
                     <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-tr from-black via-transparent to-transparent rounded-tl-lg rounded-bl-lg"></div>
@@ -47,6 +49,7 @@ const DiscountRestaurants: FunctionComponent = () => {
             </div>
     ))}
         </div>
+        </>
     );
 };
 

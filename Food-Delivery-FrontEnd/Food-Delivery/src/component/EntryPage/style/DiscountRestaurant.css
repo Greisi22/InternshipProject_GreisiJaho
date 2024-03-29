@@ -210,3 +210,20 @@
 .item{
   max-height: 40px;
 }
+
+
+.discount-text{
+  font-weight: 600;
+}
+
+@media (max-width: 680px) {
+  .discount-text{
+    width: 200px;
+    font-size: 13px;
+  }
+
+
+}
+
+
+

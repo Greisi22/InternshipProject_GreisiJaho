@@ -1,11 +1,11 @@
 import { Disclosure } from '@headlessui/react';
-import { getDiscountRestaurantCache } from '../../cache/entry';
 import Menu from '../General/Menu';
 import AccessAlarmOutlinedIcon from '@mui/icons-material/AccessAlarmOutlined';
 import LocalPizzaOutlinedIcon from '@mui/icons-material/LocalPizzaOutlined';
 import FoodBankOutlinedIcon from '@mui/icons-material/FoodBankOutlined';
 import "./style/DiscountRestaurant.css";
 import { useState } from 'react';
+import { NavBarProps} from "src/types/Restaurant";
 
 const menuItems = [
     { icon: null, name: 'Categories' },
@@ -24,12 +24,11 @@ const menuItems = [
 ];
 
 
-
 function classNames(...classes: (string | undefined | null | false)[]) {
     return classes.filter(Boolean).join(' ');
 }
 
-export default function NavBar() {
+export default function NavBar({handleRestorants}: NavBarProps) {
     const [navigation, setNavigation] = useState([
         { name: 'Vegan', current: true },
         { name: 'Sushi', current: false },
@@ -46,9 +45,8 @@ export default function NavBar() {
             current: item.name === category,
         }));
         setNavigation(updatedNavigation);
-
-        const response = await getDiscountRestaurantCache(category);
-        console.log('Response', response);
+        // const response = await getDiscountRestaurantCache(category);
+        // console.log('Response', response);
     };
 
     return (
@@ -69,7 +67,10 @@ export default function NavBar() {
                                         {navigation.map((item) => (
                                             <a
                                             key={item.name}
-                                            onClick={() => handleRestorantData(item.name)}
+                                            onClick={() => {
+                                                handleRestorantData(item.name);
+                                                handleRestorants(item.name);
+                                            }}
                                             className={classNames(
                                                 item.name === 'other' && 'mt-[-5px]',
                                                 item.name !== 'other' && (

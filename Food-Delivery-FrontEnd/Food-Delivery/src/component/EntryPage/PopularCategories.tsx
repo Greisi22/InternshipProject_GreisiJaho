@@ -6,7 +6,9 @@ import BeansPlateCategoryImage from '../../assets/BeansPlateCategory.jpg';
 import SouvlakiPlateCategoryImage from '../../assets/SouvlakiPlateCategory.jpg';
 import sandwichWithBacon from '../../assets/sandwich-with-bacon-vegetables.jpg';
 import Restornat2 from '../../assets/Restaurant2.jpg';
-import './style/restaurantCategory.css';
+import './style/RestaurantCategory.css';
+
+
 
 function PopularCategories() {
     const popularcategories = [
@@ -22,48 +24,15 @@ function PopularCategories() {
         <div className="width-full m-4 popularCategories">
             <h1 className="popula-header">Popular Categories</h1>
             <div className="grid-container">
-                <div className="image-container">
-                    <img className="image" src={SushiPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p id="categoryText">Hamburger&sushi</p>
-                        <p id="nrofrestText">21 restaurants</p>
+                {popularcategories.map(category => (
+                    <div key={category.name} className="image-container">
+                        <img className="image" src={category.image} />
+                        <div className="paragraph">
+                            <p id="categoryText">{category.name}</p>
+                            <p id="nrofrestText">{category.nrofrestaurants}</p>
+                        </div>
                     </div>
-                </div>
-                <div className="image-container">
-                    <img className="image" src={SushiPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p id="categoryText">OKOKOKOKO</p>
-                        <p id="nrofrestText">nononono</p>
-                    </div>
-                </div>
-                <div className="image-container">
-                    <img className="image" src={SushiPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p id="categoryText">OKOKOKOKO</p>
-                        <p id="nrofrestText">nononono</p>
-                    </div>
-                </div>
-                <div className="image-container">
-                    <img className="image" src={SushiPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p>OKOKOKOKO</p>
-                        <p>nononono</p>
-                    </div>
-                </div>
-                <div className="image-container">
-                    <img className="image" src={SushiPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p>OKOKOKOKO</p>
-                        <p>nononono</p>
-                    </div>
-                </div>
-                <div className="image-container">
-                    <img className="image" src={SushiPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p>OKOKOKOKO</p>
-                        <p>nononono</p>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );

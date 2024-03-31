@@ -1,6 +1,10 @@
 import { FunctionComponent } from 'react';
 import DiscountRestaurants from 'src/component/EntryPage/DiscountRestaurants';
 import PopularCategories from 'src/component/EntryPage/PopularCategories';
+import Footer from 'src/component/EntryPage/Footer';
+
+
+
 import './styles/entry.css';
 
 const EntryPage: FunctionComponent = () => {
@@ -8,6 +12,8 @@ const EntryPage: FunctionComponent = () => {
         <div className="entryContainer">
             <DiscountRestaurants />
             <PopularCategories />
+            <Footer />
+         
         </div>
     );
 };

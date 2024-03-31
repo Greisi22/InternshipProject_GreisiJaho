@@ -4,7 +4,7 @@ import FishPlateCategoryImage from '../../assets/FishPlateCategory.jpg';
 import BeansPlateCategoryImage from '../../assets/BeansPlateCategory.jpg';
 import sandwichWithBacon from '../../assets/sandwich-with-bacon-vegetables.jpg';
 import Restornat2 from '../../assets/Restaurant2.jpg';
-import './style/restaurantCategory.css';
+import './style/RestaurantCategory.css';
 
 function PopularCategories() {
     const popularcategories = [

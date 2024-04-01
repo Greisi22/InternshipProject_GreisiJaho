@@ -1,0 +1,18 @@
+.div0 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  background-color: blue !important;
+}
+
+@media (max-width: 600px) {
+  .div0 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    background-color: green !important;
+    
+  }
+
+  .first {
+    height: 40vh;
+  }
+}

@@ -1,57 +1,4 @@
-/* Adjustments for .bg-white */
 .bg-white {
-    background-color: #ffffff;
-}
-
-/* Adjustments for .text-gray-900 */
-.text-gray-900 {
-    color: #000000;
-}
-
-/* Adjustments for .text-gray-500 */
-.text-gray-500 {
-    color: #999999;
-}
-
-/* Adjustments for .hover\:text-gray-900:hover */
-.hover\:text-gray-900:hover {
-    color: #000000;
-}
-
-/* Adjustments for .px-3 */
-.px-3 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-}
-
-/* Adjustments for .py-2 */
-.py-2 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-}
-
-/* Adjustments for .text-sm */
-.text-sm {
-    font-size: 0.875rem;
-}
-
-/* Adjustments for .font-medium */
-.font-medium {
-    font-weight: 500;
-}
-
-/* Adjustments for .rounded-md */
-.rounded-md {
-    border-radius: 0.375rem;
-}
-
-/* Adjustments for .shadow */
-.shadow {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-/* Additional adjustments */
-#root > div > nav.bg-white.shadow {
     min-height: 50px;
     height: 80px;
     padding: 15px;
@@ -61,142 +8,23 @@
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 10;
+    z-index: 10;  
+    right: 0; /* right property to position the dropdown menu to the right when open */
+
 }
 
-#root > div > nav.bg-white.shadow > div > div > div:nth-child(1) > div.hidden.sm\:ml-6.sm\:flex.sm\:space-x-8 > a.text-gray-900.px-3.py-2.text-sm.font-medium {
-    padding-top: 22px;
+@media (min-width: 768px){
+.md\:space-x-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(0px* var(--tw-space-x-reverse));
+    margin-left: calc(0px* calc(1 - var(--tw-space-x-reverse)));
+    margin-left: 7px;
 }
-
-#root > div > nav.bg-white.shadow > div > div > div:nth-child(1) > div.hidden.sm\:ml-6.sm\:flex.sm\:space-x-8 > a:nth-child(2) {
-    padding-top: 22px;
 }
-
-#root > div > nav.bg-white.shadow > div > div > div:nth-child(1) > div.hidden.sm\:ml-6.sm\:flex.sm\:space-x-8 > a:nth-child(3) {
-    padding-top: 22px;
-}
-
-#root > div > nav.bg-white.shadow > div > div > div:nth-child(1) > div.hidden.sm\:ml-6.sm\:flex.sm\:space-x-8 > a:nth-child(4) {
-    padding-top: 22px;
-}
-
-#root > div > nav.h-22.align-center {
-    margin-top: 89px;
-}
-
-#root > div > nav.bg-white.shadow > div > div > div:nth-child(1) > div.hidden.sm\:ml-6.sm\:flex.sm\:space-x-8 {
-    justify-content: center;
-    padding: 277px;
-    padding-top: 0px;
-    top: 18px;
-}
-
-/* Adjustments for .main-heading */
-.main-heading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Adjustments for .best-text */
-.best-text {
-    font-weight: bold;
-    color: #E94339;
-    font-size: 50px;
-    margin-right: 20px;
-}
-
-/* Adjustments for .food-text */
-.food-text {
-    font-size: 50px;
-    margin-right: 20px;
-}
-
-/* Adjustments for .delivery-text */
-.delivery-text {
-    font-size: 50px;
-}
-
-
-#root > div > nav.bg-white.shadow > div > div > div:nth-child(1) > div.flex-shrink-0.flex.items-center > img.hidden.lg\:block.h-8.w-auto {
-    height: 41px;
-}
-
-#root > div > div.container > div.content > h1 > span.food-text {
-    margin-top: -30px;
-}
-
-.delivery-text {
-    font-size: 35px;
-    margin-left: -102px;
-    padding-top: 138px;
-    margin-top: -55px;
-}
-
-#root > div > div.container > div.content > h1 {
-    margin-top: -84px;
-    margin-left: 180px;
-}
-
-.subheading {
-    font-size: 18px;
-    color: black;
-    margin-top: 10px;
-    margin-left: 109px;
-}
-
-
-
-
-
-.order-button {
-    background-color: black;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 27px;
-    font-size: 18px;
-    margin-top: 20px;
-    cursor: pointer;
-    margin-top: 58px;
-}
-.driver-image {
-    width: 297px;
-    height: 239%;
-    margin-top: -109px;
-}
-
-
-#root > div > div.container > div.content > h1 > span.delivery-text {
-    font-size: 35px;
-    margin-left: -107px;
-    padding-top: 138px;
-}
-
-/* Media query for small screens (e.g., smartphones) */
-@media screen and (max-width: 768px) {
-    .container {
-      /* Adjust styles for smaller screens */
-    }
-  }
   
-  /* Media query for medium screens (e.g., tablets) */
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    .container {
-      /* Adjust styles for medium-sized screens */
-    }
-  }
-  
-  /* Media query for large screens (e.g., desktops) */
-  @media screen and (min-width: 1024px) {
-    .container {
-      /* Adjust styles for large screens */
-    }
-  }
 
-  #root > div > nav.bg-white.shadow > div > div > div.flex.items-center > div > button.bg-red-600.hover\:bg-red-700.text-white.px-4.py-2.rounded-md.text-sm.font-medium{
-    font-size:10px;
+/* ... distanca e login -sign up on normal size */
+#root > div > nav.bg-white.dark\:bg-gray-900.fixed.w-full.z-20.top-0.start-0.border-b.border-gray-200.dark\:border-gray-600 > div > div.flex.md\:order-2.space-x-3.md\:space-x-0.rtl\:space-x-reverse > div.flex.md\:order-2.space-x-3.md\:space-x-0.rtl\:space-x-reverse {
+    margin-left: 7px;
+}
 
-  }
-
- 

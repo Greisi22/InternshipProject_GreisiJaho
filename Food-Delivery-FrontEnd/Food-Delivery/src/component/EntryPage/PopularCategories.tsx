@@ -21,45 +21,45 @@ function PopularCategories() {
             <h1 className="popula-header">Popular Categories</h1>
             <div className="grid-container">
                 <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
+                    <img className="image" src={sandwichWithBacon} />
                     <div className="paragraph">
                         <p id="categoryText">Hamburger&sushi</p>
                         <p id="nrofrestText">21 restaurants</p>
                     </div>
                 </div>
                 <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
+                    <img className="image" src={sandwichWithBacon} />
                     <div className="paragraph">
-                        <p id="categoryText">OKOKOKOKO</p>
-                        <p id="nrofrestText">nononono</p>
+                        <p id="categoryText">Hamburger&sushi</p>
+                        <p id="nrofrestText">21 restaurants</p>
                     </div>
                 </div>
                 <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
+                    <img className="image" src={sandwichWithBacon} />
                     <div className="paragraph">
-                        <p id="categoryText">OKOKOKOKO</p>
-                        <p id="nrofrestText">nononono</p>
+                        <p id="categoryText">Hamburger&sushi</p>
+                        <p id="nrofrestText">21 restaurants</p>
                     </div>
                 </div>
                 <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
+                    <img className="image" src={sandwichWithBacon} />
                     <div className="paragraph">
-                        <p>OKOKOKOKO</p>
-                        <p>nononono</p>
+                        <p id="categoryText">Hamburger&sushi</p>
+                        <p id="nrofrestText">21 restaurants</p>
                     </div>
                 </div>
                 <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
+                    <img className="image" src={sandwichWithBacon} />
                     <div className="paragraph">
-                        <p>OKOKOKOKO</p>
-                        <p>nononono</p>
+                        <p id="categoryText">Hamburger&sushi</p>
+                        <p id="nrofrestText">21 restaurants</p>
                     </div>
                 </div>
                 <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
+                    <img className="image" src={sandwichWithBacon} />
                     <div className="paragraph">
-                        <p>OKOKOKOKO</p>
-                        <p>nononono</p>
+                        <p id="categoryText">Hamburger&sushi</p>
+                        <p id="nrofrestText">21 restaurants</p>
                     </div>
                 </div>
             </div>

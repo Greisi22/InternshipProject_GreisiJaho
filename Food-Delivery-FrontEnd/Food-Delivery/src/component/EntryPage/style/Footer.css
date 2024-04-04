@@ -72,3 +72,12 @@
     width: 49px;
 }
 
+/*....Logo permasa */
+#root > div > footer > div.mx-6.py-10.text-center.md\:text-left > div > div:nth-child(1) > h6 > img {
+    width: 5rem;
+    height: 5rem;
+}
+
+#root > div > footer > div.bg-neutral-200.p-6.text-center.dark\:bg-neutral-700 {
+    background-color: #222426;
+}

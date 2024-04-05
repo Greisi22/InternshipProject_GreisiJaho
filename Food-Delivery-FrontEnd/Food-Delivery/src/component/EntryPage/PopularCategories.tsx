@@ -1,67 +1,65 @@
-// import SushiPlateCategoryImage from '../../assets/SushiPlateCategory.jpg';
-import HamBurgerPlateCategoryImage from '../../assets/HamBurgerPlateCategory.jpg';
-import FishPlateCategoryImage from '../../assets/FishPlateCategory.jpg';
-import BeansPlateCategoryImage from '../../assets/BeansPlateCategory.jpg';
-import sandwichWithBacon from '../../assets/sandwich-with-bacon-vegetables.jpg';
-import Restornat2 from '../../assets/Restaurant2.jpg';
+import React from 'react';
 import './style/RestaurantCategory.css';
+import FishPlateCategoryImage from '../../assets/FishPlateCategory.jpg';
 
 function PopularCategories() {
     const popularcategories = [
-        { name: 'Vegan', image: Restornat2, nrofrestaurants: '21 restaurants' },
-        { name: 'Sushi', image: HamBurgerPlateCategoryImage, nrofrestaurants: '21 restaurants' },
-        { name: 'Burgers', image: HamBurgerPlateCategoryImage, nrofrestaurants: '21 restaurants' },
-        { name: 'Fish', image: FishPlateCategoryImage, nrofrestaurants: '21 restaurants' },
-        { name: 'Green', image: BeansPlateCategoryImage, nrofrestaurants: '21 restaurants' },
-        { name: 'FastFood', image: sandwichWithBacon, nrofrestaurants: '21 restaurants' },
+        {
+            name: 'Vegan',
+            image: FishPlateCategoryImage,
+            nrofrestaurants: '21 restaurants',
+        },
+        {
+            name: 'Sushi',
+            image: FishPlateCategoryImage,
+            nrofrestaurants: '21 restaurants',
+        },
+        {
+            name: 'Burgers',
+            image: FishPlateCategoryImage,
+            nrofrestaurants: '21 restaurants',
+        },
+        {
+            name: 'Fish',
+            image: FishPlateCategoryImage,
+            nrofrestaurants: '21 restaurants',
+        },
+        {
+            name: 'Green',
+            image: FishPlateCategoryImage,
+            nrofrestaurants: '21 restaurants',
+        },
+        {
+            name: 'FastFood',
+            image: FishPlateCategoryImage,
+            nrofrestaurants: '21 restaurants',
+        },
     ];
 
     return (
-        <div className="width-full m-4 popularCategories">
-            <h1 className="popula-header">Popular Categories</h1>
-            <div className="grid-container">
-                <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p id="categoryText">Hamburger&sushi</p>
-                        <p id="nrofrestText">21 restaurants</p>
+        <div className="w-full p-[10px] pl-[40px] pr-[40px]">
+            <div className="w-full h-[17%] ">
+                <p className="discount-text font-bold text-[16.8px]">
+                    Tasty Rush Popular Categories 🤩
+                </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
+                {popularcategories.map((category, index) => (
+                    <div key={index}>
+                        <img
+                            className="max-w-[150px] h-auto rounded-lg"
+                            src={category.image}
+                            alt=""
+                        />
+
+                        <div className="mt-2 ml-1">
+                            <p className="font-bold whitespace-nowrap">Burgers & Fast food</p>
+                            <p className="text-[13px] font-medium whitespace-nowrap text-[#e94339]">
+                                21 Restaurants
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p id="categoryText">OKOKOKOKO</p>
-                        <p id="nrofrestText">nononono</p>
-                    </div>
-                </div>
-                <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p id="categoryText">OKOKOKOKO</p>
-                        <p id="nrofrestText">nononono</p>
-                    </div>
-                </div>
-                <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p>OKOKOKOKO</p>
-                        <p>nononono</p>
-                    </div>
-                </div>
-                <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p>OKOKOKOKO</p>
-                        <p>nononono</p>
-                    </div>
-                </div>
-                <div className="image-container">
-                    <img className="image" src={HamBurgerPlateCategoryImage} />
-                    <div className="paragraph">
-                        <p>OKOKOKOKO</p>
-                        <p>nononono</p>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );

@@ -19,7 +19,7 @@ const DiscountRestaurants: FunctionComponent = () => {
     return (
         <>
             <NavBar handleRestorants={handleRestorants} />
-            <div className="flex flex-row snap-x overflow-x-auto h-52 restarant-wrapper ">
+            <div className="ml-[20px] flex flex-row snap-x overflow-x-auto h-52 restarant-wrapper ">
                 {restaurant.map((restaurant, index) => (
                     <div
                         key={index}

@@ -53,11 +53,11 @@ export default function NavBar({handleRestorants}: NavBarProps) {
         <Disclosure as="nav" className="h-22 align-center" style={{width: "98%"}}>
             {() => (
                 <>
-                    <div className="mx-auto max-w-7xl px-2 md:px-6 lg:px-8 align-center">
+                    <div className=" max-w-7xl   lg:px-8 align-center">
                         <div className="relative flex h-16 items-center justify-between">
-                            <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start mr-10">
+                            <div className="flex flex-1 items-center justify-start md:items-stretch md:justify-cnter ">
                                 <div>
-                                    <h1 className='discount-text'>Up to -40% 🎊 Tasty Rush exclusive deals</h1>
+                                    <h1 className='discount-text font-bold text-[16.5px]'>Up to -40% 🎊 Tasty Rush exclusive deals</h1>
                                 </div>
                             </div>
 

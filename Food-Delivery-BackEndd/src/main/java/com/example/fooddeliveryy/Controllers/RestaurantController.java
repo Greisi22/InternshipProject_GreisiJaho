@@ -2,6 +2,7 @@ package com.example.fooddeliveryy.Controllers;
 
 import com.example.fooddeliveryy.DTO.RestaurantDTO;
 import com.example.fooddeliveryy.Entities.Rastaurant;
+import com.example.fooddeliveryy.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import com.example.fooddeliveryy.Services.RestaurantService;
@@ -22,18 +23,24 @@ public class RestaurantController {
     private final RestaurantRepo restaurantRepo;
     private final RestaurantMapper restaurantMapper;
 
+    private final JwtTokenProvider jwtTokenProvider;
+
     @Autowired
-    public RestaurantController(RestaurantService restaurantService, RestaurantMapper restaurantMapper, RestaurantRepo restaurantRepo) {
+    public RestaurantController(RestaurantService restaurantService, RestaurantMapper restaurantMapper, RestaurantRepo restaurantRepo, JwtTokenProvider jwtTokenProvider) {
         this.restaurantService = restaurantService;
         this.restaurantMapper = restaurantMapper;
         this.restaurantRepo = restaurantRepo;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
 
     @PostMapping("/create")
     @Transactional
-    public ResponseEntity<Rastaurant> createResaurant(@RequestBody Rastaurant rest) {
+    public ResponseEntity<Rastaurant> createResaurant(@RequestBody Rastaurant rest, @RequestHeader("Authorization") String token) {
 
+        if (!jwtTokenProvider.validateToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         Rastaurant restaurant = restaurantService.createRestaurant(rest);
         return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
     }

@@ -22,13 +22,21 @@ public class User {
     private String userRole;
 
     @OneToMany(mappedBy = "restaurantManager")
-    @JsonBackReference
+
     private List<Rastaurant> managedRestaurants;
 
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference("orderBackReference")
     private List<Order> order;
+
+    @OneToMany(mappedBy = "sender")
+    @JsonBackReference("SenderMessages")
+    private List<Message> sentMessages;
+
+    @OneToMany(mappedBy = "receiver")
+    @JsonBackReference("ReceiverMessages")
+    private List<Message> receivedMessages;
 
     public User() {}
 
@@ -90,6 +98,22 @@ public class User {
         this.managedRestaurants = managedRestaurants;
     }
 
+
+    public List<Message> getSentMessages() {
+        return sentMessages;
+    }
+
+    public void setSentMessages(List<Message> sentMessages) {
+        this.sentMessages = sentMessages;
+    }
+
+    public List<Message> getReceivedMessages() {
+        return receivedMessages;
+    }
+
+    public void setReceivedMessages(List<Message> receivedMessages) {
+        this.receivedMessages = receivedMessages;
+    }
 
     @Override
     public String toString() {

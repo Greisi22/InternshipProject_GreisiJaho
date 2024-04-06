@@ -47,7 +47,7 @@ function PopularCategories() {
                 {popularcategories.map((category, index) => (
                     <div key={index} className='relative overflow-hidden'>
                         <img
-                            className="max-w-[150px] h-auto rounded-lg"
+                            className="max-w-[190px] h-auto rounded-lg"
                             src={category.image}
                             alt=""
                         />

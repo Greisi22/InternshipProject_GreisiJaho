@@ -1,9 +1,11 @@
 package com.example.fooddeliveryy.Services;
 
+import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Entities.Review;
 import com.example.fooddeliveryy.Repositories.ReviewRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +24,16 @@ public class ReviewService {
     }
 
     //we need to add a llogic, to return like a specific number like 10
+
+    public List<Review> getReviewsGreaterThanFive() {
+        List<Review> reviewsGreaterFive = reviewRepository.findReviewsGreaterThanFiveWithLimit();
+        if (reviewsGreaterFive.size() <= 20) {
+            return null;
+        }
+        return reviewsGreaterFive;
+    }
+
+
     //to get reviews with hiegher rate and has more text
     public List<Review> getBestReviews(long restaurantId){
         return reviewRepository.findByRestaurantId(restaurantId);

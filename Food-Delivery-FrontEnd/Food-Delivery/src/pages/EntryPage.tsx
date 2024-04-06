@@ -7,6 +7,8 @@ import HowToOrder from 'src/component/EntryPage/HowToOrder';
 import NavBar from 'src/component/General/NavBar';
 import UserReview from 'src/component/EntryPage/UserReview';
 import PopularRestaurants from 'src/component/EntryPage/PopularRestaurants';
+import Prova from 'src/component/EntryPage/Prova';
+import EntryInfo from 'src/component/EntryPage/EntryInfo';
 
 const EntryPage: FunctionComponent = () => {
     return (
@@ -14,11 +16,7 @@ const EntryPage: FunctionComponent = () => {
             <NavBar/>
             <br />
             <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+            <Prova/>
             <br />
             <br />
             <DiscountRestaurants />
@@ -34,9 +32,12 @@ const EntryPage: FunctionComponent = () => {
             <br />
             <br />
             <UserReview />
+            <EntryInfo/>
             <br />
             <br />
             <Footer />
+
+       
         </div>
     );
 };

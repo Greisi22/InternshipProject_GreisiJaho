@@ -64,7 +64,8 @@ function NavBar() {
                                         activeLink === "About" ? "text-[#e94339]" : "text-gray-900"
                                     }`}
                                     onClick={() => handleNavLinkClick("About")}>
-                                    About
+                                        Services
+                                    
                                 </a>
                             </li>
                             <li>
@@ -74,7 +75,7 @@ function NavBar() {
                                         activeLink === "Services" ? "text-[#e94339]" : "text-gray-900"
                                     }`}
                                     onClick={() => handleNavLinkClick("Services")}>
-                                    Services
+                                    About
                                 </a>
                             </li>
                             <li>

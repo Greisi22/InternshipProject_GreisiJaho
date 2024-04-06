@@ -45,13 +45,12 @@ function PopularCategories() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
                 {popularcategories.map((category, index) => (
-                    <div key={index}>
+                    <div key={index} className='relative overflow-hidden'>
                         <img
                             className="max-w-[150px] h-auto rounded-lg"
                             src={category.image}
                             alt=""
                         />
-
                         <div className="mt-2 ml-1">
                             <p className="font-bold whitespace-nowrap">Burgers & Fast food</p>
                             <p className="text-[13px] font-medium whitespace-nowrap text-[#e94339]">

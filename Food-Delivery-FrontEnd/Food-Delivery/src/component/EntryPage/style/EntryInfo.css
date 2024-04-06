@@ -1,0 +1,21 @@
+
+  
+  .afterr{
+    display: none;
+  }
+  
+  @media (max-width: 780px) {
+
+    .respo{
+        display: none;
+    }
+
+    .container{
+        justify-content: space-around !important;
+    }
+
+    .afterr{
+        display: block;
+    }
+  
+  }

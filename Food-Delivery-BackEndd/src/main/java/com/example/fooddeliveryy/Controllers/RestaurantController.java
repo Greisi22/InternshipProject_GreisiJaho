@@ -36,14 +36,22 @@ public class RestaurantController {
 
     @PostMapping("/create")
     @Transactional
-    public ResponseEntity<Rastaurant> createResaurant(@RequestBody Rastaurant rest, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant, @RequestHeader("Authorization") String token) {
 
-        if (!jwtTokenProvider.validateToken(token)) {
+        String prova = token.trim();
+        System.out.println(prova);
+        if (!jwtTokenProvider.validateToken(prova)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        Rastaurant restaurant = restaurantService.createRestaurant(rest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
+        if (token.startsWith("Bearer ")) {
+            // Remove the "Bearer " prefix
+            token = token.substring(7);
+        }
+        System.out.println("role from token : "+ jwtTokenProvider.getEmailFromToken(token));
+        Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
     }
+
 
 
     @GetMapping("/get/{id}")

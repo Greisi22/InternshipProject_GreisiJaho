@@ -13,31 +13,44 @@ import EntryInfo from 'src/component/EntryPage/EntryInfo';
 const EntryPage: FunctionComponent = () => {
     return (
         <div className="entryContainer">
-            <NavBar/>
+            <div id="Home">
+                <NavBar />
+            </div>
             <br />
             <br />
-            <Prova/>
+
+            <Prova />
+
             <br />
             <br />
-            <DiscountRestaurants />
+            <div id="Discounts">
+                <DiscountRestaurants />
+            </div>
             <br />
             <br />
-            <PopularCategories />
+            <div id="Popular">
+                <PopularCategories />
+            </div>
             <br />
             <br />
+
             <PopularRestaurants />
+
             <br />
             <br />
             <HowToOrder />
             <br />
             <br />
-            <UserReview />
-            <EntryInfo/>
+            <div id="Services">
+                <UserReview />
+            </div>
+            <EntryInfo />
             <br />
             <br />
-            <Footer />
-
-       
+            <div id="Contact">
+                {' '}
+                <Footer />
+            </div>
         </div>
     );
 };

@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import NavMenu from "./Menu";
-import { menuItemsHeader } from "src/data/EntryPageData";
+import NavMenu from './Menu';
+import { menuItemsHeader } from 'src/data/EntryPageData';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
 
 function NavBar() {
-    const [activeLink, setActiveLink] = useState("Home");
+    const [activeLink, setActiveLink] = useState('Home');
 
-    const handleNavLinkClick = (link) => {
+    const handleNavLinkClick = (link: string) => {
         setActiveLink(link);
+        setTimeout(() => {
+            const element = document.getElementById(link);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100);
     };
 
     return (
@@ -27,7 +33,9 @@ function NavBar() {
                         </span>
                     </a>
                     <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                        <button className="mr-[20px] rounded-md pl-2 pr-2 hover:bg-gray-300"><LocalGroceryStoreOutlinedIcon/></button>
+                        <button className="mr-[20px] rounded-md pl-2 pr-2 hover:bg-gray-300">
+                            <LocalGroceryStoreOutlinedIcon />
+                        </button>
                         <button
                             type="button"
                             className="text-white bg-[#e94339] hover:bg-[#e9443ce5] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -40,7 +48,7 @@ function NavBar() {
                             aria-controls="navbar-sticky"
                             aria-expanded="false">
                             <span className="sr-only">Open main menu</span>
-                            <NavMenu items={menuItemsHeader}/>
+                            <NavMenu items={menuItemsHeader} />
                         </button>
                     </div>
                     <div
@@ -51,9 +59,11 @@ function NavBar() {
                                 <a
                                     href="#"
                                     className={`block py-2 px-3 rounded md:p-0 ${
-                                        activeLink === "Home" ? " text-[#e94339]" : "text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#e94339] md:p-0 md:dark:text-[#e94339] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                                        activeLink === 'Home'
+                                            ? ' text-[#e94339]'
+                                            : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#e94339] md:p-0 md:dark:text-[#e94339] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'
                                     }`}
-                                    onClick={() => handleNavLinkClick("Home")}>
+                                    onClick={() => handleNavLinkClick('Home')}>
                                     Home
                                 </a>
                             </li>
@@ -61,20 +71,35 @@ function NavBar() {
                                 <a
                                     href="#"
                                     className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#e94339] md:p-0 md:dark:hover:text-[#e94339] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                                        activeLink === "About" ? "text-[#e94339]" : "text-gray-900"
+                                        activeLink === 'Discounts'
+                                            ? 'text-[#e94339]'
+                                            : 'text-gray-900'
                                     }`}
-                                    onClick={() => handleNavLinkClick("About")}>
-                                        Services
-                                    
+                                    onClick={() => handleNavLinkClick('Discounts')}>
+                                    Discounts
                                 </a>
                             </li>
                             <li>
                                 <a
                                     href="#"
                                     className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#e94339] md:p-0 md:dark:hover:text-[#e94339] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                                        activeLink === "Services" ? "text-[#e94339]" : "text-gray-900"
+                                        activeLink === 'Popular'
+                                            ? 'text-[#e94339]'
+                                            : 'text-gray-900'
                                     }`}
-                                    onClick={() => handleNavLinkClick("Services")}>
+                                    onClick={() => handleNavLinkClick('Popular')}>
+                                    Popular
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#e94339] md:p-0 md:dark:hover:text-[#e94339] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
+                                        activeLink === 'Services'
+                                            ? 'text-[#e94339]'
+                                            : 'text-gray-900'
+                                    }`}
+                                    onClick={() => handleNavLinkClick('Services')}>
                                     About
                                 </a>
                             </li>
@@ -82,9 +107,11 @@ function NavBar() {
                                 <a
                                     href="#"
                                     className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#e94339] md:p-0 md:dark:hover:text-[#e94339] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                                        activeLink === "Contact" ? "text-[#e94339]" : "text-gray-900"
+                                        activeLink === 'Contact'
+                                            ? 'text-[#e94339]'
+                                            : 'text-gray-900'
                                     }`}
-                                    onClick={() => handleNavLinkClick("Contact")}>
+                                    onClick={() => handleNavLinkClick('Contact')}>
                                     Contact
                                 </a>
                             </li>

@@ -1,5 +1,6 @@
 package com.example.fooddeliveryy.DTO;
 
+import com.example.fooddeliveryy.Entities.Enums.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,16 +9,18 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserDTO {
-    private String userEmail;
-    private String userRole;
-
-    public String getUserRole() {
+    public UserRole getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
+
+    private String userEmail;
+    private UserRole userRole;
+
+
 
     public String getUserEmail() {
         return userEmail;

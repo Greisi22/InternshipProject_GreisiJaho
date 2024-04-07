@@ -1,15 +1,14 @@
 package com.example.fooddeliveryy.JWT;
 
-import com.example.fooddeliveryy.JWT.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Component
 public class JwtTokenProvider {
@@ -23,16 +22,18 @@ public class JwtTokenProvider {
         this.jwtConfig = jwtConfig;
     }
 
-    public String generateToken(String userEmail) {
+    public String generateToken(String userEmail, String name) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtConfig.getExpiration());
 
-        return Jwts.builder()
+        String token =  Jwts.builder()
                 .setSubject(userEmail)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(secretKey)
                 .compact();
+        System.out.println("generate token : "+ token);
+        return token;
     }
 
     public String getEmailFromToken(String token) {
@@ -49,6 +50,13 @@ public class JwtTokenProvider {
         System.out.println("THIS I STHE TOKENNNN   " + token);
         System.out.println(secretKey);
         try {
+            // Check if the token starts with "Bearer "
+            if (token.startsWith("Bearer ")) {
+                // Remove the "Bearer " prefix
+                token = token.substring(7);
+            }
+
+            // Parse and validate the token
             Jwts.parserBuilder()
                     .setSigningKey(secretKey)
                     .build()
@@ -59,4 +67,5 @@ public class JwtTokenProvider {
             return false;
         }
     }
+
 }

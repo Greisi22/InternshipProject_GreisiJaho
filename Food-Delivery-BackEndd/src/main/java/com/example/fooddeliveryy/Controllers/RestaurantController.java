@@ -6,7 +6,6 @@ import com.example.fooddeliveryy.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import com.example.fooddeliveryy.Services.RestaurantService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,23 +34,11 @@ public class RestaurantController {
 
 
     @PostMapping("/create")
-    @Transactional
-    public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant) {
 
-        String prova = token.trim();
-        System.out.println(prova);
-        if (!jwtTokenProvider.validateToken(prova)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        if (token.startsWith("Bearer ")) {
-            // Remove the "Bearer " prefix
-            token = token.substring(7);
-        }
-        System.out.println("role from token : "+ jwtTokenProvider.getEmailFromToken(token));
         Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
     }
-
 
 
     @GetMapping("/get/{id}")

@@ -8,6 +8,7 @@ import ReorderIcon from '@mui/icons-material/Reorder';
 interface MenuItem {
   icon: JSX.Element | null;
   name: string;
+  function: (name: string) => void;
 }
 
 interface Props {
@@ -26,7 +27,7 @@ export default function NavMenu({ items }: Props) {
         </MenuButton>
         <Menu style={{backgroundColor: "", border: ""}}>
           {menuItems.map((item, index) => (
-            <div key={index} >
+            <div key={index} onClick={()=>{item.function(item.name)}} >
               <MenuItem className='menuItem'>
                 <span>{item.icon}</span> <span>{item.name}</span>
               </MenuItem>

@@ -6,6 +6,7 @@ import com.example.fooddeliveryy.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.Mapping.UserMapper;
 import com.example.fooddeliveryy.Repositories.UserRepository;
 import com.example.fooddeliveryy.Services.LogIn.LogInService;
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,8 +62,17 @@ public class LoginController {
                 Map<String, Object> response = new HashMap<>();
                 response.put("user", userDTO);
                 response.put("token", token);
+                Cookie jwtTokenCookie = new Cookie("user-id", "c2FtLnNtaXRoQGV4YW1wbGUuY29t");
+                jwtTokenCookie.setMaxAge(86400);
+                jwtTokenCookie.setSecure(false); //upon deployment switch to secure == true
+                jwtTokenCookie.setHttpOnly(true);
+                jwtTokenCookie.setPath("/");
+                jwtTokenCookie.setDomain("localhost");
 
-                return ResponseEntity.ok(response);
+                ResponseEntity.BodyBuilder builder = ResponseEntity.ok();
+                builder.header("Set-Cookie", jwtTokenCookie.getName() + "=" + jwtTokenCookie.getValue());
+
+                return builder.body(response);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
             }

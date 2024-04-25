@@ -1,0 +1,35 @@
+@media (max-width: 640px){
+    .navBarr{
+       width: 21% !important;
+       background-color: transparent !important;
+    }
+   
+}
+
+@media (min-width: 767px){
+    .navBarr{
+        width: 21% !important;
+    }
+}
+
+@media (min-width: 1100px){
+    .navBarr{
+        width: 18.5% !important;
+    }
+}
+
+@media (min-width: 1308px){
+    .navBarr{
+        width: 15.5% !important;
+    }
+    .navBar{
+        max-width: 15.5% !important;
+    }
+}
+
+
+
+
+.navBar{
+    width: 20% !important;
+}

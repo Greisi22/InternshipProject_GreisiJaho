@@ -1,0 +1,10 @@
+.loginBack{
+    background: "#1f2937" !important;
+}
+
+.loginBack{
+    background-image: url('src/assets/Images/EntryPage/img1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

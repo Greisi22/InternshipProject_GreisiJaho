@@ -36,7 +36,14 @@ public class Rastaurant {
     private List<Order> order;
     private List<String> category;
 
-    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, List<String> images, User restaurantManager, int discount, List<Order> order, List<String> category, List<String> categories) {
+    @OneToMany(mappedBy = "restaurant")
+    @JsonBackReference("paymentReference")
+    private List<RestaurantPayment> restaurantPayments;
+
+    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website,
+                      double averageRating, boolean isOpen, List<Review> reviews, List<String> images,
+                      User restaurantManager, int discount, List<Order> order, List<String> category,
+                      List<String> categories, List<RestaurantPayment> restaurantPayments) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -53,6 +60,7 @@ public class Rastaurant {
         this.order = order;
         this.category = category;
         this.categories = categories;
+        this.restaurantPayments = restaurantPayments;
     }
 
     public List<String> getCategories() {
@@ -190,6 +198,15 @@ public class Rastaurant {
         this.order = order;
     }
 
+
+    public List<RestaurantPayment> getRestaurantPayments() {
+        return restaurantPayments;
+    }
+
+    public void setRestaurantPayments(List<RestaurantPayment> restaurantPayments) {
+        this.restaurantPayments = restaurantPayments;
+    }
+
     @Override
     public String toString() {
         return "Rastaurant{" +
@@ -202,7 +219,8 @@ public class Rastaurant {
                 ", averageRating=" + averageRating + '\'' +
                 ", isOpen=" + isOpen + '\'' +
                 ", restaurantManager=" + restaurantManager + '\'' +
-                ", category=" + category +
+                ", category=" + category + '\'' +
+                ", restaurantPayment=" + restaurantPayments +
                 '}';
     }
 }

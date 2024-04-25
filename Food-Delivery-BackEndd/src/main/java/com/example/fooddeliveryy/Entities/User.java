@@ -1,5 +1,6 @@
 package com.example.fooddeliveryy.Entities;
 
+
 import com.example.fooddeliveryy.Entities.Enums.UserRole;
 import com.example.fooddeliveryy.JWT.JwtTokenProvider;
 import com.fasterxml.jackson.annotation.JsonBackReference;

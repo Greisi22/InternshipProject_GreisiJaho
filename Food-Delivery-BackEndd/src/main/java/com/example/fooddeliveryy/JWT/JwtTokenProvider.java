@@ -47,8 +47,6 @@ public class JwtTokenProvider {
     }
 
     public boolean validateToken(String token) {
-        System.out.println("THIS I STHE TOKENNNN   " + token);
-        System.out.println(secretKey);
         try {
             // Check if the token starts with "Bearer "
             if (token.startsWith("Bearer ")) {

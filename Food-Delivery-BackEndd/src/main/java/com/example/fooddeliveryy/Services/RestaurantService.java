@@ -1,12 +1,8 @@
 package com.example.fooddeliveryy.Services;
 
 import com.example.fooddeliveryy.Entities.Menu;
-import com.example.fooddeliveryy.Entities.Product;
 import com.example.fooddeliveryy.Entities.Rastaurant;
-import com.example.fooddeliveryy.Entities.User;
-import com.example.fooddeliveryy.Repositories.MenuRepository;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
-import com.example.fooddeliveryy.Repositories.logInRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

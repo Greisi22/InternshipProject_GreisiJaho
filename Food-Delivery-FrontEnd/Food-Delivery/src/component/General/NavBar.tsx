@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import NavMenu from './Menu';
 import { menuItemsHeader } from 'src/data/EntryPageData';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
+import logo from "src/assets/Icons/EntryPage/logo.jpeg"
 
 function NavBar() {
     const [activeLink, setActiveLink] = useState('Home');
@@ -24,12 +25,12 @@ function NavBar() {
                         href="https://flowbite.com/"
                         className="flex items-center space-x-3 rtl:space-x-reverse">
                         <img
-                            src="https://flowbite.com/docs/images/logo.svg"
-                            className="h-8"
+                            src={logo}
+                            className="h-[40px] rounded-lg"
                             alt="Flowbite Logo"
                         />
                         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                            Flowbite
+                            TastyRush
                         </span>
                     </a>
                     <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

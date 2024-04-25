@@ -5,6 +5,7 @@ export async function retrieveDiscountRestaurant() {
     try {
         //Creating a variable that will contain the data that we need from the endpoint API
         const response = await axiosInstance.get<ApiResponse>('/restaurant/discount');
+        console.log("Response: ",response)
         return response.data;
     } catch (error) {
         console.log('error: ', error);

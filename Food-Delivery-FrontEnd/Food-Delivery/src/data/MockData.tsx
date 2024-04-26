@@ -29,7 +29,8 @@ const users = [
     website: "https://www.example.com",
     restaurantManager: {
       userId: 1
-    }
+    },
+    isAccepted: true
     },
 
     {
@@ -38,7 +39,8 @@ const users = [
         website: "https://www.example.com",
         restaurantManager: {
           userId: 2
-        }
+        },
+        isAccepted: true
     },
     {
         id:3,    
@@ -46,7 +48,8 @@ const users = [
         website: "https://www.example.com",
         restaurantManager: {
           userId: 3
-        }
+        },
+        isAccepted: false
     },
     {
         id:4,    
@@ -54,7 +57,8 @@ const users = [
         website: "https://www.example.com",
         restaurantManager: {
           userId: 4
-        }
+        },
+        isAccepted: false
     }
   ];
 

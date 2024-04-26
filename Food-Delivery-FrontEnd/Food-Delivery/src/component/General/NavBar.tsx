@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import NavMenu from './Menu';
 import { menuItemsHeader } from 'src/data/EntryPageData';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
-import logo from "src/assets/Icons/EntryPage/logo.jpeg"
+import logo from 'src/assets/Icons/EntryPage/logo.jpeg';
 
-function NavBar() {
+function NavBar({ setLogin }: { setLogin: any }) {
     const [activeLink, setActiveLink] = useState('Home');
 
     const handleNavLinkClick = (link: string) => {
@@ -24,11 +24,7 @@ function NavBar() {
                     <a
                         href="https://flowbite.com/"
                         className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img
-                            src={logo}
-                            className="h-[40px] rounded-lg"
-                            alt="Flowbite Logo"
-                        />
+                        <img src={logo} className="h-[40px] rounded-lg" alt="Flowbite Logo" />
                         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                             TastyRush
                         </span>
@@ -38,6 +34,10 @@ function NavBar() {
                             <LocalGroceryStoreOutlinedIcon />
                         </button>
                         <button
+                            onClick={() => {
+                                console.log('clicked')
+                                setLogin(true);
+                            }}
                             type="button"
                             className="text-white bg-[#e94339] hover:bg-[#e9443ce5] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             SignUp / Login

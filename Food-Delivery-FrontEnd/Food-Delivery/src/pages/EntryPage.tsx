@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import DiscountRestaurants from 'src/component/EntryPage/DiscountRestaurants';
 import PopularCategories from 'src/component/EntryPage/PopularCategories';
 import Footer from 'src/component/EntryPage/Footer';
@@ -14,20 +14,24 @@ import Register from 'src/component/Login/Register';
 import Login from 'src/component/Login/Login';
 
 const EntryPage: FunctionComponent = () => {
+    const [login, setLogin] = useState(false);
+    const [signup, setSignup] = useState(false);
     return (
         <>
             <div className="entryContainer">
-                {/* <div className="absolute h-full  w-full  z-[100] mt-[-30px]"> 
-                    <Register />
-                </div> */}
+                {login && (
+                    <div className="absolute h-full w-full z-[100] mt-[-30px]">
+                        <Login setLogin={setLogin} setSignup={setSignup}/>
+                    </div>
+                )}
 
-                {/* <div className="absolute h-full  w-full  z-[100] mt-[-30px]"> 
-                    <Login />
-                </div> */}
-
+              { signup && ( <div className="absolute h-full  w-full  z-[100] mt-[-30px]"> 
+                    <Register setLogin={setLogin} setSignup={setSignup}/>
+                </div>
+              )}
                 <div id="Home" className="mt-[30px]">
                     {/* <NavBar /> */}
-                    <Entry />
+                    <Entry setLogin={setLogin} />
                     {/* <ChangeImages/> */}
                 </div>
 

@@ -4,10 +4,10 @@ import NavBar from '../General/NavBar';
 import driver from 'src/assets/Images/EntryPage/MotorCycle-small.png';
 import prova from 'src/assets/Images/EntryPage/Prova.png';
 
-function Entry() {
+function Entry({setLogin}: {setLogin:any}) {
     return (
         <div className="">
-            <NavBar />
+            <NavBar setLogin={setLogin} />
             aaa
             <div className="w-full  mt-[25px] overflow-hidden  ">
                 <div className="flex h-[82vh] items-center">

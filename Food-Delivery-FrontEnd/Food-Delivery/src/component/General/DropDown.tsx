@@ -12,6 +12,7 @@ interface Props {
 
 export default function DropDown({ items }: Props) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [buttonname, setButtonName] = useState("Role")
     const [, ...menuItems] = items;
 
     const toggleDropdown = () => {
@@ -29,7 +30,7 @@ export default function DropDown({ items }: Props) {
                 onClick={toggleDropdown}
                 className="w-full  justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="button">
-                Role{' '}
+                {buttonname}
                 <svg
                     className="w-2.5 h-2.5 ms-3"
                     aria-hidden="true"
@@ -61,6 +62,7 @@ export default function DropDown({ items }: Props) {
                                     onClick={() => {
                                         handleMenuItemClick();
                                         item.function(item.name)
+                                        setButtonName(item.name)
                                     }}>
                                     {item.name}
                                 </a>

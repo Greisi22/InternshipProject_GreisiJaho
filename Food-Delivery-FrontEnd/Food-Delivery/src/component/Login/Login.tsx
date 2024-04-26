@@ -1,8 +1,33 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { checkLogin } from 'src/api/localhost/Login/LoginAPI';
 
 function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
+    };
+
+    const handlePassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(event.target.value);
+    };
+
+    async function handleLogin() {
+        const result = await checkLogin(email, password);
+        if (result.status == 200) {
+            sessionStorage.setItem('userData', JSON.stringify(result.data));
+            setLogin(false);
+            navigate('/administrator');
+        } else {
+            setError('Invalid Credencials');
+        }
+    }
+
     return (
         <div className="fixed w-full">
             {/* Background image or color */}
@@ -39,7 +64,7 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                                 Sign in to your account
                             </h1>
                             <form className="space-y-4 md:space-y-6" action="#">
-                            <div>{error}</div>
+                                <div>{error}</div>
                                 <div>
                                     <label
                                         htmlFor="email"
@@ -47,6 +72,7 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                                         Your email
                                     </label>
                                     <input
+                                        onChange={handleEmailChange}
                                         type="email"
                                         name="email"
                                         id="email"
@@ -61,6 +87,7 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                                         Password
                                     </label>
                                     <input
+                                        onChange={handlePassChange}
                                         type="password"
                                         name="password"
                                         id="password"
@@ -93,7 +120,10 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                                     </a>
                                 </div>
                                 <button
-                                    type="submit"
+                                    onClick={(e) => {
+                                        e.preventDefault(); // Prevent default form submission
+                                        handleLogin(); // Call your registration function
+                                    }}
                                     className="w-full text-white bg-red-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                     Sign in
                                 </button>

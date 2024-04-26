@@ -1,6 +1,8 @@
 import DropDown from '../General/DropDown';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
+import { RegisterHelper } from 'src/utils/Functinalities/RegisterHelper';
+
 function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
     const [error, setError] = useState('');
     const [email, setEmail] = useState('');
@@ -8,15 +10,14 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
     const [r_password, r_setPassword] = useState('');
     const [role, setRole] = useState('');
 
+
     const handleFunction = (name: string) => {
-        if(name === 'AdminiStrator'){
-            setRole('ROLE_ADMIN')
-        }
-        else if(name === 'Client'){
-            setRole('ROLE_USER')
-        }
-        else{
-            setRole('ROLE_restorantManager')
+        if (name === 'AdminiStrator') {
+            setRole('ROLE_ADMIN');
+        } else if (name === 'Client') {
+            setRole('ROLE_USER');
+        } else {
+            setRole('ROLE_restorantManager');
         }
     };
 
@@ -36,25 +37,31 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
         },
     ];
 
-    const handleRegister = () => {
-        console.log('register clicked', email, password, r_password);
-    };
+    async function handleRegister() {
+        const result = await RegisterHelper(email, password, r_password, role);
+        if (result === 200) {
+            setError('You are succesfully register');
+            setTimeout(() => {
+                setSignup(false);
+                setLogin(true);
+            }, 2000);
+        } else if (result === -1) {
+            setError('Invalid Credincials');
+        }
+    }
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value); 
+        setEmail(event.target.value);
     };
 
     const handlePassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value); 
+        setPassword(event.target.value);
     };
 
     const handleRepPassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        r_setPassword(event.target.value); 
+        r_setPassword(event.target.value);
     };
 
-    const handleRepRole= (role: string) => {
-        r_setPassword(role); 
-    };
     return (
         <>
             <div className="fixed w-full">
@@ -88,7 +95,7 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                                     Sign in to your account
                                 </h1>
                                 <form className="space-y-4 md:space-y-6">
-                                    <div>{error}</div>
+                                    <div className="text-red-700">{error}</div>
                                     <div>
                                         <label
                                             htmlFor="email"
@@ -159,8 +166,9 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                                         </div>
                                     </div>
                                     <button
-                                        onClick={() => {
-                                            handleRegister();
+                                        onClick={(e) => {
+                                            e.preventDefault(); // Prevent default form submission
+                                            handleRegister(); // Call your registration function
                                         }}
                                         className="w-full text-white bg-red-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                         Sign up
@@ -172,7 +180,6 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                                                 setLogin(true);
                                                 setSignup(false);
                                             }}
-                                           
                                             className=" text-red-500 font-medium text-primary-600 hover:underline dark:text-primary-500">
                                             Sign in
                                         </a>

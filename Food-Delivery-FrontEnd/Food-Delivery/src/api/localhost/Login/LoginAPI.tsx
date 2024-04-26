@@ -11,12 +11,12 @@ export async function checkLogin(email: string, password: string) {
         // Making a POST request with the data
         const response = await axiosInstance.post<ApiResponse>('/user/login', requestData, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            withCredentials: true // to include credentials in the request
+            withCredentials: true, // to include credentials in the request
         });
-        console.log('ResponseLogin: ', response.data);
-        return response.data;
+
+        return response;
     } catch (error) {
         console.log('error: ', error);
         throw new Error('Failed to fetch data');

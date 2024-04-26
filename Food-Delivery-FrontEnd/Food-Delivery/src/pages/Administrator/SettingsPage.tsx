@@ -5,7 +5,7 @@ function SettingsPage() {
         <div>
             {' '}
             <div>
-                <SideBar selected={'1'} />
+                <SideBar selected={'8'} />
             </div>
         </div>
     );

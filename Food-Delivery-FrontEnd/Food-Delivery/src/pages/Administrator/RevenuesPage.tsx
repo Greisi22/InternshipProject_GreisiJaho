@@ -5,7 +5,7 @@ function RevenuesPage() {
         <div>
             {' '}
             <div>
-                <SideBar selected={'1'} />
+                <SideBar selected={'6'} />
             </div>
         </div>
     );

@@ -5,7 +5,7 @@ function UsersPage() {
         <div>
             {' '}
             <div>
-                <SideBar selected={'1'} />
+                <SideBar selected={'4'} />
             </div>
         </div>
     );

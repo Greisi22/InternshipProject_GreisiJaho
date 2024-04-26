@@ -5,7 +5,7 @@ function RestaurantsPage() {
         <div>
             {' '}
             <div>
-                <SideBar selected={'1'} />
+                <SideBar selected={'3'} />
             </div>
         </div>
     );

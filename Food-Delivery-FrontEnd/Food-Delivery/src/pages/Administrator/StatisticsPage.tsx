@@ -5,7 +5,7 @@ function StatisticsPage() {
         <div>
             {' '}
             <div>
-                <SideBar selected={'1'} />
+                <SideBar selected={'7'} />
             </div>
         </div>
     );

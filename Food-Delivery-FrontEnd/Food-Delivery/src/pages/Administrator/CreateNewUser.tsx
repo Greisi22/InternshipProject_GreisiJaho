@@ -4,7 +4,7 @@ function CreateNewUser() {
     return (
         <div>
             <div>
-                <SideBar selected={'1'} />
+                <SideBar selected={'5'} />
             </div>
         </div>
     );

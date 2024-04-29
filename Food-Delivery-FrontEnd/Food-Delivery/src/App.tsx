@@ -9,33 +9,50 @@ import SettingsPage from './pages/Administrator/SettingsPage';
 import StatisticsPage from './pages/Administrator/StatisticsPage';
 import UsersPage from './pages/Administrator/UsersPage';
 
+import React, { useEffect, useState } from 'react';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+
 const App = () => {
 
+    const [stompClient, setStompClient] = useState(null);
+    const [connected, setConnected] = useState(false);
+    const [message, setMessage] = useState('');
 
+    useEffect(() => {
+        if (connected) {
+            const socket = new SockJS('/stomp-endpoint');
+            const client = Stomp.over(socket);
+            client.connect({}, (frame) => {
+                setConnected(true);
+                setStompClient(client);
+                console.log('Connected: ' + frame);
+                client.subscribe('/topic/greetings', (greeting) => {
+                    const greetingMessage = JSON.parse(greeting.body);
+                    setMessage(greetingMessage.message);
+                });
+            });
+        }
+    }, [connected]);
 
-    
-    const prova = () => {
-        var socket = new WebSocket('ws://localhost:8080/stomp-endpoint');
-
-        socket.onopen = function () {
-            console.log('WebSocket connection opened');
-
-            // Send a message to the server
-            var message = {
-                name: 'John',
-            };
-            socket.send(JSON.stringify(message));
-        };
-
-        socket.onmessage = function (event) {
-            console.log('Received message from server:', event.data);
-        };
-
-        socket.onclose = function () {
-            console.log('WebSocket connection closed');
-        };
+    const connect = () => {
+        setConnected(true);
     };
 
+    const disconnect = () => {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        setConnected(false);
+        console.log("Disconnected");
+    };
+
+    const sendName = () => {
+        if (stompClient) {
+            stompClient.send("/app/hello", {}, JSON.stringify({'name': message}));
+        }
+    };
+    
     return (
         <>
             <div

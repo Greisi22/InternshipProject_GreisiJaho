@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 import { FunctionComponent, useState } from 'react';
+=======
+import { FunctionComponent } from 'react';
+import Header from 'src/component/EntryPage/Header';
+import BelowHeader from 'src/component/EntryPage/BelowHeader';
+>>>>>>> b6e275441758f43f6c8ff42a319f0988acbb47e2
 import DiscountRestaurants from 'src/component/EntryPage/DiscountRestaurants';
 import PopularCategories from 'src/component/EntryPage/PopularCategories';
 import Footer from 'src/component/EntryPage/Footer';
@@ -13,10 +19,13 @@ import NavBar from 'src/component/General/NavBar';
 import Register from 'src/component/Login/Register';
 import Login from 'src/component/Login/Login';
 
+
+
 const EntryPage: FunctionComponent = () => {
     const [login, setLogin] = useState(false);
     const [signup, setSignup] = useState(false);
     return (
+<<<<<<< HEAD
         <>
             <div className="entryContainer">
                 {login && (
@@ -70,6 +79,15 @@ const EntryPage: FunctionComponent = () => {
                 </div>
             </div>
         </>
+=======
+        <div className="entryContainer">
+            <Header />
+            <BelowHeader />
+            <DiscountRestaurants />
+            <PopularCategories />
+            
+        </div>
+>>>>>>> b6e275441758f43f6c8ff42a319f0988acbb47e2
     );
 };
 

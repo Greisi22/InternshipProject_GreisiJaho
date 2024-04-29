@@ -1,6 +1,13 @@
 import React from 'react';
 import './style/RestaurantCategory.css';
 import FishPlateCategoryImage from '../../assets/FishPlateCategory.jpg';
+<<<<<<< HEAD
+=======
+import BeansPlateCategoryImage from '../../assets/BeansPlateCategory.jpg';
+import sandwichWithBacon from '../../assets/sandwich-with-bacon-vegetables.jpg';
+import Restornat2 from '../../assets/Restaurant2.jpg';
+import './style/RestaurantCategory.css';
+>>>>>>> b6e275441758f43f6c8ff42a319f0988acbb47e2
 
 function PopularCategories() {
     const popularcategories = [

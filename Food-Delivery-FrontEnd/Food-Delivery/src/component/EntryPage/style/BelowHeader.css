@@ -1,0 +1,101 @@
+.container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    margin-top: 100px; 
+    margin-bottom: 300px;
+    
+        text-align: left;
+        max-width: 50%;
+        margin-right: 50px;
+        margin-left: 99px;
+        margin-top: 95px;
+
+  }
+  
+  .content {
+    padding: 20px;
+    text-align: center; 
+  }
+  
+  .image-container {
+    margin-top: -100px; 
+    
+  }
+  
+  .driver-image {
+    max-width: 100%;
+    
+        max-width: 100%;
+        margin-right: 81px;
+        margin-top: -23px;
+
+  }
+  
+  .main-heading {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-top: 80px;
+  }
+  
+  .best-text {
+    color: #E94339;
+    font-size: 112px;
+    margin-bottom: 76px;
+    white-space: nowrap; 
+  }
+  
+  .food-text, .delivery-text {
+    font-size: 2rem;
+    display: inline-block; 
+    margin-left: 294px;
+    margin-top: -117px;
+  }
+  
+  .subheading {
+    color: #6b7280; 
+    margin-top: 50px; 
+  }
+  
+  .order-button {
+    background-color: #000; 
+    color: #fff; 
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 50px;
+    border-radius: 30px;
+  }
+  
+  @media (min-width: 768px) {
+    .container {
+      flex-direction: row; 
+      justify-content: space-between; 
+      align-items: flex-start; 
+    }
+  
+    .content {
+      text-align: left; 
+      max-width: 50%; 
+      margin-right: 50px; 
+    }
+  
+    .image-container {
+      margin-top: 0; 
+      margin-left: auto; 
+    }
+
+
+    #root > div > div.container > div.content > h2 {
+        margin-left: 12px;
+        margin-top: -89px;
+    }
+    @media (max-width:680px) {
+        .food-text, .delivery-text {
+          margin: 0 auto; 
+          text-align: center; 
+        }
+      }
+      
+  }
+  

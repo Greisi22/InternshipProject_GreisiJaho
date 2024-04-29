@@ -1,0 +1,30 @@
+.bg-white {
+    min-height: 50px;
+    height: 80px;
+    padding: 15px;
+    border-radius: 0;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .4);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;  
+    right: 0; /* right property to position the dropdown menu to the right when open */
+
+}
+
+@media (min-width: 768px){
+.md\:space-x-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(0px* var(--tw-space-x-reverse));
+    margin-left: calc(0px* calc(1 - var(--tw-space-x-reverse)));
+    margin-left: 7px;
+}
+}
+  
+
+/* ... distanca e login -sign up on normal size */
+#root > div > nav.bg-white.dark\:bg-gray-900.fixed.w-full.z-20.top-0.start-0.border-b.border-gray-200.dark\:border-gray-600 > div > div.flex.md\:order-2.space-x-3.md\:space-x-0.rtl\:space-x-reverse > div.flex.md\:order-2.space-x-3.md\:space-x-0.rtl\:space-x-reverse {
+    margin-left: 7px;
+}
+

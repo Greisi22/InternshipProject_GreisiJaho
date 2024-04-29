@@ -1,4 +1,4 @@
-package com.example.fooddeliveryy.JWT;
+package com.example.fooddeliveryy.Configuration.JWT;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

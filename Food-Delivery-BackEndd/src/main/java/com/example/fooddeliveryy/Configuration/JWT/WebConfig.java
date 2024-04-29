@@ -1,4 +1,4 @@
-package com.example.fooddeliveryy.JWT;
+package com.example.fooddeliveryy.Configuration.JWT;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

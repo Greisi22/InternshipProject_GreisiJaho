@@ -1,4 +1,4 @@
-package com.example.fooddeliveryy.JWT;
+package com.example.fooddeliveryy.Configuration.JWT;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;

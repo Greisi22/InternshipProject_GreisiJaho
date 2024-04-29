@@ -1,7 +1,7 @@
 package com.example.fooddeliveryy.Services;
 
 import com.example.fooddeliveryy.Entities.User;
-import com.example.fooddeliveryy.JWT.JwtTokenProvider;
+import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserService {

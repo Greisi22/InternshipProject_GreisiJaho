@@ -8,7 +8,8 @@ import RevenuesPage from './pages/Administrator/RevenuesPage';
 import SettingsPage from './pages/Administrator/SettingsPage';
 import StatisticsPage from './pages/Administrator/StatisticsPage';
 import UsersPage from './pages/Administrator/UsersPage';
-
+import TableComponent from './component/Administrator/TableComponent';
+import TableUser from './component/Administrator/TableUser';
 const App = () => {
     return (
         <>
@@ -27,6 +28,8 @@ const App = () => {
                 <Route path="/Administrator/RevenuesPage" element={<RevenuesPage />} />
                 <Route path="/Administrator/StatisticsPage" element={<StatisticsPage />} />
                 <Route path="/Administrator/SettingsPage" element={<SettingsPage />} />
+                <Route path="/Administrator/TableComponet" element={<TableComponent />} />
+                <Route path="/Administrator/UserList" element={<TableUser />} />
                 
                
             </Routes>

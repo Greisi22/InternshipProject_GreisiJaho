@@ -1,7 +1,7 @@
 package com.example.fooddeliveryy.Controllers;
 
 import com.example.fooddeliveryy.Entities.Revenue;
-import com.example.fooddeliveryy.JWT.JwtTokenProvider;
+import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.Services.RevenueService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

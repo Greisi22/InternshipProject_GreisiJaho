@@ -2,7 +2,7 @@ package com.example.fooddeliveryy.Controllers.LogIn;
 
 import com.example.fooddeliveryy.DTO.UserDTO;
 import com.example.fooddeliveryy.Entities.User;
-import com.example.fooddeliveryy.JWT.JwtTokenProvider;
+import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.Mapping.UserMapper;
 import com.example.fooddeliveryy.Repositories.UserRepository;
 import com.example.fooddeliveryy.Services.LogIn.LogInService;

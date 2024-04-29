@@ -2,13 +2,12 @@ package com.example.fooddeliveryy.Controllers;
 
 import com.example.fooddeliveryy.Entities.Message;
 import com.example.fooddeliveryy.Entities.User;
-import com.example.fooddeliveryy.JWT.JwtTokenProvider;
+import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.Repositories.logInRepo;
 import com.example.fooddeliveryy.Services.MessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import jakarta.transaction.Transactional;
 
 import java.util.List;
 

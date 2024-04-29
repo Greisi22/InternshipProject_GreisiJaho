@@ -2,7 +2,7 @@ package com.example.fooddeliveryy.Controllers;
 
 import com.example.fooddeliveryy.DTO.RestaurantDTO;
 import com.example.fooddeliveryy.Entities.Rastaurant;
-import com.example.fooddeliveryy.JWT.JwtTokenProvider;
+import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import com.example.fooddeliveryy.Services.RestaurantService;
@@ -35,7 +35,7 @@ public class RestaurantController {
 
     @PostMapping("/create")
     public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant) {
-
+   
         Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
     }

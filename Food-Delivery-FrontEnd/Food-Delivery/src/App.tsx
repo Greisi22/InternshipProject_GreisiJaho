@@ -8,6 +8,8 @@ import RevenuesPage from './pages/Administrator/RevenuesPage';
 import SettingsPage from './pages/Administrator/SettingsPage';
 import StatisticsPage from './pages/Administrator/StatisticsPage';
 import UsersPage from './pages/Administrator/UsersPage';
+import  RevenueTable from './component/Administrator/RevenueTable';
+import AllRestaurants from './component/Administrator/AllRestaurants';
 
 const App = () => {
     return (
@@ -27,6 +29,8 @@ const App = () => {
                 <Route path="/Administrator/RevenuesPage" element={<RevenuesPage />} />
                 <Route path="/Administrator/StatisticsPage" element={<StatisticsPage />} />
                 <Route path="/Administrator/SettingsPage" element={<SettingsPage />} />
+                <Route path="/Administrator/AllRestaurants" element={<AllRestaurants />} />
+                <Route path="/Administrator/RevenueTable" element={<RevenueTable />} />
                 
                
             </Routes>

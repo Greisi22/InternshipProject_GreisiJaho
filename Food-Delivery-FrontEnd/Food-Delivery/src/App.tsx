@@ -12,7 +12,6 @@ import UsersPage from './pages/Administrator/UsersPage';
 const App = () => {
 
 
-
     
     const prova = () => {
         var socket = new WebSocket('ws://localhost:8080/stomp-endpoint');

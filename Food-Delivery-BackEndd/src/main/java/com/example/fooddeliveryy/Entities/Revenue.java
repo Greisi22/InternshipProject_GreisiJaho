@@ -2,7 +2,7 @@ package com.example.fooddeliveryy.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import java.time.LocalDate;
+
 import java.util.List;
 
 @Entity
@@ -23,7 +23,6 @@ public class Revenue {
 
 
     public Revenue() {
-
     }
 
     public Revenue(Long id, List<RestaurantPayment> restaurantPayments, double totalRevenue) {

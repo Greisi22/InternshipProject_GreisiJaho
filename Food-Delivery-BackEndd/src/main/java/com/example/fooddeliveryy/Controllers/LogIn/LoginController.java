@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -38,18 +39,19 @@ public class LoginController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
-        System.out.println("User: "+ user);
-        String message = "Register successfully";
-        boolean isRegister = false;
-        try{
-            userRepository.save(user);
-        }catch (Exception e){
-            message = "Register failed";
-            isRegister = true;
+        String userEmail = user.getUserEmail();
+        Optional<User> existingUser = userRepository.findByUserEmail(userEmail);
+        if (existingUser.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User with email " + userEmail + " already exists");
         }
-        HttpStatus status = isRegister == true ? HttpStatus.OK : HttpStatus.IM_USED;
-        return ResponseEntity.status(status).body(message);
+        try {
+            userRepository.save(user);
+            return ResponseEntity.status(HttpStatus.OK).body("Register successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Register failed");
+        }
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {

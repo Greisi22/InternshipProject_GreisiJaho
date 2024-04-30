@@ -76,10 +76,10 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                             <img
                                 className="w-8 h-8 mr-2"
-                                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+                                src=""
                                 alt="logo"
                             />
-                            Flowbite
+                            Register
                         </a>
                         <div className="relative shadow-3xl w-full bg-white border border-gray-500 rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 overflow-auto">
                             <div

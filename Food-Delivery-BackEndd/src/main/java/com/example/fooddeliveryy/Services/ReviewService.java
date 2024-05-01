@@ -23,7 +23,7 @@ public class ReviewService {
         return null;
     }
 
-    //we need to add a llogic, to return like a specific number like 10
+
 
     public List<Review> getReviewsGreaterThanFive() {
         List<Review> reviewsGreaterFive = reviewRepository.findReviewsGreaterThanFiveWithLimit();
@@ -33,9 +33,9 @@ public class ReviewService {
         return reviewsGreaterFive;
     }
 
+    public List<Review> getAllReview() {
 
-    //to get reviews with hiegher rate and has more text
-    public List<Review> getBestReviews(long restaurantId){
-        return reviewRepository.findByRestaurantId(restaurantId);
+        return reviewRepository.findAll();
     }
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findByRestaurantId(long restaurantId);
 
-    @Query("SELECT r FROM Review r WHERE r.rating > 5")
+    @Query("SELECT r FROM Review r WHERE r.rating = 5")
     List<Review> findReviewsGreaterThanFiveWithLimit();
 
 }

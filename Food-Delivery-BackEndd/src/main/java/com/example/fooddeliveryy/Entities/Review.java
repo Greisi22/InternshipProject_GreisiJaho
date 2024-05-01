@@ -52,9 +52,12 @@ public class Review {
     }
 
     public void setRating(int rating) {
-        this.rating = rating;
+         if (rating >= 0 && rating <= 5) {
+            this.rating = rating;
+        } else {
+            this.rating = 5;
+           }
     }
-
     public String getDate() {
         return date;
     }

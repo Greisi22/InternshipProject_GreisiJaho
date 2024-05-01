@@ -1,4 +1,4 @@
-const users = [
+export const users = [
     {
       id: 1,
       userEmail: "david@example.com",
@@ -22,7 +22,7 @@ const users = [
   ];
 
 
-  const restaurants =[
+  export const restaurants =[
     {
     id:1,    
     name: "Dea",
@@ -63,10 +63,10 @@ const users = [
   ];
 
 
-  const payment = [
+  export const payment = [
 
   ];
 
-  const statistics = [
+  export const statistics = [
     
   ];

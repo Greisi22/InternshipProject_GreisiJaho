@@ -14,4 +14,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findReviewsGreaterThanFiveWithLimit();
 
     List<Review> findByDate(LocalDate date);
+
+    long countByRatingAndDateBetween(int rating, LocalDate startDate, LocalDate endDate);
+
+
+    long countByRating(int rating);
 }

@@ -1,7 +1,5 @@
 package com.example.fooddeliveryy.Controllers;
 
-import com.example.fooddeliveryy.DTO.ReviewDTO;
-import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Entities.Review;
 import com.example.fooddeliveryy.Mapping.ReviewMapper;
 import com.example.fooddeliveryy.Services.ReviewService;
@@ -65,19 +63,6 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/get/reviews/{year}/{month}/{day}")
-    public ResponseEntity<?> getReviewsByDate(
-            @PathVariable int year,
-            @PathVariable int month,
-            @PathVariable int day) {
-        try {
-            List<Review> reviews = reviewService.getReviewsByDate(year, month, day);
-            return ResponseEntity.ok().body(reviews);
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong!!!");
-        }
-    }
 
     @GetMapping("/restaurant/{restaurantId}")
     public ResponseEntity<?> getReviewsForRestaurant(@PathVariable long restaurantId) {

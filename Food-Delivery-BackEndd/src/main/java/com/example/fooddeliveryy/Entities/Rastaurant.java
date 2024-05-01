@@ -28,7 +28,7 @@ public class Rastaurant {
     private List<String> images;
     @ManyToOne
     @JoinColumn(name = "restaurant_manager_id")
-    @JsonBackReference("restaurantManagerReference")
+    @JsonBackReference("restaurant_manager_id")
     private User restaurantManager;
     private int discount;
     @OneToMany(mappedBy = "restaurant")
@@ -43,10 +43,21 @@ public class Rastaurant {
     private boolean isAproved = false;
     private boolean isActive = false;
 
+    @OneToOne
+    private Revenue revenue;
+
+    public Revenue getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(Revenue revenue) {
+        this.revenue = revenue;
+    }
+
     public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website,
                       double averageRating, boolean isOpen, List<Review> reviews, List<String> images,
                       User restaurantManager, int discount, List<Order> order, List<String> category,
-                      List<String> categories, List<RestaurantPayment> restaurantPayments, boolean isAproved, boolean isActive) {
+                      List<String> categories, List<RestaurantPayment> restaurantPayments, boolean isAproved, boolean isActive, Revenue revenue) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -66,6 +77,7 @@ public class Rastaurant {
         this.restaurantPayments = restaurantPayments;
         this.isAproved = isAproved;
         this.isActive = isActive;
+        this.revenue = revenue;
     }
 
     public List<String> getCategories() {

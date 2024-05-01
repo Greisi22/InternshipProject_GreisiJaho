@@ -82,7 +82,6 @@ public class RestaurantController {
     @GetMapping("/discount")
     public ResponseEntity<?> getRestaurantWithDiscount() {
         List<Rastaurant> restaurantsWithDiscount = restaurantService.getRestaurantsWithDiscount();
-
         List<RestaurantDTO> restaurantDTOS = restaurantMapper.restaurantsToRestaurantDTOs(restaurantsWithDiscount);
         return ResponseEntity.ok().body(restaurantDTOS);
     }
@@ -124,11 +123,7 @@ public class RestaurantController {
         }
     }
 
-    @GetMapping("/tostring")
-    public ResponseEntity<?> getRestauantToString() {
-          Optional<Rastaurant> restaurant = restaurantRepo.findById(Long.valueOf(1));
-        System.out.println(restaurant.toString());
-        return ResponseEntity.ok().body(null);
-    }
+
+    //REVENUE AND REVIEW RESTAURANTS
 
 }

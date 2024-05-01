@@ -24,9 +24,6 @@ public class RestaurantPayment {
     @Column(name = "payment_fee")
     private double paymentFee;
 
-    @ManyToOne
-    @JoinColumn(name = "revenue_id")
-    private Revenue revenue;
 
     public RestaurantPayment() {
 
@@ -81,13 +78,6 @@ public class RestaurantPayment {
         this.paymentFee = paymentFee;
     }
 
-    public Revenue getRevenue() {
-        return revenue;
-    }
-
-    public void setRevenue(Revenue revenue) {
-        this.revenue = revenue;
-    }
 
 
     @Override
@@ -98,7 +88,6 @@ public class RestaurantPayment {
                 ", paymentDate=" + paymentDate +
                 ", paymentAmount=" + paymentAmount +
                 ", paymentFee=" + paymentFee +
-                ", revenue=" + revenue +
                 '}';
     }
 }

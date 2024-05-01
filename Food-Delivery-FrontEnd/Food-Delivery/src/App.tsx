@@ -9,43 +9,16 @@ import SettingsPage from './pages/Administrator/SettingsPage';
 import StatisticsPage from './pages/Administrator/StatisticsPage';
 import UsersPage from './pages/Administrator/UsersPage';
 
+
 const App = () => {
 
 
     
-    const prova = () => {
-        var socket = new WebSocket('ws://localhost:8080/stomp-endpoint');
-
-        socket.onopen = function () {
-            console.log('WebSocket connection opened');
-
-            // Send a message to the server
-            var message = {
-                name: 'John',
-            };
-            socket.send(JSON.stringify(message));
-        };
-
-        socket.onmessage = function (event) {
-            console.log('Received message from server:', event.data);
-        };
-
-        socket.onclose = function () {
-            console.log('WebSocket connection closed');
-        };
-    };
-
     return (
         <>
-            <div
-                onClick={() => {
-                    prova();
-                }}>
-                {' '}
-                Provaaaaaaaaaaaaaaa
-            </div>
+            
 
-            {/* <Routes>
+            <Routes>
                 <Route path="/" element={<EntryPage />} />
             </Routes>
             <Routes>
@@ -60,7 +33,7 @@ const App = () => {
                 <Route path="/Administrator/RevenuesPage" element={<RevenuesPage />} />
                 <Route path="/Administrator/StatisticsPage" element={<StatisticsPage />} />
                 <Route path="/Administrator/SettingsPage" element={<SettingsPage />} />
-            </Routes> */}
+            </Routes>
         </>
     );
 };

@@ -4,6 +4,8 @@ package com.example.fooddeliveryy.Entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "review")
 public class Review {
@@ -13,13 +15,13 @@ public class Review {
     private long Id;
     private String reviewText;
     private int rating;
-    private String date;
+    private LocalDate  date;
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @JsonBackReference
     private Rastaurant restaurant;
 
-    public Review(long id, String reviewText, int rating, String date, Rastaurant restaurant) {
+    public Review(long id, String reviewText, int rating, LocalDate date, Rastaurant restaurant) {
         Id = id;
         this.reviewText = reviewText;
         this.rating = rating;
@@ -58,11 +60,11 @@ public class Review {
             this.rating = 5;
            }
     }
-    public String getDate() {
+    public LocalDate  getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate  date) {
         this.date = date;
     }
 

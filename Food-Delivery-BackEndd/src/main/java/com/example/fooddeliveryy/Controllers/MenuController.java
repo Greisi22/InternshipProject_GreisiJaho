@@ -23,14 +23,12 @@ public class MenuController {
         this.restaurantService = restaurantService;
     }
 
-
     @PostMapping("/create")
     @Transactional
     public ResponseEntity<Menu> createMenu(@RequestBody Menu menuReciver) {
         Menu menu = menuService.createMenu(menuReciver);
         return ResponseEntity.status(HttpStatus.CREATED).body(menu);
     }
-
 
 
     @GetMapping("/get/{id}")

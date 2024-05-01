@@ -1,5 +1,6 @@
 package com.example.fooddeliveryy.Entities;
 
+import com.example.fooddeliveryy.Entities.Enums.StatusOfOrder;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -31,13 +32,16 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Order(long id, Rastaurant restaurant, List<Product> products, LocalDateTime orderTime, double totalPrice, User user) {
+    private StatusOfOrder orderStatus;
+    public Order(long id, Rastaurant restaurant, List<Product> products, LocalDateTime orderTime,
+                 double totalPrice, User user, StatusOfOrder orderStatus) {
         this.id = id;
         this.restaurant = restaurant;
         this.products = products;
         this.orderTime = orderTime;
         this.totalPrice = totalPrice;
         this.user = user;
+        this.orderStatus = orderStatus;
     }
 
     public Order() {
@@ -92,6 +96,14 @@ public class Order {
         this.user = user;
     }
 
+    public StatusOfOrder getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(StatusOfOrder orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -101,6 +113,7 @@ public class Order {
                 ", orderTime=" + orderTime +
                 ", totalPrice=" + totalPrice +
                 ", user=" + user +
+                ", orderStatus=" + orderStatus +
                 '}';
     }
 }

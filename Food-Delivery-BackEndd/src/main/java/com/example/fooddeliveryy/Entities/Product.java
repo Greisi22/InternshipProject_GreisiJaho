@@ -1,5 +1,6 @@
 package com.example.fooddeliveryy.Entities;
 
+import com.example.fooddeliveryy.Entities.Enums.ProductType;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -17,15 +18,17 @@ public class Product {
     @Column(nullable = true)
     private List<String> ingredients;
     @Column(nullable = true)
-    private String category;   // Dessert, etc.
+    private ProductType category;
     @Column(nullable = true)
     private int amount;
     @ManyToMany(mappedBy = "products")
     private List<Menu> menus;
     @ManyToMany(mappedBy = "products")
     private List<Order> ordered;
+
+
     public Product() {}
-    public Product(String name, String description, double price, List<String> ingredients, String category, int amount) {
+    public Product(String name, String description, double price, List<String> ingredients, ProductType category, int amount) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -74,11 +77,11 @@ public class Product {
         this.ingredients = ingredients;
     }
 
-    public String getCategory() {
+    public ProductType getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ProductType category) {
         this.category = category;
     }
 

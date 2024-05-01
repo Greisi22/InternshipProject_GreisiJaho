@@ -40,10 +40,13 @@ public class Rastaurant {
     @JsonBackReference("paymentReference")
     private List<RestaurantPayment> restaurantPayments;
 
+    private boolean isAproved = false;
+    private boolean isActive = false;
+
     public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website,
                       double averageRating, boolean isOpen, List<Review> reviews, List<String> images,
                       User restaurantManager, int discount, List<Order> order, List<String> category,
-                      List<String> categories, List<RestaurantPayment> restaurantPayments) {
+                      List<String> categories, List<RestaurantPayment> restaurantPayments, boolean isAproved, boolean isActive) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -61,6 +64,8 @@ public class Rastaurant {
         this.category = category;
         this.categories = categories;
         this.restaurantPayments = restaurantPayments;
+        this.isAproved = isAproved;
+        this.isActive = isActive;
     }
 
     public List<String> getCategories() {
@@ -207,6 +212,22 @@ public class Rastaurant {
         this.restaurantPayments = restaurantPayments;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public boolean isAproved() {
+        return isAproved;
+    }
+
+    public void setAproved(boolean aproved) {
+        isAproved = aproved;
+    }
+
     @Override
     public String toString() {
         return "Rastaurant{" +
@@ -220,7 +241,9 @@ public class Rastaurant {
                 ", isOpen=" + isOpen + '\'' +
                 ", restaurantManager=" + restaurantManager + '\'' +
                 ", category=" + category + '\'' +
-                ", restaurantPayment=" + restaurantPayments +
+                ", restaurantPayment=" + restaurantPayments +'\'' +
+                ", isAproved=" + isAproved + '\'' +
+                ", isActive=" + isActive +
                 '}';
     }
 }

@@ -1,8 +1,5 @@
 package com.example.fooddeliveryy.WebSocketHandler;
 
-
-
-
 public class Greeting {
 
     private String message;

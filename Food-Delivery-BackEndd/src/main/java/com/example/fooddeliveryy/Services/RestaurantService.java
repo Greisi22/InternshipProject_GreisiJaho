@@ -80,7 +80,36 @@ public class RestaurantService {
         restaurantRepo.deleteById(id);
     }
 
+    public List<Rastaurant> getIsAprovedRestaurants()
+    {
+        List<Rastaurant> allRestaurant = restaurantRepo.findAll();
+        List<Rastaurant> approvedRestaurant = new ArrayList<>();
+        for(Rastaurant rastaurant: allRestaurant)
+        {
+            if(rastaurant.isAproved())
+            {
+                approvedRestaurant.add(rastaurant);
+            }
+        }
+        return approvedRestaurant;
+    }
 
+
+
+    public Rastaurant updateRestaurantAttribute(long id) {
+        System.out.println("Here"+ id);
+        Optional<Rastaurant> optionalRestaurant = restaurantRepo.findById(id);
+
+
+        if (optionalRestaurant.isPresent()) {
+
+            Rastaurant restaurant = optionalRestaurant.get();
+
+            restaurant.setAproved(true);
+            return restaurantRepo.save(restaurant);
+        }
+        return null;
+    }
 
 }
 

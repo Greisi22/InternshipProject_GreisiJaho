@@ -124,7 +124,11 @@ public class RestaurantController {
         }
     }
 
-
-    //REVENUE AND REVIEW RESTAURANTS
+    @GetMapping("/tostring")
+    public ResponseEntity<?> getRestauantToString() {
+          Optional<Rastaurant> restaurant = restaurantRepo.findById(Long.valueOf(1));
+        System.out.println(restaurant.toString());
+        return ResponseEntity.ok().body(null);
+    }
 
 }

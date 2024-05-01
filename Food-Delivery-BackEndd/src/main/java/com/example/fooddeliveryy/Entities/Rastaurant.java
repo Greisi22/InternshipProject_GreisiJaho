@@ -28,7 +28,7 @@ public class Rastaurant {
     private List<String> images;
     @ManyToOne
     @JoinColumn(name = "restaurant_manager_id")
-    @JsonBackReference
+    @JsonBackReference("restaurantManagerReference")
     private User restaurantManager;
     private int discount;
     @OneToMany(mappedBy = "restaurant")
@@ -239,7 +239,7 @@ public class Rastaurant {
                 ", website='" + website + '\'' +
                 ", averageRating=" + averageRating + '\'' +
                 ", isOpen=" + isOpen + '\'' +
-                ", restaurantManager=" + restaurantManager + '\'' +
+                ", restaurantManager=" + restaurantManager.getUserId() + '\'' +
                 ", category=" + category + '\'' +
                 ", restaurantPayment=" + restaurantPayments +'\'' +
                 ", isAproved=" + isAproved + '\'' +

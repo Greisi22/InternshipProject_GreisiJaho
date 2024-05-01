@@ -1,9 +1,6 @@
 package com.example.fooddeliveryy.Entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "revenue")
@@ -13,22 +10,31 @@ public class Revenue {
     @Column(name = "revenue_id")
     private Long id;
 
-    @OneToMany(mappedBy = "revenue")
-    @JsonBackReference("restaurantPaymentsReference")
-    private List<RestaurantPayment> restaurantPayments;
+//    @OneToMany(mappedBy = "revenue")
+//    @JsonBackReference("restaurantPaymentsReference")
+//    private List<RestaurantPayment> restaurantPayments;
 
     @Column(name = "total_revenue")
     private double totalRevenue;
 
+    @OneToOne
+    private Rastaurant restaurant;
 
+    public Rastaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Rastaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 
     public Revenue() {
     }
 
-    public Revenue(Long id, List<RestaurantPayment> restaurantPayments, double totalRevenue) {
+    public Revenue(Long id, double totalRevenue, Rastaurant restaurant) {
         this.id = id;
-        this.restaurantPayments = restaurantPayments;
         this.totalRevenue = totalRevenue;
+        this.restaurant = restaurant;
     }
 
     public Long getId() {
@@ -39,13 +45,6 @@ public class Revenue {
         this.id = id;
     }
 
-    public List<RestaurantPayment> getRestaurantPayments() {
-        return restaurantPayments;
-    }
-
-    public void setRestaurantPayments(List<RestaurantPayment> restaurantPayments) {
-        this.restaurantPayments = restaurantPayments;
-    }
 
     public double getTotalRevenue() {
         return totalRevenue;
@@ -59,7 +58,7 @@ public class Revenue {
     public String toString() {
         return "Revenue{" +
                 "id=" + id +
-                ", restaurantPayments=" + restaurantPayments +
+                ", restaurant=" + restaurant +
                 ", totalRevenue=" + totalRevenue +
                 '}';
     }

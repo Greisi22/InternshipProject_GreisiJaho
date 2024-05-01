@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RequestMapping("/restaurantPayment")
 @RestController
@@ -22,36 +24,33 @@ public class RestaurantPaymentController {
 
     @PostMapping("/makePayment")
     public ResponseEntity<?> makePayment(@RequestBody RestaurantPayment payment) {
-        try{
+        try {
             RestaurantPayment newPayment = restaurantPaymentService.makePayment(payment);
+
             return ResponseEntity.status(HttpStatus.CREATED).body(newPayment);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error !!!");
         }
     }
 
     @GetMapping("/getAllPayments")
     public ResponseEntity<?> getPayment(@RequestBody RestaurantPayment payment) {
-        try{
+        try {
             return ResponseEntity.status(HttpStatus.CREATED).body(restaurantPaymentRepo.findAll());
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error !!!");
         }
     }
 
     @GetMapping("/getAllPaymentsRestaurant/{id}")
     public ResponseEntity<?> getPaymentForSpecificRestaurant(@PathVariable String id) {
-        try{
-
-            return null;
-        }
-        catch (Exception e){
+        try {
+            List<RestaurantPayment> restaurantPayments = restaurantPaymentRepo.findByRestaurantId(Long.valueOf(id));
+            return ResponseEntity.status(HttpStatus.OK).body(restaurantPayments);
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error !!!");
         }
     }
-
 
 
 }

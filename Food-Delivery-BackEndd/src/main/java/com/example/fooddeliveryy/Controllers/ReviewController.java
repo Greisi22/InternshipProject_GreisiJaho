@@ -64,4 +64,31 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong!!!");
         }
     }
+
+    @GetMapping("/get/reviews/{year}/{month}/{day}")
+    public ResponseEntity<?> getReviewsByDate(
+            @PathVariable int year,
+            @PathVariable int month,
+            @PathVariable int day) {
+        try {
+            List<Review> reviews = reviewService.getReviewsByDate(year, month, day);
+            return ResponseEntity.ok().body(reviews);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong!!!");
+        }
+    }
+
+    @GetMapping("/restaurant/{restaurantId}")
+    public ResponseEntity<?> getReviewsForRestaurant(@PathVariable long restaurantId) {
+        try {
+            List<Review> reviews = reviewService.getReviewsForRestaurant(restaurantId);
+            return ResponseEntity.ok().body(reviews);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong!!!");
+        }
+    }
+
+
 }

@@ -5,6 +5,7 @@ import com.example.fooddeliveryy.Entities.Review;
 import com.example.fooddeliveryy.Repositories.ReviewRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,4 +39,16 @@ public class ReviewService {
         return reviewRepository.findAll();
     }
 
-}
+
+
+        public List<Review> getReviewsByDate(int year, int month, int day) {
+            LocalDate date = LocalDate.of(year, month, day);
+            return reviewRepository.findByDate(date);
+        }
+
+    public List<Review> getReviewsForRestaurant(long restaurantId) {
+        return reviewRepository.findByRestaurantId(restaurantId);
+    }
+    }
+
+

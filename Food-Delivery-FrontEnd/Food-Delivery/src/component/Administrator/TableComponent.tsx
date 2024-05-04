@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import { restaurants } from 'src/data/MockData';
-import { FaSearch, FaTrashAlt, FaCheck } from 'react-icons/fa'; // Import FontAwesome icons
-import { Pagination } from 'antd'; // Import Ant Design Pagination
+import { FaTrashAlt, FaCheck, FaSearch } from 'react-icons/fa'; // Import FontAwesome icons
 
 export const TableComponent = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
-  const totalItems = restaurants.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const [acceptedRestaurants, setAcceptedRestaurants] = useState([]);
+  const [restaurantsToShow, setRestaurantsToShow] = useState(restaurants);
 
-  
+  const handleDelete = (id) => {
+    const updatedRestaurants = restaurantsToShow.filter(restaurant => restaurant.id !== id);
+    setRestaurantsToShow(updatedRestaurants);
+  };
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-  const displayedItems = restaurants.slice(startIndex, endIndex);
+  const handleAccept = (id) => {
+    const acceptedRestaurant = restaurants.find(restaurant => restaurant.id === id);
+    setAcceptedRestaurants([...acceptedRestaurants, acceptedRestaurant]);
+    // Remove the delete icon by updating the restaurants to show
+    const updatedRestaurants = restaurantsToShow.filter(restaurant => restaurant.id !== id);
+    setRestaurantsToShow(updatedRestaurants);
+  };
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div className="flex justify-between mb-4">
-        <div className="relative ml-auto mt-4 mr-6"> {/* Added mr-6 for margin-right */}
+        <div className="relative ml-auto mt-4 mr-6">
           <input
             type="text"
             placeholder="Search..."
@@ -57,7 +61,7 @@ export const TableComponent = () => {
             </tr>
           </thead>
           <tbody>
-            {displayedItems.map((restaurant) => (
+            {restaurantsToShow.map((restaurant) => (
               <tr key={restaurant.id} className="border-b dark:bg-gray-800 dark:border-gray-700">
                 <td className="w-4 p-4">
                   <div className="flex items-center">
@@ -78,25 +82,21 @@ export const TableComponent = () => {
                   {restaurant.website}
                 </td>
                 <td className="flex items-center px-6 py-4">
-                  {/* Delete icon */}
-                  <FaTrashAlt className="text-red-600 dark:text-red-500 hover:cursor-pointer mr-3" />
+                  {/* Show delete icon if the restaurant is not accepted */}
+                  {!acceptedRestaurants.some(accepted => accepted.id === restaurant.id) && (
+                    <FaTrashAlt className="text-red-600 dark:text-red-500 hover:cursor-pointer mr-3" onClick={() => handleDelete(restaurant.id)} />
+                  )}
                   {/* Accept icon */}
-                  <FaCheck className="text-green-600 dark:text-green-500 hover:cursor-pointer" />
+                  <FaCheck className="text-green-600 dark:text-green-500 hover:cursor-pointer" onClick={() => handleAccept(restaurant.id)} />
+                  {/* Show accepted message if the restaurant is in accepted list */}
+                  {acceptedRestaurants.some(accepted => accepted.id === restaurant.id) && (
+                    <span className="ml-2 text-green-600 dark:text-green-500">Accepted</span>
+                  )}
                 </td>
-                
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-      {/* Pagination component */}
-      <div className="ml-auto mt-4 mr-6">
-        <Pagination
-          current={currentPage}
-          total={totalPages}
-          pageSize={1}
-          hideOnSinglePage
-        />
       </div>
     </div>
   );

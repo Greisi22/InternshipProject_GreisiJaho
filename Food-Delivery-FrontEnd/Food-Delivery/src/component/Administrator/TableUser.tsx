@@ -7,18 +7,63 @@ import { UserList } from 'src/data/MockData';
 export const TableUser = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  const totalItems = UserList.length;
+  const [users, setUsers] = useState(UserList); // State to hold the users
+  const [sortDirection, setSortDirection] = useState('asc'); // State to hold the sort direction
+  const [sortBy, setSortBy] = useState('id'); // State to hold the field to sort by
+
+  const totalItems = users.length;
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-  const displayedItems = UserList.slice(startIndex, endIndex);
+  let displayedItems = users.slice(startIndex, endIndex);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
+  const toggleActive = (id) => {
+    // Find the user by id
+    const updatedUsers = users.map(user => {
+      if (user.id === id) {
+        // Toggle the active status
+        user.active = user.active === 'Active' ? 'Inactive' : 'Active';
+      }
+      return user;
+    });
+    // Update the state with the new users array
+    setUsers(updatedUsers);
+  };
+
+  const handleSort = (field) => {
+    if (field === sortBy) {
+      // If the same field is clicked, toggle the sort direction
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      // If a different field is clicked, set it as the new sort field and set the sort direction to ascending
+      setSortBy(field);
+      setSortDirection('asc');
+    }
+  };
+
+  // Sort the displayed items based on the active status
+  displayedItems.sort((a, b) => {
+    // Compare function based on the field and sort direction
+    const compare = (a, b) => {
+      if (a === b) return 0;
+      return a < b ? -1 : 1;
+    };
+
+    if (sortBy === 'active') {
+      // Sort by active status
+      return sortDirection === 'asc' ? compare(a.active, b.active) : compare(b.active, a.active);
+    } else {
+      // Sort by other fields
+      return sortDirection === 'asc' ? compare(a[sortBy], b[sortBy]) : compare(b[sortBy], a[sortBy]);
+    }
+  });
+
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg  ">
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div className="flex justify-between mb-4">
         <div className="relative mr-auto ml-6 mt-5 ">
           <input
@@ -42,20 +87,35 @@ export const TableUser = () => {
                   <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
                 </div>
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3" onClick={() => handleSort('id')}>
                 ID
               </th>
-              <th scope="col" className="px-6 py-3">
-                Date
+              <th scope="col" className="px-6 py-3" onClick={() => handleSort('date')}>
+                <div className="flex items-center">
+                  Date
+                  <a href="#"><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                  </svg></a>
+                </div>
+              </th>
+              <th scope="col" className="px-6 py-3" onClick={() => handleSort('email')}>
+                <div className="flex items-center">
+                  Email Address
+                  <a href="#"><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                  </svg></a>
+                </div>
+              </th>
+              <th scope="col" className="px-6 py-3" onClick={() => handleSort('active')}>
+                <div className="flex items-center">
+                  Active
+                  <a href="#"><svg className="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                  </svg></a>
+                </div>
               </th>
               <th scope="col" className="px-6 py-3">
-                Email Address
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Active
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Action
+                <span className="sr-only">Edit</span>
               </th>
             </tr>
           </thead>
@@ -68,18 +128,18 @@ export const TableUser = () => {
                     <label htmlFor={`checkbox-table-search-${user.id}`} className="sr-only">checkbox</label>
                   </div>
                 </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {user.id}
-                </th>
+                </td>
                 <td className="px-6 py-4">
                   {user.date.toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4">
                   {user.email}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4" onClick={() => toggleActive(user.id)}>
                   <div className={`inline-block rounded-full w-3 h-3 mr-2 ${user.active === 'Active' ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                  <span className={`bg-${user.active === 'Active' ? 'green' : 'red'}-200 px-2 py-1 rounded`}>
+                  <span className={`bg-${user.active === 'Active' ? 'green' : 'red'}-200 px-2 py-1 rounded cursor-pointer`}>
                     {user.active}
                   </span>
                 </td>

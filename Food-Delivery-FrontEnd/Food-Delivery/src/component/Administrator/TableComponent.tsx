@@ -11,6 +11,8 @@ export const TableComponent = () => {
     setRestaurantsToShow(updatedRestaurants);
   };
 
+  
+
   const handleAccept = (id: string) => {
     const acceptedRestaurant = restaurants.find(restaurant => restaurant.id === id);
     setAcceptedRestaurants([...acceptedRestaurants, acceptedRestaurant]);

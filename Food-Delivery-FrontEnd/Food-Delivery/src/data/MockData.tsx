@@ -207,3 +207,50 @@ export const restaurants = [
 export const payment = [];
 
 export const statistics = [];
+
+
+export const UserList = [
+    {
+        id: 1,
+        date: new Date(),
+        email: "teabegaj@gmail.com",
+        active: "hjjActive"
+    },
+    {
+        id: 2 ,
+        date: new Date(),
+        email: "teabegaj@gmail.com",
+        active: "Active"
+    },
+    {
+        id: 3,
+        date: new Date(),
+        email: "teabegaj@gmail.com",
+        active: "Active"
+    },
+    {
+        id: 4,
+        date: new Date(),
+        email: "teabegaj@gmail.com",
+        active: "Active"
+    }
+    ,
+    {
+        id: 5,
+        date: new Date(),
+        email: "teabegaj@gmail.com",
+        active: "Active"
+    }, {
+        id: 6,
+        date: new Date(),
+        email: "teabegaj@gmail.com",
+        active: "Active"
+    }, {
+        id: 7,
+        date: new Date(),
+        email: "teabegaj@gmail.com",
+        active: "Active"
+    }
+];
+
+//po tabela tjeter te cila do shkoje ktu

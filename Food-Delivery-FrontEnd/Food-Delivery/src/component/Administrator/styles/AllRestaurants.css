@@ -51,12 +51,28 @@ th {
     align-items: center;
 }
 
-.mr-2 {
-    margin-right: 0.5rem;
-    background-color: rgba(22, 192, 152, 0.801); 
-    border-color: #00B087; 
+.btn-primary.mr-2{
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-color: #5f8571;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #7fcda5;
+    color: #fff;
 }
-
+.btn.btn-success {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #b0b7be;
+    color: #fff;
+}
 /* Custom CSS for pagination */
 .pagination {
     display: flex;

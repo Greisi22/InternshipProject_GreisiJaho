@@ -1,58 +1,71 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { restaurants as initialRestaurants, users } from 'src/data/MockData';
 import './styles/AllRestaurants.css';
 import deleteIcon from 'src/assets/Icons/EntryPage/delete.png';
 import ReactPaginate from 'react-paginate';
-
+import { useNavigate } from 'react-router-dom';
 
 function AllRestaurants() {
-    const [restaurants, setRestaurants] = useState(initialRestaurants); // State variable to hold the list of restaurants
+    const [restaurants, setRestaurants] = useState(initialRestaurants);
     const [currentPage, setCurrentPage] = useState(0);
-    const [editableItemId, setEditableItemId] = useState(null); // State variable to hold the ID of the editable restaurant item
-    const itemsPerPage = 4; // Number of items per page
+    const [editableItemId, setEditableItemId] = useState(null);
+    const [sortBy, setSortBy] = useState(null);
+    const [sortOrder, setSortOrder] = useState('asc');
+    const itemsPerPage = 4;
+    const navigate = useNavigate();
 
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);
     };
 
-    const offset = currentPage * itemsPerPage;
-    const paginatedRestaurants = restaurants.slice(offset, offset + itemsPerPage);
-
-    // Function for handling edit
-    const handleEdit = (id) => {
-        setEditableItemId(id); // Set the ID of the restaurant being edited
-    };
-
-    // Function for handling delete
-    const handleDelete = (id) => {
-        console.log(`Deleting restaurant with ID ${id}`);
-        // Find the index of the restaurant with the given ID
-        const index = restaurants.findIndex(restaurant => restaurant.id === id);
-        
-        // If the restaurant exists, remove it from the array
-        if (index !== -1) {
-            const updatedRestaurants = [...restaurants];
-            updatedRestaurants.splice(index, 1);
-            // Update the state with the new list of restaurants
-            setRestaurants(updatedRestaurants);
-            // Perform any other necessary actions with the updated data
-            console.log(`Deleted restaurant with ID ${id}`);
+    const handleSort = (criteria) => {
+        if (sortBy === criteria) {
+            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
         } else {
-            console.log(`Restaurant with ID ${id} not found`);
+            setSortBy(criteria);
+            setSortOrder('asc');
         }
     };
 
-    // Function for handling view
-    const handleView = (id) => {
-        console.log(`Viewing restaurant with ID ${id}`);
-        // Implement the view functionality here
+    const sortedRestaurants = () => {
+        if (sortBy) {
+            return [...restaurants].sort((a, b) => {
+                const aValue = a[sortBy];
+                const bValue = b[sortBy];
+                if (sortOrder === 'asc') {
+                    return aValue.localeCompare(bValue);
+                } else {
+                    return bValue.localeCompare(aValue);
+                }
+            });
+        }
+        return restaurants;
     };
 
-    // Function for handling save
+    const offset = currentPage * itemsPerPage;
+    const paginatedRestaurants = sortedRestaurants().slice(offset, offset + itemsPerPage);
+
+    const handleDelete = (id) => {
+        console.log(`Deleting restaurant with ID ${id}`);
+        const updatedRestaurants = restaurants.filter(restaurant => restaurant.id !== id);
+        setRestaurants(updatedRestaurants);
+        console.log(`Deleted restaurant with ID ${id}`);
+    };
+
+    const handleView = (id) => {
+        console.log(`Viewing restaurant with ID ${id}`);
+        // Navigon + gets the id of the restaurant 
+        navigate(`/restaurants/${id}`);
+    };
+
+    const handleEdit = () => {
+        console.log(`Navigating to EditRestaurant page`);
+        navigate(`/Administrator/EditRestaurant`);
+    };
+
     const handleSave = (id) => {
         console.log(`Saving changes for restaurant with ID ${id}`);
-        // Implement the save functionality here
-        setEditableItemId(null); // Clear the editable item ID to exit edit mode
+        setEditableItemId(null);
     };
 
     return (
@@ -60,10 +73,10 @@ function AllRestaurants() {
             <table className="table table-responsive">
                 <thead>
                     <tr>
-                        <th>Restaurant Name</th>
-                        <th>ID</th>
-                        <th>Phone Number</th>
-                        <th>Email</th>
+                        <th onClick={() => handleSort('name')}>Restaurant Name</th>
+                        <th onClick={() => handleSort('id')}>ID</th>
+                        <th onClick={() => handleSort('phoneNumber')}>Phone Number</th>
+                        <th onClick={() => handleSort('email')}>Email</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -72,7 +85,7 @@ function AllRestaurants() {
                         <tr key={restaurant.id}>
                             <td>
                                 {editableItemId === restaurant.id ? (
-                                    <input type="text" value={restaurant.name} onChange={(e) => {/* Handle input change */}} />
+                                    <input type="text" value={restaurant.name} onChange={(e) => {}} />
                                 ) : (
                                     restaurant.name
                                 )}
@@ -80,26 +93,21 @@ function AllRestaurants() {
                             <td>{restaurant.id}</td>
                             <td>
                                 {editableItemId === restaurant.id ? (
-                                    <input type="text" value={restaurant.phoneNumber} onChange={(e) => {/* Handle input change */}} />
+                                    <input type="text" value={restaurant.phoneNumber} onChange={(e) => {}} />
                                 ) : (
                                     restaurant.phoneNumber
                                 )}
                             </td>
                             <td>
                                 {editableItemId === restaurant.id ? (
-                                    <input type="text" value={users.find(user => user.id === restaurant.restaurantManager.userId)?.userEmail} onChange={(e) => {/* Handle input change */}} />
+                                    <input type="text" value={users.find(user => user.id === restaurant.restaurantManager.userId)?.userEmail} onChange={(e) => {}} />
                                 ) : (
                                     users.find(user => user.id === restaurant.restaurantManager.userId)?.userEmail
                                 )}
                             </td>
                             <td className="actions-container">
-                                {/* Edit Button */}
-                                {editableItemId === restaurant.id ? (
-                                    <button className="btn btn-primary mr-2" onClick={() => handleSave(restaurant.id)}>Save</button>
-                                ) : (
-                                    <button className="btn btn-primary mr-2" onClick={() => handleEdit(restaurant.id)}>Edit</button>
-                                )}
-                                {/* View Button */}
+                                 <button className="btn btn-primary mr-2" onClick={handleEdit}>Edit</button>
+                             
                                 <button className="btn btn-success" onClick={() => handleView(restaurant.id)}>View</button>
                                 <img src={deleteIcon} alt="Delete Icon" className="icon" onClick={() => handleDelete(restaurant.id)} style={{ cursor: 'pointer' }} />
                             </td>
@@ -122,5 +130,3 @@ function AllRestaurants() {
 }
 
 export default AllRestaurants;
-
-

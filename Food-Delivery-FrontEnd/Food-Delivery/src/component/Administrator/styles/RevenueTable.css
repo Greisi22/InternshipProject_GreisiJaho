@@ -43,6 +43,8 @@ input[type="checkbox"] {
 .icon-cell {
     display: flex;
     align-items: center;
+    padding: 4px;
+    padding: 2px;
 }
 
 .icon {
@@ -50,11 +52,13 @@ input[type="checkbox"] {
     max-width: 1.5rem;
     height: auto;
     margin-top: 0px;
+    padding: 2px;
 }
 
 .p-4 {
     padding: 1rem;
     margin-top: 3px;
+    margin-left: -2rem;
 }
 
 
@@ -82,4 +86,69 @@ input[type="checkbox"] {
 
 
     
+}
+
+ .btn-primary {
+      display: inline-block;
+    padding: 6px 3px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+ } 
+
+#root > div > div > table > tbody > tr:nth-child(3) > td.p-4.icon-cell > button{
+    display: inline-block;
+    padding: 6px 3px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#root > div > div > table > tbody > tr:nth-child(2) > td.p-4.icon-cell > button{
+    display: inline-block;
+    padding: 6px 3px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#root > div > div > table > tbody > tr:nth-child(1) > td.p-4.icon-cell > button{
+    display: inline-block;
+    padding: 6px 3px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#root > div > div > table > tbody > tr:nth-child(4) > td.p-4.icon-cell > button{
+    display: inline-block;
+    padding: 6px 3px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }

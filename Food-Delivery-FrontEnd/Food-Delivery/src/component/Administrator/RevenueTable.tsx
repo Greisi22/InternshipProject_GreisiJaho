@@ -4,16 +4,17 @@ import './styles/RevenueTable.css';
 import editIcon from 'src/assets/Icons/EntryPage/edit.png';
 import deleteIcon from 'src/assets/Icons/EntryPage/delete.png';
 import ReactPaginate from 'react-paginate';
+import { useNavigate } from 'react-router-dom';
 
 function RevenueTable() {
     const [restaurants, setRestaurants] = useState(initialRestaurants);
     const [currentPage, setCurrentPage] = useState(0);
-    const [editableItemId, setEditableItemId] = useState(null);
+    const [selectAllChecked, setSelectAllChecked] = useState(false);
+    const navigate = useNavigate();
 
-    const handleEdit = (id: number, name) => {
+    const handleEdit = (id) => {
         console.log(`Editing restaurant with ID ${id}`);
-        
-        setEditableItemId(id);
+        navigate(`/Administrator/EditRestaurant`);
     };
 
     const handleDelete = (id) => {
@@ -22,20 +23,35 @@ function RevenueTable() {
         setRestaurants(updatedRestaurants);
     };
 
-    const handleSubmitEdit = (id, fieldName, newValue) => {
-        console.log(`Submitting edit for restaurant with ID ${id} and new ${fieldName}: ${newValue}`);
-        const updatedRestaurants = restaurants.map((restaurant) => {
-            if (restaurant.id === id) {
-                return { ...restaurant, [fieldName]: newValue };
-            }
-            return restaurant;
-        });
-        setRestaurants(updatedRestaurants);
-        setEditableItemId(null);
+    const handlePrintBill = (id) => {
+        console.log(`Printing bill for restaurant with ID ${id}`);
+        
     };
 
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);
+    };
+
+    const handleSort = () => {
+        // sorton ne baze te done payment 
+        const sortedRestaurants = [...restaurants].sort((a, b) => a.donePayments - b.donePayments);
+        setRestaurants(sortedRestaurants);
+    };
+
+    const handleCheckboxChange = (checked) => {  // kur selekton id checkbox for the whole column 
+        setSelectAllChecked(checked);
+        const updatedRestaurants = restaurants.map((restaurant) => ({ ...restaurant, isChecked: checked }));
+        setRestaurants(updatedRestaurants);
+    };
+
+    const handleIndividualCheckboxChange = (id, checked) => {
+        const updatedRestaurants = restaurants.map((restaurant) => {
+            if (restaurant.id === id) {
+                return { ...restaurant, isChecked: checked };
+            }
+            return restaurant;
+        });
+        setRestaurants(updatedRestaurants);
     };
 
     const itemsPerPage = 4;
@@ -48,59 +64,39 @@ function RevenueTable() {
                 <table className="w-full border-collapse">
                     <thead>
                         <tr>
-                            <th className="p-4"><input type="checkbox" /></th>
+                            <th className="p-4"><input type="checkbox" checked={selectAllChecked} onChange={(e) => handleCheckboxChange(e.target.checked)} /></th>
                             <th className="p-4">ID</th>
                             <th className="p-4">Restaurant Name</th>
                             <th className="p-4">Email Address</th>
-                            <th className="p-4">Done Payments</th>
-                            <th className="p-4">Pending Payments</th>
+                            <th className="p-4" onClick={handleSort}>Done Payments</th>
+                            <th className="p-4">Print Bill</th>
                             <th className="p-4">Total Amount</th>
                         </tr>
                     </thead>
                     <tbody>
                         {paginatedRestaurants.map((restaurant, index) => (
                             <tr key={restaurant.id}>
-                                <td className="p-4"><input type="checkbox" /></td>
+                                <td className="p-4"><input type="checkbox" checked={restaurant.isChecked} onChange={(e) => handleIndividualCheckboxChange(restaurant.id, e.target.checked)} /></td>
                                 <td className="p-4">{restaurant.id}</td>
                                 <td className="p-4">
-                                    {editableItemId === restaurant.id ? (
-                                        <input
-                                            type="text"
-                                            value={restaurant.name}
-                                            onChange={(e) => handleSubmitEdit(restaurant.id, 'name', e.target.value)}
-                                        />
-                                    ) : (
-                                        restaurant.name
-                                    )}
+                                    {restaurant.name}
                                 </td>
                                 <td className="p-4">
-                                    {editableItemId === restaurant.id ? (
-                                        <input
-                                            type="text"
-                                            value={users.find((user) => user.id === restaurant.restaurantManager.userId)?.userEmail}
-                                            onChange={(e) => handleSubmitEdit(restaurant.id, 'email', e.target.value)}
-                                        />
-                                    ) : (
-                                        users.find((user) => user.id === restaurant.restaurantManager.userId)?.userEmail
-                                    )}
+                                    {users.find((user) => user.id === restaurant.restaurantManager.userId)?.userEmail}
                                 </td>
                                 <td className="p-4">
-                                    {editableItemId === restaurant.id ? (
-                                        <input
-                                            type="text"
-                                            value={restaurant.donePayments}
-                                            onChange={(e) => handleSubmitEdit(restaurant.id, 'donePayments', e.target.value)}
-                                        />
-                                    ) : (
-                                        restaurant.donePayments
-                                    )}
+                                    <input
+                                        type="number"
+                                        value={restaurant.donePayments}
+                                        onChange={(e) => setRestaurants(restaurants.map(item => item.id === restaurant.id ? { ...item, donePayments: parseInt(e.target.value) } : item))}
+                                    />
                                 </td>
                                 <td className="p-4 icon-cell">
-                                    <i className="fas fa-hourglass text-red-500"></i>
-                                    <img src={editIcon} alt="Edit Icon" className="icon" onClick={() => handleEdit(restaurant.id, restaurant.name)} style={{ cursor: 'pointer' }} />
+                                    <button className="btn btn-primary" onClick={() => handlePrintBill(restaurant.id)}>Print Bill</button>
+                                    <img src={editIcon} alt="Edit Icon" className="icon" onClick={() => handleEdit(restaurant.id)} style={{ cursor: 'pointer' }} />
                                     <img src={deleteIcon} alt="Delete Icon" className="icon" onClick={() => handleDelete(restaurant.id)} style={{ cursor: 'pointer' }} />
                                 </td>
-                                <td className="p-4">$$</td>
+                                <td className="p-4">{restaurant.totalAmount}</td>
                             </tr>
                         ))}
                     </tbody>

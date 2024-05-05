@@ -1,132 +1,140 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Pagination } from 'antd';
 import { restaurants as initialRestaurants, users } from 'src/data/MockData';
-import './styles/AllRestaurants.css';
 import deleteIcon from 'src/assets/Icons/EntryPage/delete.png';
-import ReactPaginate from 'react-paginate';
 import { useNavigate } from 'react-router-dom';
 
-function AllRestaurants() {
-    const [restaurants, setRestaurants] = useState(initialRestaurants);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [editableItemId, setEditableItemId] = useState(null);
-    const [sortBy, setSortBy] = useState(null);
-    const [sortOrder, setSortOrder] = useState('asc');
-    const itemsPerPage = 4;
+function AllRestaurant() {
     const navigate = useNavigate();
 
-    const handlePageChange = ({ selected }) => {
-        setCurrentPage(selected);
+    // Define column names
+    const columnNames = ['Restaurant Name', 'ID', 'Phone Number', 'Email', 'Actions'];
+
+    // Define state variables
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(7);
+    const [selectedArray, setSelectedArray] = useState<number[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState(initialRestaurants); 
+   
+
+    // Slice data to display on the current page
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, data?.length || 0);
+    const currentData = data?.slice(startIndex, endIndex) || [];
+
+    // Handle page change
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
     };
 
-    const handleSort = (criteria) => {
-        if (sortBy === criteria) {
-            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-        } else {
-            setSortBy(criteria);
-            setSortOrder('asc');
-        }
-    };
-
-    const sortedRestaurants = () => {
-        if (sortBy) {
-            return [...restaurants].sort((a, b) => {
-                const aValue = a[sortBy];
-                const bValue = b[sortBy];
-                if (sortOrder === 'asc') {
-                    return aValue.localeCompare(bValue);
-                } else {
-                    return bValue.localeCompare(aValue);
-                }
-            });
-        }
-        return restaurants;
-    };
-
-    const offset = currentPage * itemsPerPage;
-    const paginatedRestaurants = sortedRestaurants().slice(offset, offset + itemsPerPage);
-
-    const handleDelete = (id) => {
-        console.log(`Deleting restaurant with ID ${id}`);
-        const updatedRestaurants = restaurants.filter(restaurant => restaurant.id !== id);
-        setRestaurants(updatedRestaurants);
-        console.log(`Deleted restaurant with ID ${id}`);
-    };
-
-    const handleView = (id) => {
-        console.log(`Viewing restaurant with ID ${id}`);
-        // Navigon + gets the id of the restaurant 
-        navigate(`/restaurants/${id}`);
-    };
-
-    const handleEdit = () => {
-        console.log(`Navigating to EditRestaurant page`);
+    const handleEdit = (id: number) => {
+        console.log(`Editing restaurant with ID ${id}`);
         navigate(`/Administrator/EditRestaurant`);
     };
 
-    const handleSave = (id) => {
-        console.log(`Saving changes for restaurant with ID ${id}`);
-        setEditableItemId(null);
+    // view button click
+    const handleView = (id: number) => {
+        // Logic to view details
+    };
+
+    // delete icon
+    const handleDelete = (id: number) => {
+        const updatedData = data.filter(restaurant => restaurant.id !== id);
+        setData(updatedData);
     };
 
     return (
-        <div className="container">
-            <table className="table table-responsive">
-                <thead>
-                    <tr>
-                        <th onClick={() => handleSort('name')}>Restaurant Name</th>
-                        <th onClick={() => handleSort('id')}>ID</th>
-                        <th onClick={() => handleSort('phoneNumber')}>Phone Number</th>
-                        <th onClick={() => handleSort('email')}>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {paginatedRestaurants.map(restaurant => (
-                        <tr key={restaurant.id}>
-                            <td>
-                                {editableItemId === restaurant.id ? (
-                                    <input type="text" value={restaurant.name} onChange={(e) => {}} />
-                                ) : (
-                                    restaurant.name
-                                )}
-                            </td>
-                            <td>{restaurant.id}</td>
-                            <td>
-                                {editableItemId === restaurant.id ? (
-                                    <input type="text" value={restaurant.phoneNumber} onChange={(e) => {}} />
-                                ) : (
-                                    restaurant.phoneNumber
-                                )}
-                            </td>
-                            <td>
-                                {editableItemId === restaurant.id ? (
-                                    <input type="text" value={users.find(user => user.id === restaurant.restaurantManager.userId)?.userEmail} onChange={(e) => {}} />
-                                ) : (
-                                    users.find(user => user.id === restaurant.restaurantManager.userId)?.userEmail
-                                )}
-                            </td>
-                            <td className="actions-container">
-                                 <button className="btn btn-primary mr-2" onClick={handleEdit}>Edit</button>
-                             
-                                <button className="btn btn-success" onClick={() => handleView(restaurant.id)}>View</button>
-                                <img src={deleteIcon} alt="Delete Icon" className="icon" onClick={() => handleDelete(restaurant.id)} style={{ cursor: 'pointer' }} />
-                            </td>
+        <>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-sm">
+                <thead className="h-[40px] text-xs text-gray-700 uppercase bg-gray-500" style={{ backgroundColor: 'rgb(209, 209, 209)' }}>
+                        <tr>
+                            <th scope="col" className="p-4">
+                                <div className="flex items-center"></div>
+                            </th>
+                            {columnNames.map((columnName, index) => (
+                                <th key={index} scope="col" className="px-6">
+                                    {columnName}
+                                </th>
+                            ))}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <ReactPaginate
-                pageCount={Math.ceil(restaurants.length / itemsPerPage)}
-                pageRangeDisplayed={2}
-                marginPagesDisplayed={1}
-                onPageChange={handlePageChange}
-                containerClassName={'pagination'}
-                previousLabel={<span>&#60;</span>}
-                nextLabel={<span>&#62;</span>}
-                activeClassName={'active'}
-            />
-        </div>
+                    </thead>
+                    <tbody className="w-full">
+                        {loading === false ? (
+                            currentData.map((restaurant, index) => (
+                                <tr
+                                    key={index + startIndex}
+                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td className="w-4 p-4">
+                                        <div className="flex items-center whitespace-nowrap">
+                                            <input
+                                                defaultChecked={selectedArray.includes(index + startIndex)}
+                                                onChange={() => {
+                                                    const updatedSelectedArray = [...selectedArray];
+                                                    if (updatedSelectedArray.includes(index + startIndex)) {
+                                                        updatedSelectedArray.splice(
+                                                            updatedSelectedArray.indexOf(index + startIndex),
+                                                            1,
+                                                        );
+                                                    } else {
+                                                        updatedSelectedArray.push(index + startIndex);
+                                                    }
+                                                    setSelectedArray(updatedSelectedArray);
+                                                }}
+                                                id={`checkbox-table-search-${index}`}
+                                                type="checkbox"
+                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                            />
+                                            <label
+                                                htmlFor={`checkbox-table-search-${index}`}
+                                                className="sr-only">
+                                                checkbox
+                                            </label>
+                                        </div>
+                                    </td>
+                                
+                                    <td className="px-6 whitespace-nowrap">{restaurant.name}</td>
+                                    <td className="px-6 whitespace-nowrap">{restaurant.id}</td>
+                                    <td className="px-6 whitespace-nowrap">Phone Number</td>
+                                    <td className="px-6 whitespace-nowrap">{users.find(user => user.id === restaurant.restaurantManager.userId)?.userEmail}</td>
+                                    <td className="px-6 py-4 flex space-x-2">
+                                        {/* Edit Button */}
+                                        <button className="btn btn-primary-small" style={{ width: '30%', padding: '12px', fontSize: '16px', borderRadius: '6px', cursor: 'pointer', backgroundColor: '#16C098', color: '#fff' }} onClick={() => handleEdit(restaurant.id)}>Edit</button>
+                                        {/* View Button */}
+                                        <button className="btn btn-view" style={{ width: '30%', fontSize: '13px', borderRadius: '6px', cursor: 'pointer', backgroundColor: '#EAEAEA', color: '#000', border: '1px solid #000' }} onClick={() => handleView(restaurant.id)}>View</button>
+                                        {/* Delete Button */}
+                                        <img
+                                            src={deleteIcon}
+                                            alt="Delete Icon"
+                                            className="icon"
+                                            onClick={() => handleDelete(restaurant.id)}
+                                            style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '6px' }}
+                                        />
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td className="px-6 py-4" colSpan={columnNames.length}>
+                                    Loading...
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+            <div className="flex justify-end mt-4">
+                <Pagination
+                    current={currentPage}
+                    total={data.length}
+                    defaultPageSize={itemsPerPage}
+                    showSizeChanger={false}
+                    onChange={handlePageChange}
+                />
+            </div>
+        </>
     );
 }
 
-export default AllRestaurants;
+export default AllRestaurant;

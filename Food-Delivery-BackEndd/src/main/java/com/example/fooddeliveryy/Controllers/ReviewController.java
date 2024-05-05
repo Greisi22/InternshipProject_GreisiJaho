@@ -1,6 +1,5 @@
 package com.example.fooddeliveryy.Controllers;
 
-import com.example.fooddeliveryy.DTO.ReviewDTO;
 import com.example.fooddeliveryy.Entities.Review;
 import com.example.fooddeliveryy.Mapping.ReviewMapper;
 import com.example.fooddeliveryy.Services.ReviewService;
@@ -38,16 +37,43 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong!!!");
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<?> getBestReviews(@PathVariable Long id){
-      try{
-          List<Review> reviewList =  reviewService.getBestReviews(id);
-          List<ReviewDTO> reviewDTO = reviewMapper.reviewsToReviewDTOs(reviewList);
-          return ResponseEntity.status(HttpStatus.OK).body(reviewDTO);
-      }
+
+    @GetMapping("/get")
+    public ResponseEntity<?> getAllReviews(){
+        try{
+            List<Review> reviews = reviewService.getAllReview();
+            return ResponseEntity.ok().body(reviews);
+        }
         catch (Exception e){
             System.out.println("Error: " + e);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Smth went wrong");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong!!!");
         }
     }
+
+
+    @GetMapping("/get/highest")
+    public ResponseEntity<?> getHighestReviews(){
+        try{
+            List<Review> reviews = reviewService.getReviewsGreaterThanFive();
+            return ResponseEntity.ok().body(reviews);
+        }
+        catch (Exception e){
+            System.out.println("Error: " + e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong!!!");
+        }
+    }
+
+
+    @GetMapping("/restaurant/{restaurantId}")
+    public ResponseEntity<?> getReviewsForRestaurant(@PathVariable long restaurantId) {
+        try {
+            List<Review> reviews = reviewService.getReviewsForRestaurant(restaurantId);
+            return ResponseEntity.ok().body(reviews);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong!!!");
+        }
+    }
+
+
 }

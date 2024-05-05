@@ -8,10 +8,14 @@ import RevenuesPage from './pages/Administrator/RevenuesPage';
 import SettingsPage from './pages/Administrator/SettingsPage';
 import StatisticsPage from './pages/Administrator/StatisticsPage';
 import UsersPage from './pages/Administrator/UsersPage';
-import TableComponent from './component/Administrator/TableComponent';
-import TableUser from './component/Administrator/TableUser';
-import FormSubmissionPage from './component/Administrator/FormSubmissionPage';
-const App = () => {
+import AllRestaurants from './component/Administrator/AllRestaurant';
+import RevenueTable from './component/Administrator/RevenueTable';
+import EditRestaurant from './component/Administrator/EditRestaurant';
+
+
+
+
+const App = () => {    
     return (
         <>
             <Routes>
@@ -29,13 +33,11 @@ const App = () => {
                 <Route path="/Administrator/RevenuesPage" element={<RevenuesPage />} />
                 <Route path="/Administrator/StatisticsPage" element={<StatisticsPage />} />
                 <Route path="/Administrator/SettingsPage" element={<SettingsPage />} />
-                <Route path="/Administrator/TableComponet" element={<TableComponent />} />
-                <Route path="/Administrator/UserList" element={<TableUser />} />
-                <Route path="/Administrator/FormSubmissionPage" element={<FormSubmissionPage />} />
-
-
+                <Route path="/Administrator/AllRestaurants" element={<AllRestaurants />} />
+                <Route path="/Administrator/RevenueTable" element={<RevenueTable />} />
+                <Route path="/Administrator/EditRestaurant" element={<EditRestaurant  />} />
                 
-               
+                
             </Routes>
         </>
     );

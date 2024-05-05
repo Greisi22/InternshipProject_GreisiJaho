@@ -58,8 +58,9 @@ public class ProductController {
         return ResponseEntity.ok(amont);
     }
 
+
     @GetMapping("/get/all")
-    public ResponseEntity<?> getAllProduct(@PathVariable long productId) {
+    public ResponseEntity<?> getAllProduct() {
         List<Product> product = productService.getAllProducts();
         if (product != null) {
             return ResponseEntity.ok(product);
@@ -67,7 +68,6 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
 
     @PutMapping("/update/{productId}")

@@ -2,7 +2,7 @@ package com.example.fooddeliveryy.Entities;
 
 
 import com.example.fooddeliveryy.Entities.Enums.UserRole;
-import com.example.fooddeliveryy.JWT.JwtTokenProvider;
+import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
@@ -29,6 +29,7 @@ public class User {
     private UserRole userRole;
 
     @OneToMany(mappedBy = "restaurantManager")
+    @JsonBackReference("userBackReference")
     private List<Rastaurant> managedRestaurants;
 
     @OneToMany(mappedBy = "user")

@@ -22,7 +22,7 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
         if (result.status == 200) {
             sessionStorage.setItem('userData', JSON.stringify(result.data));
             setLogin(false);
-            navigate('/administrator');
+            navigate('/Administrator/dashboard');
         } else {
             setError('Invalid Credencials');
         }
@@ -45,7 +45,7 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                         className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                         <img
                             className="w-8 h-8 mr-2"
-                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+                            src=""
                             alt="logo"
                         />
                         Testy Rush

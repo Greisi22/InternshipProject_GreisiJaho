@@ -2,7 +2,7 @@ package com.example.fooddeliveryy.Controllers;
 
 import com.example.fooddeliveryy.DTO.RestaurantDTO;
 import com.example.fooddeliveryy.Entities.Rastaurant;
-import com.example.fooddeliveryy.JWT.JwtTokenProvider;
+import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import com.example.fooddeliveryy.Services.RestaurantService;
@@ -60,11 +60,6 @@ public class RestaurantController {
     }
 
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Rastaurant> updateRestaurant(@PathVariable long id, @RequestBody Rastaurant rest) {
-        Rastaurant updatedRestaurant = restaurantService.updateRestaurant(id, rest);
-        return ResponseEntity.ok().body(updatedRestaurant);
-    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteRestaurant(@PathVariable long id) {
@@ -87,10 +82,48 @@ public class RestaurantController {
     @GetMapping("/discount")
     public ResponseEntity<?> getRestaurantWithDiscount() {
         List<Rastaurant> restaurantsWithDiscount = restaurantService.getRestaurantsWithDiscount();
-
         List<RestaurantDTO> restaurantDTOS = restaurantMapper.restaurantsToRestaurantDTOs(restaurantsWithDiscount);
         return ResponseEntity.ok().body(restaurantDTOS);
     }
 
+    @GetMapping("/approvedRestaurants")
+    public ResponseEntity<?> getApprovedRestaurant() {
+        try {
+            List<Rastaurant> approvedRestaurants = restaurantService.getIsAprovedRestaurants();
+            List<RestaurantDTO> restaurantDTOS = restaurantMapper.restaurantsToRestaurantDTOs(approvedRestaurants);
+            return ResponseEntity.ok().body(restaurantDTOS);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error!!");
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateRestaurantAttribute(@PathVariable("id") long id) {
+        try {
+            System.out.println("id "+id + "isApproveddd ");
+            Rastaurant updatedRestaurant = restaurantService.updateRestaurantAttribute(id);
+            if (updatedRestaurant != null) {
+                return ResponseEntity.ok(updatedRestaurant);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Server Error!");
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateRestaurant(@RequestBody Rastaurant restaurant) {
+        try {
+            System.out.println(restaurant);
+            Rastaurant updatedRestaurant = restaurantRepo.save(restaurant);
+            return ResponseEntity.ok().body(updatedRestaurant);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Server Error!");
+        }
+    }
+
+
+    //REVENUE AND REVIEW RESTAURANTS
 
 }

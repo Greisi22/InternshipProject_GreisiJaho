@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Pagination } from 'antd';
-import React from 'react';
 
 function Table() {
     const invoicesmockData: any = [

@@ -29,8 +29,22 @@ interface Restaurant {
     // Define properties of Review here
   }
   
-  interface User {
-    // Define properties of User here
+  enum UserRole {
+    ROLE_CLIENT,
+    ROLE_SUPER_ADMIN,
+    ROLE_ADMIN,
+    ROLE_RESTAURANT_MANAGER,
+    ROLE_DELIVERY_PERSONNEL
+  }
+  
+  // Define the User interface
+  export interface User {
+    userId: number;
+    userEmail: string;
+    userPassword: string;
+    userRole: UserRole;
+    managedRestaurants: Restaurant[];
+    order: Order[];
   }
   
   interface Order {
@@ -49,10 +63,12 @@ interface Restaurant {
     // Define properties of Documentation here
   }
 
-  
+
   
 type HandleRestorantsFunction = (category: string) => void;
 
 export interface NavBarProps {
     handleRestorants: HandleRestorantsFunction;
 }
+
+

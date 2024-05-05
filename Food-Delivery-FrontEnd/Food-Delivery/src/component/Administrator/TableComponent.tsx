@@ -6,12 +6,12 @@ export const TableComponent = () => {
   const [acceptedRestaurants, setAcceptedRestaurants] = useState([]);
   const [restaurantsToShow, setRestaurantsToShow] = useState(restaurants);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     const updatedRestaurants = restaurantsToShow.filter(restaurant => restaurant.id !== id);
     setRestaurantsToShow(updatedRestaurants);
   };
 
-  const handleAccept = (id) => {
+  const handleAccept = (id: string) => {
     const acceptedRestaurant = restaurants.find(restaurant => restaurant.id === id);
     setAcceptedRestaurants([...acceptedRestaurants, acceptedRestaurant]);
     // Remove the delete icon by updating the restaurants to show

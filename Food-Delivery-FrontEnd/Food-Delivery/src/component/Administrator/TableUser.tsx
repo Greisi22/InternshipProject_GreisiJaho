@@ -23,7 +23,7 @@ export const TableUser = () => {
 
   const toggleActive = (id) => {
     // Find the user by id
-    const updatedUsers = users.map(user => {
+    const updatedUsers = users.map((user) => {
       if (user.id === id) {
         // Toggle the active status
         user.active = user.active === 'Active' ? 'Inactive' : 'Active';
@@ -43,6 +43,13 @@ export const TableUser = () => {
       setSortBy(field);
       setSortDirection('asc');
     }
+  };
+
+  const handleDelete = (id) => {
+    // Filter out the user with the given id
+    const updatedUsers = users.filter((user) => user.id !== id);
+    // Update the state with the new users array
+    setUsers(updatedUsers);
   };
 
   // Sort the displayed items based on the active status
@@ -144,7 +151,10 @@ export const TableUser = () => {
                   </span>
                 </td>
                 <td className="flex items-center px-6 py-4">
-                  <FaTrashAlt className="text-red-600 dark:text-red-500 hover:cursor-pointer mr-3" />
+                  <FaTrashAlt
+                    className="text-red-600 dark:text-red-500 hover:cursor-pointer mr-3"
+                    onClick={() => handleDelete(user.id)} // Attach onClick event handler for delete
+                  />
                 </td>
               </tr>
             ))}

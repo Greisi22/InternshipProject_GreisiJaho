@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState, ChangeEvent, FormEvent } from 'react';
 
 const FormSubmissionPage = () => {
   const [formData, setFormData] = useState({
@@ -8,7 +8,7 @@ const FormSubmissionPage = () => {
     active: ''
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -16,9 +16,9 @@ const FormSubmissionPage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted with data:', formData);
+    console.log('ADD USER', formData);
     // You can send the form data to your backend API here
     // Example: fetch('/api/submitForm', {
     //            method: 'POST',
@@ -34,7 +34,7 @@ const FormSubmissionPage = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-8">ADD USER</h1>
+      <h1 className="text-3xl font-bold mb-8">ADD USER</h1>
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">
         <div className="mb-4">
           <label htmlFor="restaurantName" className="block text-gray-700">Restaurant Name:</label>

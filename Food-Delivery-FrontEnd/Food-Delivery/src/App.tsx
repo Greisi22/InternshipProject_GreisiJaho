@@ -13,8 +13,6 @@ import RevenueTable from './component/Administrator/RevenueTable';
 import EditRestaurant from './component/Administrator/EditRestaurant';
 
 
-
-
 const App = () => {    
     return (
         <>

@@ -46,6 +46,8 @@ public class Rastaurant {
     @OneToOne
     private Revenue revenue;
 
+    @OneToOne
+    private Documentation documentation;
     public Revenue getRevenue() {
         return revenue;
     }

@@ -2,6 +2,8 @@ package com.example.fooddeliveryy.Controllers;
 
 
 import com.example.fooddeliveryy.Entities.Order;
+import com.example.fooddeliveryy.Entities.Rastaurant;
+import com.example.fooddeliveryy.Repositories.OrderRepo;
 import com.example.fooddeliveryy.Services.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +16,11 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+    private final OrderRepo orderRepo;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, OrderRepo orderRepo) {
         this.orderService = orderService;
+        this.orderRepo = orderRepo;
     }
 
     @PostMapping("/create")
@@ -44,9 +48,13 @@ public class OrderController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order order) {
-        Order updatedOrder = orderService.updateMenu(id, order);
-        return ResponseEntity.ok().body(updatedOrder);
+    public ResponseEntity<?> updateOrder(@RequestBody Order order) {
+        try {
+            Order updatedOrder = orderRepo.save(order);
+            return ResponseEntity.ok().body(updatedOrder);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Server Error!");
+        }
     }
 
     @DeleteMapping("/delete/{id}")
@@ -54,5 +62,19 @@ public class OrderController {
         orderService.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{orderId}/totalPriceWithDiscount")
+    public ResponseEntity<?> calculateTotalPriceWithDiscount(@PathVariable long orderId) {
+        try {
+            Order order = orderService.getOrderById(orderId);
+            double totalPriceWithDiscount = orderService.calculateTotalPriceWithDiscount(order);
+            return ResponseEntity.ok().body(totalPriceWithDiscount);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to calculate total price with discount!");
+        }
+    }
+
+
 
 }

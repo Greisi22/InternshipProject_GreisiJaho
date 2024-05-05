@@ -2,6 +2,7 @@ package com.example.fooddeliveryy.Services;
 
 import com.example.fooddeliveryy.Entities.Order;
 import com.example.fooddeliveryy.Entities.Product;
+import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Repositories.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,13 @@ public class OrderService {
         order.setTotalPrice(totalPrice);
     }
 
+    public double calculateTotalPriceWithDiscount(Order order) {
+        Rastaurant restaurant = order.getRestaurant();
+        double totalPrice = order.getTotalPrice();
+        double discount = restaurant.getDiscount() / 100.0; // Convert percentage to decimal
+        double discountedPrice = totalPrice - (totalPrice * discount);
+        return discountedPrice;
+    }
 
 
 }

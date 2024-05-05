@@ -30,7 +30,9 @@ export const users = [
     restaurantManager: {
       userId: 1
     },
-    isAccepted: true
+    isAccepted: true,
+    donePayments: 5000 ,
+    totalAmount: 5000
     },
 
     {
@@ -40,7 +42,9 @@ export const users = [
         restaurantManager: {
           userId: 2
         },
-        isAccepted: true
+        isAccepted: true,
+        donePayments: 0,
+        totalAmount: 5000
     },
     {
         id:3,    
@@ -49,7 +53,9 @@ export const users = [
         restaurantManager: {
           userId: 3
         },
-        isAccepted: false
+        isAccepted: false,
+        donePayments: 200,
+        totalAmount: 5000
     },
     {
         id:4,    
@@ -58,7 +64,9 @@ export const users = [
         restaurantManager: {
           userId: 4
         },
-        isAccepted: false
+        isAccepted: false,
+        donePayments: 200,
+        totalAmount: 5000
     }
   ];
 

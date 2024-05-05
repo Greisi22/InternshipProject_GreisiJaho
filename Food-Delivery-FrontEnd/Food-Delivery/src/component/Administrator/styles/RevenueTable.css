@@ -1,9 +1,4 @@
-/* General styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
+
 
 /* Centering content */
 .table-container {
@@ -68,7 +63,7 @@ input[type="checkbox"] {
 @media (max-width: 768px) {
    
   .table-scroll-container {
-        margin-top: 2rem;
+     
         width: 95%; 
     }
 

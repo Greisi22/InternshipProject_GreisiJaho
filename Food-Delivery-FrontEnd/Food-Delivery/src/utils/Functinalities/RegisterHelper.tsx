@@ -4,14 +4,12 @@ export async function RegisterHelper(
     password: string,
     rep_password: string,
     role: string,
-): Promise<number> {
+) {
+  
     if (password != rep_password) {
         return -1;
     }
-  
+
     const result = await registerUser(email, password, role);
-    if (result == 200) {
-        return 200;
-    }
-    return -1;
+    return result;
 }

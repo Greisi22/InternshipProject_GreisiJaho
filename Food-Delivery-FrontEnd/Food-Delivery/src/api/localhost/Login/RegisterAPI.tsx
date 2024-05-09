@@ -1,8 +1,8 @@
 import axiosInstance, { ApiResponse } from '../../../config/axios';
+import { AxiosError } from 'axios';
 
 export async function registerUser(email: string, password: string, role: string) {
-    console.log("here")
-    console.log(email, password, role)
+    console.log(email, password, role);
     try {
         const requestData = {
             userEmail: email,
@@ -15,13 +15,17 @@ export async function registerUser(email: string, password: string, role: string
                 'Content-Type': 'application/json',
             },
         });
-        console.log(response)
-        if(response.status == 200){
-            return 200;
+        
+        return response.status; // Return status if request is successful
+    } catch (error: unknown) {
+       
+        if ((error as AxiosError).response) {
+            console.log("Here")
+            const axiosError = error as AxiosError;
+            return  axiosError.response?.status;
+        } else {
+            console.error('Error:', error);
+            throw new Error('Failed to fetch data');
         }
-   
-    } catch (error) {
-        console.log('error: ', error);
-        throw new Error('Failed to fetch data');
     }
 }

@@ -10,14 +10,13 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
     const [r_password, r_setPassword] = useState('');
     const [role, setRole] = useState('');
 
-
     const handleFunction = (name: string) => {
         if (name === 'AdminiStrator') {
             setRole('ROLE_ADMIN');
         } else if (name === 'Client') {
-            setRole('ROLE_USER');
+            setRole('ROLE_CLIENT');
         } else {
-            setRole('ROLE_restorantManager');
+            setRole('ROLE_RESTAURANT_MANAGER');
         }
     };
 
@@ -39,13 +38,17 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
 
     async function handleRegister() {
         const result = await RegisterHelper(email, password, r_password, role);
+        console.log(result);
+        console.log(result === 409);
         if (result === 200) {
             setError('You are succesfully register');
             setTimeout(() => {
                 setSignup(false);
                 setLogin(true);
             }, 2000);
-        } else if (result === -1) {
+        } else if (result === 409) {
+            setError('Email Exist');
+        } else {
             setError('Invalid Credincials');
         }
     }
@@ -74,11 +77,7 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                         <a
                             href="#"
                             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                            <img
-                                className="w-8 h-8 mr-2"
-                                src=""
-                                alt="logo"
-                            />
+                            <img className="w-8 h-8 mr-2" src="" alt="logo" />
                             Register
                         </a>
                         <div className="relative shadow-3xl w-full bg-white border border-gray-500 rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 overflow-auto">

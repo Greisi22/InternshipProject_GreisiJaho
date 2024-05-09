@@ -55,18 +55,20 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
-
+        System.out.println("User: " + user);
         try {
             User userCredentials = logInService.checkCredintials(user);
             if (userCredentials != null) {
-                String token = jwtTokenProvider.generateToken(userCredentials.getUserEmail(), userCredentials.getUserRole().name());
+
                 UserDTO userDTO = userMapper.userToUserDTO(userCredentials);
                 Map<String, Object> response = new HashMap<>();
                 response.put("user", userDTO);
-                response.put("token", token);
-                Cookie jwtTokenCookie = new Cookie("user-id", "c2FtLnNtaXRoQGV4YW1wbGUuY29t");
+
+
+                String token = jwtTokenProvider.generateToken(userCredentials.getUserEmail(), userCredentials.getUserRole().name());
+                Cookie jwtTokenCookie = new Cookie("user-id", token);
                 jwtTokenCookie.setMaxAge(86400);
-                jwtTokenCookie.setSecure(false); //upon deployment switch to secure == true
+                jwtTokenCookie.setSecure(true); //upon deployment switch to secure == true
                 jwtTokenCookie.setHttpOnly(true);
                 jwtTokenCookie.setPath("/");
                 jwtTokenCookie.setDomain("localhost");

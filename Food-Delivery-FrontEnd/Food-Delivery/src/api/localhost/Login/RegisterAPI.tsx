@@ -1,6 +1,8 @@
 import axiosInstance, { ApiResponse } from '../../../config/axios';
 
 export async function registerUser(email: string, password: string, role: string) {
+    console.log("here")
+    console.log(email, password, role)
     try {
         const requestData = {
             userEmail: email,
@@ -13,6 +15,7 @@ export async function registerUser(email: string, password: string, role: string
                 'Content-Type': 'application/json',
             },
         });
+        console.log(response)
         if(response.status == 200){
             return 200;
         }

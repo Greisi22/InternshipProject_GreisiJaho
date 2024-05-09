@@ -8,6 +8,7 @@ export async function RegisterHelper(
     if (password != rep_password) {
         return -1;
     }
+  
     const result = await registerUser(email, password, role);
     if (result == 200) {
         return 200;

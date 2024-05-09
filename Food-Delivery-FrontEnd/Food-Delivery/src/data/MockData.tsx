@@ -252,5 +252,3 @@ export const UserList = [
         active: "Active"
     }
 ];
-
-//po tabela tjeter te cila do shkoje ktu

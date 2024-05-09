@@ -252,3 +252,29 @@ export const UserList = [
         active: "Active"
     }
 ];
+
+
+export const products = [
+    {
+        id: 1,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+    },
+    {
+        id: 2,
+        name: 'Pizza',
+        image: 'src/assets/pizza.png',
+        ingredients: ['sliced cucumbers, tomatoes, green bell pepper, red onion, olives, and feta cheese'],
+        price: 8.99,
+    },
+    {
+        id: 3,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+    },
+    
+];

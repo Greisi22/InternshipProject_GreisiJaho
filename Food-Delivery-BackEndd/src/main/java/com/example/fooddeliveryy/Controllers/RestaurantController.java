@@ -91,6 +91,18 @@ public class RestaurantController {
         try {
             List<Rastaurant> approvedRestaurants = restaurantService.getIsAprovedRestaurants();
             List<RestaurantDTO> restaurantDTOS = restaurantMapper.restaurantsToRestaurantDTOs(approvedRestaurants);
+            System.out.println("Approved restaurants "+ approvedRestaurants);
+            return ResponseEntity.ok().body(restaurantDTOS);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error!!");
+        }
+    }
+
+    @GetMapping("/notApprovedRestaurants")
+    public ResponseEntity<?> getNotApprovedRestaurant() {
+        try {
+            List<Rastaurant> notApprovedRestaurants = restaurantService.getNotAprovedRestaurants();
+            List<RestaurantDTO> restaurantDTOS = restaurantMapper.restaurantsToRestaurantDTOs(notApprovedRestaurants);
             return ResponseEntity.ok().body(restaurantDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error!!");

@@ -14,7 +14,7 @@
     <name>Food-Deliveryy</name>
     <description>Food-Deliveryy</description>
     <properties>
-        <java.version>21</java.version>
+        <java.version>20</java.version>
         <spring-security.version>5.3.4.RELEASE</spring-security.version>
         <spring.version>5.2.8.RELEASE</spring.version>
     </properties>

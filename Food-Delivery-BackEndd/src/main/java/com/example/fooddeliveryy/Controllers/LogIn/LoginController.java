@@ -75,7 +75,7 @@ public class LoginController {
 
                 ResponseEntity.BodyBuilder builder = ResponseEntity.ok();
                 builder.header("Set-Cookie", jwtTokenCookie.getName() + "=" + jwtTokenCookie.getValue());
-
+                response.put("token", token);
                 return builder.body(response);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");

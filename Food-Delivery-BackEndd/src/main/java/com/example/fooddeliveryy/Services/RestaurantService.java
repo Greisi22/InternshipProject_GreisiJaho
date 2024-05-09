@@ -95,6 +95,20 @@ public class RestaurantService {
     }
 
 
+    public List<Rastaurant> getNotAprovedRestaurants()
+    {
+        List<Rastaurant> allRestaurant = restaurantRepo.findAll();
+        List<Rastaurant> approvedRestaurant = new ArrayList<>();
+        for(Rastaurant rastaurant: allRestaurant)
+        {
+            if(!rastaurant.isAproved())
+            {
+                approvedRestaurant.add(rastaurant);
+            }
+        }
+        return approvedRestaurant;
+    }
+
 
     public Rastaurant updateRestaurantAttribute(long id) {
         System.out.println("Here"+ id);

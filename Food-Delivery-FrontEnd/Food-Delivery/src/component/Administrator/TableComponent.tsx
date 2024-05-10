@@ -3,6 +3,7 @@ import { FaTrashAlt, FaCheck, FaSearch } from 'react-icons/fa'; // Import FontAw
 import { Pagination } from 'antd';
 import { getNotApprovedRestaurants } from 'src/api/localhost/Administrator/restaurantsApi';
 import { RestaurantNotAproved } from 'src/types/Restaurant';
+import { deleteRestaurant } from 'src/api/localhost/Administrator/restaurantsApi';
 
 export const TableComponent = () => {
     const [restaurantsToShow, setRestaurantsToShow] = useState<RestaurantNotAproved[]>([]);
@@ -18,9 +19,21 @@ export const TableComponent = () => {
         setCurrentPage(page);
     };
 
-    const handleDelete = (id: string) => {
-        const updatedRestaurants = restaurantsToShow.filter((restaurant) => restaurant.name !== id);
-        setRestaurantsToShow(updatedRestaurants);
+    const handleDelete = async (name: string) => {
+        try {
+            // Call the deleteRestaurant function to delete the restaurant
+            await deleteRestaurant(name);
+
+            // If the deletion is successful, update the state to remove the deleted restaurant from the list
+            const updatedRestaurants = restaurantsToShow.filter(
+                (restaurant) => restaurant.name !== name,
+            );
+            setRestaurantsToShow(updatedRestaurants);
+
+            console.log('Restaurant deleted successfully.');
+        } catch (error: any) {
+            console.log('Error deleting restaurant:', error.message);
+        }
     };
 
     const handleAccept = (id: string) => {
@@ -39,8 +52,9 @@ export const TableComponent = () => {
     const filteredRestaurants = (search: string) => {
         return fixedData.filter((restaurant) => {
             const lowerCaseSearch = search.toLowerCase();
-            return Object.values(restaurant).some((value) =>
-                typeof value === 'string' && value.toLowerCase().includes(lowerCaseSearch)
+            return Object.values(restaurant).some(
+                (value) =>
+                    typeof value === 'string' && value.toLowerCase().includes(lowerCaseSearch),
             );
         });
     };

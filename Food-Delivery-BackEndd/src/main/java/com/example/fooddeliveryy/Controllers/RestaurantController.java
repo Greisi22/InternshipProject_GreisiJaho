@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RequestMapping("/restaurant")
 @RestController
 public class RestaurantController {
@@ -61,9 +63,9 @@ public class RestaurantController {
 
 
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteRestaurant(@PathVariable long id) {
-        restaurantService.deleteRestaurant(id);
+    @DeleteMapping("/delete/{name}")
+    public ResponseEntity<?> deleteRestaurant(@PathVariable String name) {
+        restaurantService.deleteRestaurantByName(name);
         return ResponseEntity.noContent().build();
     }
 

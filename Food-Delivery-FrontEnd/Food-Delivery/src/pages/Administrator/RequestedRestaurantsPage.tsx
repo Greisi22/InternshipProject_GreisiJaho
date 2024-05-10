@@ -3,6 +3,7 @@ import './style/administrator.css';
 import NavBarAdministrator from 'src/component/Administrator/NavBarAdministrator';
 import TableComponent from "src/component/Administrator/TableComponent";
 
+
 function RequestedRestaurantsPage() {
   return (
     <div>

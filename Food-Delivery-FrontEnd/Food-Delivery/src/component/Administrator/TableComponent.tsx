@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { restaurants } from 'src/data/MockData';
 import { FaTrashAlt, FaCheck, FaSearch } from 'react-icons/fa'; // Import FontAwesome icons
 import { Pagination } from 'antd';
+import { getNotApprovedRestaurants } from 'src/api/localhost/Administrator/restaurantsApi';
 
 export const TableComponent = () => {
+    console.log('PROVA');
     const [acceptedRestaurants, setAcceptedRestaurants] = useState([]);
     const [restaurantsToShow, setRestaurantsToShow] = useState(restaurants);
     const [currentPage, setCurrentPage] = useState(1);
@@ -29,6 +31,14 @@ export const TableComponent = () => {
         const updatedRestaurants = restaurantsToShow.filter((restaurant) => restaurant.id !== id);
         setRestaurantsToShow(updatedRestaurants);
     };
+
+    const fetchData = async () => {
+        const response = await getNotApprovedRestaurants();
+        console.log('OKOOKOKO  ', response);
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <>

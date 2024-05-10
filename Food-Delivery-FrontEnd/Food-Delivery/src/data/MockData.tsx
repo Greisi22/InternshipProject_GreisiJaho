@@ -252,3 +252,66 @@ export const UserList = [
         active: "Active"
     }
 ];
+
+
+export const products = [
+    {
+        id: 1,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "Soup"
+
+    },
+    {
+        id: 2,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "pizza"
+    },
+    {
+        id: 3,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "Soup"
+    },
+    {
+        id: 4,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "Burger"
+    },
+    {
+        id: 5,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "Salad"
+    },
+    {
+        id: 6,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "Salad"
+    },
+    {
+        id: 7,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "Soup"
+    }
+  ];
+  
+  

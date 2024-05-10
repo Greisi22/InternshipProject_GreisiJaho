@@ -11,7 +11,7 @@ import UsersPage from './pages/Administrator/UsersPage';
 import AllRestaurants from './component/Administrator/AllRestaurant';
 import RevenueTable from './component/Administrator/RevenueTable';
 import EditRestaurant from './component/Administrator/EditRestaurant';
-
+import MultiFilters from './component/Administrator/MultiFilters';
 
 const App = () => {    
     return (
@@ -34,6 +34,7 @@ const App = () => {
                 <Route path="/Administrator/AllRestaurants" element={<AllRestaurants />} />
                 <Route path="/Administrator/RevenueTable" element={<RevenueTable />} />
                 <Route path="/Administrator/EditRestaurant" element={<EditRestaurant  />} />
+                <Route path="/Administrator/MenuBar" element={<MultiFilters />} />
                 
                 
             </Routes>

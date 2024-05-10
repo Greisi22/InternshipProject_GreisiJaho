@@ -13,6 +13,10 @@ public class Rastaurant {
     @Column(name = "restaurant_id")
     private long id;
     private String name;
+
+    private String email;
+
+
     private String address;
     @OneToMany(mappedBy = "restaurant")
     @JsonBackReference("menuBackReference")
@@ -40,14 +44,23 @@ public class Rastaurant {
     @JsonBackReference("paymentReference")
     private List<RestaurantPayment> restaurantPayments;
 
-    private boolean isAproved ;
-    private boolean isActive ;
+    private boolean isAproved;
+    private boolean isActive;
 
     @OneToOne
     private Revenue revenue;
 
     @OneToOne
     private Documentation documentation;
+
+    public Documentation getDocumentation() {
+        return documentation;
+    }
+
+    public void setDocumentation(Documentation documentation) {
+        this.documentation = documentation;
+    }
+
     public Revenue getRevenue() {
         return revenue;
     }
@@ -91,9 +104,9 @@ public class Rastaurant {
     }
 
     private List<String> categories;
-    public Rastaurant() {}
 
-
+    public Rastaurant() {
+    }
 
 
     public long getId() {
@@ -240,6 +253,14 @@ public class Rastaurant {
 
     public void setAproved(boolean aproved) {
         isAproved = aproved;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

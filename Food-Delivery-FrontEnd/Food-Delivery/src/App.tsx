@@ -10,10 +10,7 @@ import StatisticsPage from './pages/Administrator/StatisticsPage';
 import UsersPage from './pages/Administrator/UsersPage';
 import AllRestaurants from './component/Administrator/AllRestaurant';
 import RevenueTable from './component/Administrator/RevenueTable';
-import EditRestaurant from './component/Administrator/EditRestaurant';
-
-const App = () => {
- 
+import EditRestaurant from './component/Administrator/EditRestaurant'; 
 import RestaurantMenu from './component/Administrator/RestaurantMenu';
 import EditMenu from './component/Administrator/EditMenu';
 import RestaurantForm from './component/Administrator/RestaurantForm';

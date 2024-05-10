@@ -1,13 +1,32 @@
 package com.example.fooddeliveryy.DTO;
 
+import com.example.fooddeliveryy.Entities.Documentation;
+
 import java.util.List;
 
 public class RestaurantDTO {
     private String name;
     private int discount;
+    private String email;
     private List<String> images;
-
     private List<String> category;
+    private Documentation documentation;
+
+    public Documentation getDocumentation() {
+        return documentation;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDocumentation(Documentation documentation) {
+        this.documentation = documentation;
+    }
 
     public List<String> getCategory() {
         return category;

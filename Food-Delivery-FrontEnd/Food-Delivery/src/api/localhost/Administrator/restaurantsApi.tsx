@@ -1,4 +1,5 @@
 import axiosInstance, { ApiResponse } from '../../../config/axios';
+import { RestaurantNotAproved } from 'src/types/Restaurant';
 
 //Retrieving data from the database with axios dependency
 export async function retrieveAllRestaurant() {
@@ -68,7 +69,7 @@ export async function getRestaurantPayment(id: number) {
 export async function getNotApprovedRestaurants() {
     try {
         // Creating a variable that will contain the data that we need from the endpoint API
-        const response = await axiosInstance.get<ApiResponse>(
+        const response = await axiosInstance.get<RestaurantNotAproved[]>(
             '/restaurant/notApprovedRestaurants',
             {
                 headers: {
@@ -77,7 +78,6 @@ export async function getNotApprovedRestaurants() {
                 withCredentials: true, // to include credentials in the request
             },
         );
-        console.log('Response: ', response);
         return response.data;
     } catch (error) {
         console.log('Error: ', error);

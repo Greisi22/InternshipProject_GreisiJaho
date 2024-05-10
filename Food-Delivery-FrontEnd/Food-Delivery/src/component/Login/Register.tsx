@@ -38,7 +38,7 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
 
     async function handleRegister() {
         const result = await RegisterHelper(email, password, r_password, role);
-        console.log(result);
+     
         console.log(result === 409);
         if (result === 200) {
             setError('You are succesfully register');

@@ -5,9 +5,14 @@ import { useNavigate } from 'react-router-dom';
 function SideBar({ selected }: { selected: string }) {
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleSidebar = () => {
         setIsSidebarOpen((prevState) => !prevState);
+    };
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen((prevState) => !prevState);
     };
 
     const handleItemClick = (item: string) => {
@@ -275,7 +280,11 @@ function SideBar({ selected }: { selected: string }) {
                                 </svg>
                                 <span className="flex-1 ms-3 whitespace-nowrap">Settings</span>
                             </a>
-                        </li>
+                            
+                    </li>
+                        
+                    
+                    
                     </ul>
                 </div>
             </aside>

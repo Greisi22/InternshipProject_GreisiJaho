@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Pagination } from 'antd';
-import { restaurants as initialRestaurants, users } from 'src/data/MockData';
-import deleteIcon from 'src/assets/Icons/EntryPage/delete.png';
-import editIcon from 'src/assets/Icons/EntryPage/edit.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for navigation
+import { products } from 'src/data/MockData'; 
+import { Delete } from '@mui/icons-material';
+import pizzaImage from 'src/assets/pizza.png';
 
-function RevenueTable() {
-    const navigate = useNavigate();
-
-    // column names
-    const columnNames = ['ID', 'Restaurant Name', 'Email Address', 'Done Payments', 'Print Bill', 'Total Amount'];
+function RestaurantMenu() {
+    const navigate = useNavigate(); // Initialize useNavigate hook
 
     // Define state variables
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
     const [selectedArray, setSelectedArray] = useState<number[]>([]);
-    const [loading] = useState(false);
-    const [data, setData] = useState(initialRestaurants);
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState(products);
+    const [showAddToMenuInput, setShowAddToMenuInput] = useState(false);
+    const [menuItemTitle, setMenuItemTitle] = useState('');
+    const [menuItems, setMenuItems] = useState<string[]>([]);
 
-    //per te ber display current page 
+    // Slice data to display on the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, data?.length || 0);
     const currentData = data?.slice(startIndex, endIndex) || [];
@@ -29,43 +29,49 @@ function RevenueTable() {
     };
 
     const handleEdit = (id: number) => {
-        console.log(`Editing restaurant with ID ${id}`);
-        navigate(`/Administrator/EditRestaurant`);
+        console.log(`Editing product with ID ${id}`);
+        // Navigate to /Administrator/EditMenu
+        navigate('/Administrator/EditMenu');
     };
 
-    // view button click
-    const handlePrintBill = (id: number) => {
-        // not yet implemented 
-    };
-
-    // delete icon
     const handleDelete = (id: number) => {
-        const updatedData = data.filter(restaurant => restaurant.id !== id);
+        const updatedData = data.filter(product => product.id !== id);
         setData(updatedData);
+    };
+
+    const handleMenuClick = (productId: number, action: string) => {
+        switch (action) {
+            case 'add_to_menu':
+                setShowAddToMenuInput(true);
+                break;
+            default:
+                break;
+        }
     };
 
     return (
         <>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-sm">
-                    <thead className="h-[40px] text-xs text-gray-700 uppercase bg-gray-500" style={{ backgroundColor: 'rgb(209, 209, 209)' }}>
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-200 table-sm">
+                    <thead className="h-[40px] text-xs text-gray-700 uppercase bg-gray-300">
                         <tr>
                             <th scope="col" className="p-4">
                                 <div className="flex items-center"></div>
                             </th>
-                            {columnNames.map((columnName, index) => (
+                            {['Product Name', 'Image', 'Ingredients', 'Price', 'Actions'].map((columnName, index) => (
                                 <th key={index} scope="col" className="px-6">
                                     {columnName}
                                 </th>
                             ))}
                         </tr>
                     </thead>
-                    <tbody className="w-full">
+                    <tbody>
                         {loading === false ? (
-                            currentData.map((restaurant, index) => (
+                            currentData.map((product, index) => (
                                 <tr
                                     key={index + startIndex}
-                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                >
                                     <td className="w-4 p-4">
                                         <div className="flex items-center whitespace-nowrap">
                                             <input
@@ -88,43 +94,40 @@ function RevenueTable() {
                                             />
                                             <label
                                                 htmlFor={`checkbox-table-search-${index}`}
-                                                className="sr-only">
+                                                className="sr-only"
+                                            >
                                                 checkbox
                                             </label>
                                         </div>
                                     </td>
-                                    <td className="px-6 whitespace-nowrap">{restaurant.id}</td>
-                                    <td className="px-6 whitespace-nowrap">{restaurant.name}</td>
-                                    <td className="px-6 whitespace-nowrap">{users.find(user => user.id === restaurant.restaurantManager.userId)?.userEmail}</td>
-                                    <td className="px-6 whitespace-nowrap">{restaurant.donePayments}</td>
+                                    <td className="px-6 whitespace-nowrap">{product.name}</td>
                                     <td className="px-6 whitespace-nowrap">
-                                        <div className="flex space-x-2 items-center">
-                                            {/* Print Button */}
-                                            <button className="btn btn-primary-print" onClick={() => handlePrintBill(restaurant.id)} style={{ width: '26%', padding: '7px', fontSize: '16px', borderRadius: '6px', cursor: 'pointer', backgroundColor: '#16C098', color: '#fff' }}>Print</button>
-                                            {/* Edit Button */}
-                                            <img
-                                                src={editIcon}
-                                                alt="Edit Icon"
-                                                className="icon"
-                                                onClick={() => handleEdit(restaurant.id)}
-                                                style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '6px' }}
-                                            />
-                                            {/* Delete Button */}
-                                            <img
-                                                src={deleteIcon}
-                                                alt="Delete Icon"
-                                                className="icon"
-                                                onClick={() => handleDelete(restaurant.id)}
-                                                style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '6px' }}
-                                            />
-                                        </div>
+                                        <img src={pizzaImage} alt={product.name} className="h-12 w-12" />
                                     </td>
-                                    <td className="px-6 whitespace-nowrap">{restaurant.totalAmount}</td>
+                                    <td className="px-6 whitespace-nowrap">{product.ingredients.join(', ')}</td>
+                                    <td className="px-6 whitespace-nowrap">${product.price}</td>
+                                    <td className="px-6 py-4 flex space-x-2">
+                                        {/* Edit Button */}
+                                        <a
+                                            href="#"
+                                            className="text-blue-500"
+                                            onClick={() => handleEdit(product.id)}
+                                            style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '3px', marginTop: '8px', display:'block' }}
+                                        >
+                                            Edit
+                                        </a>
+                                        {/* Delete Button */}
+                                        <Delete
+                                            className="icon"
+                                            onClick={() => handleDelete(product.id)}
+                                            style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '3px', marginTop: '8px', display:'block' }}
+                                        />
+                                    </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td className="px-6 py-4" colSpan={columnNames.length}>
+                                <td className="px-6 py-4" colSpan={5}>
                                     Loading...
                                 </td>
                             </tr>
@@ -141,8 +144,9 @@ function RevenueTable() {
                     onChange={handlePageChange}
                 />
             </div>
+           
         </>
     );
 }
 
-export default RevenueTable;
+export default RestaurantMenu;

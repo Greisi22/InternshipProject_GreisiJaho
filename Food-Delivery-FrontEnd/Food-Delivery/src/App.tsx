@@ -13,7 +13,14 @@ import RevenueTable from './component/Administrator/RevenueTable';
 import EditRestaurant from './component/Administrator/EditRestaurant';
 
 const App = () => {
-    console.log("ha mut");
+ 
+import RestaurantMenu from './component/Administrator/RestaurantMenu';
+import EditMenu from './component/Administrator/EditMenu';
+import RestaurantForm from './component/Administrator/RestaurantForm';
+import ProductForm from './component/Administrator/ProductForm';
+
+const App = () => {    
+
     return (
         <>
             <Routes>
@@ -33,7 +40,18 @@ const App = () => {
                 <Route path="/Administrator/SettingsPage" element={<SettingsPage />} />
                 <Route path="/Administrator/AllRestaurants" element={<AllRestaurants />} />
                 <Route path="/Administrator/RevenueTable" element={<RevenueTable />} />
+
                 <Route path="/Administrator/EditRestaurant" element={<EditRestaurant />} />
+
+                <Route path="/Administrator/EditRestaurant" element={<EditRestaurant/>} />
+                <Route path="/Administrator/RestaurantMenu" element={<RestaurantMenu/>} />
+                <Route path="/Administrator/EditMenu" element={<EditMenu/>} />
+                <Route path="/Administrator/RestaurantForm" element={<RestaurantForm/>}/>
+                <Route path="/Administrator/ProductForm" element={<ProductForm/>}/>
+                
+                
+                
+
             </Routes>
         </>
     );

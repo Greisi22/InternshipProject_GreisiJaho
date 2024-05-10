@@ -82,7 +82,7 @@ public class RestaurantController {
     @GetMapping("/discount")
     public ResponseEntity<?> getRestaurantWithDiscount() {
         List<Rastaurant> restaurantsWithDiscount = restaurantService.getRestaurantsWithDiscount();
-        List<RestaurantDTO> restaurantDTOS = restaurantMapper.restaurantsToRestaurantDTOs(restaurantsWithDiscount);
+        List<RestaurantDTO> restaurantDTOS = restaurantMapper.mapToApprovedRestaurantDTOs(restaurantsWithDiscount);
         return ResponseEntity.ok().body(restaurantDTOS);
     }
 
@@ -90,7 +90,7 @@ public class RestaurantController {
     public ResponseEntity<?> getApprovedRestaurant() {
         try {
             List<Rastaurant> approvedRestaurants = restaurantService.getIsAprovedRestaurants();
-            List<RestaurantDTO> restaurantDTOS = restaurantMapper.restaurantsToRestaurantDTOs(approvedRestaurants);
+            List<RestaurantDTO> restaurantDTOS = restaurantMapper.mapToApprovedRestaurantDTOs(approvedRestaurants);
             System.out.println("Approved restaurants "+ approvedRestaurants);
             return ResponseEntity.ok().body(restaurantDTOS);
         } catch (Exception e) {
@@ -102,7 +102,7 @@ public class RestaurantController {
     public ResponseEntity<?> getNotApprovedRestaurant() {
         try {
             List<Rastaurant> notApprovedRestaurants = restaurantService.getNotAprovedRestaurants();
-            List<RestaurantDTO> restaurantDTOS = restaurantMapper.restaurantsToRestaurantDTOs(notApprovedRestaurants);
+            List<RestaurantDTO> restaurantDTOS = restaurantMapper.mapToNotApprovedRestaurantDTOs(notApprovedRestaurants);
             return ResponseEntity.ok().body(restaurantDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error!!");

@@ -63,6 +63,27 @@ interface Restaurant {
     // Define properties of Documentation here
   }
 
+  interface Documentation {
+    id: number;
+    restaurantName: string;
+    restaurantEmail: string;
+    yearsOfExperiance: string;
+    whatTheyOffer: string;
+    rastaurant: {
+      id: number;
+      name: string;
+    };
+  }
+
+ export interface RestaurantNotAproved {
+    name: string;
+    discount: number;
+    images: string[];
+    email: string;
+    category: string[];
+    documentation: Documentation; 
+  }
+
 
   
 type HandleRestorantsFunction = (category: string) => void;

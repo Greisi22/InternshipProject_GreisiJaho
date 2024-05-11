@@ -261,6 +261,18 @@ export const products = [
         image: 'src/assets/soup.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
+
+        category: "Soup"
+
+    },
+    {
+        id: 2,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "pizza"
+
     },
     {
         id: 2,
@@ -275,6 +287,46 @@ export const products = [
         image: 'src/assets/soup.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
+
+        category: "Soup"
+    },
+    {
+        id: 4,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "Burger"
+    },
+    {
+        id: 5,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "Salad"
+    },
+    {
+        id: 6,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "Salad"
+    },
+    {
+        id: 7,
+        name: 'Tomato soup ',
+        image: 'src/assets/soup.png',
+        ingredients: ['Rosemary and thyme, chives and parsley'],
+        price: 10.99,
+        category: "Soup"
+    }
+  ];
+  
+  
+
     },
     
 ];
+

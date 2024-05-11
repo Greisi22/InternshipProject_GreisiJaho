@@ -1,24 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Pagination } from 'antd';
-import { restaurants as initialRestaurants, users } from 'src/data/MockData';
 import deleteIcon from 'src/assets/Icons/EntryPage/delete.png';
 import { useNavigate } from 'react-router-dom';
+import { getApprovedRestaurants } from 'src/api/localhost/Administrator/restaurantsApi';
+import { RestaurantAproved } from 'src/types/Restaurant';
+import { deleteRestaurant } from 'src/api/localhost/Administrator/restaurantsApi';
+import { FaTrashAlt, FaCheck, FaSearch } from 'react-icons/fa'; 
 
 function AllRestaurant() {
     const navigate = useNavigate();
 
-    // Define column names
+    
     const columnNames = ['Restaurant Name', 'ID', 'Phone Number', 'Email', 'Actions'];
-
-    // Define state variables
+    const [fixedData, setfixedData] = useState<RestaurantAproved[]>([]);
+   
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
     const [selectedArray, setSelectedArray] = useState<number[]>([]);
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState(initialRestaurants); 
-   
+    const [data, setData] = useState<RestaurantAproved[]>([]);
 
-    // Slice data to display on the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, data?.length || 0);
     const currentData = data?.slice(startIndex, endIndex) || [];
@@ -28,27 +29,76 @@ function AllRestaurant() {
         setCurrentPage(page);
     };
 
-    const handleEdit = (id: number) => {
-        console.log(`Editing restaurant with ID ${id}`);
+    const handleEdit = (name: string) => {
+        console.log(`Editing restaurant with ID ${name}`);
         navigate(`/Administrator/EditRestaurant`);
     };
 
     // view button click
-    const handleView = (id: number) => {
+    const handleView = (name: string) => {
         // Logic to view details
     };
 
-    // delete icon
-    const handleDelete = (id: number) => {
-        const updatedData = data.filter(restaurant => restaurant.id !== id);
-        setData(updatedData);
+    const handleDelete = async (name: string) => {
+        try {
+            await deleteRestaurant(name);
+
+            // setData(name);
+
+            console.log('Restaurant deleted successfully.');
+        } catch (error: any) {
+            console.log('Error deleting restaurant:', error.message);
+        }
     };
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.value != null) {
+            const searchString = event.target.value.toLowerCase();
+            const filteredData = filteredRestaurants(searchString);
+            setData(searchString !== '' ? filteredData : fixedData);
+        }
+    };
+
+    const filteredRestaurants = (search: string) => {
+        return fixedData.filter((restaurant) => {
+            const lowerCaseSearch = search.toLowerCase();
+            return Object.values(restaurant).some(
+                (value) =>
+                    typeof value === 'string' && value.toLowerCase().includes(lowerCaseSearch),
+            );
+        });
+    };
+
+    const fetchData = async () => {
+        const response = await getApprovedRestaurants();
+        setData(response);
+        setfixedData(response);
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="flex justify-between mb-4">
+                    <div className="relative ml-auto mt-4 mr-6">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            className="pl-10 pr-12 py-2 w-64 border rounded focus:outline-none focus:border-blue-500"
+                            onChange={handleSearch}
+                        />
+                        <div className="absolute top-0 right-0 flex items-center justify-center h-full w-10 text-gray-600">
+                            <FaSearch />
+                        </div>
+                    </div>
+                </div>
+
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-sm">
-                <thead className="h-[40px] text-xs text-gray-700 uppercase bg-gray-500" style={{ backgroundColor: 'rgb(209, 209, 209)' }}>
+                    <thead
+                        className="h-[40px] text-xs text-gray-700 uppercase bg-gray-500"
+                        style={{ backgroundColor: 'rgb(209, 209, 209)' }}>
                         <tr>
                             <th scope="col" className="p-4">
                                 <div className="flex items-center"></div>
@@ -60,6 +110,7 @@ function AllRestaurant() {
                             ))}
                         </tr>
                     </thead>
+
                     <tbody className="w-full">
                         {loading === false ? (
                             currentData.map((restaurant, index) => (
@@ -69,16 +120,26 @@ function AllRestaurant() {
                                     <td className="w-4 p-4">
                                         <div className="flex items-center whitespace-nowrap">
                                             <input
-                                                defaultChecked={selectedArray.includes(index + startIndex)}
+                                                defaultChecked={selectedArray.includes(
+                                                    index + startIndex,
+                                                )}
                                                 onChange={() => {
                                                     const updatedSelectedArray = [...selectedArray];
-                                                    if (updatedSelectedArray.includes(index + startIndex)) {
+                                                    if (
+                                                        updatedSelectedArray.includes(
+                                                            index + startIndex,
+                                                        )
+                                                    ) {
                                                         updatedSelectedArray.splice(
-                                                            updatedSelectedArray.indexOf(index + startIndex),
+                                                            updatedSelectedArray.indexOf(
+                                                                index + startIndex,
+                                                            ),
                                                             1,
                                                         );
                                                     } else {
-                                                        updatedSelectedArray.push(index + startIndex);
+                                                        updatedSelectedArray.push(
+                                                            index + startIndex,
+                                                        );
                                                     }
                                                     setSelectedArray(updatedSelectedArray);
                                                 }}
@@ -93,23 +154,60 @@ function AllRestaurant() {
                                             </label>
                                         </div>
                                     </td>
-                                
+
                                     <td className="px-6 whitespace-nowrap">{restaurant.name}</td>
-                                    <td className="px-6 whitespace-nowrap">{restaurant.id}</td>
+                                    <td className="px-6 whitespace-nowrap">{restaurant.name}</td>
                                     <td className="px-6 whitespace-nowrap">Phone Number</td>
-                                    <td className="px-6 whitespace-nowrap">{users.find(user => user.id === restaurant.restaurantManager.userId)?.userEmail}</td>
+                                    <td className="px-6 whitespace-nowrap">
+                                        {/* {
+                                            users.find(
+                                                (user) =>
+                                                    // user.id === restaurant.restaurantManager.userId,
+                                            )?.userEmail
+                                        } */}
+                                    </td>
                                     <td className="px-6 py-4 flex space-x-2">
                                         {/* Edit Button */}
-                                        <button className="btn btn-primary-small" style={{ width: '30%', padding: '12px', fontSize: '16px', borderRadius: '6px', cursor: 'pointer', backgroundColor: '#16C098', color: '#fff' }} onClick={() => handleEdit(restaurant.id)}>Edit</button>
+                                        <button
+                                            className="btn btn-primary-small"
+                                            style={{
+                                                width: '30%',
+                                                padding: '12px',
+                                                fontSize: '16px',
+                                                borderRadius: '6px',
+                                                cursor: 'pointer',
+                                                backgroundColor: '#16C098',
+                                                color: '#fff',
+                                            }}
+                                            onClick={() => handleEdit(restaurant.name)}>
+                                            Edit
+                                        </button>
                                         {/* View Button */}
-                                        <button className="btn btn-view" style={{ width: '30%', fontSize: '13px', borderRadius: '6px', cursor: 'pointer', backgroundColor: '#EAEAEA', color: '#000', border: '1px solid #000' }} onClick={() => handleView(restaurant.id)}>View</button>
+                                        <button
+                                            className="btn btn-view"
+                                            style={{
+                                                width: '30%',
+                                                fontSize: '13px',
+                                                borderRadius: '6px',
+                                                cursor: 'pointer',
+                                                backgroundColor: '#EAEAEA',
+                                                color: '#000',
+                                                border: '1px solid #000',
+                                            }}
+                                            onClick={() => handleView(restaurant.name)}>
+                                            View
+                                        </button>
                                         {/* Delete Button */}
                                         <img
                                             src={deleteIcon}
                                             alt="Delete Icon"
                                             className="icon"
-                                            onClick={() => handleDelete(restaurant.id)}
-                                            style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '6px' }}
+                                            onClick={() => handleDelete(restaurant.name)}
+                                            style={{
+                                                cursor: 'pointer',
+                                                maxWidth: '2.5rem',
+                                                padding: '6px',
+                                            }}
                                         />
                                     </td>
                                 </tr>

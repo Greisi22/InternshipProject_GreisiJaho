@@ -21,10 +21,7 @@ export const TableComponent = () => {
 
     const handleDelete = async (name: string) => {
         try {
-            // Call the deleteRestaurant function to delete the restaurant
             await deleteRestaurant(name);
-
-            // If the deletion is successful, update the state to remove the deleted restaurant from the list
             const updatedRestaurants = restaurantsToShow.filter(
                 (restaurant) => restaurant.name !== name,
             );

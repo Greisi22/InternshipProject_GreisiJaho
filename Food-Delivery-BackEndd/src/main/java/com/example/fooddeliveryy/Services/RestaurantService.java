@@ -3,6 +3,7 @@ package com.example.fooddeliveryy.Services;
 import com.example.fooddeliveryy.Entities.Menu;
 import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,12 @@ public class RestaurantService {
 
 
     public Rastaurant createRestaurant(Rastaurant restaurant) {
+
+        Rastaurant existingRestaurant = restaurantRepo.findByName(restaurant.getName());
+        if (existingRestaurant != null) {
+            throw new IllegalArgumentException("Restaurant with name '" + restaurant.getName() + "' already exists");
+        }
+
         if (restaurant.getMenu() != null) {
             List<Menu> restaurantMenus = new ArrayList<>();
             for (Menu menu : restaurant.getMenu()) {
@@ -76,8 +83,14 @@ public class RestaurantService {
         }
     }
 
-    public void deleteRestaurant(long id) {
-        restaurantRepo.deleteById(id);
+    @Transactional
+    public void deleteRestaurantByName(String name) {
+        Rastaurant restaurant = restaurantRepo.findByName(name);
+        if (restaurant != null) {
+            restaurantRepo.deleteByName(name);
+        } else {
+            throw new IllegalArgumentException("Restaurant with name '" + name + "' not found");
+        }
     }
 
     public List<Rastaurant> getIsAprovedRestaurants()
@@ -94,6 +107,20 @@ public class RestaurantService {
         return approvedRestaurant;
     }
 
+
+    public List<Rastaurant> getNotAprovedRestaurants()
+    {
+        List<Rastaurant> allRestaurant = restaurantRepo.findAll();
+        List<Rastaurant> approvedRestaurant = new ArrayList<>();
+        for(Rastaurant rastaurant: allRestaurant)
+        {
+            if(!rastaurant.isAproved())
+            {
+                approvedRestaurant.add(rastaurant);
+            }
+        }
+        return approvedRestaurant;
+    }
 
 
     public Rastaurant updateRestaurantAttribute(long id) {

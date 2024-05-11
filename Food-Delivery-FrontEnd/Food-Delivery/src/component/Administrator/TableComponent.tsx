@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { restaurants } from 'src/data/MockData';
+import { useEffect, useState } from 'react';
 import { FaTrashAlt, FaCheck, FaSearch } from 'react-icons/fa'; // Import FontAwesome icons
 import { Pagination } from 'antd';
+import { getNotApprovedRestaurants } from 'src/api/localhost/Administrator/restaurantsApi';
+import { RestaurantNotAproved } from 'src/types/Restaurant';
+import { deleteRestaurant } from 'src/api/localhost/Administrator/restaurantsApi';
 
 export const TableComponent = () => {
-    const [acceptedRestaurants, setAcceptedRestaurants] = useState([]);
-    const [restaurantsToShow, setRestaurantsToShow] = useState(restaurants);
+    const [restaurantsToShow, setRestaurantsToShow] = useState<RestaurantNotAproved[]>([]);
+    const [fixedData, setfixedData] = useState<RestaurantNotAproved[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
 
@@ -13,22 +15,58 @@ export const TableComponent = () => {
     const endIndex = Math.min(startIndex + itemsPerPage, restaurantsToShow?.length || 0);
     const currentData = restaurantsToShow?.slice(startIndex, endIndex) || [];
 
-    const handlePageChange = (page) => {
+    const handlePageChange = (page: any) => {
         setCurrentPage(page);
     };
 
-    const handleDelete = (id) => {
-        const updatedRestaurants = restaurantsToShow.filter((restaurant) => restaurant.id !== id);
+    const handleDelete = async (name: string) => {
+        try {
+            // Call the deleteRestaurant function to delete the restaurant
+            await deleteRestaurant(name);
+
+            // If the deletion is successful, update the state to remove the deleted restaurant from the list
+            const updatedRestaurants = restaurantsToShow.filter(
+                (restaurant) => restaurant.name !== name,
+            );
+            setRestaurantsToShow(updatedRestaurants);
+
+            console.log('Restaurant deleted successfully.');
+        } catch (error: any) {
+            console.log('Error deleting restaurant:', error.message);
+        }
+    };
+
+    const handleAccept = (id: string) => {
+        const updatedRestaurants = restaurantsToShow.filter((restaurant) => restaurant.name !== id);
         setRestaurantsToShow(updatedRestaurants);
     };
 
-    const handleAccept = (id) => {
-        const acceptedRestaurant = restaurants.find((restaurant) => restaurant.id === id);
-        setAcceptedRestaurants([...acceptedRestaurants, acceptedRestaurant]);
-        // Remove the delete icon by updating the restaurants to show
-        const updatedRestaurants = restaurantsToShow.filter((restaurant) => restaurant.id !== id);
-        setRestaurantsToShow(updatedRestaurants);
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.value != null) {
+            const searchString = event.target.value.toLowerCase();
+            const filteredData = filteredRestaurants(searchString);
+            setRestaurantsToShow(searchString !== '' ? filteredData : fixedData);
+        }
     };
+
+    const filteredRestaurants = (search: string) => {
+        return fixedData.filter((restaurant) => {
+            const lowerCaseSearch = search.toLowerCase();
+            return Object.values(restaurant).some(
+                (value) =>
+                    typeof value === 'string' && value.toLowerCase().includes(lowerCaseSearch),
+            );
+        });
+    };
+
+    const fetchData = async () => {
+        const response = await getNotApprovedRestaurants();
+        setRestaurantsToShow(response);
+        setfixedData(response);
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <>
@@ -39,6 +77,7 @@ export const TableComponent = () => {
                             type="text"
                             placeholder="Search..."
                             className="pl-10 pr-12 py-2 w-64 border rounded focus:outline-none focus:border-blue-500"
+                            onChange={handleSearch}
                         />
                         <div className="absolute top-0 right-0 flex items-center justify-center h-full w-10 text-gray-600">
                             <FaSearch />
@@ -79,19 +118,19 @@ export const TableComponent = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentData.map((restaurant) => (
+                            {currentData.map((restaurant, index) => (
                                 <tr
-                                    key={restaurant.id}
+                                    key={index}
                                     className="border-b dark:bg-gray-800 dark:border-gray-700">
                                     <td className="w-4 p-4">
                                         <div className="flex items-center">
                                             <input
-                                                id={`checkbox-table-search-${restaurant.id}`}
+                                                id={`checkbox-table-search-${restaurant.name}`}
                                                 type="checkbox"
                                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                             />
                                             <label
-                                                htmlFor={`checkbox-table-search-${restaurant.id}`}
+                                                htmlFor={`checkbox-table-search-${restaurant.name}`}
                                                 className="sr-only">
                                                 checkbox
                                             </label>
@@ -100,39 +139,37 @@ export const TableComponent = () => {
                                     <th
                                         scope="row"
                                         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {restaurant.id}
+                                        {(currentPage - 1) * itemsPerPage + index + 1}
                                     </th>
                                     <th
                                         scope="row"
                                         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {restaurant.name}
                                     </th>
-                                    <td className="px-6 py-4">{restaurant.website}</td>
-                                    <td className="px-6 py-4">{restaurant.website}</td>
-                                    <td className="flex items-center px-6 py-4">
-                                        {/* Show delete icon if the restaurant is not accepted */}
-                                        {!acceptedRestaurants.some(
-                                            (accepted) => accepted.id === restaurant.id,
-                                        ) && (
+                                    <th
+                                        scope="row"
+                                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {restaurant.email}
+                                    </th>
+                                    <th
+                                        scope="row"
+                                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {restaurant.name}
+                                    </th>
+                                    <th
+                                        scope="row"
+                                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div className="flex flex-row">
                                             <FaTrashAlt
                                                 className="text-red-600 dark:text-red-500 hover:cursor-pointer mr-3"
-                                                onClick={() => handleDelete(restaurant.id)}
+                                                onClick={() => handleDelete(restaurant.name)}
                                             />
-                                        )}
-                                        {/* Accept icon */}
-                                        <FaCheck
-                                            className="text-green-600 dark:text-green-500 hover:cursor-pointer"
-                                            onClick={() => handleAccept(restaurant.id)}
-                                        />
-                                        {/* Show accepted message if the restaurant is in accepted list */}
-                                        {acceptedRestaurants.some(
-                                            (accepted) => accepted.id === restaurant.id,
-                                        ) && (
-                                            <span className="ml-2 text-green-600 dark:text-green-500">
-                                                Accepted
-                                            </span>
-                                        )}
-                                    </td>
+                                            <FaCheck
+                                                className="text-green-600 dark:text-green-500 hover:cursor-pointer"
+                                                onClick={() => handleAccept(restaurant.name)}
+                                            />
+                                        </div>
+                                    </th>
                                 </tr>
                             ))}
                         </tbody>

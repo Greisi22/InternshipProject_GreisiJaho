@@ -40,7 +40,7 @@ function ProductForm() {
     };
 
     return (
-        <div className="fixed w-full">
+        <div className="fixed inset-0 flex items-center justify-center backdrop-filter backdrop-blur-lg">
         {/* Background image or color */}
         <div className="absolute inset-0 bg-white-900 opacity-50"></div>
         <div

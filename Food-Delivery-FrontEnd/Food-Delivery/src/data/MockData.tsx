@@ -261,6 +261,7 @@ export const products = [
         image: 'src/assets/soup.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
+
         category: "Soup"
 
     },
@@ -271,6 +272,14 @@ export const products = [
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
         category: "pizza"
+
+    },
+    {
+        id: 2,
+        name: 'Pizza',
+        image: 'src/assets/pizza.png',
+        ingredients: ['sliced cucumbers, tomatoes, green bell pepper, red onion, olives, and feta cheese'],
+        price: 8.99,
     },
     {
         id: 3,
@@ -278,6 +287,7 @@ export const products = [
         image: 'src/assets/soup.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
+
         category: "Soup"
     },
     {
@@ -315,3 +325,8 @@ export const products = [
   ];
   
   
+
+    },
+    
+];
+

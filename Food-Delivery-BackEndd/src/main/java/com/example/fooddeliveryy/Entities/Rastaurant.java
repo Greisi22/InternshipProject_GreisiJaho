@@ -13,6 +13,10 @@ public class Rastaurant {
     @Column(name = "restaurant_id")
     private long id;
     private String name;
+
+    private String email;
+
+
     private String address;
     @OneToMany(mappedBy = "restaurant")
     @JsonBackReference("menuBackReference")
@@ -40,14 +44,23 @@ public class Rastaurant {
     @JsonBackReference("paymentReference")
     private List<RestaurantPayment> restaurantPayments;
 
-    private boolean isAproved = false;
-    private boolean isActive = false;
+    private boolean isAproved;
+    private boolean isActive;
 
     @OneToOne
     private Revenue revenue;
 
     @OneToOne
     private Documentation documentation;
+
+    public Documentation getDocumentation() {
+        return documentation;
+    }
+
+    public void setDocumentation(Documentation documentation) {
+        this.documentation = documentation;
+    }
+
     public Revenue getRevenue() {
         return revenue;
     }
@@ -91,9 +104,9 @@ public class Rastaurant {
     }
 
     private List<String> categories;
-    public Rastaurant() {}
 
-
+    public Rastaurant() {
+    }
 
 
     public long getId() {
@@ -242,22 +255,37 @@ public class Rastaurant {
         isAproved = aproved;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Rastaurant{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", menu=" + menu +
                 ", openingHours=" + openingHours +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", website='" + website + '\'' +
-                ", averageRating=" + averageRating + '\'' +
-                ", isOpen=" + isOpen + '\'' +
-                ", restaurantManager=" + restaurantManager.getUserId() + '\'' +
-                ", category=" + category + '\'' +
-                ", restaurantPayment=" + restaurantPayments +'\'' +
-                ", isAproved=" + isAproved + '\'' +
+                ", averageRating=" + averageRating +
+                ", isOpen=" + isOpen +
+                ", reviews=" + reviews +
+                ", images=" + images +
+                ", discount=" + discount +
+                ", order=" + order +
+                ", category=" + category +
+                ", restaurantPayments=" + restaurantPayments +
+                ", isAproved=" + isAproved +
                 ", isActive=" + isActive +
+                ", revenue=" + revenue +
+                ", documentation=" + documentation +
+                ", categories=" + categories +
                 '}';
     }
 }

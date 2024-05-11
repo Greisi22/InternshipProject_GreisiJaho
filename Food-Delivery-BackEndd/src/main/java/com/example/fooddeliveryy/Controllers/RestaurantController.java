@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RequestMapping("/restaurant")
 @RestController
 public class RestaurantController {
@@ -61,9 +63,9 @@ public class RestaurantController {
 
 
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteRestaurant(@PathVariable long id) {
-        restaurantService.deleteRestaurant(id);
+    @DeleteMapping("/delete/{name}")
+    public ResponseEntity<?> deleteRestaurant(@PathVariable String name) {
+        restaurantService.deleteRestaurantByName(name);
         return ResponseEntity.noContent().build();
     }
 
@@ -82,7 +84,7 @@ public class RestaurantController {
     @GetMapping("/discount")
     public ResponseEntity<?> getRestaurantWithDiscount() {
         List<Rastaurant> restaurantsWithDiscount = restaurantService.getRestaurantsWithDiscount();
-        List<RestaurantDTO> restaurantDTOS = restaurantMapper.restaurantsToRestaurantDTOs(restaurantsWithDiscount);
+        List<RestaurantDTO> restaurantDTOS = restaurantMapper.mapToApprovedRestaurantDTOs(restaurantsWithDiscount);
         return ResponseEntity.ok().body(restaurantDTOS);
     }
 
@@ -90,7 +92,19 @@ public class RestaurantController {
     public ResponseEntity<?> getApprovedRestaurant() {
         try {
             List<Rastaurant> approvedRestaurants = restaurantService.getIsAprovedRestaurants();
-            List<RestaurantDTO> restaurantDTOS = restaurantMapper.restaurantsToRestaurantDTOs(approvedRestaurants);
+            List<RestaurantDTO> restaurantDTOS = restaurantMapper.mapToApprovedRestaurantDTOs(approvedRestaurants);
+            System.out.println("Approved restaurants "+ approvedRestaurants);
+            return ResponseEntity.ok().body(restaurantDTOS);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error!!");
+        }
+    }
+
+    @GetMapping("/notApprovedRestaurants")
+    public ResponseEntity<?> getNotApprovedRestaurant() {
+        try {
+            List<Rastaurant> notApprovedRestaurants = restaurantService.getNotAprovedRestaurants();
+            List<RestaurantDTO> restaurantDTOS = restaurantMapper.mapToNotApprovedRestaurantDTOs(notApprovedRestaurants);
             return ResponseEntity.ok().body(restaurantDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error!!");

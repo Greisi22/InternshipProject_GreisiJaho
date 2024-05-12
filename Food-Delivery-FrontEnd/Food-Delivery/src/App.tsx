@@ -11,16 +11,14 @@ import UsersPage from './pages/Administrator/UsersPage';
 import AllRestaurants from './component/Administrator/AllRestaurant';
 import RevenueTable from './component/Administrator/RevenueTable';
 
-<<<<<<< HEAD
-import EditRestaurant from './component/Administrator/EditRestaurant';
-import MultiFilters from './component/Administrator/MultiFilters';
-import ProductForm from './component/Administrator/ProductForm';
-=======
+
+
+
 
 import EditRestaurant from './component/Administrator/EditRestaurant';
->>>>>>> f5b23df0630522bb2da6bf7e5273d1cf3a0ddae8
+
 import RestaurantMenu from './component/Administrator/RestaurantMenu';
-import EditMenu from './component/Administrator/EditMenu';
+
 import RestaurantForm from './component/Administrator/RestaurantForm';
 
 import ManagerOrdersPage from 'src/pages/RestaurantManager/ManagerOrdersPage';
@@ -56,7 +54,7 @@ const App = () => {
             
                 <Route path="/Administrator/EditRestaurant" element={<EditRestaurant />} />
                 <Route path="/Administrator/RestaurantMenu" element={<RestaurantMenu />} />
-                <Route path="/Administrator/EditMenu" element={<EditMenu />} />
+                {/* <Route path="/Administrator/EditMenu" element={<EditMenu />} /> */}
                 <Route path="/Administrator/RestaurantForm" element={<RestaurantForm />} />
                 {/* <Route path="/Administrator/ProductForm" element={<ProductForm />} /> */}
                 <Route path="/RestaurantManager/Dashboard" element={<ManagerDashboardPage />} />

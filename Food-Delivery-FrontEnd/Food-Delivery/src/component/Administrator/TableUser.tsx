@@ -1,21 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaSearch, FaTrashAlt } from 'react-icons/fa';
-
-// Import UserList data and interface
-import { getAllUser, deleteUser } from 'src/api/localhost/Administrator/userApi';
-
 import { User } from 'src/types/Restaurant';
-
-
-
-export const TableUser = () => {
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [itemsPerPage] = useState<number>(10);
-    const [users, setUsers] = useState<User[]>([]);
-    const [sortDirection, setSortDirection] = useState<string>('asc'); // State to hold the sort direction
-    const [sortBy, setSortBy] = useState<string>('id'); // State to hold the field to sort by
-
-    let totalItems: number = users.length;
+import { getAllUser, deleteUser } from 'src/api/localhost/Administrator/userApi';
 
 interface TableUserProps {
     setUsersRagister: any;
@@ -32,26 +18,8 @@ const TableUser: React.FC<TableUserProps> = ({ setUsersRagister, isUserCreated }
 
     let totalItems = users.length;
 
-
-    const startIndex: number = (currentPage - 1) * itemsPerPage;
-    const endIndex: number = Math.min(startIndex + itemsPerPage, totalItems);
-
-
-    let displayedItems: User[] = users.slice(startIndex, endIndex);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await getAllUser();
-                console.log('Response from Api Greisi: ', response);
-                setUsers(response);
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
-        };
-        fetchData();
-    }, []);
-
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
     let displayedItems = users.slice(startIndex, endIndex);
 
@@ -73,7 +41,6 @@ const TableUser: React.FC<TableUserProps> = ({ setUsersRagister, isUserCreated }
     useEffect(() => {
         fetchData();
     }, [isUserCreated]);
-
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);

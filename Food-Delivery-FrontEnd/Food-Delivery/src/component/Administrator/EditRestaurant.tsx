@@ -21,31 +21,7 @@ interface RestaurantManager {
     userRole: string;
 }
 
-interface Restaurant {
-    id: number;
-    name: string;
-    phoneNumber: string;
-    website: string;
-    restaurantManager: {
-        userId: number;
-    };
-    isAccepted: boolean;
-    donePayments: number;
-    totalAmount: number;
-}
-
-interface UserManager {
-    id: number;
-    userEmail: string;
-    userRole: string;
-}
-
 const EditRestaurant = () => {
-
-    const { id } = useParams();
-    const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
-    const [restaurantManager, setRestaurantManager] = useState<UserManager | null>(null);
-
     const { id } = useParams<{ id: string }>();
     const [restaurant, setRestaurant] = useState<Restaurant>({
         id: 0,
@@ -62,21 +38,15 @@ const EditRestaurant = () => {
         userRole: ''
     });
 
-
     useEffect(() => {
         const selectedRestaurant = initialRestaurants.find(restaurant => restaurant.id === parseInt(id || ""));
         const selectedManager = users.find(user => user.id === selectedRestaurant?.restaurantManager.userId);
-
-        setRestaurant(selectedRestaurant || null);
-        setRestaurantManager(selectedManager || null);
-
         if (selectedRestaurant) {
             setRestaurant(selectedRestaurant);
         }
         if (selectedManager) {
             setRestaurantManager(selectedManager);
         }
-
     }, [id]);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -87,9 +57,9 @@ const EditRestaurant = () => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setRestaurant(prevState => ({
-            ...(prevState || {}),
+            ...prevState,
             [name]: value
-        }) as Restaurant | null); // Ensure the state is of type Restaurant | null
+        }));
     };
 
     const handleManagerEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,17 +76,6 @@ const EditRestaurant = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Restaurant Name</label>
-
-                    <input type="text" id="name" name="name" value={restaurant?.name || ''} onChange={handleInputChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="phoneNumber">Phone Number</label>
-                    <input type="text" id="phoneNumber" name="phoneNumber" value={restaurant?.phoneNumber || ''} onChange={handleInputChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Manager Email</label>
-                    <input type="text" id="email" name="email" value={restaurantManager?.userEmail || ''} readOnly />
-
                     <input type="text" id="name" name="name" value={restaurant.name} onChange={handleInputChange} />
                 </div>
                 <div className="form-group">
@@ -126,7 +85,6 @@ const EditRestaurant = () => {
                 <div className="form-group">
                     <label htmlFor="email">Manager Email</label>
                     <input type="text" id="email" name="email" value={restaurantManager.userEmail || ''} onChange={handleManagerEmailChange} />
-
                 </div>
                 <div className="form-group">
                     <label htmlFor="website">Website:</label>

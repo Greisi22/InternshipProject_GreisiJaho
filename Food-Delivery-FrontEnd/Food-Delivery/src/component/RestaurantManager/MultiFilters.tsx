@@ -192,3 +192,5 @@ function MultiFilters() {
         </div>
     );
 }
+
+export default MultiFilters;

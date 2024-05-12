@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
-const OrderComponent = () => {
+const RestaurantOrdersComponent = () => {
+    const restaurantId = 1; // Hardcoded restaurant ID
+    const [orders, setOrders] = useState([]);
     const [stompClient, setStompClient] = useState(null);
 
     useEffect(() => {
         const socketUrl = 'http://localhost:8080/ws'; // Replace with your WebSocket endpoint
         const socket = new SockJS(socketUrl);
         const stomp = Stomp.over(socket);
-
         stomp.connect({}, () => {
-            console.log('STOMP connected');
+            console.log('Connected to WebSocket');
             setStompClient(stomp);
-        }, (error) => {
-            console.error('STOMP error:', error);
+
+            stomp.subscribe(`/topic/restaurant-${restaurantId}-orders`, (message) => {
+                const newOrder = JSON.parse(message.body);
+                setOrders((prevOrders) => [...prevOrders, newOrder]);
+            });
         });
 
         return () => {
@@ -24,22 +28,27 @@ const OrderComponent = () => {
         };
     }, []);
 
-    const placeOrder = (order) => {
-        if (stompClient && order) {
-            stompClient.send('/app/placeOrder', {}, order);
+    const placeOrder = () => {
+        if (stompClient) {
+            const order = {
+                id: Math.floor(Math.random() * 1000), // Example order ID
+                message: `New order for restaurant ${restaurantId}`,
+            };
+            stompClient.send(`/app/orders`, {}, JSON.stringify(order)); // Change the destination to match the backend controller mapping
         }
-    };
-
-    const handlePlaceOrder = () => {
-        const order = 'Your order details'; // Replace with actual order details
-        placeOrder(order);
     };
 
     return (
         <div>
-            <button onClick={handlePlaceOrder}>Place Order</button>
+            <h2>Restaurant Orders</h2>
+            <button onClick={placeOrder}>Place Order</button> {/* Button to trigger placeOrder function */}
+            <ul>
+                {orders.map((order) => (
+                    <li key={order.id}>{order.message}</li>
+                ))}
+            </ul>
         </div>
     );
 };
 
-export default OrderComponent;
+export default RestaurantOrdersComponent;

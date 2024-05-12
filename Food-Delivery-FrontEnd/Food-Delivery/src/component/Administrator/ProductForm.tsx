@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { CloudUpload as CloudUploadIcon } from '@mui/icons-material'; // Import CloudUploadIcon
-import { IconButton } from '@mui/material'; // Import IconButton for Material UI icons
+import React, { useState } from 'react';
+import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 
 function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
     const [productName, setProductName] = useState('');
@@ -14,19 +14,19 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
         // You can add validation here before submitting the form
     };
 
-    const handleProductNameChange = (event) => {
+    const handleProductNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setProductName(event.target.value);
     };
 
-    const handleImageChange = (event) => {
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setImage(event.target.value);
     };
 
-    const handleIngredientsChange = (event) => {
+    const handleIngredientsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setIngredients(event.target.value);
     };
 
-    const handlePriceChange = (event) => {
+    const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPrice(event.target.value);
     };
 
@@ -66,7 +66,7 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                                     id="product-name"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Product Name"
-                                    value={productName} // Add value attribute to bind input value
+                                    value={productName}
                                 />
                             </div>
                             <div>
@@ -83,7 +83,7 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                                         id="image"
                                         className="flex-grow bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Image URL"
-                                        value={image} // Add value attribute to bind input value
+                                        value={image}
                                     />
                                     <IconButton component="label" htmlFor="upload-image">
                                         <CloudUploadIcon />
@@ -108,7 +108,7 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                                     id="ingredients"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Ingredients"
-                                    value={ingredients} // Add value attribute to bind input value
+                                    value={ingredients}
                                 />
                             </div>
                             <div>
@@ -124,13 +124,13 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                                     id="price"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Price"
-                                    value={price} // Add value attribute to bind input value
+                                    value={price}
                                 />
                             </div>
                             <button
                                 onClick={(e) => {
-                                    e.preventDefault(); // Prevent default form submission
-                                    handleRegister(); // Call your registration function
+                                    e.preventDefault();
+                                    handleRegister();
                                 }}
                                 className="w-full text-white bg-red-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                 Submit

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Pagination } from 'antd';
 import { restaurants as initialRestaurants, users } from 'src/data/MockData';
 import deleteIcon from 'src/assets/Icons/EntryPage/delete.png';
@@ -34,7 +34,7 @@ function RevenueTable() {
     };
 
     // view button click
-    const handlePrintBill = (id: number) => {
+    const handlePrintBill = () => {
         // not yet implemented 
     };
 
@@ -100,7 +100,7 @@ function RevenueTable() {
                                     <td className="px-6 whitespace-nowrap">
                                         <div className="flex space-x-2 items-center">
                                             {/* Print Button */}
-                                            <button className="btn btn-primary-print" onClick={() => handlePrintBill(restaurant.id)} style={{ width: '26%', padding: '7px', fontSize: '16px', borderRadius: '6px', cursor: 'pointer', backgroundColor: '#16C098', color: '#fff' }}>Print</button>
+                                            <button className="btn btn-primary-print" onClick={handlePrintBill} style={{ width: '26%', padding: '7px', fontSize: '16px', borderRadius: '6px', cursor: 'pointer', backgroundColor: '#16C098', color: '#fff' }}>Print</button>
                                             {/* Edit Button */}
                                             <img
                                                 src={editIcon}

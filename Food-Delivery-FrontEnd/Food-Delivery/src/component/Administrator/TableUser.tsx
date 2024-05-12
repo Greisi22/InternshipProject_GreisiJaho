@@ -3,49 +3,50 @@ import { FaSearch, FaTrashAlt } from 'react-icons/fa';
 import { User } from 'src/types/Restaurant';
 import { getAllUser, deleteUser } from 'src/api/localhost/Administrator/userApi';
 
-export const TableUser = ({ setUsersRagister, isUserCreated }: { setUsersRagister: any, isUserCreated:boolean }) => {
-    const [fixedData, setfixedData] = useState<User[]>([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(10);
-    const [users, setUsers] = useState<User[]>([]);
-    const [sortDirection, setSortDirection] = useState('asc'); // State to hold the sort direction
-    const [sortBy, setSortBy] = useState('id'); // State to hold the field to sort by
+interface TableUserProps {
+    setUsersRagister: any;
+    isUserCreated: boolean;
+}
 
-    let totalItems = 0;
-    if (users != undefined) {
-        totalItems = users.length;
-    }
+const TableUser: React.FC<TableUserProps> = ({ setUsersRagister, isUserCreated }) => {
+    const [fixedData, setFixedData] = useState<User[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [itemsPerPage] = useState<number>(10);
+    const [users, setUsers] = useState<User[]>([]);
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc'); // State to hold the sort direction
+    const [sortBy, setSortBy] = useState<string>('id'); // State to hold the field to sort by
+
+    let totalItems = users.length;
 
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
-    let displayedItems: any = [];
-    if (users != undefined) {
-        displayedItems = users?.slice(startIndex, endIndex);
-    }
+    let displayedItems = users.slice(startIndex, endIndex);
 
     const fetchData = async () => {
         try {
             const response = await getAllUser();
-            console.log('Resonse from Api Greisi: ', response);
+            console.log('Response from API: ', response);
             setUsers(response);
-
-            setfixedData(response);
+            setFixedData(response);
         } catch (error) {
             console.error('Error fetching users:', error);
         }
     };
 
     useEffect(() => {
-      
         fetchData();
     }, []);
 
-    const handlePageChange = (page) => {
+    useEffect(() => {
+        fetchData();
+    }, [isUserCreated]);
+
+    const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
-    const toggleActive = (id) => {
+    const toggleActive = (id: number) => {
         // Find the user by id
         const updatedUsers = users.map((user) => {
             if (user.userId === id) {
@@ -58,7 +59,7 @@ export const TableUser = ({ setUsersRagister, isUserCreated }: { setUsersRagiste
         setUsers(updatedUsers);
     };
 
-    const handleSort = (field) => {
+    const handleSort = (field: string) => {
         if (field === sortBy) {
             // If the same field is clicked, toggle the sort direction
             setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
@@ -80,21 +81,17 @@ export const TableUser = ({ setUsersRagister, isUserCreated }: { setUsersRagiste
     // Sort the displayed items based on the active status
     displayedItems.sort((a, b) => {
         // Compare function based on the field and sort direction
-        const compare = (a, b) => {
+        const compare = (a: any, b: any) => {
             if (a === b) return 0;
             return a < b ? -1 : 1;
         };
 
         if (sortBy === 'active') {
             // Sort by active status
-            return sortDirection === 'asc'
-                ? compare(a.active, b.active)
-                : compare(b.active, a.active);
+            return sortDirection === 'asc' ? compare(a.active, b.active) : compare(b.active, a.active);
         } else {
             // Sort by other fields
-            return sortDirection === 'asc'
-                ? compare(a[sortBy], b[sortBy])
-                : compare(b[sortBy], a[sortBy]);
+            return sortDirection === 'asc' ? compare(a[sortBy], b[sortBy]) : compare(b[sortBy], a[sortBy]);
         }
     });
 
@@ -110,16 +107,10 @@ export const TableUser = ({ setUsersRagister, isUserCreated }: { setUsersRagiste
         return fixedData.filter((user) => {
             const lowerCaseSearch = search.toLowerCase();
             return Object.values(user).some(
-                (value) =>
-                    typeof value === 'string' && value.toLowerCase().includes(lowerCaseSearch),
+                (value) => typeof value === 'string' && value.toLowerCase().includes(lowerCaseSearch)
             );
         });
     };
-
-
-    useEffect(()=>{
-        fetchData();
-    },[isUserCreated])
 
     return (
         <>
@@ -160,16 +151,10 @@ export const TableUser = ({ setUsersRagister, isUserCreated }: { setUsersRagiste
                                         </label>
                                     </div>
                                 </th>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3"
-                                    onClick={() => handleSort('id')}>
+                                <th scope="col" className="px-6 py-3" onClick={() => handleSort('id')}>
                                     ID
                                 </th>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3"
-                                    onClick={() => handleSort('date')}>
+                                <th scope="col" className="px-6 py-3" onClick={() => handleSort('date')}>
                                     <div className="flex items-center">
                                         Date
                                         <a href="#">
@@ -184,10 +169,7 @@ export const TableUser = ({ setUsersRagister, isUserCreated }: { setUsersRagiste
                                         </a>
                                     </div>
                                 </th>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3"
-                                    onClick={() => handleSort('email')}>
+                                <th scope="col" className="px-6 py-3" onClick={() => handleSort('email')}>
                                     <div className="flex items-center">
                                         Email Address
                                         <a href="#">
@@ -202,10 +184,7 @@ export const TableUser = ({ setUsersRagister, isUserCreated }: { setUsersRagiste
                                         </a>
                                     </div>
                                 </th>
-                                <th
-                                    scope="col"
-                                    className="px-6 py-3"
-                                    onClick={() => handleSort('active')}>
+                                <th scope="col" className="px-6 py-3" onClick={() => handleSort('active')}>
                                     <div className="flex items-center">
                                         Active
                                         <a href="#">
@@ -253,16 +232,20 @@ export const TableUser = ({ setUsersRagister, isUserCreated }: { setUsersRagiste
                                         className="px-6 py-4"
                                         onClick={() => toggleActive(user.userId)}>
                                         <div
-                                            className={`inline-block rounded-full w-3 h-3 mr-2 ${user.active === 'Active' ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                                            className={`inline-block rounded-full w-3 h-3 mr-2 ${
+                                                user.active === 'Active' ? 'bg-green-500' : 'bg-red-500'
+                                            }`}></div>
                                         <span
-                                            className={`bg-${user.active === 'Active' ? 'green' : 'red'}-200 px-2 py-1 rounded cursor-pointer`}>
+                                            className={`bg-${
+                                                user.active === 'Active' ? 'green' : 'red'
+                                            }-200 px-2 py-1 rounded cursor-pointer`}>
                                             {user.active}
                                         </span>
                                     </td>
                                     <td className="flex items-center px-6 py-4">
                                         <FaTrashAlt
                                             className="text-red-600 dark:text-red-500 hover:cursor-pointer mr-3"
-                                            onClick={() => handleDelete(user.userId)} 
+                                            onClick={() => handleDelete(user.userId)}
                                         />
                                     </td>
                                 </tr>

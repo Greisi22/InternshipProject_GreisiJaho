@@ -22,6 +22,10 @@ import ManagerProductsPage from './pages/RestaurantManager/ManagerProductsPage';
 
 import ManagerDashboardPage from './pages/RestaurantManager/ManagerDashboardPage';
 
+import UserOrderPage from './websocket/UserOrderPage';
+import RestaurantOrderPage from './websocket/RestaurantOrderPage';
+
+
 const App = () => {
     return (
         <>
@@ -52,6 +56,12 @@ const App = () => {
                 <Route path="/RestaurantManager/Dashboard" element={<ManagerDashboardPage />} />
                 <Route path="/RestaurantManager/Order" element={<ManagerOrdersPage />} />
                 <Route path="/RestaurantManager/Product" element={<ManagerProductsPage />} />
+
+
+                <Route path="prova1" element={<UserOrderPage />} />
+                <Route path="prova2" element={<RestaurantOrderPage />} />
+                
+
             </Routes>
         </>
     );

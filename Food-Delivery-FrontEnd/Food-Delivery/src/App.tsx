@@ -21,38 +21,15 @@ import ManagerOrdersPage from 'src/pages/RestaurantManager/ManagerOrdersPage';
 import ManagerProductsPage from './pages/RestaurantManager/ManagerProductsPage';
 
 import ManagerDashboardPage from './pages/RestaurantManager/ManagerDashboardPage';
+import { handleOrder } from './websocket/OrderWebSocket';
+import OrderWebSocket from './websocket/OrderWebSocket';
 
 const App = () => {
+
+   
     return (
         <>
-            <Routes>
-                <Route path="/" element={<EntryPage />} />
-            </Routes>
-            <Routes>
-                <Route path="/Administrator/dashboard" element={<AdministratorPage />} />
-                <Route
-                    path="/Administrator/RequestedRestaurantsPage"
-                    element={<RequestedRestaurantsPage />}
-                />
-                <Route path="/Administrator/RestaurantsPage" element={<RestaurantsPage />} />\
-                <Route path="/Administrator/UsersPage" element={<UsersPage />} />
-                <Route path="/Administrator/CreateNewUser" element={<CreateNewUser />} />
-                <Route path="/Administrator/RevenuesPage" element={<RevenuesPage />} />
-                <Route path="/Administrator/StatisticsPage" element={<StatisticsPage />} />
-                <Route path="/Administrator/SettingsPage" element={<SettingsPage />} />
-                <Route path="/Administrator/AllRestaurants" element={<AllRestaurants />} />
-                <Route path="/Administrator/RevenueTable" element={<RevenueTable />} />
-                <Route path="/Administrator/EditRestaurant" element={<EditRestaurant />} />
-            
-                <Route path="/Administrator/EditRestaurant" element={<EditRestaurant />} />
-                <Route path="/Administrator/RestaurantMenu" element={<RestaurantMenu />} />
-                <Route path="/Administrator/EditMenu" element={<EditMenu />} />
-                <Route path="/Administrator/RestaurantForm" element={<RestaurantForm />} />
-                {/* <Route path="/Administrator/ProductForm" element={<ProductForm />} /> */}
-                <Route path="/RestaurantManager/Dashboard" element={<ManagerDashboardPage />} />
-                <Route path="/RestaurantManager/Order" element={<ManagerOrdersPage />} />
-                <Route path="/RestaurantManager/Product" element={<ManagerProductsPage />} />
-            </Routes>
+          <OrderWebSocket/>
         </>
     );
 };

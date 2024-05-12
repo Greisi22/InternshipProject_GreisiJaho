@@ -118,7 +118,7 @@ export async function deleteRestaurant(name: string) {
 
 
 
-export async function getRevenues(id: number) {
+export async function getRevenues(name: number) {
     try {
         const response = await axiosInstance.get<ApiResponse>(`/restaurant/delete/${name}`);
         console.log('Response: ', response);

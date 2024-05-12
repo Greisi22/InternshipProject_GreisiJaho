@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { CloudUpload as CloudUploadIcon } from '@mui/icons-material'; // Import CloudUploadIcon
 import { IconButton } from '@mui/material'; // Import IconButton for Material UI icons
 
-function ProductForm() {
+function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
     const [productName, setProductName] = useState('');
     const [image, setImage] = useState('');
     const [ingredients, setIngredients] = useState('');
@@ -37,18 +37,16 @@ function ProductForm() {
         setIngredients('');
         setPrice('');
         setError('');
+        setEditedProduct(false);
     };
 
     return (
         <div className="fixed inset-0 flex items-center justify-center backdrop-filter backdrop-blur-lg">
-        {/* Background image or color */}
-        <div className="absolute inset-0 bg-white-900 opacity-50"></div>
-        <div
-            className="absolute inset-0 backdrop-blur-lg"
-           ></div>
+            {/* Background image or color */}
+            <div className="absolute inset-0 bg-white-900 opacity-50"></div>
+            <div className="absolute inset-0 backdrop-blur-lg"></div>
             <section className="relative z-10 w-full md:w-[90%] max-w-xl">
-                <div className="relative shadow-3xl w-full bg-white border border-gray-500 rounded-lg dark:border md:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 overflow-auto" >
-                   
+                <div className="relative shadow-3xl w-full bg-white border border-gray-500 rounded-lg dark:border md:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 overflow-auto">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Add Product
@@ -59,7 +57,7 @@ function ProductForm() {
                                 <label
                                     htmlFor="product-name"
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                     Menu Item Name
+                                    Menu Item Name
                                 </label>
                                 <input
                                     onChange={handleProductNameChange}
@@ -89,7 +87,11 @@ function ProductForm() {
                                     />
                                     <IconButton component="label" htmlFor="upload-image">
                                         <CloudUploadIcon />
-                                        <input type="file" id="upload-image" style={{ display: 'none' }} />
+                                        <input
+                                            type="file"
+                                            id="upload-image"
+                                            style={{ display: 'none' }}
+                                        />
                                     </IconButton>
                                 </div>
                             </div>
@@ -133,12 +135,11 @@ function ProductForm() {
                                 className="w-full text-white bg-red-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                 Submit
                             </button>
-                            
+
                             <button
                                 type="button"
                                 onClick={handleCancel}
-                                className="w-full py-2 px-4 bg-white-300 text-gray-600 rounded-md hover:bg-white-400 focus:outline-none focus:bg-white-400 mr-2"
-                            >
+                                className="w-full py-2 px-4 bg-white-300 text-gray-600 rounded-md hover:bg-white-400 focus:outline-none focus:bg-white-400 mr-2">
                                 Cancel
                             </button>
                         </form>

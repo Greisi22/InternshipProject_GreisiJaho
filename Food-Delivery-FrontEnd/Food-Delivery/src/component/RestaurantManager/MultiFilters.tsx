@@ -5,41 +5,8 @@ import { Delete } from '@mui/icons-material';
 import pizzaImage from 'src/assets/pizzaa.png'; // Corrected image import path
 import { getProductCategoryCache } from 'src/cache/productCache';
 import { Product } from 'src/types/Restaurant';
-
-const products = [
-    {
-        id: 1,
-        name: 'Tomato soup',
-        image: 'src/assets/soup.png', // Corrected image path
-        ingredients: ['Rosemary and thyme', 'chives and parsley'],
-        price: 10.99,
-        category: 'Soup',
-    },
-    {
-        id: 2,
-        name: 'Pizza Margherita',
-        image: 'src/assets/pizzaa.png',
-        ingredients: ['Tomato sauce', 'Mozzarella cheese', 'Basil'],
-        price: 12.99,
-        category: 'Pizza',
-    },
-    {
-        id: 3,
-        name: 'Burger',
-        image: 'src/assets/pizzaa.png',
-        ingredients: ['Tomato sauce', 'Mozzarella cheese', 'Basil'],
-        price: 12.99,
-        category: 'Burger',
-    },
-    {
-        id: 4,
-        name: 'Pasta',
-        image: 'src/assets/pizzaa.png',
-        ingredients: ['Tomato sauce', 'Mozzarella cheese', 'Basil'],
-        price: 12.99,
-        category: 'Pasta',
-    },
-];
+import ProductForm from '../Administrator/ProductForm';
+import { deleteProduct } from 'src/api/localhost/Product/ProductsApi';
 
 function MultiFilters() {
     const navigate = useNavigate();
@@ -53,6 +20,7 @@ function MultiFilters() {
     const [menuItemTitle, setMenuItemTitle] = useState('');
     const [menuItems, setMenuItems] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('All'); // Track selected category
+    const [isEdited, setEditedProduct] = useState(false);
 
     const categories = ['All', 'Food', 'Drink', 'Pasta', 'Soup']; // Define categories
 
@@ -61,7 +29,7 @@ function MultiFilters() {
             const categoryData = await getProductCategoryCache(selectedCategory);
             setData(categoryData);
         };
-        fetchDataAndUpdateData(); 
+        fetchDataAndUpdateData();
     }, [selectedCategory]);
 
     const handleCategoryClick = (category: string) => {
@@ -74,18 +42,22 @@ function MultiFilters() {
     };
 
     const handleEdit = (id: number) => {
-        console.log(`Editing product with ID ${id}`);
-        navigate('/Administrator/EditMenu');
+        setEditedProduct(true);
     };
 
-    const handleDelete = (id: number) => {
+    const handleDelete = async (id: number) => {
+        await deleteProduct(id);
         const updatedData = data.filter((product) => product.id !== id);
         setData(updatedData);
     };
 
     return (
         <div className="mt-4">
-            {' '}
+            {isEdited && (
+                <div className="absolute h-full  w-full  z-[100] mt-[-30px]">
+                    <ProductForm setEditedProduct={setEditedProduct} />
+                </div>
+            )}{' '}
             {/* Add margin to the top */}
             {/* Category List */}
             <div className="flex space-x-4 mb-4">

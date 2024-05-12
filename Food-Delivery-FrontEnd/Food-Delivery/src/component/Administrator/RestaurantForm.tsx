@@ -5,7 +5,7 @@ function RestaurantForm() {
     const [email, setEmail] = useState('');
     const [yearsOfExperience, setYearsOfExperience] = useState('');
     const [serviceOffered, setServiceOffered] = useState('');
-    const [error, setError] = useState('');
+
 
     // Function to handle form submission
     const handleSubmit = (e: { preventDefault: () => void; }) => {
@@ -22,7 +22,7 @@ function RestaurantForm() {
         setEmail('');
         setYearsOfExperience('');
         setServiceOffered('');
-        setError('');
+        
     };
 
     return (

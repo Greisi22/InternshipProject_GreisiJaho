@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Close as CloseIcon, CloudUpload as CloudUploadIcon } from '@mui/icons-material'; // Import CloudUploadIcon
+import { CloudUpload as CloudUploadIcon } from '@mui/icons-material'; // Remove CloseIcon import
 import { IconButton } from '@mui/material'; // Import IconButton for Material UI icons
 
 function EditMenu() {
@@ -14,19 +14,19 @@ function EditMenu() {
         // You can add validation here before submitting the form
     };
 
-    const handleProductNameChange = (event) => {
+    const handleProductNameChange = (event: React.ChangeEvent<HTMLInputElement>) => { // Explicitly define event type
         setProductName(event.target.value);
     };
 
-    const handleImageChange = (event) => {
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => { // Explicitly define event type
         setImage(event.target.value);
     };
 
-    const handleIngredientsChange = (event) => {
+    const handleIngredientsChange = (event: React.ChangeEvent<HTMLInputElement>) => { // Explicitly define event type
         setIngredients(event.target.value);
     };
 
-    const handlePriceChange = (event) => {
+    const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => { // Explicitly define event type
         setPrice(event.target.value);
     };
 

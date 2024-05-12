@@ -2,35 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { FaSearch, FaTrashAlt } from 'react-icons/fa';
 
 // Import UserList data and interface
-import { UserList } from 'src/data/MockData';
 import { getAllUser, deleteUser } from 'src/api/localhost/Administrator/userApi';
 import { User } from 'src/types/Restaurant';
 
 export const TableUser = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [itemsPerPage] = useState<number>(10);
     const [users, setUsers] = useState<User[]>([]);
-    const [sortDirection, setSortDirection] = useState('asc'); // State to hold the sort direction
-    const [sortBy, setSortBy] = useState('id'); // State to hold the field to sort by
+    const [sortDirection, setSortDirection] = useState<string>('asc'); // State to hold the sort direction
+    const [sortBy, setSortBy] = useState<string>('id'); // State to hold the field to sort by
 
-    let totalItems = 0;
-    if (users != undefined) {
-        totalItems = users.length;
-    }
+    let totalItems: number = users.length;
 
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+    const startIndex: number = (currentPage - 1) * itemsPerPage;
+    const endIndex: number = Math.min(startIndex + itemsPerPage, totalItems);
 
-    let displayedItems: any = [];
-    if (users != undefined) {
-        displayedItems = users?.slice(startIndex, endIndex);
-    }
+    let displayedItems: User[] = users.slice(startIndex, endIndex);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await getAllUser();
-                console.log('Resonse from Api Greisi: ', response);
+                console.log('Response from Api Greisi: ', response);
                 setUsers(response);
             } catch (error) {
                 console.error('Error fetching users:', error);
@@ -39,11 +32,11 @@ export const TableUser = () => {
         fetchData();
     }, []);
 
-    const handlePageChange = (page) => {
+    const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
-    const toggleActive = (id) => {
+    const toggleActive = (id: number) => {
         // Find the user by id
         const updatedUsers = users.map((user) => {
             if (user.userId === id) {
@@ -56,7 +49,7 @@ export const TableUser = () => {
         setUsers(updatedUsers);
     };
 
-    const handleSort = (field) => {
+    const handleSort = (field: string) => {
         if (field === sortBy) {
             // If the same field is clicked, toggle the sort direction
             setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
@@ -78,7 +71,7 @@ export const TableUser = () => {
     // Sort the displayed items based on the active status
     displayedItems.sort((a, b) => {
         // Compare function based on the field and sort direction
-        const compare = (a, b) => {
+        const compare = (a: any, b: any) => {
             if (a === b) return 0;
             return a < b ? -1 : 1;
         };

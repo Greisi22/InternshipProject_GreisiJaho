@@ -45,11 +45,7 @@ function MultiFilters() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
     const [selectedArray, setSelectedArray] = useState<number[]>([]);
-    const [loading, setLoading] = useState(false);
     const [data, setData] = useState(products);
-    const [showAddToMenuInput, setShowAddToMenuInput] = useState(false);
-    const [menuItemTitle, setMenuItemTitle] = useState('');
-    const [menuItems, setMenuItems] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('All'); // Track selected category
 
     const categories = ['All', 'Pizza', 'Burger', 'Pasta', 'Soup']; // Define categories
@@ -115,75 +111,67 @@ function MultiFilters() {
                     </thead>
                     {/* Table Body */}
                     <tbody>
-                        {loading === false ? (
-                            data.map((product, index) => (
-                                <tr
-                                    key={product.id}
-                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                >
-                                    {/* Checkbox */}
-                                    <td className="w-4 p-4">
-                                        <div className="flex items-center whitespace-nowrap">
-                                            <input
-                                                defaultChecked={selectedArray.includes(product.id)}
-                                                onChange={() => {
-                                                    const updatedSelectedArray = [...selectedArray];
-                                                    if (updatedSelectedArray.includes(product.id)) {
-                                                        updatedSelectedArray.splice(
-                                                            updatedSelectedArray.indexOf(product.id),
-                                                            1,
-                                                        );
-                                                    } else {
-                                                        updatedSelectedArray.push(product.id);
-                                                    }
-                                                    setSelectedArray(updatedSelectedArray);
-                                                }}
-                                                id={`checkbox-table-search-${index}`}
-                                                type="checkbox"
-                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                            />
-                                            <label
-                                                htmlFor={`checkbox-table-search-${index}`}
-                                                className="sr-only"
-                                            >
-                                                checkbox
-                                            </label>
-                                        </div>
-                                    </td>
-                                    {/* Product Details */}
-                                    <td className="px-6 whitespace-nowrap">{product.name}</td>
-                                    <td className="px-6 whitespace-nowrap">
-                                        <img src={pizzaImage} alt={product.name} className="h-12 w-12" />
-                                    </td>
-                                    <td className="px-6 whitespace-nowrap">{product.ingredients.join(', ')}</td>
-                                    <td className="px-6 whitespace-nowrap">${product.price}</td>
-                                    {/* Actions */}
-                                    <td className="px-6 py-4 flex space-x-2">
-                                        {/* Edit Button */}
-                                        <a
-                                            href="#"
-                                            className="text-blue-500"
-                                            onClick={() => handleEdit(product.id)}
-                                            style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '3px', marginTop: '8px', display:'block' }}
-                                        >
-                                            Edit
-                                        </a>
-                                        {/* Delete Button */}
-                                        <Delete
-                                            className="icon"
-                                            onClick={() => handleDelete(product.id)}
-                                            style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '3px', marginTop: '8px', display:'block' }}
+                        {data.map((product, index) => (
+                            <tr
+                                key={product.id}
+                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                            >
+                                {/* Checkbox */}
+                                <td className="w-4 p-4">
+                                    <div className="flex items-center whitespace-nowrap">
+                                        <input
+                                            defaultChecked={selectedArray.includes(product.id)}
+                                            onChange={() => {
+                                                const updatedSelectedArray = [...selectedArray];
+                                                if (updatedSelectedArray.includes(product.id)) {
+                                                    updatedSelectedArray.splice(
+                                                        updatedSelectedArray.indexOf(product.id),
+                                                        1,
+                                                    );
+                                                } else {
+                                                    updatedSelectedArray.push(product.id);
+                                                }
+                                                setSelectedArray(updatedSelectedArray);
+                                            }}
+                                            id={`checkbox-table-search-${index}`}
+                                            type="checkbox"
+                                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td className="px-6 py-4" colSpan={5}>
-                                    Loading...
+                                        <label
+                                            htmlFor={`checkbox-table-search-${index}`}
+                                            className="sr-only"
+                                        >
+                                            checkbox
+                                        </label>
+                                    </div>
+                                </td>
+                                {/* Product Details */}
+                                <td className="px-6 whitespace-nowrap">{product.name}</td>
+                                <td className="px-6 whitespace-nowrap">
+                                    <img src={pizzaImage} alt={product.name} className="h-12 w-12" />
+                                </td>
+                                <td className="px-6 whitespace-nowrap">{product.ingredients.join(', ')}</td>
+                                <td className="px-6 whitespace-nowrap">${product.price}</td>
+                                {/* Actions */}
+                                <td className="px-6 py-4 flex space-x-2">
+                                    {/* Edit Button */}
+                                    <a
+                                        href="#"
+                                        className="text-blue-500"
+                                        onClick={() => handleEdit(product.id)}
+                                        style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '3px', marginTop: '8px', display:'block' }}
+                                    >
+                                        Edit
+                                    </a>
+                                    {/* Delete Button */}
+                                    <Delete
+                                        className="icon"
+                                        onClick={() => handleDelete(product.id)}
+                                        style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '3px', marginTop: '8px', display:'block' }}
+                                    />
                                 </td>
                             </tr>
-                        )}
+                        ))}
                     </tbody>
                 </table>
             </div>

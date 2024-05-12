@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Pagination } from 'antd';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook for navigation
 import { products } from 'src/data/MockData'; 
@@ -12,11 +12,8 @@ function RestaurantMenu() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
     const [selectedArray, setSelectedArray] = useState<number[]>([]);
-    const [loading, setLoading] = useState(false);
     const [data, setData] = useState(products);
-    const [showAddToMenuInput, setShowAddToMenuInput] = useState(false);
-    const [menuItemTitle, setMenuItemTitle] = useState('');
-    const [menuItems, setMenuItems] = useState<string[]>([]);
+    const [loading, setLoading] = useState(false);
 
     // Slice data to display on the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -37,16 +34,6 @@ function RestaurantMenu() {
     const handleDelete = (id: number) => {
         const updatedData = data.filter(product => product.id !== id);
         setData(updatedData);
-    };
-
-    const handleMenuClick = (productId: number, action: string) => {
-        switch (action) {
-            case 'add_to_menu':
-                setShowAddToMenuInput(true);
-                break;
-            default:
-                break;
-        }
     };
 
     return (

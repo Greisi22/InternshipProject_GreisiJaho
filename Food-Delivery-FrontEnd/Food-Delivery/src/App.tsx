@@ -13,8 +13,7 @@ import RevenueTable from './component/Administrator/RevenueTable';
 
 import EditRestaurant from './component/Administrator/EditRestaurant';
 import MultiFilters from './component/Administrator/MultiFilters';
-
-import EditRestaurant from './component/Administrator/EditRestaurant'; 
+import ProductForm from './component/Administrator/ProductForm';
 import RestaurantMenu from './component/Administrator/RestaurantMenu';
 import EditMenu from './component/Administrator/EditMenu';
 import RestaurantForm from './component/Administrator/RestaurantForm';

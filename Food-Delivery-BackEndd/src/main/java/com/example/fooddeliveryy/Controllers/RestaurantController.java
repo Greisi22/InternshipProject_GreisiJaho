@@ -111,11 +111,11 @@ public class RestaurantController {
         }
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateRestaurantAttribute(@PathVariable("id") long id) {
+    @PutMapping("/update/{name}")
+    public ResponseEntity<?> updateRestaurantAttribute(@PathVariable("name") String name) {
         try {
-            System.out.println("id "+id + "isApproveddd ");
-            Rastaurant updatedRestaurant = restaurantService.updateRestaurantAttribute(id);
+            System.out.println("id "+name + "isApproveddd ");
+            Rastaurant updatedRestaurant = restaurantService.updateRestaurantAttribute(name);
             if (updatedRestaurant != null) {
                 return ResponseEntity.ok(updatedRestaurant);
             } else {
@@ -129,13 +129,15 @@ public class RestaurantController {
     @PutMapping("/update")
     public ResponseEntity<?> updateRestaurant(@RequestBody Rastaurant restaurant) {
         try {
-            System.out.println(restaurant);
+            System.out.println("Jam ktuuuu o kurv: "+restaurant);
             Rastaurant updatedRestaurant = restaurantRepo.save(restaurant);
             return ResponseEntity.ok().body(updatedRestaurant);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Server Error!");
         }
     }
+
+
 
 
     //REVENUE AND REVIEW RESTAURANTS

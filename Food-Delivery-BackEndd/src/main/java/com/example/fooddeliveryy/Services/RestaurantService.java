@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.tree.ExpandVetoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -123,20 +124,16 @@ public class RestaurantService {
     }
 
 
-    public Rastaurant updateRestaurantAttribute(long id) {
-        System.out.println("Here"+ id);
-        Optional<Rastaurant> optionalRestaurant = restaurantRepo.findById(id);
-
-
-        if (optionalRestaurant.isPresent()) {
-
-            Rastaurant restaurant = optionalRestaurant.get();
-
+    public Rastaurant updateRestaurantAttribute(String restaurantName) {
+        Rastaurant restaurant = restaurantRepo.findByName(restaurantName);
+        if (restaurant != null) {
             restaurant.setAproved(true);
             return restaurantRepo.save(restaurant);
+        } else {
+            throw new IllegalArgumentException("Restaurant with name " + restaurantName + " not found.");
         }
-        return null;
     }
+
 
 }
 

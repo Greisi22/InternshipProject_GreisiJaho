@@ -11,12 +11,16 @@ import UsersPage from './pages/Administrator/UsersPage';
 import AllRestaurants from './component/Administrator/AllRestaurant';
 import RevenueTable from './component/Administrator/RevenueTable';
 
-import MultiFilters from './component/Administrator/MultiFilters';
 
 import EditRestaurant from './component/Administrator/EditRestaurant';
 import RestaurantMenu from './component/Administrator/RestaurantMenu';
 import EditMenu from './component/Administrator/EditMenu';
 import RestaurantForm from './component/Administrator/RestaurantForm';
+
+import ManagerOrdersPage from 'src/pages/RestaurantManager/ManagerOrdersPage';
+import ManagerProductsPage from './pages/RestaurantManager/ManagerProductsPage';
+
+import ManagerDashboardPage from './pages/RestaurantManager/ManagerDashboardPage';
 
 const App = () => {
     return (
@@ -39,12 +43,15 @@ const App = () => {
                 <Route path="/Administrator/AllRestaurants" element={<AllRestaurants />} />
                 <Route path="/Administrator/RevenueTable" element={<RevenueTable />} />
                 <Route path="/Administrator/EditRestaurant" element={<EditRestaurant />} />
-                <Route path="/Administrator/MenuBar" element={<MultiFilters />} />
+            
                 <Route path="/Administrator/EditRestaurant" element={<EditRestaurant />} />
                 <Route path="/Administrator/RestaurantMenu" element={<RestaurantMenu />} />
                 <Route path="/Administrator/EditMenu" element={<EditMenu />} />
                 <Route path="/Administrator/RestaurantForm" element={<RestaurantForm />} />
                 {/* <Route path="/Administrator/ProductForm" element={<ProductForm />} /> */}
+                <Route path="/RestaurantManager/Dashboard" element={<ManagerDashboardPage />} />
+                <Route path="/RestaurantManager/Order" element={<ManagerOrdersPage />} />
+                <Route path="/RestaurantManager/Product" element={<ManagerProductsPage />} />
             </Routes>
         </>
     );

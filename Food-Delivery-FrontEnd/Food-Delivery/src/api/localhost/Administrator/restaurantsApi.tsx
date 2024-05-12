@@ -15,10 +15,10 @@ export async function retrieveAllRestaurant() {
     }
 }
 
-export async function updateAllRestaurant(id: number) {
+export async function updateAllRestaurant(name: string) {
     try {
         //Creating a variable that will contain the data that we need from the endpoint API
-        const response = await axiosInstance.put<ApiResponse>(`/restaurant/update/${id}`);
+        const response = await axiosInstance.put<ApiResponse>(`/restaurant/update/${name}`);
         console.log('Response: ', response);
         return response.data;
     } catch (error) {

@@ -55,8 +55,5 @@ public class RestaurantPaymentService {
 
     }
 
-    public RestaurantPayment Payment(RestaurantPayment payment) {
 
-        return null;
-    }
 }

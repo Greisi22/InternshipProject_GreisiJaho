@@ -1,4 +1,4 @@
-interface Restaurant {
+export interface Restaurant {
     id: number;
     name: string;
     address: string;
@@ -98,3 +98,13 @@ type HandleRestorantsFunction = (category: string) => void;
 export interface NavBarProps {
     handleRestorants: HandleRestorantsFunction;
 }
+
+export interface Product {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    ingredients: string[];
+    category: string;
+    amount: number;
+  }

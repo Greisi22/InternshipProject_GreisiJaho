@@ -2,16 +2,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { registerAdminUser } from 'src/api/localhost/Login/RegisterAPI';
 
-
-
-
-function RegisterUser({ setUsersRagister }: { setUsersRagister: any }) {
-   
+function RegisterUser({
+    setUsersRagister,
+    setcreatedUser,
+}: {
+    setUsersRagister: any;
+    setcreatedUser: any;
+}) {
     const [error, setError] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [r_password, r_setPassword] = useState('');
-    
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
@@ -30,6 +31,7 @@ function RegisterUser({ setUsersRagister }: { setUsersRagister: any }) {
             const response = await registerAdminUser(email, password);
             if (response === 200) {
                 console.log('Registration successful');
+                setcreatedUser(true);
             } else {
                 console.error('Registration failed');
                 setError('Registration failed');
@@ -39,9 +41,6 @@ function RegisterUser({ setUsersRagister }: { setUsersRagister: any }) {
             setError('Failed to register');
         }
     };
-
-
-    
 
     return (
         <>

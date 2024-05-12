@@ -3,7 +3,7 @@ import { FaSearch, FaTrashAlt } from 'react-icons/fa';
 import { User } from 'src/types/Restaurant';
 import { getAllUser, deleteUser } from 'src/api/localhost/Administrator/userApi';
 
-export const TableUser = ({ setUsersRagister }: { setUsersRagister: any }) => {
+export const TableUser = ({ setUsersRagister, isUserCreated }: { setUsersRagister: any, isUserCreated:boolean }) => {
     const [fixedData, setfixedData] = useState<User[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
@@ -24,18 +24,20 @@ export const TableUser = ({ setUsersRagister }: { setUsersRagister: any }) => {
         displayedItems = users?.slice(startIndex, endIndex);
     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await getAllUser();
-                console.log('Resonse from Api Greisi: ', response);
-                setUsers(response);
+    const fetchData = async () => {
+        try {
+            const response = await getAllUser();
+            console.log('Resonse from Api Greisi: ', response);
+            setUsers(response);
 
-                setfixedData(response);
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
-        };
+            setfixedData(response);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    };
+
+    useEffect(() => {
+      
         fetchData();
     }, []);
 
@@ -113,6 +115,11 @@ export const TableUser = ({ setUsersRagister }: { setUsersRagister: any }) => {
             );
         });
     };
+
+
+    useEffect(()=>{
+        fetchData();
+    },[isUserCreated])
 
     return (
         <>

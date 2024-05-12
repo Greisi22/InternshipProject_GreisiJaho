@@ -208,51 +208,50 @@ export const payment = [];
 
 export const statistics = [];
 
-
 export const UserList = [
     {
         id: 1,
         date: new Date(),
-        email: "teabegaj@gmail.com",
-        active: "hjjActive"
+        email: 'teabegaj@gmail.com',
+        active: 'hjjActive',
     },
     {
-        id: 2 ,
+        id: 2,
         date: new Date(),
-        email: "teabegaj@gmail.com",
-        active: "Active"
+        email: 'teabegaj@gmail.com',
+        active: 'Active',
     },
     {
         id: 3,
         date: new Date(),
-        email: "teabegaj@gmail.com",
-        active: "Active"
+        email: 'teabegaj@gmail.com',
+        active: 'Active',
     },
     {
         id: 4,
         date: new Date(),
-        email: "teabegaj@gmail.com",
-        active: "Active"
-    }
-    ,
+        email: 'teabegaj@gmail.com',
+        active: 'Active',
+    },
     {
         id: 5,
         date: new Date(),
-        email: "teabegaj@gmail.com",
-        active: "Active"
-    }, {
+        email: 'teabegaj@gmail.com',
+        active: 'Active',
+    },
+    {
         id: 6,
         date: new Date(),
-        email: "teabegaj@gmail.com",
-        active: "Active"
-    }, {
+        email: 'teabegaj@gmail.com',
+        active: 'Active',
+    },
+    {
         id: 7,
         date: new Date(),
-        email: "teabegaj@gmail.com",
-        active: "Active"
-    }
+        email: 'teabegaj@gmail.com',
+        active: 'Active',
+    },
 ];
-
 
 export const products = [
     {
@@ -262,8 +261,7 @@ export const products = [
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
 
-        category: "Soup"
-
+        category: 'Soup',
     },
     {
         id: 2,
@@ -271,14 +269,15 @@ export const products = [
         image: 'src/assets/soup.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
-        category: "pizza"
-
+        category: 'pizza',
     },
     {
         id: 2,
         name: 'Pizza',
         image: 'src/assets/pizza.png',
-        ingredients: ['sliced cucumbers, tomatoes, green bell pepper, red onion, olives, and feta cheese'],
+        ingredients: [
+            'sliced cucumbers, tomatoes, green bell pepper, red onion, olives, and feta cheese',
+        ],
         price: 8.99,
     },
     {
@@ -288,7 +287,7 @@ export const products = [
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
 
-        category: "Soup"
+        category: 'Soup',
     },
     {
         id: 4,
@@ -296,7 +295,7 @@ export const products = [
         image: 'src/assets/soup.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
-        category: "Burger"
+        category: 'Burger',
     },
     {
         id: 5,
@@ -304,7 +303,7 @@ export const products = [
         image: 'src/assets/soup.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
-        category: "Salad"
+        category: 'Salad',
     },
     {
         id: 6,
@@ -312,7 +311,7 @@ export const products = [
         image: 'src/assets/soup.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
-        category: "Salad"
+        category: 'Salad',
     },
     {
         id: 7,
@@ -320,11 +319,13 @@ export const products = [
         image: 'src/assets/soup.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
+
         category: "Soup"
     }
   ];
   
   
+
 
 
 

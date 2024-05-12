@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { CloudUpload as CloudUploadIcon } from '@mui/icons-material'; // Import CloudUploadIcon
-import { IconButton } from '@mui/material'; // Import IconButton for Material UI icons
+import React, { useState } from 'react';
+import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 
-function ProductForm() {
+function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
     const [productName, setProductName] = useState('');
     const [image, setImage] = useState('');
     const [ingredients, setIngredients] = useState('');
@@ -37,6 +37,7 @@ function ProductForm() {
         setIngredients('');
         setPrice('');
         setError('');
+        setEditedProduct(false);
     };
 
     return (
@@ -55,8 +56,10 @@ function ProductForm() {
                             <div>
                                 <label
                                     htmlFor="product-name"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
+
+                                
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+
                                     Menu Item Name
                                 </label>
                                 <input
@@ -66,7 +69,7 @@ function ProductForm() {
                                     id="product-name"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Product Name"
-                                    value={productName} // Add value attribute to bind input value
+                                    value={productName}
                                 />
                             </div>
                             <div>
@@ -84,11 +87,15 @@ function ProductForm() {
                                         id="image"
                                         className="flex-grow bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Image URL"
-                                        value={image} // Add value attribute to bind input value
+                                        value={image}
                                     />
                                     <IconButton component="label" htmlFor="upload-image">
                                         <CloudUploadIcon />
-                                        <input type="file" id="upload-image" style={{ display: 'none' }} />
+                                        <input
+                                            type="file"
+                                            id="upload-image"
+                                            style={{ display: 'none' }}
+                                        />
                                     </IconButton>
                                 </div>
                             </div>
@@ -106,7 +113,7 @@ function ProductForm() {
                                     id="ingredients"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Ingredients"
-                                    value={ingredients} // Add value attribute to bind input value
+                                    value={ingredients}
                                 />
                             </div>
                             <div>
@@ -123,13 +130,13 @@ function ProductForm() {
                                     id="price"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Price"
-                                    value={price} // Add value attribute to bind input value
+                                    value={price}
                                 />
                             </div>
                             <button
                                 onClick={(e) => {
-                                    e.preventDefault(); // Prevent default form submission
-                                    handleRegister(); // Call your registration function
+                                    e.preventDefault();
+                                    handleRegister();
                                 }}
                                 className="w-full text-white bg-red-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             >
@@ -139,8 +146,7 @@ function ProductForm() {
                             <button
                                 type="button"
                                 onClick={handleCancel}
-                                className="w-full py-2 px-4 bg-white-300 text-gray-600 rounded-md hover:bg-white-400 focus:outline-none focus:bg-white-400 mr-2"
-                            >
+                                className="w-full py-2 px-4 bg-white-300 text-gray-600 rounded-md hover:bg-white-400 focus:outline-none focus:bg-white-400 mr-2">
                                 Cancel
                             </button>
                         </form>

@@ -1,4 +1,4 @@
-interface Restaurant {
+export interface Restaurant {
     id: number;
     name: string;
     address: string;
@@ -19,77 +19,98 @@ interface Restaurant {
     isActive: boolean;
     revenue: Revenue;
     documentation: Documentation;
-  }
-  
-  interface Menu {
+}
+
+interface Menu {
     // Define properties of Menu here
-  }
-  
-  interface Review {
+}
+
+interface Review {
     // Define properties of Review here
-  }
-  
-  enum UserRole {
+}
+
+enum UserRole {
     ROLE_CLIENT,
     ROLE_SUPER_ADMIN,
     ROLE_ADMIN,
     ROLE_RESTAURANT_MANAGER,
-    ROLE_DELIVERY_PERSONNEL
-  }
-  
-  // Define the User interface
-  export interface User {
+    ROLE_DELIVERY_PERSONNEL,
+}
+
+// Define the User interface
+export interface User {
+    active(active: (active: any, active1: any) => number, active1: (active: any, active1: any) => string): string;
+    active(active: any, active1: any): number;
     userId: number;
     userEmail: string;
     userPassword: string;
     userRole: UserRole;
     managedRestaurants: Restaurant[];
     order: Order[];
-  }
-  
-  interface Order {
-    // Define properties of Order here
-  }
-  
-  interface RestaurantPayment {
-    // Define properties of RestaurantPayment here
-  }
-  
-  interface Revenue {
-    // Define properties of Revenue here
-  }
-  
-  interface Documentation {
-    // Define properties of Documentation here
-  }
+    
+       
+       
+    
+}
 
-  interface Documentation {
+interface Order {
+    // Define properties of Order here
+}
+
+interface RestaurantPayment {
+    // Define properties of RestaurantPayment here
+}
+
+interface Revenue {
+    // Define properties of Revenue here
+}
+
+interface Documentation {
+    // Define properties of Documentation here
+}
+
+interface Documentation {
     id: number;
     restaurantName: string;
     restaurantEmail: string;
     yearsOfExperiance: string;
     whatTheyOffer: string;
     rastaurant: {
-      id: number;
-      name: string;
+        id: number;
+        name: string;
     };
-  }
+}
 
- export interface RestaurantNotAproved {
+export interface RestaurantNotAproved {
     name: string;
     discount: number;
     images: string[];
     email: string;
     category: string[];
-    documentation: Documentation; 
-  }
+    documentation: Documentation;
+}
 
+export interface RestaurantAproved {
+    name: string;
+    discount: number;
+    images: string[];
+    email: string;
+    category: string[];
+    documentation: Documentation;
+}
 
-  
 type HandleRestorantsFunction = (category: string) => void;
 
 export interface NavBarProps {
     handleRestorants: HandleRestorantsFunction;
 }
 
-
+export interface Product {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    ingredients: string[];
+    category: string;
+    amount: number;
+  }

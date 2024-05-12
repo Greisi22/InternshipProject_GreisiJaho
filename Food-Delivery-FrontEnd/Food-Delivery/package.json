@@ -28,6 +28,7 @@
     "antd": "^5.15.3",
     "axios": "^1.6.8",
     "jest-environment-jsdom": "^29.7.0",
+    "mdb-react-ui-kit": "^8.0.0",
     "react": "^18.2.0",
     "react-datepicker": "^6.1.0",
     "react-dom": "^18.2.0",

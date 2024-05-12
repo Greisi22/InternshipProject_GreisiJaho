@@ -13,7 +13,9 @@ function RestaurantMenu() {
     const [itemsPerPage] = useState(7);
     const [selectedArray, setSelectedArray] = useState<number[]>([]);
     const [data, setData] = useState(products);
+
     const [loading, setLoading] = useState(false);
+
 
     // Slice data to display on the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -53,72 +55,64 @@ function RestaurantMenu() {
                         </tr>
                     </thead>
                     <tbody>
-                        {loading === false ? (
-                            currentData.map((product, index) => (
-                                <tr
-                                    key={index + startIndex}
-                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                >
-                                    <td className="w-4 p-4">
-                                        <div className="flex items-center whitespace-nowrap">
-                                            <input
-                                                defaultChecked={selectedArray.includes(index + startIndex)}
-                                                onChange={() => {
-                                                    const updatedSelectedArray = [...selectedArray];
-                                                    if (updatedSelectedArray.includes(index + startIndex)) {
-                                                        updatedSelectedArray.splice(
-                                                            updatedSelectedArray.indexOf(index + startIndex),
-                                                            1,
-                                                        );
-                                                    } else {
-                                                        updatedSelectedArray.push(index + startIndex);
-                                                    }
-                                                    setSelectedArray(updatedSelectedArray);
-                                                }}
-                                                id={`checkbox-table-search-${index}`}
-                                                type="checkbox"
-                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                            />
-                                            <label
-                                                htmlFor={`checkbox-table-search-${index}`}
-                                                className="sr-only"
-                                            >
-                                                checkbox
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 whitespace-nowrap">{product.name}</td>
-                                    <td className="px-6 whitespace-nowrap">
-                                        <img src={pizzaImage} alt={product.name} className="h-12 w-12" />
-                                    </td>
-                                    <td className="px-6 whitespace-nowrap">{product.ingredients.join(', ')}</td>
-                                    <td className="px-6 whitespace-nowrap">${product.price}</td>
-                                    <td className="px-6 py-4 flex space-x-2">
-                                        {/* Edit Button */}
-                                        <a
-                                            href="#"
-                                            className="text-blue-500"
-                                            onClick={() => handleEdit(product.id)}
-                                            style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '3px', marginTop: '8px', display:'block' }}
-                                        >
-                                            Edit
-                                        </a>
-                                        {/* Delete Button */}
-                                        <Delete
-                                            className="icon"
-                                            onClick={() => handleDelete(product.id)}
-                                            style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '3px', marginTop: '8px', display:'block' }}
+                        {currentData.map((product, index) => (
+                            <tr
+                                key={index + startIndex}
+                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                            >
+                                <td className="w-4 p-4">
+                                    <div className="flex items-center whitespace-nowrap">
+                                        <input
+                                            defaultChecked={selectedArray.includes(index + startIndex)}
+                                            onChange={() => {
+                                                const updatedSelectedArray = [...selectedArray];
+                                                if (updatedSelectedArray.includes(index + startIndex)) {
+                                                    updatedSelectedArray.splice(
+                                                        updatedSelectedArray.indexOf(index + startIndex),
+                                                        1,
+                                                    );
+                                                } else {
+                                                    updatedSelectedArray.push(index + startIndex);
+                                                }
+                                                setSelectedArray(updatedSelectedArray);
+                                            }}
+                                            id={`checkbox-table-search-${index}`}
+                                            type="checkbox"
+                                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td className="px-6 py-4" colSpan={5}>
-                                    Loading...
+                                        <label
+                                            htmlFor={`checkbox-table-search-${index}`}
+                                            className="sr-only"
+                                        >
+                                            checkbox
+                                        </label>
+                                    </div>
+                                </td>
+                                <td className="px-6 whitespace-nowrap">{product.name}</td>
+                                <td className="px-6 whitespace-nowrap">
+                                    <img src={pizzaImage} alt={product.name} className="h-12 w-12" />
+                                </td>
+                                <td className="px-6 whitespace-nowrap">{product.ingredients.join(', ')}</td>
+                                <td className="px-6 whitespace-nowrap">${product.price}</td>
+                                <td className="px-6 py-4 flex space-x-2">
+                                    {/* Edit Button */}
+                                    <a
+                                        href="#"
+                                        className="text-blue-500"
+                                        onClick={() => handleEdit(product.id)}
+                                        style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '3px', marginTop: '8px', display:'block' }}
+                                    >
+                                        Edit
+                                    </a>
+                                    {/* Delete Button */}
+                                    <Delete
+                                        className="icon"
+                                        onClick={() => handleDelete(product.id)}
+                                        style={{ cursor: 'pointer', maxWidth: '2.5rem', padding: '3px', marginTop: '8px', display:'block' }}
+                                    />
                                 </td>
                             </tr>
-                        )}
+                        ))}
                     </tbody>
                 </table>
             </div>

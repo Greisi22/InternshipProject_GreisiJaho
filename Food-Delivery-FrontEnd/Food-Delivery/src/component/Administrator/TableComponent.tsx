@@ -3,7 +3,8 @@ import { FaTrashAlt, FaCheck, FaSearch } from 'react-icons/fa'; // Import FontAw
 import { Pagination } from 'antd';
 import { getNotApprovedRestaurants } from 'src/api/localhost/Administrator/restaurantsApi';
 import { RestaurantNotAproved } from 'src/types/Restaurant';
-import { deleteRestaurant } from 'src/api/localhost/Administrator/restaurantsApi';
+import { deleteRestaurant, updateAllRestaurant } from 'src/api/localhost/Administrator/restaurantsApi'; 
+
 
 export const TableComponent = () => {
     const [restaurantsToShow, setRestaurantsToShow] = useState<RestaurantNotAproved[]>([]);
@@ -21,10 +22,7 @@ export const TableComponent = () => {
 
     const handleDelete = async (name: string) => {
         try {
-            // Call the deleteRestaurant function to delete the restaurant
             await deleteRestaurant(name);
-
-            // If the deletion is successful, update the state to remove the deleted restaurant from the list
             const updatedRestaurants = restaurantsToShow.filter(
                 (restaurant) => restaurant.name !== name,
             );
@@ -36,9 +34,10 @@ export const TableComponent = () => {
         }
     };
 
-    const handleAccept = (id: string) => {
-        const updatedRestaurants = restaurantsToShow.filter((restaurant) => restaurant.name !== id);
+    const handleAccept = async(name: string) => {
+        const updatedRestaurants = restaurantsToShow.filter((restaurant) => restaurant.name !== name);
         setRestaurantsToShow(updatedRestaurants);
+        await updateAllRestaurant(name);
     };
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -39,12 +39,18 @@ enum UserRole {
 
 // Define the User interface
 export interface User {
+    active(active: (active: any, active1: any) => number, active1: (active: any, active1: any) => string): string;
+    active(active: any, active1: any): number;
     userId: number;
     userEmail: string;
     userPassword: string;
     userRole: UserRole;
     managedRestaurants: Restaurant[];
     order: Order[];
+    
+       
+       
+    
 }
 
 interface Order {

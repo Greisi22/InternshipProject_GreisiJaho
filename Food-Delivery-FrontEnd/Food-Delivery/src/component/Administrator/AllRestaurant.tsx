@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getApprovedRestaurants } from 'src/api/localhost/Administrator/restaurantsApi';
 import { RestaurantAproved } from 'src/types/Restaurant';
 import { deleteRestaurant } from 'src/api/localhost/Administrator/restaurantsApi';
-import { FaTrashAlt, FaCheck, FaSearch } from 'react-icons/fa'; 
+
 
 function AllRestaurant() {
     const navigate = useNavigate();
@@ -17,7 +17,6 @@ function AllRestaurant() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
     const [selectedArray, setSelectedArray] = useState<number[]>([]);
-    const [loading, setLoading] = useState(false);
     const [data, setData] = useState<RestaurantAproved[]>([]);
 
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -89,8 +88,7 @@ function AllRestaurant() {
                             className="pl-10 pr-12 py-2 w-64 border rounded focus:outline-none focus:border-blue-500"
                             onChange={handleSearch}
                         />
-                        <div className="absolute top-0 right-0 flex items-center justify-center h-full w-10 text-gray-600">
-                            <FaSearch />
+                        <div className="absolute top-0 right-0 flex items-center justify-center h-full w-10 text-gray-600">   
                         </div>
                     </div>
                 </div>
@@ -112,107 +110,104 @@ function AllRestaurant() {
                     </thead>
 
                     <tbody className="w-full">
-                        {loading === false ? (
-                            currentData.map((restaurant, index) => (
-                                <tr
-                                    key={index + startIndex}
-                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <td className="w-4 p-4">
-                                        <div className="flex items-center whitespace-nowrap">
-                                            <input
-                                                defaultChecked={selectedArray.includes(
-                                                    index + startIndex,
-                                                )}
-                                                onChange={() => {
-                                                    const updatedSelectedArray = [...selectedArray];
-                                                    if (
-                                                        updatedSelectedArray.includes(
+                        { currentData.length > 0 && currentData.map((restaurant, index) => (
+                            <tr
+                                key={index + startIndex}
+                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td className="w-4 p-4">
+                                    <div className="flex items-center whitespace-nowrap">
+                                        <input
+                                            defaultChecked={selectedArray.includes(index + startIndex)}
+                                            onChange={() => {
+                                                const updatedSelectedArray = [...selectedArray];
+                                                if (
+                                                    updatedSelectedArray.includes(
+                                                        index + startIndex,
+                                                    )
+                                                ) {
+                                                    updatedSelectedArray.splice(
+                                                        updatedSelectedArray.indexOf(
                                                             index + startIndex,
-                                                        )
-                                                    ) {
-                                                        updatedSelectedArray.splice(
-                                                            updatedSelectedArray.indexOf(
-                                                                index + startIndex,
-                                                            ),
-                                                            1,
-                                                        );
-                                                    } else {
-                                                        updatedSelectedArray.push(
-                                                            index + startIndex,
-                                                        );
-                                                    }
-                                                    setSelectedArray(updatedSelectedArray);
-                                                }}
-                                                id={`checkbox-table-search-${index}`}
-                                                type="checkbox"
-                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                            />
-                                            <label
-                                                htmlFor={`checkbox-table-search-${index}`}
-                                                className="sr-only">
-                                                checkbox
-                                            </label>
-                                        </div>
-                                    </td>
-
-                                    <td className="px-6 whitespace-nowrap">{restaurant.name}</td>
-                                    <td className="px-6 whitespace-nowrap">{restaurant.name}</td>
-                                    <td className="px-6 whitespace-nowrap">Phone Number</td>
-                                    <td className="px-6 whitespace-nowrap">
-                                        {/* {
-                                            users.find(
-                                                (user) =>
-                                                    // user.id === restaurant.restaurantManager.userId,
-                                            )?.userEmail
-                                        } */}
-                                    </td>
-                                    <td className="px-6 py-4 flex space-x-2">
-                                        {/* Edit Button */}
-                                        <button
-                                            className="btn btn-primary-small"
-                                            style={{
-                                                width: '30%',
-                                                padding: '12px',
-                                                fontSize: '16px',
-                                                borderRadius: '6px',
-                                                cursor: 'pointer',
-                                                backgroundColor: '#16C098',
-                                                color: '#fff',
+                                                        ),
+                                                        1,
+                                                    );
+                                                } else {
+                                                    updatedSelectedArray.push(
+                                                        index + startIndex,
+                                                    );
+                                                }
+                                                setSelectedArray(updatedSelectedArray);
                                             }}
-                                            onClick={() => handleEdit(restaurant.name)}>
-                                            Edit
-                                        </button>
-                                        {/* View Button */}
-                                        <button
-                                            className="btn btn-view"
-                                            style={{
-                                                width: '30%',
-                                                fontSize: '13px',
-                                                borderRadius: '6px',
-                                                cursor: 'pointer',
-                                                backgroundColor: '#EAEAEA',
-                                                color: '#000',
-                                                border: '1px solid #000',
-                                            }}
-                                            onClick={() => handleView(restaurant.name)}>
-                                            View
-                                        </button>
-                                        {/* Delete Button */}
-                                        <img
-                                            src={deleteIcon}
-                                            alt="Delete Icon"
-                                            className="icon"
-                                            onClick={() => handleDelete(restaurant.name)}
-                                            style={{
-                                                cursor: 'pointer',
-                                                maxWidth: '2.5rem',
-                                                padding: '6px',
-                                            }}
+                                            id={`checkbox-table-search-${index}`}
+                                            type="checkbox"
+                                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
+                                        <label
+                                            htmlFor={`checkbox-table-search-${index}`}
+                                            className="sr-only">
+                                            checkbox
+                                        </label>
+                                    </div>
+                                </td>
+
+                                <td className="px-6 whitespace-nowrap">{restaurant.name}</td>
+                                <td className="px-6 whitespace-nowrap">{restaurant.name}</td>
+                                <td className="px-6 whitespace-nowrap">Phone Number</td>
+                                <td className="px-6 whitespace-nowrap">
+                                    {/* {
+                                        users.find(
+                                            (user) =>
+                                                // user.id === restaurant.restaurantManager.userId,
+                                        )?.userEmail
+                                    } */}
+                                </td>
+                                <td className="px-6 py-4 flex space-x-2">
+                                    {/* Edit Button */}
+                                    <button
+                                        className="btn btn-primary-small"
+                                        style={{
+                                            width: '30%',
+                                            padding: '12px',
+                                            fontSize: '16px',
+                                            borderRadius: '6px',
+                                            cursor: 'pointer',
+                                            backgroundColor: '#16C098',
+                                            color: '#fff',
+                                        }}
+                                        onClick={() => handleEdit(restaurant.name)}>
+                                        Edit
+                                    </button>
+                                    {/* View Button */}
+                                    <button
+                                        className="btn btn-view"
+                                        style={{
+                                            width: '30%',
+                                            fontSize: '13px',
+                                            borderRadius: '6px',
+                                            cursor: 'pointer',
+                                            backgroundColor: '#EAEAEA',
+                                            color: '#000',
+                                            border: '1px solid #000',
+                                        }}
+                                        onClick={() => handleView(restaurant.name)}>
+                                        View
+                                    </button>
+                                    {/* Delete Button */}
+                                    <img
+                                        src={deleteIcon}
+                                        alt="Delete Icon"
+                                        className="icon"
+                                        onClick={() => handleDelete(restaurant.name)}
+                                        style={{
+                                            cursor: 'pointer',
+                                            maxWidth: '2.5rem',
+                                            padding: '6px',
+                                        }}
+                                    />
+                                </td>
+                            </tr>
+                        ))}
+                        {currentData.length === 0 && (
                             <tr>
                                 <td className="px-6 py-4" colSpan={columnNames.length}>
                                     Loading...

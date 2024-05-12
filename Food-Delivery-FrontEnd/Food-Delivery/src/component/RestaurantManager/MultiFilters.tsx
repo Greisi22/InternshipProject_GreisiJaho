@@ -43,10 +43,6 @@ const products = [
 
 function MultiFilters() {
     const navigate = useNavigate();
-    const fetchData = async () => {
-        console.log('Prova ', await getProductCategoryCache('Food'));
-    };
-    fetchData();
 
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
@@ -61,18 +57,16 @@ function MultiFilters() {
     const categories = ['All', 'Food', 'Drink', 'Pasta', 'Soup']; // Define categories
 
     useEffect(() => {
-        // Filter data based on selected category
-        if (selectedCategory === 'All') {
-            setData(products);
-        } else {
-            
-            setData(fetchData());
-        }
+        const fetchDataAndUpdateData = async () => {
+            const categoryData = await getProductCategoryCache(selectedCategory);
+            setData(categoryData);
+        };
+        fetchDataAndUpdateData(); 
     }, [selectedCategory]);
 
     const handleCategoryClick = (category: string) => {
         setSelectedCategory(category);
-        setCurrentPage(1); 
+        setCurrentPage(1);
     };
 
     const handlePageChange = (page: number) => {

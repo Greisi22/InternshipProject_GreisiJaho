@@ -2,9 +2,10 @@ import { retrieveAllProducts } from '../api/localhost/Product/ProductsApi';
 import { Product } from 'src/types/Restaurant';
 
 let ProductCache: Record<string, Product[]> = {};
+let allProducts: Product[] = [];
 
-async function putDiscountRestaurantCache() {
-    const allProducts = await retrieveAllProducts();
+async function putProductCache() {
+    allProducts = await retrieveAllProducts();
 
     allProducts.forEach((product) => {
         const { category } = product;
@@ -17,7 +18,13 @@ async function putDiscountRestaurantCache() {
 }
 
 export async function getProductCategoryCache(category: string) {
-    
-    await putDiscountRestaurantCache();
+    if (allProducts.length == 0) {
+        await putProductCache();
+    }
+
+    if (category === 'All') {
+        return allProducts;
+    }
+
     return ProductCache[category] || [];
 }

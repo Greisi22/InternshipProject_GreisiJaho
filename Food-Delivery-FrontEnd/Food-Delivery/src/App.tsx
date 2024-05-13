@@ -24,6 +24,8 @@ import ManagerDashboardPage from './pages/RestaurantManager/ManagerDashboardPage
 
 import UserOrderPage from './websocket/UserOrderPage';
 import RestaurantOrderPage from './websocket/RestaurantOrderPage';
+import { CardWithLink } from './component/RestaurantManager/OrderCard';
+import AllOrders from './component/RestaurantManager/AllOrders';
 
 
 const App = () => {
@@ -60,6 +62,9 @@ const App = () => {
 
                 <Route path="prova1" element={<UserOrderPage />} />
                 <Route path="prova2" element={<RestaurantOrderPage />} />
+                <Route path="prova3" element={<AllOrders />} />
+
+                
                 
 
             </Routes>

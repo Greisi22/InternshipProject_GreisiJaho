@@ -53,7 +53,7 @@ export interface User {
     
 }
 
-interface Order {
+export interface Order {
     // Define properties of Order here
 }
 

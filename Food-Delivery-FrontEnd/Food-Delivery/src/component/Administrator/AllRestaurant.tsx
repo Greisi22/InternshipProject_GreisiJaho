@@ -1,19 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Pagination } from 'antd';
+import { Pagination } from 'antd'; // Make sure you have imported Pagination from antd
 import deleteIcon from 'src/assets/Icons/EntryPage/delete.png';
 import { useNavigate } from 'react-router-dom';
 import { getApprovedRestaurants } from 'src/api/localhost/Administrator/restaurantsApi';
 import { RestaurantAproved } from 'src/types/Restaurant';
 import { deleteRestaurant } from 'src/api/localhost/Administrator/restaurantsApi';
 
-
 function AllRestaurant() {
     const navigate = useNavigate();
 
-    
     const columnNames = ['Restaurant Name', 'ID', 'Phone Number', 'Email', 'Actions'];
     const [fixedData, setfixedData] = useState<RestaurantAproved[]>([]);
-   
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
     const [selectedArray, setSelectedArray] = useState<number[]>([]);
@@ -34,16 +31,13 @@ function AllRestaurant() {
     };
 
     // view button click
-    const handleView = (name: string) => {
+    const handleView = () => {
         // Logic to view details
     };
 
     const handleDelete = async (name: string) => {
         try {
             await deleteRestaurant(name);
-
-            // setData(name);
-
             console.log('Restaurant deleted successfully.');
         } catch (error: any) {
             console.log('Error deleting restaurant:', error.message);
@@ -73,6 +67,7 @@ function AllRestaurant() {
         setData(response);
         setfixedData(response);
     };
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -189,7 +184,7 @@ function AllRestaurant() {
                                             color: '#000',
                                             border: '1px solid #000',
                                         }}
-                                        onClick={() => handleView(restaurant.name)}>
+                                        onClick={handleView}>
                                         View
                                     </button>
                                     {/* Delete Button */}

@@ -56,7 +56,10 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                             <div>
                                 <label
                                     htmlFor="product-name"
+
+                                
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+
                                     Menu Item Name
                                 </label>
                                 <input
@@ -72,7 +75,8 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                             <div>
                                 <label
                                     htmlFor="image"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
                                     Image
                                 </label>
                                 <div className="flex items-center space-x-2">
@@ -98,7 +102,8 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                             <div>
                                 <label
                                     htmlFor="ingredients"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
                                     Ingredients
                                 </label>
                                 <input
@@ -114,7 +119,8 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                             <div>
                                 <label
                                     htmlFor="price"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
                                     Price
                                 </label>
                                 <input
@@ -132,7 +138,8 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                                     e.preventDefault();
                                     handleRegister();
                                 }}
-                                className="w-full text-white bg-red-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                className="w-full text-white bg-red-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                            >
                                 Submit
                             </button>
 

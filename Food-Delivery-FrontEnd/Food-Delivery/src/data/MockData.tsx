@@ -319,6 +319,13 @@ export const products = [
         image: 'src/assets/soup.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
-        category: 'Soup',
-    },
-];
+
+        category: "Soup"
+    }
+  ];
+  
+  
+
+
+
+

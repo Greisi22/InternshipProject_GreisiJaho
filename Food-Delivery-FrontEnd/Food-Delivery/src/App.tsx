@@ -12,9 +12,13 @@ import AllRestaurants from './component/Administrator/AllRestaurant';
 import RevenueTable from './component/Administrator/RevenueTable';
 
 
+
+
+
 import EditRestaurant from './component/Administrator/EditRestaurant';
+
 import RestaurantMenu from './component/Administrator/RestaurantMenu';
-import EditMenu from './component/Administrator/EditMenu';
+
 import RestaurantForm from './component/Administrator/RestaurantForm';
 
 import ManagerOrdersPage from 'src/pages/RestaurantManager/ManagerOrdersPage';
@@ -52,7 +56,7 @@ const App = () => {
             
                 <Route path="/Administrator/EditRestaurant" element={<EditRestaurant />} />
                 <Route path="/Administrator/RestaurantMenu" element={<RestaurantMenu />} />
-                <Route path="/Administrator/EditMenu" element={<EditMenu />} />
+                {/* <Route path="/Administrator/EditMenu" element={<EditMenu />} /> */}
                 <Route path="/Administrator/RestaurantForm" element={<RestaurantForm />} />
                 {/* <Route path="/Administrator/ProductForm" element={<ProductForm />} /> */}
                 <Route path="/RestaurantManager/Dashboard" element={<ManagerDashboardPage />} />

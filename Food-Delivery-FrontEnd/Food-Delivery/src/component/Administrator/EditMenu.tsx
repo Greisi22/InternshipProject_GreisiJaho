@@ -1,4 +1,7 @@
 import { useState } from 'react';
+
+import { CloudUpload as CloudUploadIcon } from '@mui/icons-material'; // Remove CloseIcon import
+
 import { IconButton } from '@mui/material'; // Import IconButton for Material UI icons
 
 function EditMenu() {
@@ -13,6 +16,21 @@ function EditMenu() {
         // You can add validation here before submitting the form
     };
 
+
+    const handleProductNameChange = (event: React.ChangeEvent<HTMLInputElement>) => { // Explicitly define event type
+        setProductName(event.target.value);
+    };
+
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => { // Explicitly define event type
+        setImage(event.target.value);
+    };
+
+    const handleIngredientsChange = (event: React.ChangeEvent<HTMLInputElement>) => { // Explicitly define event type
+        setIngredients(event.target.value);
+    };
+
+    const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => { // Explicitly define event type
+
     const handleProductNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setProductName(event.target.value);
     };
@@ -26,6 +44,7 @@ function EditMenu() {
     };
     
     const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
         setPrice(event.target.value);
     };
     
@@ -145,4 +164,5 @@ function EditMenu() {
     );
 }
 
+}
 export default EditMenu;

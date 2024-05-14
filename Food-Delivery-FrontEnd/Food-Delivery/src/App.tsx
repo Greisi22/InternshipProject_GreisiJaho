@@ -26,6 +26,8 @@ import UserOrderPage from './websocket/UserOrderPage';
 import RestaurantOrderPage from './websocket/RestaurantOrderPage';
 import AllOrders from './component/RestaurantManager/AllOrders';
 import OrderForm from './pages/Client/temporary';
+import SpecificRestaurant from './pages/Client/SpecificRestaurant';
+import { Restauran } from 'src/data/MockData';
 
 const App = () => {
     return (
@@ -60,6 +62,10 @@ const App = () => {
                 <Route path="prova2" element={<RestaurantOrderPage />} />
                 <Route path="prova3" element={<AllOrders />} />
                 <Route path="prova4" element={<OrderForm />} />
+                <Route
+                    path="/Client/SpecificRestaurant"
+                    element={<SpecificRestaurant restaurantData={Restauran[0]} />}
+                />
             </Routes>
         </>
     );

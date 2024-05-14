@@ -26,6 +26,8 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private List<Order> ordered;
 
+    //IMAGEEEE
+
 
     public Product() {}
     public Product(String name, String description, double price, List<String> ingredients, ProductType category, int amount) {

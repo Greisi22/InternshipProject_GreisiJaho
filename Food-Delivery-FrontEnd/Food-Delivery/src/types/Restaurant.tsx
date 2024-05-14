@@ -2,31 +2,36 @@ export interface Restaurant {
     id: number;
     name: string;
     address: string;
-    menu: Menu[];
-    openingHours: string[];
-    phoneNumber: string;
-    website: string;
-    averageRating: number;
+    products: Product[];
+    openingHours?: string[];
+    phoneNumber?: string;
+    website?: string;
+    averageRating?: number;
     isOpen: boolean;
     reviews: Review[];
     images: string[];
-    restaurantManager: User;
-    discount: number;
-    order: Order[];
-    category: string[];
-    restaurantPayments: RestaurantPayment[];
-    isApproved: boolean;
-    isActive: boolean;
-    revenue: Revenue;
-    documentation: Documentation;
+    restaurantManager?: User;
+    discount?: number;
+    order?: Order[];
+    category?: string[];
+    restaurantPayments?: RestaurantPayment[];
+    isApproved?: boolean;
+    isActive?: boolean;
+    revenue?: Revenue;
+    documentation?: Documentation;
+    rate:number;
 }
 
 interface Menu {
     // Define properties of Menu here
 }
 
-interface Review {
-    // Define properties of Review here
+export interface Review {
+    id: number;
+    reviewText: string;
+    rating: number;
+    date: string; // Assuming the date is stored as a string
+    restaurant?: Restaurant; // Assuming the restaurant is of type Restaurant
 }
 
 export interface userMap {
@@ -126,9 +131,10 @@ export interface NavBarProps {
 export interface Product {
     id?: number;
     name: string;
-    description: string;
+    description?: string;
     price: number;
     ingredients: string[];
     category: string;
-    amount: number;
+    amount?: number;
+    image: string;
 }

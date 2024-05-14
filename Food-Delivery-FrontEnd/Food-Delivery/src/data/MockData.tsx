@@ -253,7 +253,9 @@ export const UserList = [
     },
 ];
 
-export const products = [
+import { Restaurant, Review, Product } from 'src/types/Restaurant';
+
+export const products: Product[] = [
     {
         id: 1,
         name: 'Tomato soup ',
@@ -279,6 +281,7 @@ export const products = [
             'sliced cucumbers, tomatoes, green bell pepper, red onion, olives, and feta cheese',
         ],
         price: 8.99,
+        category: 'pizza',
     },
     {
         id: 3,
@@ -320,16 +323,47 @@ export const products = [
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
 
-        category: "Soup"
-    }
-  ];
+        category: 'Soup',
+    },
+];
 
-
-
-
-  
-  
-
-
-
-
+export const Revieww: Review[] = [
+    {
+        id: 1,
+        reviewText: 'Great food and service!',
+        rating: 5,
+        date: '2024-03-21',
+    },
+];
+export const Restauran: Restaurant[] = [
+    {
+        id: 1,
+        products: products,
+        name: 'example',
+        images: ['url....'],
+        rate: 5,
+        reviews: Revieww,
+        isOpen: true,
+        address: 'p bubit',
+    },
+    {
+        id: 2,
+        products: products,
+        name: 'example',
+        images: ['url....'],
+        rate: 5,
+        reviews: Revieww,
+        isOpen: true,
+        address: 'p bubit',
+    },
+    {
+        id: 3,
+        products: products,
+        name: 'example',
+        images: ['url....'],
+        rate: 5,
+        reviews: Revieww,
+        isOpen: true,
+        address: 'p bubit',
+    },
+];

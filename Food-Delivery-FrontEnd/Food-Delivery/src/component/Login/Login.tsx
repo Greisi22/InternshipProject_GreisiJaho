@@ -23,6 +23,7 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
         const result = await checkLogin(email, password);
 
         if (result.status == 200) {
+            console.log("Role: ", String(result.data.user.userRole))
             if (String(result.data.user.userRole) === 'ROLE_CLIENT') {
                 setLogin(false);
 
@@ -32,6 +33,7 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
             } else if (String(result.data.user.userRole) === 'ROLE_RESTAURANT_MANAGER') {
                 setLogin(false);
                 Cookies.set('userRestaurant', JSON.stringify(result.data.user), { expires: 7 });
+                navigate('/RestaurantManager/Dashboard');
             } else {
                 sessionStorage.setItem('userData', JSON.stringify(result.data));
                 setLogin(false);

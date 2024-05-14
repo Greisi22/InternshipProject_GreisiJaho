@@ -1,11 +1,13 @@
 package com.example.fooddeliveryy.Controllers;
 
+import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.DTO.RestaurantDTO;
 import com.example.fooddeliveryy.Entities.Rastaurant;
-import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import com.example.fooddeliveryy.Services.RestaurantService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RequestMapping("/restaurant")
 @RestController
@@ -89,8 +89,11 @@ public class RestaurantController {
     }
 
     @GetMapping("/approvedRestaurants")
-    public ResponseEntity<?> getApprovedRestaurant() {
+    public ResponseEntity<?> getApprovedRestaurant(HttpServletRequest request) {
         try {
+
+            Cookie[] cookies = request.getCookies();
+            System.out.println("Cookies: "+cookies[0].getValue());
             List<Rastaurant> approvedRestaurants = restaurantService.getIsAprovedRestaurants();
             List<RestaurantDTO> restaurantDTOS = restaurantMapper.mapToApprovedRestaurantDTOs(approvedRestaurants);
             System.out.println("Approved restaurants "+ approvedRestaurants);

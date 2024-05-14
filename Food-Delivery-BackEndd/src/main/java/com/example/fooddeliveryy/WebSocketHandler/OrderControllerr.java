@@ -24,13 +24,11 @@ public class OrderControllerr {
 
         // Prepare notification message
         String notification = "New order received: Order ID " + order.getId() + " from User ID " + order.getUser().getUserId();
-
+        System.out.println("Notification: "+ notification);
         // Send notification to the restaurant's WebSocket topic
         messagingTemplate.convertAndSend("/topic/restaurant-" + restaurantId + "-orders", notification);
 
 
         return ResponseEntity.ok().build();
     }
-
-
 }

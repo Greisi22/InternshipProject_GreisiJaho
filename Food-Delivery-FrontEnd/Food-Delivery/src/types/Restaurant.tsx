@@ -29,7 +29,12 @@ interface Review {
     // Define properties of Review here
 }
 
-enum UserRole {
+export interface userMap {
+    user: User;
+    token: String;
+}
+
+export enum UserRole {
     ROLE_CLIENT,
     ROLE_SUPER_ADMIN,
     ROLE_ADMIN,
@@ -39,7 +44,10 @@ enum UserRole {
 
 // Define the User interface
 export interface User {
-    active(active: (active: any, active1: any) => number, active1: (active: any, active1: any) => string): string;
+    active(
+        active: (active: any, active1: any) => number,
+        active1: (active: any, active1: any) => string,
+    ): string;
     active(active: any, active1: any): number;
     userId: number;
     userEmail: string;
@@ -47,10 +55,6 @@ export interface User {
     userRole: UserRole;
     managedRestaurants: Restaurant[];
     order: Order[];
-    
-       
-       
-    
 }
 
 export interface Order {
@@ -106,11 +110,11 @@ export interface NavBarProps {
 }
 
 export interface Product {
-    id: number;
+    id?: number;
     name: string;
     description: string;
     price: number;
     ingredients: string[];
     category: string;
     amount: number;
-  }
+}

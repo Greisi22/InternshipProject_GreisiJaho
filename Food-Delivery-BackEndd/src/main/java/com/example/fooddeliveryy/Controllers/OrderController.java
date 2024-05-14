@@ -1,8 +1,9 @@
 package com.example.fooddeliveryy.Controllers;
 
 
+import com.example.fooddeliveryy.DTO.OrderDTO;
 import com.example.fooddeliveryy.Entities.Order;
-import com.example.fooddeliveryy.Entities.Rastaurant;
+import com.example.fooddeliveryy.Mapping.OrderMapper;
 import com.example.fooddeliveryy.Repositories.OrderRepo;
 import com.example.fooddeliveryy.Services.OrderService;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,12 @@ public class OrderController {
 
     private final OrderService orderService;
     private final OrderRepo orderRepo;
+    private final OrderMapper orderMapper;
 
-    public OrderController(OrderService orderService, OrderRepo orderRepo) {
+    public OrderController(OrderService orderService, OrderRepo orderRepo, OrderMapper orderMapper) {
         this.orderService = orderService;
         this.orderRepo = orderRepo;
+        this.orderMapper = orderMapper;
     }
 
     @PostMapping("/create")
@@ -36,9 +39,10 @@ public class OrderController {
     }
 
     @GetMapping("/get/all")
-    public ResponseEntity<List<Order>> getAllOrders() {
+    public ResponseEntity<List<OrderDTO>> getAllOrders() {
         List<Order> order = orderService.getAllOrders();
-        return ResponseEntity.ok().body(order);
+        List<OrderDTO> orderDTOS = orderMapper.ordersToOrderDTOs(order);
+        return ResponseEntity.ok().body(orderDTOS);
     }
 
     @GetMapping("/get/amout")

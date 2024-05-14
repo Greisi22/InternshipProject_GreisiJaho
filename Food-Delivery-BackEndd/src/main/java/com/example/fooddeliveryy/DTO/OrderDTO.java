@@ -14,9 +14,10 @@ public class OrderDTO {
     private LocalDateTime orderTime;
     private double totalPrice;
     private StatusOfOrder orderStatus;
+    private String userEmail;
 
     public OrderDTO(long id, long restaurantId, long userId, List<Product> productIds, LocalDateTime orderTime,
-                    double totalPrice, StatusOfOrder orderStatus) {
+                    double totalPrice, StatusOfOrder orderStatus, String userEmail) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.userId = userId;
@@ -24,6 +25,7 @@ public class OrderDTO {
         this.orderTime = orderTime;
         this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
+        this.userEmail = userEmail;
     }
 
     public OrderDTO() {
@@ -86,6 +88,14 @@ public class OrderDTO {
         this.orderStatus = orderStatus;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
     @Override
     public String toString() {
         return "OrderDTO{" +
@@ -96,6 +106,7 @@ public class OrderDTO {
                 ", orderTime=" + orderTime +
                 ", totalPrice=" + totalPrice +
                 ", orderStatus=" + orderStatus +
+                ", userEmail="+userEmail+
                 '}';
     }
 }

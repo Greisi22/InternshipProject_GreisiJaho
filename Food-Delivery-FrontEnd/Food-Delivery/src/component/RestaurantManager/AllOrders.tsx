@@ -1,11 +1,26 @@
 import { OrderCard } from './OrderCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { retrieveAllOrders } from 'src/api/localhost/Order/OrderApi';
+import { Order } from 'src/types/Restaurant';
+
 function AllOrders() {
     const [selected, setSelected] = useState(5);
+    const [orders, setOrders] = useState<Order[]>();
 
     const handleButtonClick = (index: number) => {
         setSelected(index);
     };
+
+    const fetchData = async () => {
+        const result = await retrieveAllOrders();
+        console.log('Orders ', result);
+        setOrders(result);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     return (
         <div>
             <div className="flex items-center justify-center py-4 md:py-8 flex-wrap">
@@ -71,27 +86,7 @@ function AllOrders() {
                 </button>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
-                </div>
-                <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
-                </div>
-                <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
-                </div>
-                <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
-                </div>
-                <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
-                </div>
-                <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
-                </div>
-                <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
-                </div>
+                {orders && orders.map((order, index) => <div key={index}>{OrderCard(order)}</div>)}
             </div>
         </div>
     );

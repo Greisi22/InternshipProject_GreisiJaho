@@ -4,7 +4,7 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
 const RestaurantOrderPage = () => {
-  const restaurantId = 1; // Hardcoded restaurant ID
+  const restaurantId = 7; // Hardcoded restaurant ID
   const [orders, setOrders] = useState([]);
   const [stompClient, setStompClient] = useState(null);
 

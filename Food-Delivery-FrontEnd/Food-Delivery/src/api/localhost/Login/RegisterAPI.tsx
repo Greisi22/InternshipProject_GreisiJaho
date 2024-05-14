@@ -15,6 +15,7 @@ export async function registerUser(email: string, password: string, role: string
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: true
         });
 
         return response.status; // Return status if request is successful

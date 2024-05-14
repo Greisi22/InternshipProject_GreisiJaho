@@ -1,14 +1,12 @@
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-import { Product } from 'src/types/Restaurant';
 
-function OrderWebSocket(products, orderTime, orderStatus) {
-    console.log('Heiiiiiiii', products, orderTime, orderStatus);
+function OrderWebSocket(products: any, orderTime: any, orderStatus: any, usedId: any, restorantId: any) {
     const restaurantId = 1; // Hardcoded restaurant ID
     let orders = [];
-    let stompClient = null;
+    let stompClient: any = null;
 
-    const connectToWebSocket = (onConnect) => {
+    const connectToWebSocket = (onConnect: any) => {
         const socketUrl = 'http://localhost:8080/ws'; // Replace with your WebSocket endpoint
         const socket = new SockJS(socketUrl);
         const stomp = Stomp.over(socket);
@@ -32,13 +30,17 @@ function OrderWebSocket(products, orderTime, orderStatus) {
             const order = {
                 products: products,
                 orderTime: orderTime,
-                orderStatus: orderStatus,
+                user: {
+                    userId: 3,     
+                },
+                restaurant: {
+                    id: 7,
+                }
             };
             stompClient.send(`/app/orders`, {}, JSON.stringify(order));
         }
     };
 
-    // Call connectToWebSocket with placeOrder as a callback
     connectToWebSocket(placeOrder);
 }
 

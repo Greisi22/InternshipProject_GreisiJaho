@@ -10,7 +10,6 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
- 
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
@@ -24,27 +23,15 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
         const result = await checkLogin(email, password);
 
         if (result.status == 200) {
-            console.log(result.data);
-
-            console.log('jijijj', result.data.user);
-            console.log('jijijj' + UserRole[UserRole.ROLE_CLIENT]);
-            console.log(
-                'jijijj',
-                String(result.data.user.userRole) === UserRole[UserRole.ROLE_CLIENT],
-            );
-
             if (String(result.data.user.userRole) === 'ROLE_CLIENT') {
                 setLogin(false);
 
-       
-               
+                Cookies.set('user', JSON.stringify(result.data.user), { expires: 7 });
 
-              
-                    Cookies.set('user', JSON.stringify(result.data.user), { expires: 7 });
-                 
-
-                    navigate('/Client');
-                
+                navigate('/Client');
+            } else if (String(result.data.user.userRole) === 'ROLE_RESTAURANT_MANAGER') {
+                setLogin(false);
+                Cookies.set('userRestaurant', JSON.stringify(result.data.user), { expires: 7 });
             } else {
                 sessionStorage.setItem('userData', JSON.stringify(result.data));
                 setLogin(false);

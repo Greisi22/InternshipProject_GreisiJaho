@@ -28,9 +28,10 @@ public class User {
     @Column(name = "user_role")
     private UserRole userRole;
 
-    @OneToMany(mappedBy = "restaurantManager")
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
     @JsonBackReference("userBackReference")
-    private List<Rastaurant> managedRestaurants;
+    private Rastaurant managedRestaurant;
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference("orderBackReference")
@@ -79,12 +80,12 @@ public class User {
         this.userRole = userRole;
     }
 
-    public List<Rastaurant> getManagedRestaurants() {
-        return managedRestaurants;
+    public Rastaurant getManagedRestaurants() {
+        return managedRestaurant;
     }
 
-    public void setManagedRestaurants(List<Rastaurant> managedRestaurants) {
-        this.managedRestaurants = managedRestaurants;
+    public void setManagedRestaurants(Rastaurant managedRestaurant) {
+        this.managedRestaurant = managedRestaurant;
     }
 
     public List<Order> getOrder() {
@@ -118,7 +119,7 @@ public class User {
                 ", userEmail='" + userEmail + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userRole=" + userRole +
-                ", managedRestaurants=" + managedRestaurants +
+                ", managedRestaurants=" + managedRestaurant +
                 '}';
     }
 

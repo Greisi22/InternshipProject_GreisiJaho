@@ -2,10 +2,19 @@ import { OrderCard } from './OrderCard';
 import { useEffect, useState } from 'react';
 import { retrieveAllOrders } from 'src/api/localhost/Order/OrderApi';
 import { Order } from 'src/types/Restaurant';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+import Cookies from 'js-cookie';
 
 function AllOrders() {
     const [selected, setSelected] = useState(5);
-    const [orders, setOrders] = useState<Order[]>();
+    const [orders, setOrders] = useState<Order[]>([]);
+    const restaurantId = 7; // Hardcoded restaurant ID
+    const [stompClient, setStompClient] = useState<Stomp.Client | null>(null); // Explicitly typed as Stomp.Client | null
+
+    const userDataCookie = Cookies.get('user');
+    const userDataObject = userDataCookie ? JSON.parse(userDataCookie) : null;
+    console.log(userDataObject);
 
     const handleButtonClick = (index: number) => {
         setSelected(index);
@@ -20,6 +29,31 @@ function AllOrders() {
     useEffect(() => {
         fetchData();
     }, []);
+
+    useEffect(() => {
+        const socketUrl = 'http://localhost:8080/ws';
+        const socket = new SockJS(socketUrl);
+        const stomp: Stomp.Client = Stomp.over(socket); // Explicitly typed as Stomp.Client
+        stomp.connect({}, () => {
+            console.log('Connected to WebSocket');
+            setStompClient(stomp);
+
+            stomp.subscribe(`/topic/restaurant-${restaurantId}-orders`, (message) => {
+                const newOrder = JSON.parse(message.body);
+                setOrders((prevOrders) => [...(prevOrders ?? []), newOrder]);
+            });
+        });
+
+        return () => {
+            if (stompClient) {
+                stompClient.disconnect(() => {}); // Disconnect callback provided as empty function
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        console.log('ahhsbiushufcnsuncn   ', orders);
+    }, [orders]);
 
     return (
         <div>
@@ -86,7 +120,7 @@ function AllOrders() {
                 </button>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {orders && orders.map((order, index) => <div key={index}>{OrderCard(order)}</div>)}
+                {/* {orders && orders.map((order, index) => <div key={index}>{OrderCard(order)}</div>)} */}
             </div>
         </div>
     );

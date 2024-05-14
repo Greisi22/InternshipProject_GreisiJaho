@@ -11,10 +11,6 @@ import UsersPage from './pages/Administrator/UsersPage';
 import AllRestaurants from './component/Administrator/AllRestaurant';
 import RevenueTable from './component/Administrator/RevenueTable';
 
-
-
-
-
 import EditRestaurant from './component/Administrator/EditRestaurant';
 
 import RestaurantMenu from './component/Administrator/RestaurantMenu';
@@ -28,9 +24,8 @@ import ManagerDashboardPage from './pages/RestaurantManager/ManagerDashboardPage
 
 import UserOrderPage from './websocket/UserOrderPage';
 import RestaurantOrderPage from './websocket/RestaurantOrderPage';
-import { CardWithLink } from './component/RestaurantManager/OrderCard';
 import AllOrders from './component/RestaurantManager/AllOrders';
-
+import OrderForm from './pages/Client/temporary';
 
 const App = () => {
     return (
@@ -53,7 +48,6 @@ const App = () => {
                 <Route path="/Administrator/AllRestaurants" element={<AllRestaurants />} />
                 <Route path="/Administrator/RevenueTable" element={<RevenueTable />} />
                 <Route path="/Administrator/EditRestaurant" element={<EditRestaurant />} />
-            
                 <Route path="/Administrator/EditRestaurant" element={<EditRestaurant />} />
                 <Route path="/Administrator/RestaurantMenu" element={<RestaurantMenu />} />
                 {/* <Route path="/Administrator/EditMenu" element={<EditMenu />} /> */}
@@ -62,15 +56,10 @@ const App = () => {
                 <Route path="/RestaurantManager/Dashboard" element={<ManagerDashboardPage />} />
                 <Route path="/RestaurantManager/Order" element={<ManagerOrdersPage />} />
                 <Route path="/RestaurantManager/Product" element={<ManagerProductsPage />} />
-
-
                 <Route path="prova1" element={<UserOrderPage />} />
                 <Route path="prova2" element={<RestaurantOrderPage />} />
                 <Route path="prova3" element={<AllOrders />} />
-
-                
-                
-
+                <Route path="prova4" element={<OrderForm />} />
             </Routes>
         </>
     );

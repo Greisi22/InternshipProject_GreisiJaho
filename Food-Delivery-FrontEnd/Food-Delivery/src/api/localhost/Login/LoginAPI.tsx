@@ -1,4 +1,5 @@
 import axiosInstance, { ApiResponse } from '../../../config/axios';
+import { userMap } from 'src/types/Restaurant';
 
 export async function checkLogin(email: string, password: string) {
     try {
@@ -9,7 +10,7 @@ export async function checkLogin(email: string, password: string) {
         };
 
         // Making a POST request with the data
-        const response = await axiosInstance.post<ApiResponse>('/user/login', requestData, {
+        const response = await axiosInstance.post<userMap>('/user/login', requestData, {
             headers: {
                 'Content-Type': 'application/json',
             },

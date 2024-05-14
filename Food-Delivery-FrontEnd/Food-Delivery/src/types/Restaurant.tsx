@@ -57,8 +57,22 @@ export interface User {
     order: Order[];
 }
 
+export enum StatusOfOrder {
+    Received = 'Received',
+    Preparing = 'Preparing',
+    Finished = 'Finished',
+    Delivering = 'Delivering',
+}
+
 export interface Order {
-    // Define properties of Order here
+    id?: number;
+    restaurantId: number;
+    userId: number;
+    products: Product[];
+    orderTime: string;
+    totalPrice: number;
+    orderStatus: StatusOfOrder;
+    userEmail: string;
 }
 
 interface RestaurantPayment {

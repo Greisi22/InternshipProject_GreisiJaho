@@ -1,12 +1,13 @@
 package com.example.fooddeliveryy.Controllers.LogIn;
 
+import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.DTO.UserDTO;
 import com.example.fooddeliveryy.Entities.User;
-import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.Mapping.UserMapper;
 import com.example.fooddeliveryy.Repositories.UserRepository;
 import com.example.fooddeliveryy.Services.LogIn.LogInService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +39,10 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
+    public ResponseEntity<?> register(HttpServletRequest request,  @RequestBody User user) {
         String userEmail = user.getUserEmail();
+        Cookie [] cookies = request.getCookies();
+        System.out.println(cookies);
         Optional<User> existingUser = userRepository.findByUserEmail(userEmail);
         if (existingUser.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User with email " + userEmail + " already exists");

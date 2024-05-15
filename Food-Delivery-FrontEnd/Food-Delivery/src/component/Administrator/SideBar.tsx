@@ -5,15 +5,20 @@ import { useNavigate } from 'react-router-dom';
 function SideBar({ selected }: { selected: string }) {
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+
     // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
 
     const toggleSidebar = () => {
         setIsSidebarOpen((prevState) => !prevState);
     };
 
+
     // const toggleDropdown = () => {
     //     setIsDropdownOpen((prevState) => !prevState);
     // };
+
 
     const handleItemClick = (item: string) => {
         switch (item) {

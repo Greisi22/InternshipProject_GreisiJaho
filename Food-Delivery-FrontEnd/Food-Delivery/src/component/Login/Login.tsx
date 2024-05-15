@@ -2,6 +2,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkLogin } from 'src/api/localhost/Login/LoginAPI';
+import { UserRole } from 'src/types/Restaurant';
+import Cookies from 'js-cookie';
 
 function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
     const [error, setError] = useState('');
@@ -19,10 +21,24 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
 
     async function handleLogin() {
         const result = await checkLogin(email, password);
+
         if (result.status == 200) {
-            sessionStorage.setItem('userData', JSON.stringify(result.data));
-            setLogin(false);
-            navigate('/Administrator/dashboard');
+            console.log("Role: ", String(result.data.user.userRole))
+            if (String(result.data.user.userRole) === 'ROLE_CLIENT') {
+                setLogin(false);
+
+                Cookies.set('user', JSON.stringify(result.data.user), { expires: 7 });
+
+                navigate('/Client');
+            } else if (String(result.data.user.userRole) === 'ROLE_RESTAURANT_MANAGER') {
+                setLogin(false);
+                Cookies.set('userRestaurant', JSON.stringify(result.data.user), { expires: 7 });
+                navigate('/RestaurantManager/Dashboard');
+            } else {
+                sessionStorage.setItem('userData', JSON.stringify(result.data));
+                setLogin(false);
+                navigate('/Administrator/dashboard');
+            }
         } else {
             setError('Invalid Credencials');
         }
@@ -43,11 +59,7 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                     <a
                         href="#"
                         className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                        <img
-                            className="w-8 h-8 mr-2"
-                            src=""
-                            alt="logo"
-                        />
+                        <img className="w-8 h-8 mr-2" src="" alt="logo" />
                         Testy Rush
                     </a>
                     <div className="relative shadow-3xl w-full bg-white border border-gray-500 rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 ">

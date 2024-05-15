@@ -3,6 +3,7 @@ import './style/DiscountRestaurant.css';
 import NavBar from './navBarDiscRes';
 import { getDiscountRestaurantCache } from 'src/cache/entry';
 import { Restaurant } from 'src/types/Restaurant';
+import Restorant1 from 'src/assets/Restaurant1.webp'
 
 const DiscountRestaurants = () => {
     const [restaurant, setRestaurant] = useState<Restaurant[]>([]);
@@ -26,7 +27,7 @@ const DiscountRestaurants = () => {
                         className="overflow-hidden snap-center m-2  relative truncate rounded-md specific-restaurant">
                         <img
                             className="object-cover w-full h-full image-restuarant"
-                            src={`src/assets/${restaurant.images[0]}`}
+                            src={Restorant1}
                         />
                         <div className="absolute bottom-0 left-0 h-full w-140  shadoww">
                             <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-tr from-black via-transparent to-transparent rounded-tl-lg rounded-bl-lg"></div>

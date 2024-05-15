@@ -30,10 +30,10 @@ public class Rastaurant {
     @JsonBackReference("reviewsBackReference")
     private List<Review> reviews;
     private List<String> images;
-    @ManyToOne
-    @JoinColumn(name = "restaurant_manager_id")
-    @JsonBackReference("restaurant_manager_id")
-    private User restaurantManager;
+
+    @OneToMany
+    private List<User> restaurantManagers;
+
     private int discount;
     @OneToMany(mappedBy = "restaurant")
     @JsonBackReference("orderBackReference")
@@ -84,7 +84,7 @@ public class Rastaurant {
         this.isOpen = isOpen;
         this.reviews = reviews;
         this.images = images;
-        this.restaurantManager = restaurantManager;
+        this.restaurantManagers = restaurantManagers;
         this.discount = discount;
         this.order = order;
         this.category = category;
@@ -182,12 +182,12 @@ public class Rastaurant {
         isOpen = open;
     }
 
-    public User getRestaurantManager() {
-        return restaurantManager;
+    public List<User> getRestaurantManager() {
+        return restaurantManagers;
     }
 
-    public void setRestaurantManager(User restaurantManager) {
-        this.restaurantManager = restaurantManager;
+    public void setRestaurantManager(List<User> restaurantManagers) {
+        this.restaurantManagers = restaurantManagers;
     }
 
     public int getDiscount() {
@@ -276,7 +276,7 @@ public class Rastaurant {
                 ", averageRating=" + averageRating +
                 ", isOpen=" + isOpen +
                 ", reviews=" + reviews +
-                ", images=" + images +
+                ", imagesssss=" + images +
                 ", discount=" + discount +
                 ", order=" + order +
                 ", category=" + category +
@@ -286,6 +286,7 @@ public class Rastaurant {
                 ", revenue=" + revenue +
                 ", documentation=" + documentation +
                 ", categories=" + categories +
+                ", menager" + restaurantManagers.get(0).getUserId()+
                 '}';
     }
 }

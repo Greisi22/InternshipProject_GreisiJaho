@@ -2,34 +2,44 @@ export interface Restaurant {
     id: number;
     name: string;
     address: string;
-    menu: Menu[];
-    openingHours: string[];
-    phoneNumber: string;
-    website: string;
-    averageRating: number;
+    products: Product[];
+    openingHours?: string[];
+    phoneNumber?: string;
+    website?: string;
+    averageRating?: number;
     isOpen: boolean;
     reviews: Review[];
     images: string[];
-    restaurantManager: User;
-    discount: number;
-    order: Order[];
-    category: string[];
-    restaurantPayments: RestaurantPayment[];
-    isApproved: boolean;
-    isActive: boolean;
-    revenue: Revenue;
-    documentation: Documentation;
+    restaurantManager?: User;
+    discount?: number;
+    order?: Order[];
+    category?: string[];
+    restaurantPayments?: RestaurantPayment[];
+    isApproved?: boolean;
+    isActive?: boolean;
+    revenue?: Revenue;
+    documentation?: Documentation;
+    rate: number;
 }
 
 interface Menu {
     // Define properties of Menu here
 }
 
-interface Review {
-    // Define properties of Review here
+export interface Review {
+    id: number;
+    reviewText: string;
+    rating: number;
+    date: string; // Assuming the date is stored as a string
+    restaurant?: Restaurant; // Assuming the restaurant is of type Restaurant
 }
 
-enum UserRole {
+export interface userMap {
+    user: User;
+    token: String;
+}
+
+export enum UserRole {
     ROLE_CLIENT,
     ROLE_SUPER_ADMIN,
     ROLE_ADMIN,
@@ -39,22 +49,41 @@ enum UserRole {
 
 // Define the User interface
 export interface User {
-    active(active: (active: any, active1: any) => number, active1: (active: any, active1: any) => string): string;
-    active(active: any, active1: any): number;
-    userId: number;
-    userEmail: string;
-    userPassword: string;
-    userRole: UserRole;
-    managedRestaurants: Restaurant[];
-    order: Order[];
-    
-       
-       
-    
+    userId?: number;
+    userEmail?: string;
+    userPassword?: string;
+    userRole?: UserRole;
+    managedRestaurants?: Restaurant[];
+    order?: Order[];
+}
+
+export enum StatusOfOrder {
+    Received = 'Received',
+    Preparing = 'Preparing',
+    Finished = 'Finished',
+    Delivering = 'Delivering',
+}
+export enum PaymentMethod {
+    Cash = 'Cash',
+    Cart = 'Cart',
 }
 
 export interface Order {
-    // Define properties of Order here
+    id?: number;
+    restaurantId?: number;
+    userId?: number;
+    productss?: Product[];
+    orderTime?: string;
+    totalPrice?: number;
+    orderStatus?: StatusOfOrder;
+    userEmail?: string;
+    description?: string;
+    userAdress?: string;
+    userPhoneNumber?: number;
+    paymentMethod?: PaymentMethod;
+    orderPrice?:number,
+    shippingPrice?:number,
+    taxPrice?:number,
 }
 
 interface RestaurantPayment {
@@ -106,11 +135,12 @@ export interface NavBarProps {
 }
 
 export interface Product {
-    id: number;
+    id?: number;
     name: string;
-    description: string;
+    description?: string;
     price: number;
     ingredients: string[];
     category: string;
-    amount: number;
-  }
+    amount?: number;
+    image: string;
+}

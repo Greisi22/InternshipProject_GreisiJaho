@@ -1,20 +1,23 @@
 package com.example.fooddeliveryy.Controllers;
 
+import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.DTO.RestaurantDTO;
 import com.example.fooddeliveryy.Entities.Rastaurant;
-import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
+import com.example.fooddeliveryy.Entities.User;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
+import com.example.fooddeliveryy.Repositories.UserRepository;
 import com.example.fooddeliveryy.Services.RestaurantService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RequestMapping("/restaurant")
 @RestController
@@ -23,22 +26,36 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
     private final RestaurantRepo restaurantRepo;
     private final RestaurantMapper restaurantMapper;
+    private final UserRepository userRepository;
 
     private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public RestaurantController(RestaurantService restaurantService, RestaurantMapper restaurantMapper, RestaurantRepo restaurantRepo, JwtTokenProvider jwtTokenProvider) {
+    public RestaurantController(RestaurantService restaurantService, RestaurantMapper restaurantMapper, RestaurantRepo restaurantRepo, UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
         this.restaurantService = restaurantService;
         this.restaurantMapper = restaurantMapper;
         this.restaurantRepo = restaurantRepo;
+        this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
 
     @PostMapping("/create")
     public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant) {
-
+        System.out.println("Prova: " + restaurant);
         Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
+        long userId = restaurant.getRestaurantManager().get(0).getUserId();
+        Optional<User> optionalUser = userRepository.findByUserId(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setManagedRestaurants(restaurant);
+            System.out.println("O user nishi " + user);
+            try {
+                userRepository.save(user);
+            } catch (DataIntegrityViolationException e) {
+                userRepository.update(user);
+            }
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
     }
 
@@ -60,7 +77,6 @@ public class RestaurantController {
         List<Rastaurant> restaurants = restaurantService.getAllRestaurants();
         return ResponseEntity.ok().body(restaurants.size());
     }
-
 
 
     @DeleteMapping("/delete/{name}")
@@ -89,11 +105,14 @@ public class RestaurantController {
     }
 
     @GetMapping("/approvedRestaurants")
-    public ResponseEntity<?> getApprovedRestaurant() {
+    public ResponseEntity<?> getApprovedRestaurant(HttpServletRequest request) {
         try {
+
+            Cookie[] cookies = request.getCookies();
+            System.out.println("Cookies: " + cookies[0].getValue());
             List<Rastaurant> approvedRestaurants = restaurantService.getIsAprovedRestaurants();
             List<RestaurantDTO> restaurantDTOS = restaurantMapper.mapToApprovedRestaurantDTOs(approvedRestaurants);
-            System.out.println("Approved restaurants "+ approvedRestaurants);
+            System.out.println("Approved restaurants " + approvedRestaurants);
             return ResponseEntity.ok().body(restaurantDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error!!");
@@ -114,7 +133,7 @@ public class RestaurantController {
     @PutMapping("/update/{name}")
     public ResponseEntity<?> updateRestaurantAttribute(@PathVariable("name") String name) {
         try {
-            System.out.println("id "+name + "isApproveddd ");
+            System.out.println("id " + name + "isApproveddd ");
             Rastaurant updatedRestaurant = restaurantService.updateRestaurantAttribute(name);
             if (updatedRestaurant != null) {
                 return ResponseEntity.ok(updatedRestaurant);
@@ -129,7 +148,6 @@ public class RestaurantController {
     @PutMapping("/update")
     public ResponseEntity<?> updateRestaurant(@RequestBody Rastaurant restaurant) {
         try {
-            System.out.println("Jam ktuuuu o kurv: "+restaurant);
             Rastaurant updatedRestaurant = restaurantRepo.save(restaurant);
             return ResponseEntity.ok().body(updatedRestaurant);
         } catch (Exception e) {
@@ -137,7 +155,20 @@ public class RestaurantController {
         }
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Rastaurant> getRestaurantByUserId(@PathVariable long userId) {
+        Optional<User> userOptional = userRepository.findByUserId(userId);
+        User user = null;
+        if (userOptional.isPresent()) {
+            user = userOptional.get();
+        }
 
+        if (user == null || user.getManagedRestaurants() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Rastaurant restaurant = user.getManagedRestaurants();
+        return new ResponseEntity<>(restaurant, HttpStatus.OK);
+    }
 
 
     //REVENUE AND REVIEW RESTAURANTS

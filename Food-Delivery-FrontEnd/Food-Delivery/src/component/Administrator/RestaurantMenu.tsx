@@ -14,6 +14,9 @@ function RestaurantMenu() {
     const [selectedArray, setSelectedArray] = useState<number[]>([]);
     const [data, setData] = useState(products);
 
+    const [loading, setLoading] = useState(false);
+
+
     // Slice data to display on the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, data?.length || 0);

@@ -28,9 +28,8 @@ public class User {
     @Column(name = "user_role")
     private UserRole userRole;
 
-    @OneToMany(mappedBy = "restaurantManager")
-    @JsonBackReference("userBackReference")
-    private List<Rastaurant> managedRestaurants;
+    @ManyToOne
+    private Rastaurant managedRestaurant;
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference("orderBackReference")
@@ -46,6 +45,21 @@ public class User {
 
     // Getters and setters
     // Constructor
+
+    public User() {
+
+    }
+
+    public User(long userId, String userEmail, String userPassword, UserRole userRole, Rastaurant managedRestaurant, List<Order> order, List<Message> sentMessages, List<Message> receivedMessages) {
+        this.userId = userId;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userRole = userRole;
+        this.managedRestaurant = managedRestaurant;
+        this.order = order;
+        this.sentMessages = sentMessages;
+        this.receivedMessages = receivedMessages;
+    }
 
     public long getUserId() {
         return userId;
@@ -79,12 +93,12 @@ public class User {
         this.userRole = userRole;
     }
 
-    public List<Rastaurant> getManagedRestaurants() {
-        return managedRestaurants;
+    public Rastaurant getManagedRestaurants() {
+        return managedRestaurant;
     }
 
-    public void setManagedRestaurants(List<Rastaurant> managedRestaurants) {
-        this.managedRestaurants = managedRestaurants;
+    public void setManagedRestaurants(Rastaurant managedRestaurant) {
+        this.managedRestaurant = managedRestaurant;
     }
 
     public List<Order> getOrder() {
@@ -118,7 +132,7 @@ public class User {
                 ", userEmail='" + userEmail + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userRole=" + userRole +
-                ", managedRestaurants=" + managedRestaurants +
+                ", managedRestaurants=" + managedRestaurant +
                 '}';
     }
 

@@ -1,54 +1,47 @@
-import React, { useEffect, useState } from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
-const RestaurantOrdersComponent = () => {
+function OrderWebSocket(products: any, orderTime: any, orderStatus: any, usedId: any, restorantId: any) {
     const restaurantId = 1; // Hardcoded restaurant ID
-    const [orders, setOrders] = useState([]);
-    const [stompClient, setStompClient] = useState(null);
+    let orders = [];
+    let stompClient: any = null;
 
-    useEffect(() => {
+    const connectToWebSocket = (onConnect: any) => {
         const socketUrl = 'http://localhost:8080/ws'; // Replace with your WebSocket endpoint
         const socket = new SockJS(socketUrl);
         const stomp = Stomp.over(socket);
         stomp.connect({}, () => {
             console.log('Connected to WebSocket');
-            setStompClient(stomp);
+            stompClient = stomp;
 
             stomp.subscribe(`/topic/restaurant-${restaurantId}-orders`, (message) => {
                 const newOrder = JSON.parse(message.body);
-                setOrders((prevOrders) => [...prevOrders, newOrder]);
+                orders.push(newOrder);
+                console.log('Orders:', orders);
             });
-        });
 
-        return () => {
-            if (stompClient) {
-                stompClient.disconnect();
-            }
-        };
-    }, []);
+            // Invoke the callback once the connection is established
+            onConnect();
+        });
+    };
 
     const placeOrder = () => {
         if (stompClient) {
             const order = {
-                id: Math.floor(Math.random() * 1000), // Example order ID
-                message: `New order for restaurant ${restaurantId}`,
+                products: products,
+                orderTime: orderTime,
+                user: {
+                    userId: 3,     
+                },
+                restaurant: {
+                    id: 7,
+                }
             };
-            stompClient.send(`/app/orders`, {}, JSON.stringify(order)); // Change the destination to match the backend controller mapping
+            stompClient.send(`/app/orders`, {}, JSON.stringify(order));
         }
     };
 
-    return (
-        <div>
-            <h2>Restaurant Orders</h2>
-            <button onClick={placeOrder}>Place Order</button> {/* Button to trigger placeOrder function */}
-            <ul>
-                {orders.map((order) => (
-                    <li key={order.id}>{order.message}</li>
-                ))}
-            </ul>
-        </div>
-    );
-};
+    connectToWebSocket(placeOrder);
+}
 
-export default RestaurantOrdersComponent;
+export default OrderWebSocket;

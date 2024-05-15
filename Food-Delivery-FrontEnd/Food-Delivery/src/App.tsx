@@ -11,10 +11,10 @@ import UsersPage from './pages/Administrator/UsersPage';
 import AllRestaurants from './component/Administrator/AllRestaurant';
 import RevenueTable from './component/Administrator/RevenueTable';
 
-
 import EditRestaurant from './component/Administrator/EditRestaurant';
+
 import RestaurantMenu from './component/Administrator/RestaurantMenu';
-import EditMenu from './component/Administrator/EditMenu';
+
 import RestaurantForm from './component/Administrator/RestaurantForm';
 
 import ManagerOrdersPage from 'src/pages/RestaurantManager/ManagerOrdersPage';
@@ -25,7 +25,9 @@ import ManagerDashboardPage from './pages/RestaurantManager/ManagerDashboardPage
 import UserOrderPage from './websocket/UserOrderPage';
 import RestaurantOrderPage from './websocket/RestaurantOrderPage';
 import AllOrders from './component/RestaurantManager/AllOrders';
-
+import OrderForm from './pages/Client/temporary';
+import SpecificRestaurant from './pages/Client/SpecificRestaurant';
+import { Restauran } from 'src/data/MockData';
 
 const App = () => {
     return (
@@ -48,24 +50,22 @@ const App = () => {
                 <Route path="/Administrator/AllRestaurants" element={<AllRestaurants />} />
                 <Route path="/Administrator/RevenueTable" element={<RevenueTable />} />
                 <Route path="/Administrator/EditRestaurant" element={<EditRestaurant />} />
-            
                 <Route path="/Administrator/EditRestaurant" element={<EditRestaurant />} />
                 <Route path="/Administrator/RestaurantMenu" element={<RestaurantMenu />} />
-                <Route path="/Administrator/EditMenu" element={<EditMenu />} />
+                {/* <Route path="/Administrator/EditMenu" element={<EditMenu />} /> */}
                 <Route path="/Administrator/RestaurantForm" element={<RestaurantForm />} />
                 {/* <Route path="/Administrator/ProductForm" element={<ProductForm />} /> */}
                 <Route path="/RestaurantManager/Dashboard" element={<ManagerDashboardPage />} />
                 <Route path="/RestaurantManager/Order" element={<ManagerOrdersPage />} />
                 <Route path="/RestaurantManager/Product" element={<ManagerProductsPage />} />
-
-
                 <Route path="prova1" element={<UserOrderPage />} />
                 <Route path="prova2" element={<RestaurantOrderPage />} />
                 <Route path="prova3" element={<AllOrders />} />
-
-                
-                
-
+                <Route path="prova4" element={<OrderForm />} />
+                <Route
+                    path="/Client/SpecificRestaurant"
+                    element={<SpecificRestaurant restaurantData={Restauran[0]} />}
+                />
             </Routes>
         </>
     );

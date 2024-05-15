@@ -29,8 +29,6 @@ public class User {
     private UserRole userRole;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant_id")
-    @JsonBackReference("userBackReference")
     private Rastaurant managedRestaurant;
 
     @OneToMany(mappedBy = "user")
@@ -47,6 +45,21 @@ public class User {
 
     // Getters and setters
     // Constructor
+
+    public User() {
+
+    }
+
+    public User(long userId, String userEmail, String userPassword, UserRole userRole, Rastaurant managedRestaurant, List<Order> order, List<Message> sentMessages, List<Message> receivedMessages) {
+        this.userId = userId;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userRole = userRole;
+        this.managedRestaurant = managedRestaurant;
+        this.order = order;
+        this.sentMessages = sentMessages;
+        this.receivedMessages = receivedMessages;
+    }
 
     public long getUserId() {
         return userId;

@@ -32,19 +32,9 @@ public class RestaurantService {
         if (existingRestaurant != null) {
             throw new IllegalArgumentException("Restaurant with name '" + restaurant.getName() + "' already exists");
         }
+        System.out.println("Restaurant  "+restaurant.getRestaurantManager());
 
-        if (restaurant.getMenu() != null) {
-            List<Menu> restaurantMenus = new ArrayList<>();
-            for (Menu menu : restaurant.getMenu()) {
-                Menu restaurantMenu = menuService.getMenuById(menu.getId());
-                if (restaurantMenu == null) {
-                    throw new IllegalArgumentException("Menu not found with ID: " + menu.getId());
-                } else {
-                    restaurantMenus.add(restaurantMenu);
-                }
-            }
-            restaurant.setMenu(restaurantMenus);
-        }
+
 
         return restaurantRepo.save(restaurant);
     }

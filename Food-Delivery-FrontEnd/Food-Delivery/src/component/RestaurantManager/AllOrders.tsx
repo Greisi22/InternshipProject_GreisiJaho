@@ -1,11 +1,13 @@
-import { OrderCard } from './OrderCard';
-import { useState } from 'react';
+import  { useState } from 'react';
+import { OrderCard } from './OrderCard'; // Import OrderCard as named export
+
 function AllOrders() {
     const [selected, setSelected] = useState(5);
 
     const handleButtonClick = (index: number) => {
         setSelected(index);
     };
+
     return (
         <div>
             <div className="flex items-center justify-center py-4 md:py-8 flex-wrap">
@@ -71,26 +73,26 @@ function AllOrders() {
                 </button>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
+            <div>
+                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
                 </div>
                 <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
+                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
                 </div>
                 <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
+                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
                 </div>
                 <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
+                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
                 </div>
                 <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
+                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
                 </div>
                 <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
+                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
                 </div>
                 <div>
-                    {OrderCard('example@gmail.com', '2 pizza sallam-proshute, 2 cola, ...', false)}
+                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
                 </div>
             </div>
         </div>

@@ -1,3 +1,4 @@
+// EntryPage.js
 import { FunctionComponent, useState } from 'react';
 import DiscountRestaurants from 'src/component/EntryPage/DiscountRestaurants';
 import PopularCategories from 'src/component/EntryPage/PopularCategories';
@@ -8,8 +9,6 @@ import UserReview from 'src/component/EntryPage/UserReview';
 import PopularRestaurants from 'src/component/EntryPage/PopularRestaurants';
 import Entry from 'src/component/EntryPage/Entry';
 import EntryInfo from 'src/component/EntryPage/EntryInfo';
-import ChangeImages from 'src/component/EntryPage/ChangeImages';
-import NavBar from 'src/component/General/NavBar';
 import Register from 'src/component/Login/Register';
 import Login from 'src/component/Login/Login';
 
@@ -25,14 +24,14 @@ const EntryPage: FunctionComponent = () => {
                     </div>
                 )}
 
-              { signup && ( <div className="absolute h-full  w-full  z-[100] mt-[-30px]"> 
-                    <Register setLogin={setLogin} setSignup={setSignup}/>
-                </div>
-              )}
+                { signup && (
+                    <div className="absolute h-full w-full z-[100] mt-[-30px]"> 
+                        <Register setLogin={setLogin} setSignup={setSignup}/>
+                    </div>
+                )}
+
                 <div id="Home" className="mt-[30px]">
-                    {/* <NavBar /> */}
                     <Entry setLogin={setLogin} />
-                    {/* <ChangeImages/> */}
                 </div>
 
                 <br />
@@ -47,7 +46,6 @@ const EntryPage: FunctionComponent = () => {
                 </div>
                 <br />
                 <br />
-
                 <PopularRestaurants />
 
                 <br />
@@ -65,7 +63,6 @@ const EntryPage: FunctionComponent = () => {
                 <br />
                 <br />
                 <div id="Contact">
-                    {' '}
                     <Footer />
                 </div>
             </div>

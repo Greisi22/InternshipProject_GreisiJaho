@@ -10,11 +10,11 @@ interface TableUserProps {
 
 const TableUser: React.FC<TableUserProps> = ({ setUsersRagister, isUserCreated }) => {
     const [fixedData, setFixedData] = useState<User[]>([]);
-    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [currentPage] = useState<number>(1);
     const [itemsPerPage] = useState<number>(10);
     const [users, setUsers] = useState<User[]>([]);
-    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc'); // State to hold the sort direction
-    const [sortBy, setSortBy] = useState<string>('id'); // State to hold the field to sort by
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+    const [sortBy, setSortBy] = useState<keyof User>('userId'); // Corrected sortBy type
 
     let totalItems = users.length;
 
@@ -42,55 +42,40 @@ const TableUser: React.FC<TableUserProps> = ({ setUsersRagister, isUserCreated }
         fetchData();
     }, [isUserCreated]);
 
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page);
-    };
-
     const toggleActive = (id: number) => {
-        // Find the user by id
         const updatedUsers = users.map((user) => {
             if (user.userId === id) {
-                // Toggle the active status
-                user.active = user.active === 'Active' ? 'Inactive' : 'Active';
+                user.active = user.active === 'Active' ? 'Inactive' : 'Active'; // Corrected type
             }
             return user;
         });
-        // Update the state with the new users array
         setUsers(updatedUsers);
     };
 
-    const handleSort = (field: string) => {
+    const handleSort = (field: keyof User) => { // Corrected field type
         if (field === sortBy) {
-            // If the same field is clicked, toggle the sort direction
             setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
         } else {
-            // If a different field is clicked, set it as the new sort field and set the sort direction to ascending
             setSortBy(field);
             setSortDirection('asc');
         }
     };
 
     const handleDelete = (id: number) => {
-        // Filter out the user with the given id
         const updatedUsers = users.filter((user) => user.userId !== id);
         deleteUser(id);
-        // Update the state with the new users array
         setUsers(updatedUsers);
     };
 
-    // Sort the displayed items based on the active status
     displayedItems.sort((a, b) => {
-        // Compare function based on the field and sort direction
         const compare = (a: any, b: any) => {
             if (a === b) return 0;
             return a < b ? -1 : 1;
         };
 
         if (sortBy === 'active') {
-            // Sort by active status
             return sortDirection === 'asc' ? compare(a.active, b.active) : compare(b.active, a.active);
         } else {
-            // Sort by other fields
             return sortDirection === 'asc' ? compare(a[sortBy], b[sortBy]) : compare(b[sortBy], a[sortBy]);
         }
     });
@@ -116,7 +101,7 @@ const TableUser: React.FC<TableUserProps> = ({ setUsersRagister, isUserCreated }
         <>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="flex justify-between mb-4">
-                    <div className="relative mr-auto ml-6 mt-5 ">
+                    <div className="relative mr-auto ml-6 mt-5">
                         <input
                             type="text"
                             placeholder="Search..."
@@ -151,7 +136,7 @@ const TableUser: React.FC<TableUserProps> = ({ setUsersRagister, isUserCreated }
                                         </label>
                                     </div>
                                 </th>
-                                <th scope="col" className="px-6 py-3" onClick={() => handleSort('id')}>
+                                <th scope="col" className="px-6 py-3" onClick={() => handleSort('userId')}>
                                     ID
                                 </th>
                                 <th scope="col" className="px-6 py-3" onClick={() => handleSort('date')}>
@@ -169,7 +154,7 @@ const TableUser: React.FC<TableUserProps> = ({ setUsersRagister, isUserCreated }
                                         </a>
                                     </div>
                                 </th>
-                                <th scope="col" className="px-6 py-3" onClick={() => handleSort('email')}>
+                                <th scope="col" className="px-6 py-3" onClick={() => handleSort('userEmail')}>
                                     <div className="flex items-center">
                                         Email Address
                                         <a href="#">
@@ -226,7 +211,7 @@ const TableUser: React.FC<TableUserProps> = ({ setUsersRagister, isUserCreated }
                                     <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {user.userId}
                                     </td>
-                                    <td className="px-6 py-4">{user.date}</td>
+                                    <td className="px-6 py-4">{user.date}</td> {/* Check if 'date' exists in User interface */}
                                     <td className="px-6 py-4">{user.userEmail}</td>
                                     <td
                                         className="px-6 py-4"

@@ -24,7 +24,6 @@ import ManagerDashboardPage from './pages/RestaurantManager/ManagerDashboardPage
 
 import UserOrderPage from './websocket/UserOrderPage';
 import RestaurantOrderPage from './websocket/RestaurantOrderPage';
-import { CardWithLink } from './component/RestaurantManager/OrderCard';
 import AllOrders from './component/RestaurantManager/AllOrders';
 
 

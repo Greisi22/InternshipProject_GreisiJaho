@@ -5,7 +5,6 @@ import Image3 from 'src/assets/Images/EntryPage/img3.jpg';
 import Image4 from 'src/assets/Images/EntryPage/img4.jpg';
 
 function ChangeImages() {
-    const images = [Image1, Image2, Image3, Image4];
     
    const handleNext = () => {
      moveSlider('next');

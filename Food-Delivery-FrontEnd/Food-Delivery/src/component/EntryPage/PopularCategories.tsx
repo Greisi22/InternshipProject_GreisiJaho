@@ -1,4 +1,3 @@
-import React from 'react';
 import './style/RestaurantCategory.css';
 import FishPlateCategoryImage from '../../assets/FishPlateCategory.jpg';
 

@@ -1,0 +1,12 @@
+@media (max-width: 1100px) {
+    .specificOrderContainer {
+        display: flex;
+        flex-direction: column;
+    }
+    .specificOrderContainer1 {
+        width: 100% !important;
+    }
+    .specificOrderContainer2 {
+        width: 100% !important;
+    }
+}

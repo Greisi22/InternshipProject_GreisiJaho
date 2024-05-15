@@ -37,7 +37,8 @@ public class RestaurantController {
 
     @PostMapping("/create")
     public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant) {
-
+        System.out.println();
+        System.out.println("Restorant Controller: " + restaurant.getRestaurantManager());;
         Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
     }

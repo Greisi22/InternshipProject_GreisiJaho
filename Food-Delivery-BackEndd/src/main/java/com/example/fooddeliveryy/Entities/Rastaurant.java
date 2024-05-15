@@ -31,8 +31,7 @@ public class Rastaurant {
     private List<Review> reviews;
     private List<String> images;
 
-    @OneToMany(mappedBy = "managedRestaurant")
-    @JsonBackReference("userBackReference")
+    @OneToMany
     private List<User> restaurantManagers;
 
     private int discount;

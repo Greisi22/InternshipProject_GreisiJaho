@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import  { useState } from 'react';
-import { OrderCard } from './OrderCard'; // Import OrderCard as named export
-=======
 import { OrderCard } from './OrderCard';
 import { useEffect, useState } from 'react';
 import { retrieveAllOrders } from 'src/api/localhost/Order/OrderApi';
@@ -9,25 +5,21 @@ import { Order } from 'src/types/Restaurant';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import Cookies from 'js-cookie';
->>>>>>> 31669096af4488ddbe4189843a565ef86178f548
 
 function AllOrders() {
     const [selected, setSelected] = useState(5);
     const [orders, setOrders] = useState<Order[]>([]);
-    // Hardcoded restaurant ID
+    const restaurantId = 7; // Hardcoded restaurant ID
     const [stompClient, setStompClient] = useState<Stomp.Client | null>(null); // Explicitly typed as Stomp.Client | null
 
     const userDataCookie = Cookies.get('userRestaurant');
     const userDataObject = userDataCookie ? JSON.parse(userDataCookie) : null;
-    console.log('userRestaurantCoocikes: ', userDataObject);
-    const restaurantId = userDataObject.restaurantId;
+    console.log("userRestaurantCoocikes: ", userDataObject);
 
     const handleButtonClick = (index: number) => {
         setSelected(index);
     };
 
-<<<<<<< HEAD
-=======
     const fetchData = async () => {
         const result = await retrieveAllOrders();
         console.log('Orders ', result);
@@ -48,7 +40,7 @@ function AllOrders() {
 
             stomp.subscribe(`/topic/restaurant-${restaurantId}-orders`, (message) => {
                 const newOrder = JSON.parse(message.body);
-                console.log('muhahahahhahahahaha');
+                console.log("muhahahahhahahahaha")
                 setOrders((prevOrders) => [...(prevOrders ?? []), newOrder]);
             });
         });
@@ -64,7 +56,6 @@ function AllOrders() {
         console.log('ahhsbiushufcnsuncn   ', orders);
     }, [orders]);
 
->>>>>>> 31669096af4488ddbe4189843a565ef86178f548
     return (
         <div>
             <div className="flex items-center justify-center py-4 md:py-8 flex-wrap">
@@ -130,31 +121,7 @@ function AllOrders() {
                 </button>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-<<<<<<< HEAD
-            <div>
-                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
-                </div>
-                <div>
-                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
-                </div>
-                <div>
-                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
-                </div>
-                <div>
-                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
-                </div>
-                <div>
-                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
-                </div>
-                <div>
-                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
-                </div>
-                <div>
-                    <OrderCard email="example@gmail.com" details="2 pizza sallam-proshute, 2 cola, ..." active={false} />
-                </div>
-=======
                 {/* {orders && orders.map((order, index) => <div key={index}>{OrderCard(order)}</div>)} */}
->>>>>>> 31669096af4488ddbe4189843a565ef86178f548
             </div>
         </div>
     );

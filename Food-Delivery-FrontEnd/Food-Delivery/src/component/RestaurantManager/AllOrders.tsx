@@ -9,13 +9,12 @@ import Cookies from 'js-cookie';
 function AllOrders() {
     const [selected, setSelected] = useState(5);
     const [orders, setOrders] = useState<Order[]>([]);
-    const restaurantId = 7; // Hardcoded restaurant ID
+    
     const [stompClient, setStompClient] = useState<Stomp.Client | null>(null); // Explicitly typed as Stomp.Client | null
 
     const userDataCookie = Cookies.get('userRestaurant');
     const userDataObject = userDataCookie ? JSON.parse(userDataCookie) : null;
-    console.log("userRestaurantCoocikes: ", userDataObject);
-
+    const restaurantId = userDataObject.restaurantId;
     const handleButtonClick = (index: number) => {
         setSelected(index);
     };
@@ -121,7 +120,7 @@ function AllOrders() {
                 </button>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {/* {orders && orders.map((order, index) => <div key={index}>{OrderCard(order)}</div>)} */}
+                {orders && orders.map((order, index) => <div key={index}>{OrderCard(order)}</div>)}
             </div>
         </div>
     );

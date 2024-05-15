@@ -1,11 +1,12 @@
 import 'src/component/RestaurantManager/styles/bill.css';
 import { Order } from 'src/types/Restaurant';
 import restorant from "src/assets/HamBurgerPlateCategory.jpg"
+import "./styles/SpecificOrderCard.css"
 
 function SpecificOrderCard({ order }: { order: Order }) {
     return (
-        <div className="order-container">
-            <div className="order-left">
+        <div className="order-container specificOrderContainer">
+            <div className="order-left specificOrderContainer1">
                 <h1 className="order-title">Thank you for your purchase!</h1>
                 <p className="order-processing-info">
                     Your order will be processed within 24 hours during working days. We will notify you by email once your order has been shipped.
@@ -31,7 +32,7 @@ function SpecificOrderCard({ order }: { order: Order }) {
                 </div>
                 <button className="track-order-button">Track Your Order</button>
             </div>
-            <div className="order-right">
+            <div className="order-right specificOrderContainer2">
                 <div className="order-summary">
                     <h2 className="order-summary-title">Order Summary</h2>
                     <div className="order-summary-details">

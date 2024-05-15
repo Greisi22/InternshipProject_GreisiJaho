@@ -1,11 +1,11 @@
-import { FunctionComponent, useState, useEffect } from 'react';
+import {  useState, useEffect } from 'react';
 import './style/DiscountRestaurant.css';
 import NavBar from './navBarDiscRes';
 import { getDiscountRestaurantCache } from 'src/cache/entry';
 import { Restaurant } from 'src/types/Restaurant';
 import Restorant1 from 'src/assets/Restaurant1.webp'
 
-const DiscountRestaurants: FunctionComponent = () => {
+const DiscountRestaurants = () => {
     const [restaurant, setRestaurant] = useState<Restaurant[]>([]);
 
     async function handleRestorants(categ: string) {

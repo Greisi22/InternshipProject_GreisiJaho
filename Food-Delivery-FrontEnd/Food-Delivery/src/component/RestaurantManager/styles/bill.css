@@ -1,0 +1,185 @@
+/* styles/SpecificOrderCard.css */
+/*kam shtu kete*/
+.order-container {
+    display: flex;
+    width: 100%;
+    padding-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1200px;
+    justify-content: center;
+}
+
+.order-left, .order-right {
+    width: 45%; /* Slightly smaller width to add padding */
+    padding: 40px; /* Increased padding */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.order-left {
+    margin-right: 1%; /* Center alignment */
+}
+
+.order-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-align: center;
+    margin-top: 23%;
+
+}
+
+.order-processing-info {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.billing-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.billing-details {
+    margin-bottom: 30px;
+}
+
+.billing-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.billing-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+    width: 100px;
+}
+
+.billing-value {
+    font-size: 16px;
+    color: #1f2937;
+}
+
+.track-order-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: fit-content;
+    margin: 20px auto; /* Center the button */
+}
+
+.track-order-button:hover {
+    background-color: #e05555;
+}
+
+.order-summary {
+    padding: 40px; /* Increased padding */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.order-summary-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #111827;
+    text-align: center;
+}
+
+.order-summary-details, .order-totals {
+    margin-bottom: 20px;
+}
+
+.summary-item, .totals-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.summary-label, .totals-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.summary-value, .totals-value {
+    font-size: 16px;
+    color: #1f2937;
+}
+
+.order-products {
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 20px;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.product-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 5px;
+}
+
+.product-amount, .product-qty, .product-price {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.product-price {
+    font-weight: 600;
+    color: #111827;
+}
+
+.order-total {
+    font-weight: 700;
+    color: #111827;
+    font-size: 18px;
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Pagination } from 'antd';
 
 function Table() {
@@ -740,11 +740,10 @@ function Table() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
 
-    const [allSelected] = useState(false);
-    const [selectedArray, setSelectedArray] = useState<number[]>([]);
+    const [selectedArray] = useState<number[]>([]);
 
-    const [loading, setLoading] = useState(false);
-    const [data, setDta] = useState(invoicesmockData);
+    const [loading ] = useState(false);
+    const [data] = useState(invoicesmockData);
 
     // Slice data to display on the current page
     const startIndex = (currentPage - 1) * itemsPerPage;

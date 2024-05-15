@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Pagination } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import { Delete } from '@mui/icons-material';
 import pizzaImage from 'src/assets/pizzaa.png'; // Corrected image import path
 import { getProductCategoryCache } from 'src/cache/productCache';
@@ -9,16 +8,12 @@ import ProductForm from '../Administrator/ProductForm';
 import { deleteProduct } from 'src/api/localhost/Product/ProductsApi';
 
 function MultiFilters() {
-    const navigate = useNavigate();
 
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
     const [selectedArray, setSelectedArray] = useState<number[]>([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, ] = useState(false);
     const [data, setData] = useState<Product[]>([]);
-    const [showAddToMenuInput, setShowAddToMenuInput] = useState(false);
-    const [menuItemTitle, setMenuItemTitle] = useState('');
-    const [menuItems, setMenuItems] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('All'); // Track selected category
     const [isEdited, setEditedProduct] = useState(false);
 

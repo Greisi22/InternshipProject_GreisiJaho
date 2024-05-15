@@ -1,7 +1,5 @@
-import React from 'react';
 import './style/Entry.css';
 import NavBar from '../General/NavBar';
-import driver from 'src/assets/Images/EntryPage/MotorCycle-small.png';
 import prova from 'src/assets/Images/EntryPage/Prova.png';
 
 function Entry({setLogin}: {setLogin:any}) {

@@ -1,99 +1,83 @@
-import React from 'react';
-import './styles/SpecificOrderCard.css';
+import 'src/component/RestaurantManager/styles/bill.css';
 import { Order } from 'src/types/Restaurant';
+import restorant from "src/assets/HamBurgerPlateCategory.jpg"
 
 function SpecificOrderCard({ order }: { order: Order }) {
     return (
-        <div className="flex w-full specificOrderContainer">
-            <div className=" w-[50%] specificOrderContainer1">
-                <div className="text-[45px] mt-[100px] mb-[0px] ml-[120px] font-bold">
-                    Order Description!
-                </div>
-                <div className="text-[15px] mt-[20px] ml-[50px] mb-[20px]">{order.description}</div>
-                <div className="text-[20px] mt-[20px] ml-[50px] mb-[20px]">
-                    <div className="text-[20px] mt-[20px]  mb-[20px] font-bold">Billing adress</div>
-
-                    <div className="flex flex-row justify-between mt-[25px] w-[70%]">
-                        <span className="flex flex-col items-left">
-                            <div className="text-[18px] mt-[20px]  mb-[20px] font-bold">Adress</div>
-                            <div className="text-[18px] mt-[20px]  mb-[20px] font-bold">
-                                Phone number
-                            </div>
-                            <div className="text-[18px] mt-[20px]  mb-[20px] font-bold">Email</div>
-                        </span>
-
-                        <span className="flex flex-col items-left ">
-                            <div className="text-[18px] mt-[20px]  mb-[20px]">
-                                {order.userAdress}
-                            </div>
-                            <div className="text-[18px] mt-[20px]  mb-[20px]">
-                                {order.userPhoneNumber}
-                            </div>
-                            <div className="text-[18px] mt-[20px]  mb-[20px]">
-                                {order.userEmail}
-                            </div>
-                        </span>
+        <div className="order-container">
+            <div className="order-left">
+                <h1 className="order-title">Thank you for your purchase!</h1>
+                <p className="order-processing-info">
+                    Your order will be processed within 24 hours during working days. We will notify you by email once your order has been shipped.
+                </p>
+                <h2 className="billing-title">Billing address</h2>
+                <div className="billing-details">
+                    <div className="billing-item">
+                        <span className="billing-label">Name</span>
+                        <span className="billing-value">{order.userName}</span>
+                    </div>
+                    <div className="billing-item">
+                        <span className="billing-label">Address</span>
+                        <span className="billing-value">{order.userAdress}</span>
+                    </div>
+                    <div className="billing-item">
+                        <span className="billing-label">Phone</span>
+                        <span className="billing-value">{order.userPhoneNumber}</span>
+                    </div>
+                    <div className="billing-item">
+                        <span className="billing-label">Email</span>
+                        <span className="billing-value">{order.userEmail}</span>
                     </div>
                 </div>
+                <button className="track-order-button">Track Your Order</button>
             </div>
-
-            <div className="bg-slate-200 w-[50%] specificOrderContainer2">
-                <div className="text-[30px] mt-[20px] ml-[30px] mb-[20px]">Order Summary</div>
-                <div className="flex flex-row justify-between w-[90%]">
-                    <span className="flex flex-col items-center">
-                        <div className="text-[15px] mt-[20px] ml-[30px] mb-[10px]">Date</div>
-                        <div>{order.orderTime}</div>
-                    </span>
-                    <span className="flex flex-col items-center">
-                        <div className="text-[15px] mt-[20px] ml-[30px] mb-[10px]">
-                            Order Number
+            <div className="order-right">
+                <div className="order-summary">
+                    <h2 className="order-summary-title">Order Summary</h2>
+                    <div className="order-summary-details">
+                        <div className="summary-item">
+                            <span className="summary-label">Date</span>
+                            <span className="summary-value">{order.orderTime}</span>
                         </div>
-                        <div>{order.id}</div>
-                    </span>
-                    <span className="flex flex-col items-center">
-                        <div className="text-[15px] mt-[20px] ml-[30px] mb-[10px]">
-                            Payment Method
+                        <div className="summary-item">
+                            <span className="summary-label">Order Number</span>
+                            <span className="summary-value">{order.id}</span>
                         </div>
-                        <div>{order.paymentMethod}</div>
-                    </span>
-                </div>
-
-                <div className="ml-[30px] w-[90%] mt-[20px] max-h-[200px] overflow-auto">
-                    {' '}
-                    {order.productss &&
-                        order.productss.map((product, index) => (
-                            <div className="flex flex-row justify-between w-[90%]  " key={index}>
-                                <span className="flex flex-col items-left w-[200px] overflow-auto bg-red-300">
-                                    <div>{product.image}</div>
-                                </span>
-                                <span className="flex flex-col items-left bg-slate-500 w-[150px]">
-                                    <div>{product.name}</div>
-                                    <div>{product.amount}</div>
-                                </span>
-                                <span className="flex flex-col items-left">{product.price}</span>
+                        <div className="summary-item">
+                            <span className="summary-label">Payment Method</span>
+                            <span className="summary-value">{order.paymentMethod}</span>
+                        </div>
+                    </div>
+                    <div className="order-products">
+                        {order.productss && order.productss.map((product, index) => (
+                            <div className="product-item mr-[15px]" key={index}>
+                                <img src={restorant} alt={product.name} className="product-image " />
+                                <div className="product-info">
+                                    <span className="product-name">{product.name}</span>
+                                    <span className="product-amount">Pack: {product.amount}</span>
+                                </div>
+                                <span className="product-price">{product.price}</span>
                             </div>
                         ))}
-                </div>
-                <div className="flex justify-between ml-[30px] w-[80%] mt-[20px]">
-                    <span>
-                        <div>Sub Total</div>
-                        <div>Shipping</div>
-                        <div>Tax</div>
-                    </span>
-
-                    <span>
-                        <div>{order.totalPrice}</div>
-                        <div>{order.shippingPrice}</div>
-                        <div>{order.taxPrice}</div>
-                    </span>
-                </div>
-                <div className="flex justify-between ml-[30px] w-[80%] mt-[10px]">
-                    <span>
-                        <div>Order Price</div>
-                    </span>
-                    <span>
-                        <div>{order.orderPrice}</div>
-                    </span>
+                    </div>
+                    <div className="order-totals">
+                        <div className="totals-item">
+                            <span className="totals-label">Sub Total</span>
+                            <span className="totals-value">{order.totalPrice}</span>
+                        </div>
+                        <div className="totals-item">
+                            <span className="totals-label">Shipping</span>
+                            <span className="totals-value">{order.shippingPrice}</span>
+                        </div>
+                        <div className="totals-item">
+                            <span className="totals-label">Tax</span>
+                            <span className="totals-value">{order.taxPrice}</span>
+                        </div>
+                        <div className="totals-item order-total">
+                            <span className="totals-label">Order Total</span>
+                            <span className="totals-value">{order.orderPrice}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

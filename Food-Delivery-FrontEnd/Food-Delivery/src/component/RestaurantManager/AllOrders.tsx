@@ -9,13 +9,12 @@ import Cookies from 'js-cookie';
 function AllOrders() {
     const [selected, setSelected] = useState(5);
     const [orders, setOrders] = useState<Order[]>([]);
-    // Hardcoded restaurant ID
+    const restaurantId = 7; // Hardcoded restaurant ID
     const [stompClient, setStompClient] = useState<Stomp.Client | null>(null); // Explicitly typed as Stomp.Client | null
 
     const userDataCookie = Cookies.get('userRestaurant');
     const userDataObject = userDataCookie ? JSON.parse(userDataCookie) : null;
-    console.log('userRestaurantCoocikes: ', userDataObject);
-    const restaurantId = userDataObject.restaurantId;
+    console.log("userRestaurantCoocikes: ", userDataObject);
 
     const handleButtonClick = (index: number) => {
         setSelected(index);
@@ -41,7 +40,7 @@ function AllOrders() {
 
             stomp.subscribe(`/topic/restaurant-${restaurantId}-orders`, (message) => {
                 const newOrder = JSON.parse(message.body);
-                console.log('muhahahahhahahahaha');
+                console.log("muhahahahhahahahaha")
                 setOrders((prevOrders) => [...(prevOrders ?? []), newOrder]);
             });
         });

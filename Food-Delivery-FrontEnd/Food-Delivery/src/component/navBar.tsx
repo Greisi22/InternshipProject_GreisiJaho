@@ -1,6 +1,4 @@
-import React from 'react';
 import { Disclosure } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import NavMenu from './Menu';
 
 const navigation = [
@@ -10,14 +8,14 @@ const navigation = [
     { name: 'Calendar', href: '#', current: false },
 ];
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ');
 }
 
 export default function NavBar() {
     return (
-        <Disclosure as="nav" className="h-24 align-center pt-4" style={{backgroundColor: "rgba(91, 77, 77, 0.33)"}}>
-            {({ open }) => (
+        <Disclosure as="nav" className="h-24 align-center pt-4" style={{ backgroundColor: "rgba(91, 77, 77, 0.33)" }}>
+            {({}) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 md:px-6 lg:px-8 align-center">
                         <div className="relative flex h-16 items-center justify-between">

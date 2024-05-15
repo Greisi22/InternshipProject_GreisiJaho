@@ -260,7 +260,7 @@ export const products: Product[] = [
     {
         id: 1,
         name: 'Tomato soup ',
-        image: 'src/assets/soup.png',
+        image: 'src/assets/pizza.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
         amount: 5,
@@ -269,7 +269,7 @@ export const products: Product[] = [
     {
         id: 2,
         name: 'Pizza pizamm',
-        image: 'src/assets/soup.png',
+        image: 'src/assets/pizza.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
         amount: 5,
@@ -278,7 +278,7 @@ export const products: Product[] = [
     {
         id: 4,
         name: 'Tomato soup ',
-        image: 'src/assets/soup.png',
+        image: 'src/assets/pizza.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
         amount: 5,
@@ -287,7 +287,7 @@ export const products: Product[] = [
     {
         id: 5,
         name: 'Tomato soup ',
-        image: 'src/assets/soup.png',
+        image: "src/assets/pizza.png",
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
         amount: 5,
@@ -296,7 +296,7 @@ export const products: Product[] = [
     {
         id: 6,
         name: 'Tomato soup ',
-        image: 'src/assets/soup.png',
+        image: 'src/assets/pizza.png',
         ingredients: ['Rosemary and thyme, chives and parsley'],
         price: 10.99,
         amount: 5,

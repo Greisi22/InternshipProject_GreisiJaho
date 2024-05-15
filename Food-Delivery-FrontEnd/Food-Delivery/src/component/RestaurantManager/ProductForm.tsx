@@ -14,21 +14,22 @@ function ProductForm() {
         // You can add validation here before submitting the form
     };
 
-    const handleProductNameChange = (event) => {
+    const handleProductNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setProductName(event.target.value);
     };
-
-    const handleImageChange = (event) => {
+    
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setImage(event.target.value);
     };
-
-    const handleIngredientsChange = (event) => {
+    
+    const handleIngredientsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setIngredients(event.target.value);
     };
-
-    const handlePriceChange = (event) => {
+    
+    const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPrice(event.target.value);
     };
+    
 
     const handleCancel = () => {
         // Resetting state variables to their initial values

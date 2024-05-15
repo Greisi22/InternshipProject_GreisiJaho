@@ -2,7 +2,6 @@ import MultiFilters from 'src/component/RestaurantManager/MultiFilters';
 import './style/manager.css';
 import NavBarManager from 'src/component/RestaurantManager/NavBarManager';
 import SideBarManager from 'src/component/RestaurantManager/SideBarManager';
-import { retrieveAllProducts } from 'src/api/localhost/Product/ProductsApi';
 
 function ManagerProductsPage() {
    

@@ -1,23 +1,24 @@
-export const users = [
+import { PaymentMethod, UserRole } from 'src/types/Restaurant';
+export const users: User[] = [
     {
-        id: 1,
+        userId: 1,
         userEmail: 'david@example.com',
-        userRole: 'ROLE_ADMIN',
+        userRole: UserRole.ROLE_ADMIN,
     },
     {
-        id: 2,
-        userEmail: 'greisi@example.com',
-        userRole: 'ROLE_ADMIN',
+        userId: 2,
+        userEmail: 'david1@example.com',
+        userRole: UserRole.ROLE_ADMIN,
     },
     {
-        id: 3,
-        userEmail: 'era@example.com',
-        userRole: 'ROLE_ADMIN',
+        userId: 3,
+        userEmail: 'david2@example.com',
+        userRole: UserRole.ROLE_ADMIN,
     },
     {
-        id: 4,
-        userEmail: 'une@example.com',
-        userRole: 'ROLE_ADMIN',
+        userId: 4,
+        userEmail: 'david3@example.com',
+        userRole: UserRole.ROLE_ADMIN,
     },
 ];
 
@@ -253,7 +254,7 @@ export const UserList = [
     },
 ];
 
-import { Restaurant, Review, Product } from 'src/types/Restaurant';
+import { Restaurant, Review, Product, Order, User } from 'src/types/Restaurant';
 
 export const products: Product[] = [
     {
@@ -365,5 +366,57 @@ export const Restauran: Restaurant[] = [
         reviews: Revieww,
         isOpen: true,
         address: 'p bubit',
+    },
+];
+import { StatusOfOrder } from 'src/types/Restaurant';
+
+export const Orders: Order[] = [
+    {
+        id: 1,
+        restaurantId: Restauran[0].id,
+        userId: users[0].userId,
+        productss: products,
+        totalPrice: 21,
+        orderStatus: StatusOfOrder.Finished,
+        userEmail: users[0].userEmail,
+        description: 'Sufllaqe pa qep',
+        userAdress: 'ish parku i autobusave',
+        userPhoneNumber: 23456,
+        paymentMethod: PaymentMethod.Cart,
+        orderPrice: 23,
+        shippingPrice: 1,
+        taxPrice: 1,
+    },
+    {
+        id: 2,
+        restaurantId: Restauran[0].id,
+        userId: users[0].userId,
+        productss: products,
+        totalPrice: 21,
+        orderStatus: StatusOfOrder.Finished,
+        userEmail: users[0].userEmail,
+        description: 'Sufllaqe pa qep',
+        userAdress: 'ish parku i autobusave',
+        userPhoneNumber: 23456,
+        paymentMethod: PaymentMethod.Cart,
+        orderPrice: 23,
+        shippingPrice: 1,
+        taxPrice: 1,
+    },
+    {
+        id: 3,
+        restaurantId: Restauran[0].id,
+        userId: users[0].userId,
+        productss: products,
+        totalPrice: 21,
+        orderStatus: StatusOfOrder.Finished,
+        userEmail: users[0].userEmail,
+        description: 'Sufllaqe pa qep',
+        userAdress: 'ish parku i autobusave',
+        userPhoneNumber: 23456,
+        paymentMethod: PaymentMethod.Cart,
+        orderPrice: 23,
+        shippingPrice: 1,
+        taxPrice: 1,
     },
 ];

@@ -19,7 +19,7 @@ export interface Restaurant {
     isActive?: boolean;
     revenue?: Revenue;
     documentation?: Documentation;
-    rate:number;
+    rate: number;
 }
 
 interface Menu {
@@ -49,17 +49,12 @@ export enum UserRole {
 
 // Define the User interface
 export interface User {
-    active(
-        active: (active: any, active1: any) => number,
-        active1: (active: any, active1: any) => string,
-    ): string;
-    active(active: any, active1: any): number;
-    userId: number;
-    userEmail: string;
-    userPassword: string;
-    userRole: UserRole;
-    managedRestaurants: Restaurant[];
-    order: Order[];
+    userId?: number;
+    userEmail?: string;
+    userPassword?: string;
+    userRole?: UserRole;
+    managedRestaurants?: Restaurant[];
+    order?: Order[];
 }
 
 export enum StatusOfOrder {
@@ -68,16 +63,27 @@ export enum StatusOfOrder {
     Finished = 'Finished',
     Delivering = 'Delivering',
 }
+export enum PaymentMethod {
+    Cash = 'Cash',
+    Cart = 'Cart',
+}
 
 export interface Order {
     id?: number;
-    restaurantId: number;
-    userId: number;
-    products: Product[];
-    orderTime: string;
-    totalPrice: number;
-    orderStatus: StatusOfOrder;
-    userEmail: string;
+    restaurantId?: number;
+    userId?: number;
+    productss?: Product[];
+    orderTime?: string;
+    totalPrice?: number;
+    orderStatus?: StatusOfOrder;
+    userEmail?: string;
+    description?: string;
+    userAdress?: string;
+    userPhoneNumber?: number;
+    paymentMethod?: PaymentMethod;
+    orderPrice?:number,
+    shippingPrice?:number,
+    taxPrice?:number,
 }
 
 interface RestaurantPayment {

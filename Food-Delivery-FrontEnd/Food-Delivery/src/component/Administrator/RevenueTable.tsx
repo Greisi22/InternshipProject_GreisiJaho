@@ -10,7 +10,7 @@ function RevenueTable() {
 
     // column names
     const columnNames = ['ID', 'Restaurant Name', 'Email Address', 'Done Payments', 'Print Bill', 'Total Amount'];
-
+//
     // Define state variables
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
@@ -133,6 +133,7 @@ function RevenueTable() {
                 </table>
             </div>
             <div className="flex justify-end mt-4">
+               
                 <Pagination
                     current={currentPage}
                     total={data.length}

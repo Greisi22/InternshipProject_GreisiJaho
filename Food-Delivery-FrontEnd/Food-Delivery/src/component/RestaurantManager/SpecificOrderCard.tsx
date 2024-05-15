@@ -1,5 +1,6 @@
 import 'src/component/RestaurantManager/styles/bill.css';
 import { Order } from 'src/types/Restaurant';
+import restorant from "src/assets/HamBurgerPlateCategory.jpg"
 
 function SpecificOrderCard({ order }: { order: Order }) {
     return (
@@ -49,8 +50,8 @@ function SpecificOrderCard({ order }: { order: Order }) {
                     </div>
                     <div className="order-products">
                         {order.productss && order.productss.map((product, index) => (
-                            <div className="product-item" key={index}>
-                                <img src={product.image} alt={product.name} className="product-image " />
+                            <div className="product-item mr-[15px]" key={index}>
+                                <img src={restorant} alt={product.name} className="product-image " />
                                 <div className="product-info">
                                     <span className="product-name">{product.name}</span>
                                     <span className="product-amount">Pack: {product.amount}</span>

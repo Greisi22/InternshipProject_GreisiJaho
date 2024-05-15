@@ -79,6 +79,7 @@ export interface Order {
     orderStatus?: StatusOfOrder;
     userEmail?: string;
     description?: string;
+    userName?:string;
     userAdress?: string;
     userPhoneNumber?: number;
     paymentMethod?: PaymentMethod;

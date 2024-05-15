@@ -31,7 +31,9 @@ public class Rastaurant {
     private List<Review> reviews;
     private List<String> images;
 
+
     @OneToMany
+    @JsonBackReference("restaurantManagersBackReference")
     private List<User> restaurantManagers;
 
     private int discount;
@@ -53,28 +55,12 @@ public class Rastaurant {
     @OneToOne
     private Documentation documentation;
 
-    public Documentation getDocumentation() {
-        return documentation;
-    }
+    public Rastaurant(){}
 
-    public void setDocumentation(Documentation documentation) {
-        this.documentation = documentation;
-    }
-
-    public Revenue getRevenue() {
-        return revenue;
-    }
-
-    public void setRevenue(Revenue revenue) {
-        this.revenue = revenue;
-    }
-
-    public Rastaurant(long id, String name, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website,
-                      double averageRating, boolean isOpen, List<Review> reviews, List<String> images,
-                      User restaurantManager, int discount, List<Order> order, List<String> category,
-                      List<String> categories, List<RestaurantPayment> restaurantPayments, boolean isAproved, boolean isActive, Revenue revenue) {
+    public Rastaurant(long id, String name, String email, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, List<String> images, List<User> restaurantManagers, int discount, List<Order> order, List<String> category, List<RestaurantPayment> restaurantPayments, boolean isAproved, boolean isActive, Revenue revenue, Documentation documentation) {
         this.id = id;
         this.name = name;
+        this.email = email;
         this.address = address;
         this.menu = menu;
         this.openingHours = openingHours;
@@ -88,26 +74,12 @@ public class Rastaurant {
         this.discount = discount;
         this.order = order;
         this.category = category;
-        this.categories = categories;
         this.restaurantPayments = restaurantPayments;
         this.isAproved = isAproved;
         this.isActive = isActive;
         this.revenue = revenue;
+        this.documentation = documentation;
     }
-
-    public List<String> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
-    }
-
-    private List<String> categories;
-
-    public Rastaurant() {
-    }
-
 
     public long getId() {
         return id;
@@ -125,6 +97,13 @@ public class Rastaurant {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getAddress() {
         return address;
@@ -182,30 +161,6 @@ public class Rastaurant {
         isOpen = open;
     }
 
-    public List<User> getRestaurantManager() {
-        return restaurantManagers;
-    }
-
-    public void setRestaurantManager(List<User> restaurantManagers) {
-        this.restaurantManagers = restaurantManagers;
-    }
-
-    public int getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(int discount) {
-        this.discount = discount;
-    }
-
-    public List<String> getCategory() {
-        return category;
-    }
-
-    public void setCategory(List<String> category) {
-        this.category = category;
-    }
-
     public List<Review> getReviews() {
         return reviews;
     }
@@ -222,6 +177,22 @@ public class Rastaurant {
         this.images = images;
     }
 
+    public List<User> getRestaurantManagers() {
+        return restaurantManagers;
+    }
+
+    public void setRestaurantManagers(List<User> restaurantManagers) {
+        this.restaurantManagers = restaurantManagers;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
     public List<Order> getOrder() {
         return order;
     }
@@ -230,6 +201,13 @@ public class Rastaurant {
         this.order = order;
     }
 
+    public List<String> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<String> category) {
+        this.category = category;
+    }
 
     public List<RestaurantPayment> getRestaurantPayments() {
         return restaurantPayments;
@@ -237,14 +215,6 @@ public class Rastaurant {
 
     public void setRestaurantPayments(List<RestaurantPayment> restaurantPayments) {
         this.restaurantPayments = restaurantPayments;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     public boolean isAproved() {
@@ -255,38 +225,55 @@ public class Rastaurant {
         isAproved = aproved;
     }
 
-    public String getEmail() {
-        return email;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setActive(boolean active) {
+        isActive = active;
     }
+
+    public Revenue getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(Revenue revenue) {
+        this.revenue = revenue;
+    }
+
+    public Documentation getDocumentation() {
+        return documentation;
+    }
+
+    public void setDocumentation(Documentation documentation) {
+        this.documentation = documentation;
+    }
+
 
     @Override
     public String toString() {
         return "Rastaurant{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", menu=" + menu +
-                ", openingHours=" + openingHours +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", website='" + website + '\'' +
-                ", averageRating=" + averageRating +
-                ", isOpen=" + isOpen +
-                ", reviews=" + reviews +
-                ", imagesssss=" + images +
-                ", discount=" + discount +
-                ", order=" + order +
-                ", category=" + category +
-                ", restaurantPayments=" + restaurantPayments +
-                ", isAproved=" + isAproved +
-                ", isActive=" + isActive +
-                ", revenue=" + revenue +
-                ", documentation=" + documentation +
-                ", categories=" + categories +
-                ", menager" + restaurantManagers.get(0).getUserId()+
+//                ", name='" + name + '\'' +
+//                ", email='" + email + '\'' +
+//                ", address='" + address + '\'' +
+//                ", menu=" + menu +
+//                ", openingHours=" + openingHours +
+//                ", phoneNumber='" + phoneNumber + '\'' +
+//                ", website='" + website + '\'' +
+//                ", averageRating=" + averageRating +
+//                ", isOpen=" + isOpen +
+//                ", reviews=" + reviews +
+//                ", images=" + images +
+//                ", restaurantManagers=" + restaurantManagers.get(0).getUserId() +
+//                ", discount=" + discount +
+//                ", order=" + order +
+//                ", category=" + category +
+//                ", restaurantPayments=" + restaurantPayments +
+//                ", isAproved=" + isAproved +
+//                ", isActive=" + isActive +
+//                ", revenue=" + revenue +
+//                ", documentation=" + documentation +
                 '}';
     }
 }

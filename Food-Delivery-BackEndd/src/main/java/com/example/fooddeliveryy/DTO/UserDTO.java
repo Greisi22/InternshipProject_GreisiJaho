@@ -1,6 +1,7 @@
 package com.example.fooddeliveryy.DTO;
 
 import com.example.fooddeliveryy.Entities.Enums.UserRole;
+import com.example.fooddeliveryy.Entities.Rastaurant;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,6 +20,7 @@ public class UserDTO {
 
     private String userEmail;
     private UserRole userRole;
+    private long restaurantId;
 
 
 
@@ -30,4 +32,11 @@ public class UserDTO {
         this.userEmail = userEmail;
     }
 
+    public long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(long restaurantId) {
+        this.restaurantId = restaurantId;
+    }
 }

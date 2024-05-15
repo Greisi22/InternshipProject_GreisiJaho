@@ -29,9 +29,11 @@ function OrderForm() {
         e.preventDefault();
         // Convert orderTime to Date object if it's a string
         const formattedOrderTime = typeof orderTime === 'string' ? new Date(orderTime) : orderTime;
-
+        const userDataCookie = Cookies.get('user');
+        const userDataObject = userDataCookie ? JSON.parse(userDataCookie) : null;
+        console.log(userDataObject);
         // Call the RestaurantOrdersComponent with the products, orderTime, and orderStatus
-        RestaurantOrdersComponent(products, new Date(), orderStatus);
+        RestaurantOrdersComponent(products, new Date(), orderStatus,1, 2 );
 
         // Here you can handle form submission, for example, send data to a backend server
         console.log({
@@ -40,9 +42,8 @@ function OrderForm() {
         });
     };
 
-    const userDataCookie = Cookies.get('user');
-    const userDataObject = userDataCookie ? JSON.parse(userDataCookie) : null;
-    console.log(userDataObject);
+  
+
 
     return (
         <form>

@@ -8,6 +8,7 @@ function OrderWebSocket(
     usedId: any,
     restorantId: any,
 ) {
+    console.log("here")
     const restaurantId = 1; // Hardcoded restaurant ID
     let orders = [];
     let stompClient: any = null;
@@ -37,7 +38,7 @@ function OrderWebSocket(
                 products: products,
                 orderTime: orderTime,
                 user: {
-                    userId: 3,
+                    userId: 1,
                 },
                 restaurant: {
                     id: 1,

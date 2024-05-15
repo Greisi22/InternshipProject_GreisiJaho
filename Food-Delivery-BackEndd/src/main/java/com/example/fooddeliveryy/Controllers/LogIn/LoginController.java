@@ -41,6 +41,7 @@ public class LoginController {
     @PostMapping("/register")
     public ResponseEntity<?> register(HttpServletRequest request,  @RequestBody User user) {
         String userEmail = user.getUserEmail();
+        System.out.println("Managed restaurant "+ user);
         Cookie [] cookies = request.getCookies();
         System.out.println(cookies);
         Optional<User> existingUser = userRepository.findByUserEmail(userEmail);
@@ -79,6 +80,9 @@ public class LoginController {
                 ResponseEntity.BodyBuilder builder = ResponseEntity.ok();
                 builder.header("Set-Cookie", jwtTokenCookie.getName() + "=" + jwtTokenCookie.getValue());
                 response.put("token", token);
+
+
+
                 return builder.body(response);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");

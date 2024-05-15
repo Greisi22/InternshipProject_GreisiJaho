@@ -55,6 +55,7 @@ export interface User {
     userRole?: UserRole;
     managedRestaurants?: Restaurant[];
     order?: Order[];
+    restaurantId?: number;
 }
 
 export enum StatusOfOrder {

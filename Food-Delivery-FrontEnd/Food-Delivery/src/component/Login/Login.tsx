@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkLogin } from 'src/api/localhost/Login/LoginAPI';
 import { UserRole } from 'src/types/Restaurant';
+import { getRestaurantByUserIt } from 'src/api/localhost/Administrator/restaurantsApi';
 import Cookies from 'js-cookie';
 
 function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
@@ -23,7 +24,7 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
         const result = await checkLogin(email, password);
 
         if (result.status == 200) {
-            console.log("Role: ", String(result.data.user.userRole))
+            console.log('Role: ', String(result.data.user.userRole));
             if (String(result.data.user.userRole) === 'ROLE_CLIENT') {
                 setLogin(false);
 
@@ -31,9 +32,25 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
 
                 navigate('/Client');
             } else if (String(result.data.user.userRole) === 'ROLE_RESTAURANT_MANAGER') {
-                setLogin(false);
-                Cookies.set('userRestaurant', JSON.stringify(result.data.user), { expires: 7 });
-                navigate('/RestaurantManager/Dashboard');
+                console.log('USERRR ', result.data.user);
+                if (result.data.user.restaurantId == 0) {
+                    console.log('it is null!');
+                } else {
+                    if (result.data.user.userEmail) {
+                        const restaurant = await getRestaurantByUserIt(result.data.user.userEmail);
+                        console.log('Restorantiiii ', restaurant);
+                        Cookies.set('restaurant', JSON.stringify(restaurant), { expires: 7 });
+                        console.log('Jam dysh se nish esht vec davidi');
+                        setLogin(false);
+                        Cookies.set('userRestaurant', JSON.stringify(result.data.user), { expires: 7 });
+                             navigate('/RestaurantManager/Dashboard');
+
+                    }
+                }
+
+                // setLogin(false);
+                // Cookies.set('userRestaurant', JSON.stringify(result.data.user), { expires: 7 });
+                // navigate('/RestaurantManager/Dashboard');
             } else {
                 sessionStorage.setItem('userData', JSON.stringify(result.data));
                 setLogin(false);

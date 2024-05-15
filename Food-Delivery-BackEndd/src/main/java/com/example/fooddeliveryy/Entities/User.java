@@ -93,11 +93,11 @@ public class User {
         this.userRole = userRole;
     }
 
-    public Rastaurant getManagedRestaurants() {
+    public Rastaurant getManagedRestaurant() {
         return managedRestaurant;
     }
 
-    public void setManagedRestaurants(Rastaurant managedRestaurant) {
+    public void setManagedRestaurant(Rastaurant managedRestaurant) {
         this.managedRestaurant = managedRestaurant;
     }
 
@@ -125,6 +125,7 @@ public class User {
         this.receivedMessages = receivedMessages;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -132,31 +133,10 @@ public class User {
                 ", userEmail='" + userEmail + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userRole=" + userRole +
-                ", managedRestaurants=" + managedRestaurant +
+                ", managedRestaurant=" + managedRestaurant +
+                ", order=" + order +
+                ", sentMessages=" + sentMessages +
+                ", receivedMessages=" + receivedMessages +
                 '}';
-    }
-
-    // JwtTokenProvider field and methods
-
-    private static JwtTokenProvider jwtTokenProvider;
-
-    // Setter for JwtTokenProvider
-    public static void setJwtTokenProvider(JwtTokenProvider provider) {
-        jwtTokenProvider = provider;
-    }
-
-    // Method to generate JWT token
-    public String generateJwtToken() {
-        return jwtTokenProvider.generateToken(userEmail, userRole.name()); // Passing userRole as a string
-    }
-
-    // Method to validate JWT token
-    public static boolean validateJwtToken(String token) {
-        return jwtTokenProvider.validateToken(token);
-    }
-
-    // Method to get user email from JWT token
-    public String getUserEmailFromJwtToken(String token) {
-        return jwtTokenProvider.getEmailFromToken(token);
     }
 }

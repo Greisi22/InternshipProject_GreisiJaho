@@ -1,5 +1,5 @@
 import axiosInstance, { ApiResponse } from '../../../config/axios';
-import { RestaurantNotAproved } from 'src/types/Restaurant';
+import { Restaurant, RestaurantNotAproved } from 'src/types/Restaurant';
 import { RestaurantAproved } from 'src/types/Restaurant';
 
 //Retrieving data from the database with axios dependency
@@ -116,8 +116,6 @@ export async function deleteRestaurant(name: string) {
     }
 }
 
-
-
 export async function getRevenues(name: number) {
     try {
         const response = await axiosInstance.get<ApiResponse>(`/restaurant/delete/${name}`);
@@ -129,4 +127,13 @@ export async function getRevenues(name: number) {
     }
 }
 
-
+export async function getRestaurantByUserIt(id: string) {
+    try {
+        const response = await axiosInstance.get<Restaurant>(`/restaurant/user/${id}`);
+        console.log('Response: ', response);
+        return response.data;
+    } catch (error) {
+        console.log('error: ', error);
+        throw new Error('Failed to fetch data');
+    }
+}

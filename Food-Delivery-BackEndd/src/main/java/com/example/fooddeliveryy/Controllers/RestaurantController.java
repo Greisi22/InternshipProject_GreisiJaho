@@ -44,11 +44,11 @@ public class RestaurantController {
     public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant) {
         System.out.println("Prova: " + restaurant);
         Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
-        long userId = restaurant.getRestaurantManager().get(0).getUserId();
+        long userId = restaurant.getRestaurantManagers().get(0).getUserId();
         Optional<User> optionalUser = userRepository.findByUserId(userId);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            user.setManagedRestaurants(restaurant);
+            user.setManagedRestaurant(restaurant);
             System.out.println("O user nishi " + user);
             try {
                 userRepository.save(user);
@@ -156,18 +156,21 @@ public class RestaurantController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<Rastaurant> getRestaurantByUserId(@PathVariable long userId) {
-        Optional<User> userOptional = userRepository.findByUserId(userId);
+    public ResponseEntity<Rastaurant> getRestaurantByUserId(@PathVariable String userId) {
+        System.out.println("UserID "+userId);
+        Optional<User> userOptional = userRepository.findByUserEmail(userId);
         User user = null;
         if (userOptional.isPresent()) {
             user = userOptional.get();
         }
-
-        if (user == null || user.getManagedRestaurants() == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        System.out.println("User nishiiii  " + user);
+        if (user == null || user.getManagedRestaurant() == null) {
+            return ResponseEntity.ok().body(null);
         }
-        Rastaurant restaurant = user.getManagedRestaurants();
-        return new ResponseEntity<>(restaurant, HttpStatus.OK);
+        Rastaurant restaurant = user.getManagedRestaurant() ;
+
+        System.out.println("Restaurant  "+restaurant);
+        return ResponseEntity.ok().body(restaurant);
     }
 
 

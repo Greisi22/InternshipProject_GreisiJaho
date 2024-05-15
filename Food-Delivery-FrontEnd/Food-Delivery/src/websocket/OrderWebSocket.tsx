@@ -1,7 +1,13 @@
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
-function OrderWebSocket(products: any, orderTime: any, orderStatus: any, usedId: any, restorantId: any) {
+function OrderWebSocket(
+    products: any,
+    orderTime: any,
+    orderStatus: any,
+    usedId: any,
+    restorantId: any,
+) {
     const restaurantId = 1; // Hardcoded restaurant ID
     let orders = [];
     let stompClient: any = null;
@@ -31,11 +37,11 @@ function OrderWebSocket(products: any, orderTime: any, orderStatus: any, usedId:
                 products: products,
                 orderTime: orderTime,
                 user: {
-                    userId: 3,     
+                    userId: 3,
                 },
                 restaurant: {
-                    id: 7,
-                }
+                    id: 1,
+                },
             };
             stompClient.send(`/app/orders`, {}, JSON.stringify(order));
         }

@@ -30,15 +30,15 @@ public class RestaurantService {
         if (existingRestaurant != null) {
             throw new IllegalArgumentException("Restaurant with name '" + restaurant.getName() + "' already exists");
         }
-        Rastaurant rastaurant = null;
+        Rastaurant rastaurant1 = null;
 
          try{
-             rastaurant = restaurantRepo.save(restaurant);
+             rastaurant1 = restaurantRepo.save(restaurant);
          }catch (Exception e){
              System.out.println("Ka ndodh nje error o nishi: "+ e);
          }
 
-        return rastaurant;
+        return rastaurant1;
     }
 
     public List<Rastaurant> getRestaurantsWithDiscount() {

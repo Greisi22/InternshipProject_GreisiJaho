@@ -62,8 +62,11 @@ function SpecificOrderCard({ order }: { order: Order }) {
                     {' '}
                     {order.productss &&
                         order.productss.map((product, index) => (
-                            <div className="flex flex-row justify-between w-[90%] " key={index}>
-                                <span className="flex flex-col items-left">
+                            <div className="flex flex-row justify-between w-[90%]  " key={index}>
+                                <span className="flex flex-col items-left w-[200px] overflow-auto bg-red-300">
+                                    <div>{product.image}</div>
+                                </span>
+                                <span className="flex flex-col items-left bg-slate-500 w-[150px]">
                                     <div>{product.name}</div>
                                     <div>{product.amount}</div>
                                 </span>

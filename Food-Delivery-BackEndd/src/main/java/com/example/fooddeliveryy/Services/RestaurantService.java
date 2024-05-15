@@ -1,13 +1,11 @@
 package com.example.fooddeliveryy.Services;
 
-import com.example.fooddeliveryy.Entities.Menu;
 import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.tree.ExpandVetoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,11 +30,15 @@ public class RestaurantService {
         if (existingRestaurant != null) {
             throw new IllegalArgumentException("Restaurant with name '" + restaurant.getName() + "' already exists");
         }
-        System.out.println("Restaurant  "+restaurant.getRestaurantManager());
+        Rastaurant rastaurant = null;
 
+         try{
+             rastaurant = restaurantRepo.save(restaurant);
+         }catch (Exception e){
+             System.out.println("Ka ndodh nje error o nishi: "+ e);
+         }
 
-
-        return restaurantRepo.save(restaurant);
+        return rastaurant;
     }
 
     public List<Rastaurant> getRestaurantsWithDiscount() {
@@ -45,10 +47,9 @@ public class RestaurantService {
 
         List<Rastaurant> restaurantWithDiscount = new ArrayList<>();
 
-        for(Rastaurant res : restaurants){
-            if(res.getDiscount() != 0)
-            {
-               restaurantWithDiscount.add(res);
+        for (Rastaurant res : restaurants) {
+            if (res.getDiscount() != 0) {
+                restaurantWithDiscount.add(res);
             }
         }
         return restaurantWithDiscount;
@@ -84,14 +85,11 @@ public class RestaurantService {
         }
     }
 
-    public List<Rastaurant> getIsAprovedRestaurants()
-    {
+    public List<Rastaurant> getIsAprovedRestaurants() {
         List<Rastaurant> allRestaurant = restaurantRepo.findAll();
         List<Rastaurant> approvedRestaurant = new ArrayList<>();
-        for(Rastaurant rastaurant: allRestaurant)
-        {
-            if(rastaurant.isAproved())
-            {
+        for (Rastaurant rastaurant : allRestaurant) {
+            if (rastaurant.isAproved()) {
                 approvedRestaurant.add(rastaurant);
             }
         }
@@ -99,14 +97,11 @@ public class RestaurantService {
     }
 
 
-    public List<Rastaurant> getNotAprovedRestaurants()
-    {
+    public List<Rastaurant> getNotAprovedRestaurants() {
         List<Rastaurant> allRestaurant = restaurantRepo.findAll();
         List<Rastaurant> approvedRestaurant = new ArrayList<>();
-        for(Rastaurant rastaurant: allRestaurant)
-        {
-            if(!rastaurant.isAproved())
-            {
+        for (Rastaurant rastaurant : allRestaurant) {
+            if (!rastaurant.isAproved()) {
                 approvedRestaurant.add(rastaurant);
             }
         }

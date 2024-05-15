@@ -276,7 +276,7 @@ public class Rastaurant {
                 ", averageRating=" + averageRating +
                 ", isOpen=" + isOpen +
                 ", reviews=" + reviews +
-                ", images=" + images +
+                ", imagesssss=" + images +
                 ", discount=" + discount +
                 ", order=" + order +
                 ", category=" + category +
@@ -286,6 +286,7 @@ public class Rastaurant {
                 ", revenue=" + revenue +
                 ", documentation=" + documentation +
                 ", categories=" + categories +
+                ", menager" + restaurantManagers.get(0).getUserId()+
                 '}';
     }
 }

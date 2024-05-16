@@ -12,7 +12,7 @@ public interface OrderMapper {
     @Mapping(source = "restaurant.id", target = "restaurantId")
     @Mapping(source = "user.userId", target = "userId")
     @Mapping(source= "user.userEmail", target = "userEmail")
-    @Mapping(source = "products", target = "productIds")
+    @Mapping(source = "products", target = "products")
     OrderDTO orderToOrderDTO(Order order);
 
     List<OrderDTO> ordersToOrderDTOs(List<Order> orders);

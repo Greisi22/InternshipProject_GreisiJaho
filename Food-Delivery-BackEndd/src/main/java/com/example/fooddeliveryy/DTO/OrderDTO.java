@@ -16,12 +16,12 @@ public class OrderDTO {
     private StatusOfOrder orderStatus;
     private String userEmail;
 
-    public OrderDTO(long id, long restaurantId, long userId, List<Product> productIds, LocalDateTime orderTime,
+    public OrderDTO(long id, long restaurantId, long userId, List<Product> products, LocalDateTime orderTime,
                     double totalPrice, StatusOfOrder orderStatus, String userEmail) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.userId = userId;
-        this.products = productIds;
+        this.products = products;
         this.orderTime = orderTime;
         this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
@@ -56,12 +56,12 @@ public class OrderDTO {
         this.userId = userId;
     }
 
-    public List<Product> getProductIds() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProductIds(List<Product> productIds) {
-        this.products = productIds;
+    public void setProductIds(List<Product> products) {
+        this.products = products;
     }
 
     public LocalDateTime getOrderTime() {
@@ -102,7 +102,7 @@ public class OrderDTO {
                 "id=" + id +
                 ", restaurantId=" + restaurantId +
                 ", userId=" + userId +
-                ", productIds=" + products +
+                ", products=" + products +
                 ", orderTime=" + orderTime +
                 ", totalPrice=" + totalPrice +
                 ", orderStatus=" + orderStatus +

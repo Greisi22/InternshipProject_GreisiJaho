@@ -25,16 +25,24 @@ import ManagerDashboardPage from './pages/RestaurantManager/ManagerDashboardPage
 import UserOrderPage from './websocket/UserOrderPage';
 import RestaurantOrderPage from './websocket/RestaurantOrderPage';
 import AllOrders from './component/RestaurantManager/AllOrders';
-import OrderForm from './pages/Client/temporary';
+
 import SpecificRestaurant from './pages/Client/SpecificRestaurant';
 import { Restauran } from 'src/data/MockData';
 import FoodGallery from './component/Client/FoodGallery';
 import CheckoutPage from './component/Client/CheckoutPage';
-
-
-
+import OrderPage from './pages/RestaurantManager/OrderPage';
+import { Order } from 'src/types/Restaurant';
+import { useState } from 'react';
+import ManageSpecificOrderPage from './pages/RestaurantManager/ManageSpecificOrderPage';
+import { Orders } from 'src/data/MockData';
+import RestaurantsEntryPage from './pages/Client/RestaurantsEntryPage';
 
 const App = () => {
+    const initialOrder: Order = {
+        // ... define the initial properties of the Order object here
+    };
+    const [isSpecificOrder, setSpecificOrder] = useState(false);
+    const [order, setOrder] = useState<Order>(initialOrder);
     return (
         <>
             <Routes>
@@ -61,19 +69,29 @@ const App = () => {
                 <Route path="/Administrator/RestaurantForm" element={<RestaurantForm />} />
                 {/* <Route path="/Administrator/ProductForm" element={<ProductForm />} /> */}
                 <Route path="/RestaurantManager/Dashboard" element={<ManagerDashboardPage />} />
-                <Route path="/RestaurantManager/Order" element={<ManagerOrdersPage />} />
+                <Route
+                    path="/RestaurantManager/Order"
+                    element={
+                        <ManagerOrdersPage
+                            setSpecificOrder={setSpecificOrder}
+                            setOrder={setOrder}
+                        />
+                    }
+                />
+                <Route
+                    path="/RestaurantManager/SpecificOrderr"
+                    element={<ManageSpecificOrderPage order={order} />}
+                />
                 <Route path="/RestaurantManager/Product" element={<ManagerProductsPage />} />
                 <Route path="prova1" element={<UserOrderPage />} />
                 <Route path="prova2" element={<RestaurantOrderPage />} />
-                <Route path="prova3" element={<AllOrders />} />
-                <Route path="prova4" element={<OrderForm />} />
                 <Route path="/Client/FoodGallery" element={<FoodGallery />} />
                 <Route path="/Client/CheckoutPage" element={<CheckoutPage />} />
-              
                 <Route
                     path="/Client/SpecificRestaurant"
                     element={<SpecificRestaurant restaurantData={Restauran[0]} />}
                 />
+                <Route path="/Client/RestaurantEntry" element={<RestaurantsEntryPage />} />
             </Routes>
         </>
     );

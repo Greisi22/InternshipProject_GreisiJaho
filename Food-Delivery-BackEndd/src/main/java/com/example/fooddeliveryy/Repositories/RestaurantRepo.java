@@ -17,4 +17,6 @@ public interface RestaurantRepo extends JpaRepository<Rastaurant, Long> {
 
     Rastaurant findByName(String name);
 
+
+
 }

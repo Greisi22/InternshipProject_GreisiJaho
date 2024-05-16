@@ -6,7 +6,7 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import Cookies from 'js-cookie';
 
-function AllOrders() {
+function AllOrders({ setSpecificOrder, setOrder }: { setSpecificOrder: any; setOrder: any }) {
     const [selected, setSelected] = useState(5);
     const [orders, setOrders] = useState<Order[]>([]);
     const [stompClient, setStompClient] = useState<Stomp.Client | null>(null); // Explicitly typed as Stomp.Client | null
@@ -14,7 +14,6 @@ function AllOrders() {
     const userDataCookie = Cookies.get('userRestaurant');
     const userDataObject = userDataCookie ? JSON.parse(userDataCookie) : null;
     const restaurantId = userDataObject.restaurantId;
-
 
     const handleButtonClick = (index: number) => {
         setSelected(index);
@@ -40,7 +39,6 @@ function AllOrders() {
 
             stomp.subscribe(`/topic/restaurant-${restaurantId}-orders`, (message) => {
                 const newOrder = JSON.parse(message.body);
-                console.log("muhahahahhahahahaha")
                 setOrders((prevOrders) => [...(prevOrders ?? []), newOrder]);
             });
         });
@@ -52,17 +50,23 @@ function AllOrders() {
         };
     }, []);
 
-    useEffect(() => {
-        console.log('ahhsbiushufcnsuncn   ', orders);
-    }, [orders]);
-
     return (
         <div>
-            <div>
-                All Orders
-            </div>
+            <div>All Orders</div>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {orders && orders.slice().reverse().map((order, index) => <div key={index}>{OrderCard(order)}</div>)}
+                {orders &&
+                    orders
+                        .slice()
+                        .reverse()
+                        .map((order, index) => (
+                            <div key={index}>
+                                <OrderCard
+                                    order={order}
+                                    setSpecificOrder={setSpecificOrder}
+                                    setOrder={setOrder}
+                                />
+                            </div>
+                        ))}
             </div>
         </div>
     );

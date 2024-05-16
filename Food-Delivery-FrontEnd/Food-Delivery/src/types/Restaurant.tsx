@@ -56,6 +56,9 @@ export interface User {
     managedRestaurants?: Restaurant[];
     order?: Order[];
     restaurantId?: number;
+    userName?: string;
+    userAdress?: string;
+    userPhoneNumber?: number;
 }
 
 export enum StatusOfOrder {
@@ -72,20 +75,16 @@ export enum PaymentMethod {
 export interface Order {
     id?: number;
     restaurantId?: number;
-    userId?: number;
     products?: Product[];
     orderTime?: string;
     totalPrice?: number;
     orderStatus?: StatusOfOrder;
-    userEmail?: string;
+    user?: User;
     description?: string;
-    userName?:string;
-    userAdress?: string;
-    userPhoneNumber?: number;
     paymentMethod?: PaymentMethod;
-    orderPrice?:number,
-    shippingPrice?:number,
-    taxPrice?:number,
+    orderPrice?: number;
+    shippingPrice?: number;
+    taxPrice?: number;
 }
 
 interface RestaurantPayment {

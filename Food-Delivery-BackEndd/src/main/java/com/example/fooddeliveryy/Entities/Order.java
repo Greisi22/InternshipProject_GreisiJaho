@@ -1,5 +1,6 @@
 package com.example.fooddeliveryy.Entities;
 
+import com.example.fooddeliveryy.Entities.Enums.PaymentMethod;
 import com.example.fooddeliveryy.Entities.Enums.StatusOfOrder;
 import jakarta.persistence.*;
 
@@ -30,10 +31,17 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     private StatusOfOrder orderStatus;
-    public Order(long id, Rastaurant restaurant, List<Product> products, LocalDateTime orderTime,
-                 double totalPrice, User user, StatusOfOrder orderStatus) {
+
+    private String description;
+    private PaymentMethod paymentMethod;
+    private double orderPrice;
+    private final double shippingPrice = 1;
+    private final double taxPrice = 1;
+
+    public Order(){}
+
+    public Order(long id, Rastaurant restaurant, List<Product> products, LocalDateTime orderTime, double totalPrice, User user, StatusOfOrder orderStatus, String description, PaymentMethod paymentMethod, double orderPrice) {
         this.id = id;
         this.restaurant = restaurant;
         this.products = products;
@@ -41,11 +49,12 @@ public class Order {
         this.totalPrice = totalPrice;
         this.user = user;
         this.orderStatus = orderStatus;
+        this.description = description;
+        this.paymentMethod = paymentMethod;
+        this.orderPrice = orderPrice;
+
     }
 
-    public Order() {
-
-    }
 
     public long getId() {
         return id;
@@ -103,6 +112,43 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public double getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(double orderPrice) {
+        this.orderPrice = orderPrice;
+    }
+
+    public double getShippingPrice() {
+        return shippingPrice;
+    }
+
+
+
+    public double getTaxPrice() {
+        return taxPrice;
+    }
+
+
+
+
     @Override
     public String toString() {
         return "Order{" +
@@ -113,6 +159,11 @@ public class Order {
                 ", totalPrice=" + totalPrice +
                 ", user=" + user +
                 ", orderStatus=" + orderStatus +
+                ", description='" + description + '\'' +
+                ", paymentMethod=" + paymentMethod +
+                ", orderPrice=" + orderPrice +
+                ", shippingPrice=" + shippingPrice +
+                ", taxPrice=" + taxPrice +
                 '}';
     }
 }

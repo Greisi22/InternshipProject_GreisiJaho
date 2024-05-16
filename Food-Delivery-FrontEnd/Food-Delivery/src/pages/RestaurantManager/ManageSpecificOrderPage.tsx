@@ -1,21 +1,16 @@
 import './style/manager.css';
 import NavBarManager from 'src/component/RestaurantManager/NavBarManager';
 import SideBarManager from 'src/component/RestaurantManager/SideBarManager';
-import AllOrders from 'src/component/RestaurantManager/AllOrders';
-function ManagerOrdersPage({
-    setSpecificOrder,
-    setOrder,
-}: {
-    setSpecificOrder: any;
-    setOrder: any;
-}) {
+import SpecificOrderCard from 'src/component/RestaurantManager/SpecificOrderCard';
+import { Order } from 'src/types/Restaurant';
+
+function ManageSpecificOrderPage({ order }: { order: Order }) {
     return (
         <div>
             <div className="ml-[280px] sideBarClose h-[100vh]">
                 <NavBarManager />
                 <div className="m-[20px] ">
-                    {/* <SpecificOrderCard order={Orders[0]} /> */}
-                    <AllOrders setSpecificOrder={setSpecificOrder} setOrder={setOrder} />
+                    <SpecificOrderCard order={order} />
                 </div>
             </div>
             <div className="ml-[280px] mt-[100px]">
@@ -25,4 +20,4 @@ function ManagerOrdersPage({
     );
 }
 
-export default ManagerOrdersPage;
+export default ManageSpecificOrderPage;

@@ -28,6 +28,11 @@ import AllOrders from './component/RestaurantManager/AllOrders';
 import OrderForm from './pages/Client/temporary';
 import SpecificRestaurant from './pages/Client/SpecificRestaurant';
 import { Restauran } from 'src/data/MockData';
+import FoodGallery from './component/Client/FoodGallery';
+import CheckoutPage from './component/Client/CheckoutPage';
+
+
+
 
 const App = () => {
     return (
@@ -62,6 +67,9 @@ const App = () => {
                 <Route path="prova2" element={<RestaurantOrderPage />} />
                 <Route path="prova3" element={<AllOrders />} />
                 <Route path="prova4" element={<OrderForm />} />
+                <Route path="/Client/FoodGallery" element={<FoodGallery />} />
+                <Route path="/Client/CheckoutPage" element={<CheckoutPage />} />
+              
                 <Route
                     path="/Client/SpecificRestaurant"
                     element={<SpecificRestaurant restaurantData={Restauran[0]} />}

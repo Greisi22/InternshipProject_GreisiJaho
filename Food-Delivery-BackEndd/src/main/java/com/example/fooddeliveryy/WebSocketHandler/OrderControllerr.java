@@ -22,10 +22,8 @@ public class OrderControllerr {
         System.out.println("Order: " + order);
         long restaurantId = order.getRestaurant().getId();
 
-        // Prepare notification message
         String notification = "New order received: Order ID " + order.getId() + " from User ID " + order;
         System.out.println("Notification: "+ notification);
-        // Send notification to the restaurant's WebSocket topic
         messagingTemplate.convertAndSend("/topic/restaurant-" + restaurantId + "-orders", order);
 
 

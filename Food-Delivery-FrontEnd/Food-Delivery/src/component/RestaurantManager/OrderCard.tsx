@@ -2,10 +2,9 @@ import { products } from 'src/data/MockData';
 import { Order } from 'src/types/Restaurant';
 
 export function OrderCard(order: Order) {
-    console.log(order);
-    if(order.productss){
-        order.productss.map((product, index) => console.log('Ingredients: ', product));
-    }
+  
+
+
 
     return (
         <div className="m-4 max-w-sm p-6 bg-gray-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -26,10 +25,14 @@ export function OrderCard(order: Order) {
             </a>
 
             <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">
-                {order.productss &&
-                    order.productss.map((product, index) => (
-                        <p key={index}>{product.ingredients}</p>
-                    ))}
+                {order.products &&
+                    order.products.map((product, index) =>
+                        product.ingredients.map((ingredient, index) => (
+                            <p key={index} >
+                                {ingredient}{', '}
+                            </p>
+                        )),
+                    )}
             </p>
             <a
                 href="#"

@@ -73,7 +73,7 @@ export interface Order {
     id?: number;
     restaurantId?: number;
     userId?: number;
-    productss?: Product[];
+    products?: Product[];
     orderTime?: string;
     totalPrice?: number;
     orderStatus?: StatusOfOrder;

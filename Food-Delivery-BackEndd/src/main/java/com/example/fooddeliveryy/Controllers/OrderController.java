@@ -28,6 +28,7 @@ public class OrderController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createOrder(@RequestBody Order order ) {
+
        Order order1 =  orderService.saveOrder(order);
         return ResponseEntity.status(HttpStatus.OK).body(order1);
     }
@@ -39,10 +40,10 @@ public class OrderController {
     }
 
     @GetMapping("/get/all")
-    public ResponseEntity<List<OrderDTO>> getAllOrders() {
+    public ResponseEntity<List<?>> getAllOrders() {
         List<Order> order = orderService.getAllOrders();
-        List<OrderDTO> orderDTOS = orderMapper.ordersToOrderDTOs(order);
-        return ResponseEntity.ok().body(orderDTOS);
+//        List<OrderDTO> orderDTOS = orderMapper.ordersToOrderDTOs(order);
+        return ResponseEntity.ok().body(order);
     }
 
     @GetMapping("/get/amout")

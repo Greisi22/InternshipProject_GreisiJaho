@@ -3,7 +3,10 @@ package com.example.fooddeliveryy.Services;
 import com.example.fooddeliveryy.Entities.Order;
 import com.example.fooddeliveryy.Entities.Product;
 import com.example.fooddeliveryy.Entities.Rastaurant;
+import com.example.fooddeliveryy.Entities.User;
 import com.example.fooddeliveryy.Repositories.OrderRepo;
+import com.example.fooddeliveryy.Repositories.RestaurantRepo;
+import com.example.fooddeliveryy.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +19,34 @@ public class OrderService {
 
     private final OrderRepo orderRepo;
     private final ProductService productService;
+    private final UserRepository userRepository;
+    private final RestaurantRepo restaurantRepo;
 
     @Autowired
-    public OrderService(OrderRepo orderRepo, ProductService productService) {
+    public OrderService(OrderRepo orderRepo, ProductService productService, UserRepository userRepository, RestaurantRepo restaurantRepo) {
         this.orderRepo = orderRepo;
         this.productService = productService;
+        this.userRepository = userRepository;
+        this.restaurantRepo = restaurantRepo;
     }
 
     public Order saveOrder(Order order) {
+
+       Optional<User> userOptional = userRepository.findByUserEmail(order.getUser().getUserEmail());
+       User user = null;
+       if(userOptional.isPresent())
+       {
+           user = userOptional.get();
+       }
+
+        Optional<Rastaurant> rastaurantOptional = restaurantRepo.findById(order.getRestaurant().getId());
+        Rastaurant rastaurant = null;
+        if(rastaurantOptional.isPresent())
+        {
+            rastaurant = rastaurantOptional.get();
+        }
+
+
         List<Product> managedProducts = new ArrayList<>();
         for (Product product : order.getProducts()) {
             Product managedProduct = productService.getProductById(product.getId());
@@ -34,6 +57,10 @@ public class OrderService {
             }
         }
         order.setProducts(managedProducts);
+        order.setUser(user);
+        order.setRestaurant(rastaurant);
+        calculateOrderPrice(order);
+
         return orderRepo.save(order);
     }
 
@@ -59,7 +86,7 @@ public class OrderService {
         orderRepo.deleteById(id);
     }
 
-    public void calculateTotalPrice(Order order) {
+    private double calculateTotalPrice(Order order) {
         double totalPrice = 0.0;
 
 
@@ -68,6 +95,17 @@ public class OrderService {
         }
 
         order.setTotalPrice(totalPrice);
+
+        return totalPrice;
+    }
+
+    private void calculateOrderPrice(Order order) {
+        double totalPrice = calculateTotalPrice(order);
+
+
+       double orderPrice = totalPrice+order.getShippingPrice()+ order.getTaxPrice();
+
+        order.setOrderPrice(orderPrice);
     }
 
     public double calculateTotalPriceWithDiscount(Order order) {

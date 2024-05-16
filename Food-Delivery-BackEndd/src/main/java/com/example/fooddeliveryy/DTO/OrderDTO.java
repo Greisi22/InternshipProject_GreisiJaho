@@ -60,7 +60,7 @@ public class OrderDTO {
         return products;
     }
 
-    public void setProductIds(List<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
@@ -106,7 +106,7 @@ public class OrderDTO {
                 ", orderTime=" + orderTime +
                 ", totalPrice=" + totalPrice +
                 ", orderStatus=" + orderStatus +
-                ", userEmail="+userEmail+
+                ", userEmail='" + userEmail + '\'' +
                 '}';
     }
 }

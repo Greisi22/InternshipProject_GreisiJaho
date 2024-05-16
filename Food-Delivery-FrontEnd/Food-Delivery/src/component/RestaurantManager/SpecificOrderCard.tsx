@@ -1,33 +1,37 @@
 import 'src/component/RestaurantManager/styles/bill.css';
 import { Order } from 'src/types/Restaurant';
-import restorant from "src/assets/HamBurgerPlateCategory.jpg"
-import "./styles/SpecificOrderCard.css"
+import restorant from 'src/assets/HamBurgerPlateCategory.jpg';
+import './styles/SpecificOrderCard.css';
 
 function SpecificOrderCard({ order }: { order: Order }) {
+    console.log('ORDER ', order);
     return (
         <div className="order-container specificOrderContainer">
             <div className="order-left specificOrderContainer1">
                 <h1 className="order-title">Thank you for your purchase!</h1>
                 <p className="order-processing-info">
-                    Your order will be processed within 24 hours during working days. We will notify you by email once your order has been shipped.
+                    Your order will be processed within 24 hours during working days. We will notify
+                    you by email once your order has been shipped.
                 </p>
                 <h2 className="billing-title">Billing address</h2>
                 <div className="billing-details">
                     <div className="billing-item">
                         <span className="billing-label">Name</span>
-                        <span className="billing-value">{order.userName}</span>
+                        <span className="billing-value">{order.user && order.user.userName}</span>
                     </div>
                     <div className="billing-item">
                         <span className="billing-label">Address</span>
-                        <span className="billing-value">{order.userAdress}</span>
+                        <span className="billing-value">{order.user && order.user.userAdress}</span>
                     </div>
                     <div className="billing-item">
                         <span className="billing-label">Phone</span>
-                        <span className="billing-value">{order.userPhoneNumber}</span>
+                        <span className="billing-value">
+                            {order.user && order.user.userPhoneNumber}
+                        </span>
                     </div>
                     <div className="billing-item">
-                        <span className="billing-label">Email</span>
-                        <span className="billing-value">{order.userEmail}</span>
+                        <span className="billing-label ">Email</span>
+                        <span className="billing-value ">{order.user && order.user.userEmail}</span>
                     </div>
                 </div>
                 <button className="track-order-button">Track Your Order</button>
@@ -50,16 +54,23 @@ function SpecificOrderCard({ order }: { order: Order }) {
                         </div>
                     </div>
                     <div className="order-products">
-                        {order.productss && order.productss.map((product, index) => (
-                            <div className="product-item mr-[15px]" key={index}>
-                                <img src={restorant} alt={product.name} className="product-image " />
-                                <div className="product-info">
-                                    <span className="product-name">{product.name}</span>
-                                    <span className="product-amount">Pack: {product.amount}</span>
+                        {order.products &&
+                            order.products.map((product, index) => (
+                                <div className="product-item mr-[15px]" key={index}>
+                                    <img
+                                        src={restorant}
+                                        alt={product.name}
+                                        className="product-image "
+                                    />
+                                    <div className="product-info">
+                                        <span className="product-name">{product.name}</span>
+                                        <span className="product-amount">
+                                            Pack: {product.amount}
+                                        </span>
+                                    </div>
+                                    <span className="product-price">{product.price}</span>
                                 </div>
-                                <span className="product-price">{product.price}</span>
-                            </div>
-                        ))}
+                            ))}
                     </div>
                     <div className="order-totals">
                         <div className="totals-item">

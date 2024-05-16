@@ -42,9 +42,10 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                         Cookies.set('restaurant', JSON.stringify(restaurant), { expires: 7 });
                         console.log('Jam dysh se nish esht vec davidi');
                         setLogin(false);
-                        Cookies.set('userRestaurant', JSON.stringify(result.data.user), { expires: 7 });
-                             navigate('/RestaurantManager/Dashboard');
-
+                        Cookies.set('userRestaurant', JSON.stringify(result.data.user), {
+                            expires: 7,
+                        });
+                        navigate('/RestaurantManager/Dashboard');
                     }
                 }
 

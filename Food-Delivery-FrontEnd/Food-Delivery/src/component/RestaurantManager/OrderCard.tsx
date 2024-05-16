@@ -1,11 +1,17 @@
 import { products } from 'src/data/MockData';
 import { Order } from 'src/types/Restaurant';
+import { useNavigate } from 'react-router-dom';
 
-export function OrderCard(order: Order) {
-  
-
-
-
+export function OrderCard({
+    order,
+    setSpecificOrder,
+    setOrder,
+}: {
+    order: Order;
+    setSpecificOrder: any;
+    setOrder: any;
+}) {
+    const navigate = useNavigate();
     return (
         <div className="m-4 max-w-sm p-6 bg-gray-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <span className="flex">
@@ -28,13 +34,21 @@ export function OrderCard(order: Order) {
                 {order.products &&
                     order.products.map((product, index) =>
                         product.ingredients.map((ingredient, index) => (
-                            <p key={index} >
-                                {ingredient}{', '}
+                            <p key={index}>
+                                {ingredient}
+                                {', '}
                             </p>
                         )),
                     )}
             </p>
             <a
+                onClick={() => {
+                    console.log('ORDERRRR ', order);
+                    setOrder(order);
+                    console.log('jjJJ');
+                    setSpecificOrder(true);
+                    navigate('/RestaurantManager/SpecificOrderr');
+                }}
                 href="#"
                 className="inline-flex font-medium items-center text-blue-600 hover:underline">
                 Shiko Orderin

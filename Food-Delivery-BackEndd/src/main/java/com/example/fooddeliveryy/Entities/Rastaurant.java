@@ -254,26 +254,26 @@ public class Rastaurant {
     public String toString() {
         return "Rastaurant{" +
                 "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", email='" + email + '\'' +
-//                ", address='" + address + '\'' +
-//                ", menu=" + menu +
-//                ", openingHours=" + openingHours +
-//                ", phoneNumber='" + phoneNumber + '\'' +
-//                ", website='" + website + '\'' +
-//                ", averageRating=" + averageRating +
-//                ", isOpen=" + isOpen +
-//                ", reviews=" + reviews +
-//                ", images=" + images +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", menu=" + menu +
+                ", openingHours=" + openingHours +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", website='" + website + '\'' +
+                ", averageRating=" + averageRating +
+                ", isOpen=" + isOpen +
+                ", reviews=" + reviews +
+                ", images=" + images +
 //                ", restaurantManagers=" + restaurantManagers.get(0).getUserId() +
-//                ", discount=" + discount +
-//                ", order=" + order +
-//                ", category=" + category +
-//                ", restaurantPayments=" + restaurantPayments +
-//                ", isAproved=" + isAproved +
-//                ", isActive=" + isActive +
-//                ", revenue=" + revenue +
-//                ", documentation=" + documentation +
+                ", discount=" + discount +
+                ", order=" + order +
+                ", category=" + category +
+                ", restaurantPayments=" + restaurantPayments +
+                ", isAproved=" + isAproved +
+                ", isActive=" + isActive +
+                ", revenue=" + revenue +
+                ", documentation=" + documentation +
                 '}';
     }
 }

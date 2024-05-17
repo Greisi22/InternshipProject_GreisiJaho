@@ -23,7 +23,6 @@ export const users: User[] = [
 ];
 
 export const restaurants: Restaurant[] = [
-   
     {
         id: 1,
         name: 'The Gourmet Kitchen',
@@ -735,14 +734,12 @@ export const Orders: Order[] = [
     {
         id: 1,
         restaurantId: Restauran[0].id,
-        userId: users[0].userId,
-        productss: products,
+        products: products,
+        orderTime: '273799',
         totalPrice: 21,
         orderStatus: StatusOfOrder.Finished,
-        userEmail: users[0].userEmail,
+        user: users[0],
         description: 'Sufllaqe pa qep',
-        userAdress: 'ish parku i autobusave',
-        userPhoneNumber: 23456,
         paymentMethod: PaymentMethod.Cart,
         orderPrice: 23,
         shippingPrice: 1,
@@ -751,14 +748,12 @@ export const Orders: Order[] = [
     {
         id: 2,
         restaurantId: Restauran[0].id,
-        userId: users[0].userId,
-        productss: products,
+        products: products,
+        orderTime: '273799',
         totalPrice: 21,
         orderStatus: StatusOfOrder.Finished,
-        userEmail: users[0].userEmail,
+        user: users[0],
         description: 'Sufllaqe pa qep',
-        userAdress: 'ish parku i autobusave',
-        userPhoneNumber: 23456,
         paymentMethod: PaymentMethod.Cart,
         orderPrice: 23,
         shippingPrice: 1,
@@ -767,14 +762,12 @@ export const Orders: Order[] = [
     {
         id: 3,
         restaurantId: Restauran[0].id,
-        userId: users[0].userId,
-        productss: products,
+        products: products,
+        orderTime: '273799',
         totalPrice: 21,
         orderStatus: StatusOfOrder.Finished,
-        userEmail: users[0].userEmail,
+        user: users[0],
         description: 'Sufllaqe pa qep',
-        userAdress: 'ish parku i autobusave',
-        userPhoneNumber: 23456,
         paymentMethod: PaymentMethod.Cart,
         orderPrice: 23,
         shippingPrice: 1,

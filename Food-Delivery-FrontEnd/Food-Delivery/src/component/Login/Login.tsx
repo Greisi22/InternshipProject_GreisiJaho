@@ -34,7 +34,7 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
             } else if (String(result.data.user.userRole) === 'ROLE_RESTAURANT_MANAGER') {
                 console.log('USERRR ', result.data.user);
                 if (result.data.user.restaurantId == 0) {
-                    console.log('it is null!');
+                    navigate('/RestaurantManager/RestaurantDocumentation');
                 } else {
                     if (result.data.user.userEmail) {
                         const restaurant = await getRestaurantByUserIt(result.data.user.userEmail);

@@ -1,6 +1,7 @@
 import axiosInstance, { ApiResponse } from '../../../config/axios';
 import { Restaurant, RestaurantNotAproved } from 'src/types/Restaurant';
 import { RestaurantAproved } from 'src/types/Restaurant';
+import { AxiosError } from 'axios';
 
 //Retrieving data from the database with axios dependency
 export async function retrieveAllRestaurant() {
@@ -135,5 +136,27 @@ export async function getRestaurantByUserIt(id: string) {
     } catch (error) {
         console.log('error: ', error);
         throw new Error('Failed to fetch data');
+    }
+}
+
+export async function createRestaurant(restaurant: Restaurant) {
+    console.log(restaurant);
+    try {
+        const response = await axiosInstance.post<ApiResponse>('/restaurant/create', restaurant, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+        });
+        return response.status;
+    } catch (error: unknown) {
+        if ((error as AxiosError).response) {
+            console.log('Here');
+            const axiosError = error as AxiosError;
+            return axiosError.response?.status;
+        } else {
+            console.error('Error:', error);
+            throw new Error('Failed to fetch data');
+        }
     }
 }

@@ -1,36 +1,42 @@
 import { useState } from 'react';
+import { Restaurant } from 'src/types/Restaurant';
+import { createRestaurant } from 'src/api/localhost/Administrator/restaurantsApi';
 
 function RestaurantForm() {
     const [restaurantName, setRestaurantName] = useState('');
-    const [email, setEmail] = useState('');
-    const [yearsOfExperience, setYearsOfExperience] = useState('');
-    const [serviceOffered, setServiceOffered] = useState('');
+    const [phoneNumber, setphoneNumber] = useState('');
+    const [website, setWebsite] = useState('');
 
-
-    // Function to handle form submission
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        // Validation logic can be added here
-        // Submission logic can be added here
-        // After successful submission, you can navigate back to the dashboard
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault(); // Prevent default form submission behavior
+        const restaurant: Restaurant = {
+            id: 2,
+            "name": restaurantName,
+            phoneNumber: phoneNumber,
+            website: website,
+        };
+        await createRestaurant(restaurant);
     };
 
     // Function to handle cancel button click
     const handleCancel = () => {
         // Resetting state variables to their initial values
         setRestaurantName('');
-        setEmail('');
-        setYearsOfExperience('');
-        setServiceOffered('');
-        
+        setphoneNumber('');
+        setWebsite('');
+        // setServiceOffered('');
     };
 
     return (
         <div className="fixed inset-0 flex items-center justify-center backdrop-filter backdrop-blur-lg">
-            <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-8 bg-gray-100 rounded-lg shadow-md">
+            <form
+                className="max-w-lg mx-auto p-8 bg-gray-100 rounded-lg shadow-md "
+                onSubmit={handleSubmit}>
                 <h2 className="text-2xl font-bold mb-4 text-center">Restaurant Form</h2>
                 <div className="mb-4">
-                    <label htmlFor="restaurant-name" className="block mb-2 font-medium text-gray-800">
+                    <label
+                        htmlFor="restaurant-name"
+                        className="block mb-2 font-medium text-gray-800">
                         Restaurant Name
                     </label>
                     <input
@@ -44,31 +50,32 @@ function RestaurantForm() {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="email" className="block mb-2 font-medium text-gray-800">
-                        Email
+                        Phone Number
                     </label>
                     <input
-                        type="email"
                         id="email"
                         className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="email@domain.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={phoneNumber}
+                        onChange={(e) => setphoneNumber(e.target.value)}
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="years-of-experience" className="block mb-2 font-medium text-gray-800">
-                        Years of Experience
+                    <label
+                        htmlFor="years-of-experience"
+                        className="block mb-2 font-medium text-gray-800">
+                        Website
                     </label>
                     <input
-                        type="number"
+                        type="text"
                         id="years-of-experience"
                         className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Years"
-                        value={yearsOfExperience}
-                        onChange={(e) => setYearsOfExperience(e.target.value)}
+                        placeholder="www.example.com"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
                     />
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                     <label htmlFor="service-offered" className="block mb-2 font-medium text-gray-800">
                         Service Offered
                     </label>
@@ -86,7 +93,7 @@ function RestaurantForm() {
                             <option value="Mexican">Mexican</option>
                             <option value="Japanese">Japanese</option>
                             <option value="Indian">Indian</option>
-                            {/* Add more options as needed */}
+                          
                         </select>
                         <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                             <svg
@@ -104,19 +111,20 @@ function RestaurantForm() {
                             </svg>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <button
-                    type="submit"
-                    className="w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
-                >
+                    // onClick={() => {
+                    //     handleSubmit();
+                    // }}
+
+                    className="w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">
                     Submit
                 </button>
                 {/* Cancel button */}
                 <button
                     type="button"
                     onClick={handleCancel}
-                    className="mt-4 w-full py-2 px-4 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
-                >
+                    className="mt-4 w-full py-2 px-4 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400">
                     Cancel
                 </button>
                 <p className="mt-4 text-sm text-center text-gray-600">

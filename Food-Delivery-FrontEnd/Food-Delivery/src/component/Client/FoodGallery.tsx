@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import pizzaImage from 'src/assets/pizza.png';
 import burgerImage from 'src/assets/pizza.png';
 import drinkImage from 'src/assets/pizza.png';
- import dessertImage from 'src/assets/pizza.png';
+import dessertImage from 'src/assets/pizza.png';
 
 interface MenuItem {
     name: string;
@@ -118,7 +118,7 @@ const FoodGallery: React.FC = () => {
                 <div className="flex flex-col md:flex-row mt-4">
                     <div className="flex-1">
                         <div className="p-4">
-                        <div className="rating">Ushqimi ⭐ 6.7 (80+) &nbsp; Sherbimi ⭐ 8.1 (83+) &nbsp; 35 min &nbsp; -200 L</div>
+                            <div className="rating">Ushqimi ⭐ 6.7 (80+) &nbsp; Sherbimi ⭐ 8.1 (83+) &nbsp; 35 min &nbsp; -200 L</div>
                         </div>
                         <div className="p-4">
                             <h2 className="text-2xl mb-4">Filter by Category</h2>
@@ -163,7 +163,6 @@ const FoodGallery: React.FC = () => {
                         <h2 className="text-2xl mb-4">Porosia te MUGO</h2>
                         <div className="p-4 bg-gray-100 rounded-lg">
                             <h3 className="text-xl mb-4">Totali</h3>
-                          
                             <p className="mt-2">Delivery: 120 L</p>
                             <p className="mt-2 font-bold">Totali për të paguar: {total + 120} L</p>
                             <button
@@ -172,7 +171,6 @@ const FoodGallery: React.FC = () => {
                             >
                                 Kryej Porosinë
                             </button>
-                           
                         </div>
                     </div>
                 </div>
@@ -182,4 +180,3 @@ const FoodGallery: React.FC = () => {
 };
 
 export default FoodGallery;
-

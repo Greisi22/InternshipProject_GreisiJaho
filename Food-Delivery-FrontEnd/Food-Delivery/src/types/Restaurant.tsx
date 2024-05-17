@@ -1,15 +1,15 @@
 export interface Restaurant {
-    id: number;
-    name: string;
-    address: string;
-    products: Product[];
+    id?: number;
+    name?: string;
+    address?: string;
+    products?: Product[];
     openingHours?: string[];
     phoneNumber?: string;
     website?: string;
     averageRating?: number;
-    isOpen: boolean;
-    reviews: Review[];
-    images: string[];
+    isOpen?: boolean;
+    reviews?: Review[];
+    images?: string[];
     restaurantManager?: User;
     discount?: number;
     order?: Order[];
@@ -19,7 +19,7 @@ export interface Restaurant {
     isActive?: boolean;
     revenue?: Revenue;
     documentation?: Documentation;
-    rate: number;
+    rate?: number;
 }
 
 interface Menu {

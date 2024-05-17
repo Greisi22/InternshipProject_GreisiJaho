@@ -22,19 +22,21 @@ public class JwtTokenProvider {
         this.jwtConfig = jwtConfig;
     }
 
-    public String generateToken(String userEmail, String name) {
+    public String generateToken(String userEmail, long id) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtConfig.getExpiration());
 
-        String token =  Jwts.builder()
+        String token = Jwts.builder()
                 .setSubject(userEmail)
+                .claim("userId", id) // Adding user ID as a claim
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(secretKey)
                 .compact();
-        System.out.println("generate token : "+ token);
+        System.out.println("Generated token: " + token);
         return token;
     }
+
 
     public String getEmailFromToken(String token) {
         Claims claims = Jwts.parserBuilder()
@@ -45,6 +47,17 @@ public class JwtTokenProvider {
 
         return claims.getSubject();
     }
+
+    public long getIdFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.get("userId", Long.class);
+    }
+
 
     public boolean validateToken(String token) {
         try {

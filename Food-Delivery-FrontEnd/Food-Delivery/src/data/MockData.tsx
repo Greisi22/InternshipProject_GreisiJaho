@@ -23,6 +23,7 @@ export const users: User[] = [
 ];
 
 export const restaurants: Restaurant[] = [
+   
     {
         id: 1,
         name: 'The Gourmet Kitchen',

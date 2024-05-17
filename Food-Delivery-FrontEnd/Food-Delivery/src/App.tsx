@@ -88,7 +88,7 @@ const App = () => {
                 <Route path="prova1" element={<Tamporary />} />
                 <Route path="prova2" element={<RestaurantOrderPage />} />
                 <Route path="/Client/FoodGallery" element={<FoodGallery />} />
-                <Route path="/Client/CheckoutPage" element={<CheckoutPage />} />
+                <Route path="/Client/Checkout" element={<CheckoutPage />} />
                 <Route
                     path="/Client/SpecificRestaurant"
                     element={<SpecificRestaurant restaurantData={Restauran[0]} />}

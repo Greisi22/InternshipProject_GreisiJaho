@@ -10,7 +10,7 @@ function RestaurantForm() {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault(); // Prevent default form submission behavior
         const restaurant: Restaurant = {
-            name: 'Exampldtdtjcjcjhhhgcufvkhvhk',
+            name: 'D',
             address: '123 Example Street, Example City',
             openingHours: [
                 'Monday: 8:00 AM - 8:00 PM',
@@ -24,7 +24,7 @@ function RestaurantForm() {
             phoneNumber: '+1234567890',
             website: 'http://www.example.com',
             averageRating: 4.5,
-            isOpen: true,
+            open: true,
 
             images: ['http://www.example.com/image1.jpg', 'http://www.example.com/image2.jpg'],
 

@@ -2,6 +2,7 @@ import axiosInstance, { ApiResponse } from '../../../config/axios';
 import { Restaurant, RestaurantNotAproved } from 'src/types/Restaurant';
 import { RestaurantAproved } from 'src/types/Restaurant';
 import { AxiosError } from 'axios';
+import { createProduct } from '../Product/ProductsApi';
 
 //Retrieving data from the database with axios dependency
 export async function retrieveAllRestaurant() {
@@ -153,6 +154,7 @@ export async function createRestaurant(restaurant: Restaurant) {
             },
             withCredentials: true,
         });
+
         return response.status;
     } catch (error: unknown) {
         if ((error as AxiosError).response) {

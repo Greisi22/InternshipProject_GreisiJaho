@@ -1,3 +1,4 @@
+import MenuItem from '@mui/joy/MenuItem/MenuItem';
 import { PaymentMethod, UserRole } from 'src/types/Restaurant';
 export const users: User[] = [
     {
@@ -44,6 +45,24 @@ export const restaurants: Restaurant[] = [
                 category: 'Main Course',
                 amount: 1,
                 image: 'cheeseburger.jpg',
+            },
+
+            {
+                id: 1,
+                name: 'Pizza',
+                description: 'A classic cheeseburger with all the trimmings',
+                price: 8.99,
+                ingredients: [
+                    'beef patty',
+                    'cheddar cheese',
+                    'lettuce',
+                    'tomato',
+                    'onion',
+                    'pickles',
+                ],
+                category: 'Main Course',
+                amount: 1,
+                image: 'pizza.jpg',
             },
             // Add more products as needed
         ],
@@ -142,8 +161,14 @@ export const restaurants: Restaurant[] = [
                 amount: 1,
                 image: 'california_roll.jpg',
             },
+
+
+            
             // Add more products as needed
-        ],
+],
+
+
+
         openingHours: ['11:00 AM - 11:00 PM'],
         phoneNumber: '555-5678',
         website: 'http://sushiworld.example.com',
@@ -774,3 +799,6 @@ export const Orders: Order[] = [
         taxPrice: 1,
     },
 ];
+
+
+

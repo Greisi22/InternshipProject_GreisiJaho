@@ -16,8 +16,9 @@ function MultiFilters() {
     const [data, setData] = useState<Product[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('All'); // Track selected category
     const [isEdited, setEditedProduct] = useState(false);
-    const [isnewProduct, setnewProduct] = useState(false);
+  
     const [isProductClicked, setNewProductClicked] = useState(false);
+
     const notToBeUndifined : Product = {
         id: -1,
         name: "",
@@ -60,15 +61,14 @@ function MultiFilters() {
 
     const handleNewProduct = () => {
         setNewProductClicked(true);
-        setnewProduct(true);
     };
     return (
         <div className="mt-[30px]">
             {(isEdited || isProductClicked) && (
                 <div className="absolute h-full  w-full  z-[100] mt-[-30px]">
-                    <ProductForm setNewProductClicked={setNewProductClicked} setEditedProduct={setEditedProduct} isnewProduct={isnewProduct}  specificProduct={specificProduct}/>
+                    <ProductForm setNewProductClicked={setNewProductClicked} setEditedProduct={setEditedProduct}  specificProduct={specificProduct}/>
                 </div>
-            )}{' '}
+            )}
           
             <div className="flex justify-between w-[95%] ">
                 <div className="flex space-x-4 mb-4">

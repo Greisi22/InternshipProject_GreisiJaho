@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { Product } from 'src/types/Restaurant';
 function ProductForm({
+    setNewProductClicked,
     setEditedProduct,
-    isnewProduct,
-    setSpecificProduct,
+    specificProduct,
 }: {
+    setNewProductClicked: any;
     setEditedProduct: any;
-    isnewProduct: boolean;
-    setSpecificProduct?: Product;
+    specificProduct: Product;
 }) {
     const [productName, setProductName] = useState('');
     const [image, setImage] = useState('');
     const [ingredients, setIngredients] = useState('');
     const [price, setPrice] = useState('');
     const [error, setError] = useState('');
+    const [isnewProduct, setnewProduct] = useState(false);
+
+    useEffect(() => {
+        if (specificProduct.id < 0) {
+            setnewProduct(true);
+        }
+    }, []);
 
     const handleRegister = () => {
         if (isnewProduct) {
@@ -51,6 +58,7 @@ function ProductForm({
         setPrice('');
         setError('');
         setEditedProduct(false);
+        setNewProductClicked(false);
     };
 
     return (

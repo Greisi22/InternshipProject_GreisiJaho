@@ -18,7 +18,15 @@ function MultiFilters() {
     const [isEdited, setEditedProduct] = useState(false);
     const [isnewProduct, setnewProduct] = useState(false);
     const [isProductClicked, setNewProductClicked] = useState(false);
-    const [specificProduct, setSpecificProduct] = useState<Product>();
+    const notToBeUndifined : Product = {
+        id: -1,
+        name: "",
+        price: 12,
+        ingredients: [""],
+        category: "",
+        image: ""
+    }
+    const [specificProduct, setSpecificProduct] = useState<Product>(notToBeUndifined);
 
     const categories = ['All', 'Food', 'Drink', 'Pasta', 'Soup']; // Define categories
 
@@ -40,6 +48,7 @@ function MultiFilters() {
     };
 
     const handleEdit = (product: Product) => {
+        setSpecificProduct(product);
         setEditedProduct(true);
     };
 
@@ -55,16 +64,12 @@ function MultiFilters() {
     };
     return (
         <div className="mt-[30px]">
-            {isEdited && (
+            {(isEdited || isProductClicked) && (
                 <div className="absolute h-full  w-full  z-[100] mt-[-30px]">
-                    <ProductForm setEditedProduct={setEditedProduct} isnewProduct={isnewProduct}  setSpecificProduct={setSpecificProduct}/>
+                    <ProductForm setNewProductClicked={setNewProductClicked} setEditedProduct={setEditedProduct} isnewProduct={isnewProduct}  specificProduct={specificProduct}/>
                 </div>
             )}{' '}
-            {isProductClicked && (
-                <div className="absolute h-full  w-full  z-[100] mt-[-30px]">
-                    <ProductForm setEditedProduct={setEditedProduct} isnewProduct={isnewProduct} />
-                </div>
-            )}{' '}
+          
             <div className="flex justify-between w-[95%] ">
                 <div className="flex space-x-4 mb-4">
                     {categories.map((category) => (

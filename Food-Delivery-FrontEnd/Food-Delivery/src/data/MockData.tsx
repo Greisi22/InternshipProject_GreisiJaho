@@ -70,7 +70,7 @@ export const restaurants: Restaurant[] = [
         phoneNumber: '555-1234',
         website: 'http://thegourmetkitchen.example.com',
         averageRating: 4.5,
-        isOpen: true,
+        open: true,
         reviews: [
             {
                 id: 1,
@@ -162,18 +162,14 @@ export const restaurants: Restaurant[] = [
                 image: 'california_roll.jpg',
             },
 
-
-            
             // Add more products as needed
-],
-
-
+        ],
 
         openingHours: ['11:00 AM - 11:00 PM'],
         phoneNumber: '555-5678',
         website: 'http://sushiworld.example.com',
         averageRating: 4.7,
-        isOpen: true,
+        open: true,
         reviews: [
             {
                 id: 2,
@@ -263,7 +259,7 @@ export const restaurants: Restaurant[] = [
         phoneNumber: '555-5678',
         website: 'http://sushiworld.example.com',
         averageRating: 4.7,
-        isOpen: true,
+        open: true,
         reviews: [
             {
                 id: 2,
@@ -353,7 +349,7 @@ export const restaurants: Restaurant[] = [
         phoneNumber: '555-5678',
         website: 'http://sushiworld.example.com',
         averageRating: 4.7,
-        isOpen: true,
+        open: true,
         reviews: [
             {
                 id: 2,
@@ -443,7 +439,7 @@ export const restaurants: Restaurant[] = [
         phoneNumber: '555-5678',
         website: 'http://sushiworld.example.com',
         averageRating: 4.7,
-        isOpen: true,
+        open: true,
         reviews: [
             {
                 id: 2,
@@ -533,7 +529,7 @@ export const restaurants: Restaurant[] = [
         phoneNumber: '555-5678',
         website: 'http://sushiworld.example.com',
         averageRating: 4.7,
-        isOpen: true,
+        open: true,
         reviews: [
             {
                 id: 2,
@@ -729,7 +725,7 @@ export const Restauran: Restaurant[] = [
         images: ['url....'],
         rate: 5,
         reviews: Revieww,
-        isOpen: true,
+        open: true,
         address: 'p bubit',
     },
     {
@@ -739,7 +735,7 @@ export const Restauran: Restaurant[] = [
         images: ['url....'],
         rate: 5,
         reviews: Revieww,
-        isOpen: true,
+        open: true,
         address: 'p bubit',
     },
     {
@@ -749,7 +745,7 @@ export const Restauran: Restaurant[] = [
         images: ['url....'],
         rate: 5,
         reviews: Revieww,
-        isOpen: true,
+        open: true,
         address: 'p bubit',
     },
 ];
@@ -799,6 +795,3 @@ export const Orders: Order[] = [
         taxPrice: 1,
     },
 ];
-
-
-

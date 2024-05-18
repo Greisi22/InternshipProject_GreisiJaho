@@ -22,28 +22,30 @@ import ManagerProductsPage from './pages/RestaurantManager/ManagerProductsPage';
 
 import ManagerDashboardPage from './pages/RestaurantManager/ManagerDashboardPage';
 
-import UserOrderPage from './websocket/UserOrderPage';
 import RestaurantOrderPage from './websocket/RestaurantOrderPage';
-import AllOrders from './component/RestaurantManager/AllOrders';
 
 import SpecificRestaurant from './pages/Client/SpecificRestaurant';
-import { Restauran } from 'src/data/MockData';
+
 import FoodGallery from './component/Client/FoodGallery';
 import CheckoutPage from './component/Client/CheckoutPage';
-import OrderPage from './pages/RestaurantManager/OrderPage';
-import { Order } from 'src/types/Restaurant';
+
+import { Order, Restaurant } from 'src/types/Restaurant';
 import { useState } from 'react';
 import ManageSpecificOrderPage from './pages/RestaurantManager/ManageSpecificOrderPage';
-import { Orders } from 'src/data/MockData';
+
 import RestaurantsEntryPage from './pages/Client/RestaurantsEntryPage';
 import Tamporary from './Tamporary';
 import RestaurantDocumentation from './pages/RestaurantManager/RestaurantDocumentation';
+
 const App = () => {
-    const initialOrder: Order = {
-        // ... define the initial properties of the Order object here
-    };
+    const initialOrder: Order = {};
+
+    const initialRestaurant: Restaurant = {};
+
     const [isSpecificOrder, setSpecificOrder] = useState(false);
     const [order, setOrder] = useState<Order>(initialOrder);
+    const [restaurantt, setRestaurant] = useState<Restaurant>(initialRestaurant);
+
     return (
         <>
             <Routes>
@@ -84,16 +86,22 @@ const App = () => {
                     element={<ManageSpecificOrderPage order={order} />}
                 />
                 <Route path="/RestaurantManager/Product" element={<ManagerProductsPage />} />
-                <Route path="/RestaurantManager/RestaurantDocumentation" element={<RestaurantDocumentation />} />
+                <Route
+                    path="/RestaurantManager/RestaurantDocumentation"
+                    element={<RestaurantDocumentation />}
+                />
                 <Route path="prova1" element={<Tamporary />} />
                 <Route path="prova2" element={<RestaurantOrderPage />} />
                 <Route path="/Client/FoodGallery" element={<FoodGallery />} />
                 <Route path="/Client/Checkout" element={<CheckoutPage />} />
                 <Route
                     path="/Client/SpecificRestaurant"
-                    element={<SpecificRestaurant restaurantData={Restauran[0]} />}
+                    element={<SpecificRestaurant restaurantData={restaurantt} />}
                 />
-                <Route path="/Client/RestaurantEntry" element={<RestaurantsEntryPage />} />
+                <Route
+                    path="/Client/RestaurantEntry"
+                    element={<RestaurantsEntryPage setRestaurant={setRestaurant} />}
+                />
             </Routes>
         </>
     );

@@ -18,9 +18,13 @@ public class Rastaurant {
 
 
     private String address;
-    @OneToMany(mappedBy = "restaurant")
-    @JsonBackReference("menuBackReference")
-    private List<Menu> menu;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "restaurant_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> products;
     private List<String> openingHours;
     private String phoneNumber;
     private String website;
@@ -55,14 +59,15 @@ public class Rastaurant {
     @OneToOne
     private Documentation documentation;
 
-    public Rastaurant(){}
+    public Rastaurant() {
+    }
 
-    public Rastaurant(long id, String name, String email, String address, List<Menu> menu, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, List<String> images, List<User> restaurantManagers, int discount, List<Order> order, List<String> category, List<RestaurantPayment> restaurantPayments, boolean isAproved, boolean isActive, Revenue revenue, Documentation documentation) {
+    public Rastaurant(long id, String name, String email, String address, List<Product> products, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, List<String> images, List<User> restaurantManagers, int discount, List<Order> order, List<String> category, List<RestaurantPayment> restaurantPayments, boolean isAproved, boolean isActive, Revenue revenue, Documentation documentation) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.address = address;
-        this.menu = menu;
+        this.products = products;
         this.openingHours = openingHours;
         this.phoneNumber = phoneNumber;
         this.website = website;
@@ -113,12 +118,12 @@ public class Rastaurant {
         this.address = address;
     }
 
-    public List<Menu> getMenu() {
-        return menu;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setMenu(List<Menu> menu) {
-        this.menu = menu;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public List<String> getOpeningHours() {
@@ -249,7 +254,6 @@ public class Rastaurant {
         this.documentation = documentation;
     }
 
-
     @Override
     public String toString() {
         return "Rastaurant{" +
@@ -257,7 +261,7 @@ public class Rastaurant {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
-                ", menu=" + menu +
+                ", products=" + products +
                 ", openingHours=" + openingHours +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", website='" + website + '\'' +
@@ -265,7 +269,7 @@ public class Rastaurant {
                 ", isOpen=" + isOpen +
                 ", reviews=" + reviews +
                 ", images=" + images +
-//                ", restaurantManagers=" + restaurantManagers.get(0).getUserId() +
+                ", restaurantManagers=" + restaurantManagers +
                 ", discount=" + discount +
                 ", order=" + order +
                 ", category=" + category +

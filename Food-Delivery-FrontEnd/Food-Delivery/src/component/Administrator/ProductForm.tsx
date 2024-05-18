@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
-
-function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
+import { Product } from 'src/types/Restaurant';
+function ProductForm({
+    setEditedProduct,
+    isnewProduct,
+    setSpecificProduct,
+}: {
+    setEditedProduct: any;
+    isnewProduct: boolean;
+    setSpecificProduct?: Product;
+}) {
     const [productName, setProductName] = useState('');
     const [image, setImage] = useState('');
     const [ingredients, setIngredients] = useState('');
@@ -10,8 +18,13 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
     const [error, setError] = useState('');
 
     const handleRegister = () => {
-        // Here you can handle the form submission, e.g., send the data to your backend
-        // You can add validation here before submitting the form
+        if (isnewProduct) {
+            //thrrasim API create
+            console.log('1');
+        } else {
+            //edit api
+            console.log('2');
+        }
     };
 
     const handleProductNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,10 +69,7 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                             <div>
                                 <label
                                     htmlFor="product-name"
-
-                                
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-
                                     Menu Item Name
                                 </label>
                                 <input
@@ -75,8 +85,7 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                             <div>
                                 <label
                                     htmlFor="image"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Image
                                 </label>
                                 <div className="flex items-center space-x-2">
@@ -102,8 +111,7 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                             <div>
                                 <label
                                     htmlFor="ingredients"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Ingredients
                                 </label>
                                 <input
@@ -119,8 +127,7 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                             <div>
                                 <label
                                     htmlFor="price"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Price
                                 </label>
                                 <input
@@ -138,8 +145,7 @@ function ProductForm({ setEditedProduct }: { setEditedProduct: any }) {
                                     e.preventDefault();
                                     handleRegister();
                                 }}
-                                className="w-full text-white bg-red-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                            >
+                                className="w-full text-white bg-red-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                 Submit
                             </button>
 

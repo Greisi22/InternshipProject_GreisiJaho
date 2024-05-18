@@ -6,16 +6,19 @@ import { getProductCategoryCache } from 'src/cache/productCache';
 import { Product } from 'src/types/Restaurant';
 import ProductForm from '../Administrator/ProductForm';
 import { deleteProduct } from 'src/api/localhost/Product/ProductsApi';
+import { products } from 'src/data/MockData';
 
 function MultiFilters() {
-
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
     const [selectedArray, setSelectedArray] = useState<number[]>([]);
-    const [loading, ] = useState(false);
+    const [loading] = useState(false);
     const [data, setData] = useState<Product[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('All'); // Track selected category
     const [isEdited, setEditedProduct] = useState(false);
+    const [isnewProduct, setnewProduct] = useState(false);
+    const [isProductClicked, setNewProductClicked] = useState(false);
+    const [specificProduct, setSpecificProduct] = useState<Product>();
 
     const categories = ['All', 'Food', 'Drink', 'Pasta', 'Soup']; // Define categories
 
@@ -36,7 +39,7 @@ function MultiFilters() {
         setCurrentPage(page);
     };
 
-    const handleEdit = (id: number) => {
+    const handleEdit = (product: Product) => {
         setEditedProduct(true);
     };
 
@@ -46,27 +49,45 @@ function MultiFilters() {
         setData(updatedData);
     };
 
+    const handleNewProduct = () => {
+        setNewProductClicked(true);
+        setnewProduct(true);
+    };
     return (
-        <div className="mt-4">
+        <div className="mt-[30px]">
             {isEdited && (
                 <div className="absolute h-full  w-full  z-[100] mt-[-30px]">
-                    <ProductForm setEditedProduct={setEditedProduct} />
+                    <ProductForm setEditedProduct={setEditedProduct} isnewProduct={isnewProduct}  setSpecificProduct={setSpecificProduct}/>
                 </div>
             )}{' '}
-            {/* Add margin to the top */}
-            {/* Category List */}
-            <div className="flex space-x-4 mb-4">
-                {categories.map((category) => (
+            {isProductClicked && (
+                <div className="absolute h-full  w-full  z-[100] mt-[-30px]">
+                    <ProductForm setEditedProduct={setEditedProduct} isnewProduct={isnewProduct} />
+                </div>
+            )}{' '}
+            <div className="flex justify-between w-[95%] ">
+                <div className="flex space-x-4 mb-4">
+                    {categories.map((category) => (
+                        <button
+                            key={category}
+                            className={`px-3 py-1 rounded-md ${selectedCategory === category ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                            onClick={() => handleCategoryClick(category)}>
+                            {category}
+                        </button>
+                    ))}
+                </div>
+                <div>
                     <button
-                        key={category}
-                        className={`px-3 py-1 rounded-md ${selectedCategory === category ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
-                        onClick={() => handleCategoryClick(category)}>
-                        {category}
+                        onClick={() => {
+                            handleNewProduct();
+                        }}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Add New Product
                     </button>
-                ))}
+                </div>
             </div>
             {/* Product Table */}
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px]">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-200 table-sm">
                     {/* Table Headers */}
                     <thead className="h-[40px] text-xs text-gray-700 uppercase bg-gray-300">
@@ -86,7 +107,7 @@ function MultiFilters() {
                     {/* Table Body */}
                     <tbody>
                         {loading === false ? (
-                            data.map((product, index) => (
+                            products.map((product, index) => (
                                 <tr
                                     key={product.id}
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -139,7 +160,7 @@ function MultiFilters() {
                                         <a
                                             href="#"
                                             className="text-blue-500"
-                                            onClick={() => handleEdit(product.id)}
+                                            onClick={() => handleEdit(product)}
                                             style={{
                                                 cursor: 'pointer',
                                                 maxWidth: '2.5rem',

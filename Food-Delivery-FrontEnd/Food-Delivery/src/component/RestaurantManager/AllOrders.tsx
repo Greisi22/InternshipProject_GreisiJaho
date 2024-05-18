@@ -13,9 +13,9 @@ function AllOrders({ setSpecificOrder, setOrder }: { setSpecificOrder: any; setO
     const [orders, setOrders] = useState<Order[]>([]);
     const [stompClient, setStompClient] = useState<Stomp.Client | null>(null); // Explicitly typed as Stomp.Client | null
 
-    const userDataCookie = Cookies.get('userRestaurant');
-    const userDataObject = userDataCookie ? JSON.parse(userDataCookie) : null;
-    const restaurantId = userDataObject.restaurantId;
+    // const userDataCookie = Cookies.get('userRestaurant');
+    // const userDataObject = userDataCookie ? JSON.parse(userDataCookie) : null;
+    // const restaurantId = userDataObject.restaurantId;
 
     const handleButtonClick = (index: number) => {
         setSelected(index);

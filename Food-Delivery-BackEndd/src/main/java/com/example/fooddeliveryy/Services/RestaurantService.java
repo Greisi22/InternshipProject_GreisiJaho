@@ -34,6 +34,7 @@ public class RestaurantService {
 
          try{
              rastaurant1 = restaurantRepo.save(restaurant);
+             System.out.println("Restorantiiii i daviditttt "+ rastaurant1);
          }catch (Exception e){
              System.out.println("Ka ndodh nje error o nishi: "+ e);
          }

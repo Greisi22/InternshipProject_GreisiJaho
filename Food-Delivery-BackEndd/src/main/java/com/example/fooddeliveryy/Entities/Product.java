@@ -22,22 +22,29 @@ public class Product {
     @Column(nullable = true)
     private int amount;
     @ManyToMany(mappedBy = "products")
-    private List<Menu> menus;
+    private List<Rastaurant> restaurants;
     @ManyToMany(mappedBy = "products")
     private List<Order> ordered;
 
-    //IMAGEEEE
+    private String image;
 
 
     public Product() {}
-    public Product(String name, String description, double price, List<String> ingredients, ProductType category, int amount) {
+
+
+    public Product(long id, String name, String description, double price, List<String> ingredients, ProductType category, int amount, List<Rastaurant> restaurants, List<Order> ordered, String image) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.ingredients = ingredients;
         this.category = category;
         this.amount = amount;
+        this.restaurants = restaurants;
+        this.ordered = ordered;
+        this.image = image;
     }
+
 
     public long getId() {
         return id;
@@ -95,6 +102,30 @@ public class Product {
         this.amount = amount;
     }
 
+    public List<Rastaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(List<Rastaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
+
+    public List<Order> getOrdered() {
+        return ordered;
+    }
+
+    public void setOrdered(List<Order> ordered) {
+        this.ordered = ordered;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -103,8 +134,11 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", ingredients=" + ingredients +
-                ", category='" + category + '\'' +
+                ", category=" + category +
                 ", amount=" + amount +
+                ", restaurants=" + restaurants +
+                ", ordered=" + ordered +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

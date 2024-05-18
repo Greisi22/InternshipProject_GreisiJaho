@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { Product } from 'src/types/Restaurant';
+import { createProduct } from 'src/api/localhost/Product/ProductsApi';
 function ProductForm({
     setNewProductClicked,
     setEditedProduct,
@@ -26,7 +27,7 @@ function ProductForm({
 
     const handleRegister = () => {
         if (isnewProduct) {
-            //thrrasim API create
+            createProduct(specificProduct);
             console.log('1');
         } else {
             //edit api

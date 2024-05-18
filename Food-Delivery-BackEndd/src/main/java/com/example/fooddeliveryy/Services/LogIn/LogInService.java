@@ -26,6 +26,9 @@ public class LogInService {
         System.out.println("User: " + optionalUser);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+            System.out.println("User pass "+ user.getUserPassword());
+            System.out.println(" pass "+ password);
+            System.out.println("is it present "+user.getUserPassword().equals(password) );
             if (user.getUserPassword().equals(password)) {
                 return user;
             } else {

@@ -22,7 +22,7 @@ public class FoodDeliveryyApplication {
                         .allowedOriginPatterns("*") // Allow all origins
                         .allowedMethods("*")
                         .allowedHeaders("*")
-                        .allowCredentials(false)
+                        .allowCredentials(true)
                         .maxAge(3600);
             }
         };

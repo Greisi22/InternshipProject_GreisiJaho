@@ -1,3 +1,4 @@
+import MenuItem from '@mui/joy/MenuItem/MenuItem';
 import { PaymentMethod, UserRole } from 'src/types/Restaurant';
 export const users: User[] = [
     {
@@ -44,6 +45,24 @@ export const restaurants: Restaurant[] = [
                 category: 'Main Course',
                 amount: 1,
                 image: 'cheeseburger.jpg',
+            },
+
+            {
+                id: 1,
+                name: 'Pizza',
+                description: 'A classic cheeseburger with all the trimmings',
+                price: 8.99,
+                ingredients: [
+                    'beef patty',
+                    'cheddar cheese',
+                    'lettuce',
+                    'tomato',
+                    'onion',
+                    'pickles',
+                ],
+                category: 'Main Course',
+                amount: 1,
+                image: 'pizza.jpg',
             },
             // Add more products as needed
         ],
@@ -142,8 +161,14 @@ export const restaurants: Restaurant[] = [
                 amount: 1,
                 image: 'california_roll.jpg',
             },
+
+
+            
             // Add more products as needed
-        ],
+],
+
+
+
         openingHours: ['11:00 AM - 11:00 PM'],
         phoneNumber: '555-5678',
         website: 'http://sushiworld.example.com',
@@ -734,14 +759,12 @@ export const Orders: Order[] = [
     {
         id: 1,
         restaurantId: Restauran[0].id,
-        userId: users[0].userId,
-        productss: products,
+        products: products,
+        orderTime: '273799',
         totalPrice: 21,
         orderStatus: StatusOfOrder.Finished,
-        userEmail: users[0].userEmail,
+        user: users[0],
         description: 'Sufllaqe pa qep',
-        userAdress: 'ish parku i autobusave',
-        userPhoneNumber: 23456,
         paymentMethod: PaymentMethod.Cart,
         orderPrice: 23,
         shippingPrice: 1,
@@ -750,14 +773,12 @@ export const Orders: Order[] = [
     {
         id: 2,
         restaurantId: Restauran[0].id,
-        userId: users[0].userId,
-        productss: products,
+        products: products,
+        orderTime: '273799',
         totalPrice: 21,
         orderStatus: StatusOfOrder.Finished,
-        userEmail: users[0].userEmail,
+        user: users[0],
         description: 'Sufllaqe pa qep',
-        userAdress: 'ish parku i autobusave',
-        userPhoneNumber: 23456,
         paymentMethod: PaymentMethod.Cart,
         orderPrice: 23,
         shippingPrice: 1,
@@ -766,17 +787,18 @@ export const Orders: Order[] = [
     {
         id: 3,
         restaurantId: Restauran[0].id,
-        userId: users[0].userId,
-        productss: products,
+        products: products,
+        orderTime: '273799',
         totalPrice: 21,
         orderStatus: StatusOfOrder.Finished,
-        userEmail: users[0].userEmail,
+        user: users[0],
         description: 'Sufllaqe pa qep',
-        userAdress: 'ish parku i autobusave',
-        userPhoneNumber: 23456,
         paymentMethod: PaymentMethod.Cart,
         orderPrice: 23,
         shippingPrice: 1,
         taxPrice: 1,
     },
 ];
+
+
+

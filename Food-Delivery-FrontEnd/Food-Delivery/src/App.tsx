@@ -15,7 +15,7 @@ import EditRestaurant from './component/Administrator/EditRestaurant';
 
 import RestaurantMenu from './component/Administrator/RestaurantMenu';
 
-import RestaurantForm from './component/Administrator/RestaurantForm';
+import RestaurantForm from './component/RestaurantManager/RestaurantForm';
 
 import ManagerOrdersPage from 'src/pages/RestaurantManager/ManagerOrdersPage';
 import ManagerProductsPage from './pages/RestaurantManager/ManagerProductsPage';
@@ -36,7 +36,8 @@ import { useState } from 'react';
 import ManageSpecificOrderPage from './pages/RestaurantManager/ManageSpecificOrderPage';
 import { Orders } from 'src/data/MockData';
 import RestaurantsEntryPage from './pages/Client/RestaurantsEntryPage';
-
+import Tamporary from './Tamporary';
+import RestaurantDocumentation from './pages/RestaurantManager/RestaurantDocumentation';
 const App = () => {
     const initialOrder: Order = {
         // ... define the initial properties of the Order object here
@@ -83,10 +84,11 @@ const App = () => {
                     element={<ManageSpecificOrderPage order={order} />}
                 />
                 <Route path="/RestaurantManager/Product" element={<ManagerProductsPage />} />
-                <Route path="prova1" element={<UserOrderPage />} />
+                <Route path="/RestaurantManager/RestaurantDocumentation" element={<RestaurantDocumentation />} />
+                <Route path="prova1" element={<Tamporary />} />
                 <Route path="prova2" element={<RestaurantOrderPage />} />
                 <Route path="/Client/FoodGallery" element={<FoodGallery />} />
-                <Route path="/Client/CheckoutPage" element={<CheckoutPage />} />
+                <Route path="/Client/Checkout" element={<CheckoutPage />} />
                 <Route
                     path="/Client/SpecificRestaurant"
                     element={<SpecificRestaurant restaurantData={Restauran[0]} />}

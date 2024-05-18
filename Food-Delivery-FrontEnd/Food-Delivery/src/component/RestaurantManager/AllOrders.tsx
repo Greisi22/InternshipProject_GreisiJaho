@@ -1,6 +1,8 @@
 import { OrderCard } from './OrderCard';
 import { useEffect, useState } from 'react';
-import { retrieveAllOrders } from 'src/api/localhost/Order/OrderApi';
+// import { retrieveAllOrders } from 'src/api/localhost/Order/OrderApi';
+import { Orders } from 'src/data/MockData';
+
 import { Order } from 'src/types/Restaurant';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
@@ -20,7 +22,7 @@ function AllOrders({ setSpecificOrder, setOrder }: { setSpecificOrder: any; setO
     };
 
     const fetchData = async () => {
-        const result = await retrieveAllOrders();
+        const result = Orders;
         console.log('Orders ', result);
         setOrders(result);
     };

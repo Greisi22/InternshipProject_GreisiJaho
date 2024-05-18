@@ -9,14 +9,18 @@ import com.example.fooddeliveryy.Mapping.RestaurantMapper;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import com.example.fooddeliveryy.Repositories.UserRepository;
 import com.example.fooddeliveryy.Services.RestaurantService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,14 +46,13 @@ public class RestaurantController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant, HttpServletRequest request) {
+    public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant, HttpServletRequest request, HttpServletResponse response) {
         System.out.println("Provasvsgdv: " + restaurant);
         Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
         System.out.println("Created restaurant "+createdRestaurant);
 
         String token = CookiesUtil.getTokenFromCookies(request);
         long userId = jwtTokenProvider.getIdFromToken(token);
-
        
         Optional<User> optionalUser = userRepository.findByUserId(userId);
         if (optionalUser.isPresent()) {
@@ -62,6 +65,23 @@ public class RestaurantController {
                 userRepository.update(user);
             }
         }
+
+        String restaurantInfo;
+        try {
+            restaurantInfo = URLEncoder.encode(new ObjectMapper().writeValueAsString(createdRestaurant), StandardCharsets.UTF_8.toString());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null); // Handle encoding exception
+        }
+
+
+        Cookie restaurantCookie = new Cookie("restaurant-info", restaurantInfo);
+        restaurantCookie.setMaxAge(86400); // 1 day
+        restaurantCookie.setSecure(true); // Set to true in production
+        restaurantCookie.setHttpOnly(true);
+        restaurantCookie.setPath("/");
+        restaurantCookie.setDomain("localhost");
+
+        response.addCookie(restaurantCookie);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
     }
 

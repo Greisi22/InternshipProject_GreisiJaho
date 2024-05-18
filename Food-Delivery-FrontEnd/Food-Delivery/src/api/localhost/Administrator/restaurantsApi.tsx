@@ -7,7 +7,12 @@ import { AxiosError } from 'axios';
 export async function retrieveAllRestaurant() {
     try {
         //Creating a variable that will contain the data that we need from the endpoint API
-        const response = await axiosInstance.get<ApiResponse>('/restaurant/get/all');
+        const response = await axiosInstance.get<Restaurant[]>('/restaurant/all', {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true, // to include credentials in the request
+        });
         console.log('Response: ', response);
         return response.data;
     } catch (error) {

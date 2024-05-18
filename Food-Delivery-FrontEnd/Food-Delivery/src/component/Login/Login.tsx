@@ -2,7 +2,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkLogin } from 'src/api/localhost/Login/LoginAPI';
-import { UserRole } from 'src/types/Restaurant';
 import { getRestaurantByUserIt } from 'src/api/localhost/Administrator/restaurantsApi';
 import Cookies from 'js-cookie';
 
@@ -30,7 +29,7 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
 
                 Cookies.set('user', JSON.stringify(result.data.user), { expires: 7 });
 
-                navigate('/Client');
+                navigate('/Client/RestaurantEntry');
             } else if (String(result.data.user.userRole) === 'ROLE_RESTAURANT_MANAGER') {
                 console.log('USERRR ', result.data.user);
                 if (result.data.user.restaurantId == 0) {

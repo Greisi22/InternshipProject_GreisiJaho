@@ -7,7 +7,7 @@ export interface Restaurant {
     phoneNumber?: string;
     website?: string;
     averageRating?: number;
-    isOpen?: boolean;
+    open?: boolean;
     reviews?: Review[];
     images?: string[];
     restaurantManager?: User;
@@ -136,7 +136,7 @@ export interface NavBarProps {
 }
 
 export interface Product {
-    id?: number;
+    id: number;
     name: string;
     description?: string;
     price: number;

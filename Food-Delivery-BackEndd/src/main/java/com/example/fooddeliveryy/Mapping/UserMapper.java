@@ -11,7 +11,7 @@ public interface UserMapper {
 
     @Mapping(source = "userEmail", target = "userEmail")
     @Mapping(source = "userRole", target = "userRole")
-    @Mapping(source = "managedRestaurant.id", target = "restaurantId")
+    @Mapping(source = "managedRestaurant", target = "restaurant")
 
     UserDTO userToUserDTO(User user);
 }

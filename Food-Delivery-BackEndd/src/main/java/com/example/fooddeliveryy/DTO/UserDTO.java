@@ -10,18 +10,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserDTO {
-    public UserRole getUserRole() {
-        return userRole;
-    }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
-    }
 
     private String userEmail;
     private UserRole userRole;
-    private long restaurantId;
-
+    private Rastaurant restaurant;
 
 
     public String getUserEmail() {
@@ -32,11 +25,19 @@ public class UserDTO {
         this.userEmail = userEmail;
     }
 
-    public long getRestaurantId() {
-        return restaurantId;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setRestaurantId(long restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    public Rastaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Rastaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }

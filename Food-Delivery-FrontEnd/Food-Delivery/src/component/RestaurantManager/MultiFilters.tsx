@@ -6,7 +6,8 @@ import { getProductCategoryCache } from 'src/cache/productCache';
 import { Product } from 'src/types/Restaurant';
 import ProductForm from '../Administrator/ProductForm';
 import { deleteProduct } from 'src/api/localhost/Product/ProductsApi';
-import { products } from 'src/data/MockData';
+import { retrieveAllProducts } from 'src/api/localhost/Product/ProductsApi';
+// import { products } from 'src/data/MockData';
 
 function MultiFilters() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -16,7 +17,7 @@ function MultiFilters() {
     const [data, setData] = useState<Product[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('All'); // Track selected category
     const [isEdited, setEditedProduct] = useState(false);
-  
+    const [products, setProducts] = useState<Product[]>([]);
     const [isProductClicked, setNewProductClicked] = useState(false);
 
     const notToBeUndifined : Product = {
@@ -62,6 +63,16 @@ function MultiFilters() {
     const handleNewProduct = () => {
         setNewProductClicked(true);
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const productReceived = await retrieveAllProducts();
+            setProducts(productReceived);
+        };
+    
+        fetchData();
+    }, []);
+    
     return (
         <div className="mt-[30px]">
             {(isEdited || isProductClicked) && (

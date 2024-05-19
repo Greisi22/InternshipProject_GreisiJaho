@@ -15,7 +15,7 @@ export interface Restaurant {
     order?: Order[];
     category?: string[];
     restaurantPayments?: RestaurantPayment[];
-    isApproved?: boolean;
+    aproved?: boolean;
     isActive?: boolean;
     revenue?: Revenue;
     documentation?: Documentation;
@@ -53,7 +53,7 @@ export interface User {
     userEmail?: string;
     userPassword?: string;
     userRole?: UserRole;
-    managedRestaurants?: Restaurant[];
+    restaurant?: Restaurant;
     order?: Order[];
     restaurantId?: number;
     userName?: string;

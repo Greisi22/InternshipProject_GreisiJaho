@@ -3,7 +3,7 @@ import RestaurantForm from 'src/component/RestaurantManager/RestaurantForm';
 
 function RestaurantDocumentation() {
     return (
-        <div>
+        <div >
             <RestaurantForm />
         </div>
     );

@@ -32,25 +32,18 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                 navigate('/Client/RestaurantEntry');
             } else if (String(result.data.user.userRole) === 'ROLE_RESTAURANT_MANAGER') {
                 console.log('USERRR ', result.data.user);
-                if (result.data.user.restaurantId == 0) {
+                if (result.data.user.restaurant == undefined) {
                     navigate('/RestaurantManager/RestaurantDocumentation');
                 } else {
-                    if (result.data.user.userEmail) {
-                        const restaurant = await getRestaurantByUserIt(result.data.user.userEmail);
-                        console.log('Restorantiiii ', restaurant);
-                        Cookies.set('restaurant', JSON.stringify(restaurant), { expires: 7 });
-                        console.log('Jam dysh se nish esht vec davidi');
-                        setLogin(false);
-                        Cookies.set('userRestaurant', JSON.stringify(result.data.user), {
-                            expires: 7,
-                        });
-                        navigate('/RestaurantManager/Dashboard');
+                    console.log('okii ', result.data.user.restaurant);
+                    if (result.data.user.restaurant && !result.data.user.restaurant.aproved) {
+                        navigate('/prova4');
+                    } else {
+                        if (result.data.user.userEmail) {
+                            navigate('/RestaurantManager/Dashboard');
+                        }
                     }
                 }
-
-                // setLogin(false);
-                // Cookies.set('userRestaurant', JSON.stringify(result.data.user), { expires: 7 });
-                // navigate('/RestaurantManager/Dashboard');
             } else {
                 sessionStorage.setItem('userData', JSON.stringify(result.data));
                 setLogin(false);

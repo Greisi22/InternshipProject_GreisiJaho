@@ -1,55 +1,58 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Restaurant } from 'src/types/Restaurant';
 import { createRestaurant } from 'src/api/localhost/Administrator/restaurantsApi';
+import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 
 function RestaurantForm() {
-    const [restaurantName, setRestaurantName] = useState('');
-    const [phoneNumber, setphoneNumber] = useState('');
-    const [website, setWebsite] = useState('');
+    const [restaurantName, setRestaurantName] = useState<string>('');
+    const [address, setRestaurantAddress] = useState<string>('');
+    const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [website, setWebsite] = useState<string>('');
+    const [imageFiles, setImageFiles] = useState<File[]>([]);
+    const [category, setRestaurantCategory] = useState<string>('');
+    const navigate = useNavigate();
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault(); // Prevent default form submission behavior
-        const restaurant: Restaurant = {
-            name: 'D',
-            address: '123 Example Street, Example City',
-            openingHours: [
-                'Monday: 8:00 AM - 8:00 PM',
-                'Tuesday: 8:00 AM - 8:00 PM',
-                'Wednesday: 8:00 AM - 8:00 PM',
-                'Thursday: 8:00 AM - 8:00 PM',
-                'Friday: 8:00 AM - 8:00 PM',
-                'Saturday: 8:00 AM - 8:00 PM',
-                'Sunday: Closed',
-            ],
-            phoneNumber: '+1234567890',
-            website: 'http://www.example.com',
-            averageRating: 4.5,
-            open: true,
-
-            images: ['http://www.example.com/image1.jpg', 'http://www.example.com/image2.jpg'],
-
-            discount: 10,
-
-            category: ['Italian', 'Pizza'],
-
-            isActive: true,
-        };
-        await createRestaurant(restaurant);
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files) {
+            setImageFiles(Array.from(event.target.files));
+        }
     };
 
-    // Function to handle cancel button click
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+
+        const categoryArray = category.split(',').map((cat) => cat.trim());
+
+        const imageUrls = imageFiles.map((file) => URL.createObjectURL(file)); // Placeholder, replace with actual URL handling
+
+        const restaurant: Restaurant = {
+            name: restaurantName,
+            address: address,
+            phoneNumber: phoneNumber,
+            website: website,
+            images: imageUrls,
+            category: categoryArray,
+        };
+
+        await createRestaurant(restaurant);
+        navigate('/prova4');
+    };
+
     const handleCancel = () => {
-        // Resetting state variables to their initial values
         setRestaurantName('');
-        setphoneNumber('');
+        setRestaurantAddress('');
+        setPhoneNumber('');
         setWebsite('');
-        // setServiceOffered('');
+        setImageFiles([]);
+        setRestaurantCategory('');
     };
 
     return (
         <div className="fixed inset-0 flex items-center justify-center backdrop-filter backdrop-blur-lg">
             <form
-                className="max-w-lg mx-auto p-8 bg-gray-100 rounded-lg shadow-md "
+                className="max-w-lg mx-auto p-8 bg-gray-100 rounded-lg shadow-md max-h-[700px] overflow-scroll"
                 onSubmit={handleSubmit}>
                 <h2 className="text-2xl font-bold mb-4 text-center">Restaurant Form</h2>
                 <div className="mb-4">
@@ -68,78 +71,80 @@ function RestaurantForm() {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="email" className="block mb-2 font-medium text-gray-800">
+                    <label htmlFor="phone-number" className="block mb-2 font-medium text-gray-800">
                         Phone Number
                     </label>
                     <input
-                        id="email"
+                        type="text"
+                        id="phone-number"
                         className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="email@domain.com"
+                        placeholder="Phone Number"
                         value={phoneNumber}
-                        onChange={(e) => setphoneNumber(e.target.value)}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                 </div>
                 <div className="mb-4">
-                    <label
-                        htmlFor="years-of-experience"
-                        className="block mb-2 font-medium text-gray-800">
+                    <label htmlFor="website" className="block mb-2 font-medium text-gray-800">
                         Website
                     </label>
                     <input
                         type="text"
-                        id="years-of-experience"
+                        id="website"
                         className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="www.example.com"
+                        placeholder="Website"
                         value={website}
                         onChange={(e) => setWebsite(e.target.value)}
                     />
                 </div>
-                {/* <div className="mb-4">
-                    <label htmlFor="service-offered" className="block mb-2 font-medium text-gray-800">
-                        Service Offered
+                <div className="mb-4">
+                    <label htmlFor="address" className="block mb-2 font-medium text-gray-800">
+                        Address
                     </label>
-                    <div className="relative">
-                        <select
-                            id="service-offered"
-                            value={serviceOffered}
-                            onChange={(e) => setServiceOffered(e.target.value)}
-                            className="appearance-none w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
-                            <option value="" disabled selected>
-                                Select Food Kind
-                            </option>
-                            <option value="Italian">Italian</option>
-                            <option value="Mexican">Mexican</option>
-                            <option value="Japanese">Japanese</option>
-                            <option value="Indian">Indian</option>
-                          
-                        </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                            <svg
-                                className="w-5 h-5 text-gray-700 pointer-events-none"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M10 12a1 1 0 01-.707-.293l-4-4a1 1 0 111.414-1.414L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4A1 1 0 0110 12z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
-                        </div>
+                    <input
+                        type="text"
+                        id="address"
+                        className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Address"
+                        value={address}
+                        onChange={(e) => setRestaurantAddress(e.target.value)}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="category" className="block mb-2 font-medium text-gray-800">
+                        Category
+                    </label>
+                    <input
+                        type="text"
+                        id="category"
+                        className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter categories separated by commas"
+                        value={category}
+                        onChange={(e) => setRestaurantCategory(e.target.value)}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="image" className="block mb-2 font-medium text-gray-800">
+                        Images
+                    </label>
+                    <div className="flex justify-between items-center space-x-2">
+                        <div>{imageFiles.at(0)?.name}</div>
+                        <input
+                            type="file"
+                            id="upload-image"
+                            style={{ display: 'none' }}
+                            onChange={handleImageChange}
+                            multiple
+                        />
+                        <label htmlFor="upload-image">
+                            <IconButton component="span">
+                                <CloudUploadIcon />
+                            </IconButton>
+                        </label>
                     </div>
-                </div> */}
-                <button
-                    // onClick={() => {
-                    //     handleSubmit();
-                    // }}
-
-                    className="w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">
+                </div>
+                <button className="w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">
                     Submit
                 </button>
-                {/* Cancel button */}
                 <button
                     type="button"
                     onClick={handleCancel}

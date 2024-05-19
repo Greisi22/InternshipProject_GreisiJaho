@@ -36,6 +36,7 @@ import ManageSpecificOrderPage from './pages/RestaurantManager/ManageSpecificOrd
 import RestaurantsEntryPage from './pages/Client/RestaurantsEntryPage';
 import Tamporary from './Tamporary';
 import RestaurantDocumentation from './pages/RestaurantManager/RestaurantDocumentation';
+import Alert from './component/General/Alert';
 
 const App = () => {
     const initialOrder: Order = {};
@@ -101,6 +102,10 @@ const App = () => {
                 <Route
                     path="/Client/RestaurantEntry"
                     element={<RestaurantsEntryPage setRestaurant={setRestaurant} />}
+                />
+                <Route
+                    path="prova4"
+                    element={<Alert title={'provaTitle'} message={'provaMess'} />}
                 />
             </Routes>
         </>

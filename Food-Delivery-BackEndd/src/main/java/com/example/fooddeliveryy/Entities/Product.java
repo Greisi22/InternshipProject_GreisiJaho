@@ -26,6 +26,7 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private List<Order> ordered;
 
+    @Column(nullable = true)
     private String image;
 
 

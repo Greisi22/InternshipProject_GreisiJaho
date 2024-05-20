@@ -6,14 +6,20 @@ import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Repositories.ProductRepository;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import com.example.fooddeliveryy.Services.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -34,7 +40,7 @@ public class ProductController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<?> createProduct(@RequestBody Product productReceived, HttpServletRequest request) {
+    public ResponseEntity<?> createProduct(@RequestBody Product productReceived, HttpServletRequest request, HttpServletResponse response) {
         System.out.println("Produkti eshte ky: " + productReceived);
 
         // Retrieve the restaurant information from the cookie
@@ -48,6 +54,7 @@ public class ProductController {
                         restaurant = new ObjectMapper().readValue(restaurantJson, Rastaurant.class);
                         System.out.println("Restaurant from cookie: " + restaurant);
                     } catch (Exception e) {
+                        e.printStackTrace();
                         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to parse restaurant information from cookie");
                     }
                     break;
@@ -76,8 +83,35 @@ public class ProductController {
         // Save the restaurant to update the relationship
         restaurantRepo.save(restaurant);
 
-        return ResponseEntity.ok(productReceived);
+        // Update the cookie with the latest restaurant information
+        try {
+
+            String updatedRestaurantJson = new ObjectMapper().writeValueAsString(restaurant);
+            System.out.println("Restaurant : " + restaurant);
+            System.out.println("Serialized Restaurant JSON: " + updatedRestaurantJson);
+
+            String encodedRestaurantJson = URLEncoder.encode(updatedRestaurantJson, StandardCharsets.UTF_8.toString());
+            System.out.println("Encoded Restaurant JSON: " + encodedRestaurantJson);
+
+            Cookie updatedCookie = new Cookie("restaurant-info", encodedRestaurantJson);
+            updatedCookie.setPath("/");
+            updatedCookie.setHttpOnly(true);
+            updatedCookie.setMaxAge(60 * 60 * 24); // 1 day, adjust as necessary
+            response.addCookie(updatedCookie);
+
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update restaurant information in cookie");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+        // Return the updated restaurant object in the response
+        return ResponseEntity.ok(restaurant);
     }
+
 
     @PostMapping("/createprodcut")
     public ResponseEntity<?> createProduct1(@RequestBody Product productReceived){
@@ -110,9 +144,31 @@ public class ProductController {
 
 
     @GetMapping("/get/all")
-    public ResponseEntity<?> getAllProduct() {
+    public ResponseEntity<?> getAllProduct(HttpServletRequest request) {
         List<Product> product = productService.getAllProducts();
-        System.out.println("products: " + product);
+        Rastaurant  restaurant = null;
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                System.out.println("Cookie: " + cookie);
+                if ("restaurant-info".equals(cookie.getName())) {
+                    try {
+                        String restaurantJson = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8.toString());
+                        restaurant = new ObjectMapper().readValue(restaurantJson, Rastaurant.class);
+                        System.out.println("Restaurant from cookie: " + restaurant);
+                    } catch (Exception e) {
+                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to parse restaurant information from cookie");
+                    }
+                    break;
+                }
+            }
+        }
+
+        if (restaurant != null) {
+            System.out.println("Restaurant products: " + restaurant.getProducts());
+        }
+
         if (product != null) {
             return ResponseEntity.ok(product);
         } else {

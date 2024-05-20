@@ -88,7 +88,9 @@ public class RestaurantController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Rastaurant> getRestaurantById(@PathVariable long id) {
+        System.out.println("okokooookok");
         Rastaurant restaurant = restaurantService.getRestaurantById(id);
+        System.out.println("Restoranti qe duhet par " + restaurant);
         return ResponseEntity.ok().body(restaurant);
     }
 

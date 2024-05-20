@@ -16,6 +16,8 @@ public interface RestaurantMapper {
     @Mapping(source = "images", target = "images")
     @Mapping(source = "discount", target = "discount")
     @Mapping(source = "category", target = "category")
+    @Mapping(source = "products", target = "products")
+
     @Named("approvedRestaurant")
     RestaurantDTO mapToApprovedRestaurantDTO(Rastaurant restaurant);
 
@@ -23,6 +25,7 @@ public interface RestaurantMapper {
     @Mapping(source = "name", target = "name")
     @Mapping(source = "discount", target = "discount")
     @Mapping(target = "category", ignore = true) // Exclude category attribute
+    @Mapping(source = "products", target = "products")
     RestaurantDTO mapToNotApprovedRestaurantDTO(Rastaurant restaurant);
 
     default List<RestaurantDTO> mapToApprovedRestaurantDTOs(List<Rastaurant> restaurants) {

@@ -6,36 +6,26 @@ import { getProductCategoryCache } from 'src/cache/productCache';
 import { Product } from 'src/types/Restaurant';
 import ProductForm from '../Administrator/ProductForm';
 import { deleteProduct } from 'src/api/localhost/Product/ProductsApi';
-import { retrieveAllProducts } from 'src/api/localhost/Product/ProductsApi';
-// import { products } from 'src/data/MockData';
 
 function MultiFilters() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(7);
     const [selectedArray, setSelectedArray] = useState<number[]>([]);
-    const [loading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [data, setData] = useState<Product[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('All'); // Track selected category
     const [isEdited, setEditedProduct] = useState(false);
-    const [products, setProducts] = useState<Product[]>([]);
     const [isProductClicked, setNewProductClicked] = useState(false);
-
-    const notToBeUndifined : Product = {
-        id: -1,
-        name: "",
-        price: 12,
-        ingredients: [""],
-        category: "",
-        image: ""
-    }
-    const [specificProduct, setSpecificProduct] = useState<Product>(notToBeUndifined);
+    const [specificProduct, setSpecificProduct] = useState<Product>();
 
     const categories = ['All', 'Food', 'Drink', 'Pasta', 'Soup']; // Define categories
 
     useEffect(() => {
         const fetchDataAndUpdateData = async () => {
+            setLoading(true);
             const categoryData = await getProductCategoryCache(selectedCategory);
             setData(categoryData);
+            setLoading(false);
         };
         fetchDataAndUpdateData();
     }, [selectedCategory]);
@@ -61,26 +51,24 @@ function MultiFilters() {
     };
 
     const handleNewProduct = () => {
+        setSpecificProduct(undefined);
         setNewProductClicked(true);
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const productReceived = await retrieveAllProducts();
-            setProducts(productReceived);
-        };
-    
-        fetchData();
-    }, []);
-    
+    const paginatedData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
     return (
         <div className="mt-[30px]">
             {(isEdited || isProductClicked) && (
                 <div className="absolute h-full  w-full  z-[100] mt-[-30px]">
-                    <ProductForm setNewProductClicked={setNewProductClicked} setEditedProduct={setEditedProduct}  specificProduct={specificProduct}/>
+                    <ProductForm
+                        setNewProductClicked={setNewProductClicked}
+                        setEditedProduct={setEditedProduct}
+                        specificProduct={specificProduct}
+                    />
                 </div>
             )}
-          
+
             <div className="flex justify-between w-[95%] ">
                 <div className="flex space-x-4 mb-4">
                     {categories.map((category) => (
@@ -122,8 +110,8 @@ function MultiFilters() {
                     </thead>
                     {/* Table Body */}
                     <tbody>
-                        {loading === false ? (
-                            products.map((product, index) => (
+                        {!loading ? (
+                            paginatedData.map((product, index) => (
                                 <tr
                                     key={product.id}
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -131,18 +119,32 @@ function MultiFilters() {
                                     <td className="w-4 p-4">
                                         <div className="flex items-center whitespace-nowrap">
                                             <input
-                                                defaultChecked={selectedArray.includes(product.id)}
+                                                defaultChecked={selectedArray.includes(
+                                                    product.id != undefined ? product.id : -1,
+                                                )}
                                                 onChange={() => {
                                                     const updatedSelectedArray = [...selectedArray];
-                                                    if (updatedSelectedArray.includes(product.id)) {
+                                                    if (
+                                                        updatedSelectedArray.includes(
+                                                            product.id != undefined
+                                                                ? product.id
+                                                                : -1,
+                                                        )
+                                                    ) {
                                                         updatedSelectedArray.splice(
                                                             updatedSelectedArray.indexOf(
-                                                                product.id,
+                                                                product.id != undefined
+                                                                    ? product.id
+                                                                    : -1,
                                                             ),
                                                             1,
                                                         );
                                                     } else {
-                                                        updatedSelectedArray.push(product.id);
+                                                        updatedSelectedArray.push(
+                                                            product.id != undefined
+                                                                ? product.id
+                                                                : -1,
+                                                        );
                                                     }
                                                     setSelectedArray(updatedSelectedArray);
                                                 }}
@@ -189,7 +191,11 @@ function MultiFilters() {
                                         {/* Delete Button */}
                                         <Delete
                                             className="icon text-red-500"
-                                            onClick={() => handleDelete(product.id)}
+                                            onClick={() =>
+                                                handleDelete(
+                                                    product.id != undefined ? product.id : -1,
+                                                )
+                                            }
                                             style={{
                                                 cursor: 'pointer',
                                                 maxWidth: '2.5rem',

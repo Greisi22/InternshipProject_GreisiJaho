@@ -3,7 +3,12 @@ import { Product } from 'src/types/Restaurant';
 
 export async function retrieveAllProducts() {
     try {
-        const response = await axiosInstance.get<Product[]>('/product/get/all');
+        const response = await axiosInstance.get<Product[]>('/product/get/all', {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+        });
         console.log('Response: ', response);
         return response.data;
     } catch (error) {

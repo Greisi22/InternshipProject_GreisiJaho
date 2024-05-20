@@ -46,7 +46,7 @@ public class Rastaurant {
 
     private int discount;
     @OneToMany(mappedBy = "restaurant")
-    @JsonBackReference("orderBackReference")
+    @JsonBackReference(value = "restaurant-order")
     private List<Order> order;
     private List<String> category;
 
@@ -275,7 +275,7 @@ public class Rastaurant {
                 ", images=" + images +
                 ", restaurantManagers=" + restaurantManagers +
                 ", discount=" + discount +
-                ", order=" + order +
+                ", order=" +(order != null ? order.stream().map(Order::getId).collect(Collectors.toList()) : null) +
                 ", category=" + category +
                 ", restaurantPayments=" + restaurantPayments +
                 ", isAproved=" + isAproved +

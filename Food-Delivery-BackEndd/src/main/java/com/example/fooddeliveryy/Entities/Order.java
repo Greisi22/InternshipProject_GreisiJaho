@@ -39,10 +39,13 @@ public class Order {
     private double orderPrice;
     private final double shippingPrice = 1;
     private final double taxPrice = 1;
+    private String phoneNumber;
 
     public Order(){}
 
-    public Order(long id, Rastaurant restaurant, List<Product> products, LocalDateTime orderTime, double totalPrice, User user, StatusOfOrder orderStatus, String description, PaymentMethod paymentMethod, double orderPrice) {
+    public Order(long id, Rastaurant restaurant, List<Product> products, LocalDateTime orderTime,
+                 double totalPrice, User user, StatusOfOrder orderStatus, String description,
+                 PaymentMethod paymentMethod, double orderPrice, String phoneNumber) {
         this.id = id;
         this.restaurant = restaurant;
         this.products = products;
@@ -53,6 +56,7 @@ public class Order {
         this.description = description;
         this.paymentMethod = paymentMethod;
         this.orderPrice = orderPrice;
+        this.phoneNumber = phoneNumber;
 
     }
 
@@ -148,7 +152,13 @@ public class Order {
     }
 
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     @Override
     public String toString() {
@@ -165,6 +175,7 @@ public class Order {
                 ", orderPrice=" + orderPrice +
                 ", shippingPrice=" + shippingPrice +
                 ", taxPrice=" + taxPrice +
+                ", phoneNumber=" + phoneNumber+
                 '}';
     }
 }

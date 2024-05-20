@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { Order, Product, Restaurant } from 'src/types/Restaurant';
+import OrderWebSocket from 'src/websocket/OrderWebSocket';
 
 interface CartItem {
     name: string;
@@ -16,6 +17,14 @@ const CheckoutPage: React.FC = () => {
     const [cart, setCart] = useState<{ [key: string]: CartItem }>({});
     const [total, setTotal] = useState(0);
 
+    const getRestaurant = (): Restaurant | null => {
+        const restaurant = localStorage.getItem('CurrentRestaurant');
+        if (restaurant != null) {
+            console.log('Na u ca menerja ', JSON.parse(restaurant));
+            return JSON.parse(restaurant) as Restaurant;
+        }
+        return null;
+    };
     useEffect(() => {
         const state = location.state as { cart: { [key: string]: CartItem }; total: number };
         if (state && state.cart && state.total !== undefined) {
@@ -29,7 +38,32 @@ const CheckoutPage: React.FC = () => {
     const [paymentMethod, setPaymentMethod] = useState('cash');
 
     const goBack = () => {
-        navigate('/Client/FoodGallery');
+        navigate('/Client/SpecificRestaurant');
+    };
+
+    const handleOrderDone = () => {
+        const productt = localStorage.getItem('ProductItem');
+        let product: Product[] = [
+            {
+                name: '',
+                price: -1,
+                ingredients: [],
+                category: '',
+                image: '',
+            },
+        ];
+        if (productt != null) {
+            product = JSON.parse(productt);
+        }
+        const order: Order = {
+            restaurantId: getRestaurant()?.id,
+            products: product,
+            orderTime: new Date().toISOString(),
+            totalPrice: total,
+            description: 'string',
+        };
+        OrderWebSocket(order);
+        console.log('Orderiiiii ', order);
     };
 
     return (
@@ -54,8 +88,7 @@ const CheckoutPage: React.FC = () => {
                         <select
                             value={phonePrefix}
                             onChange={(e) => setPhonePrefix(e.target.value)}
-                            className="border border-gray-300 p-3 rounded-l"
-                        >
+                            className="border border-gray-300 p-3 rounded-l">
                             <option value="+355">+355</option>
                             <option value="+1">+1</option>
                             <option value="+44">+44</option>
@@ -69,22 +102,7 @@ const CheckoutPage: React.FC = () => {
                             className="w-full p-3 border border-gray-300 rounded-r"
                         />
                     </div>
-                    <div className="flex items-center mb-4 relative">
-                        <FaEnvelope className="absolute left-3 text-gray-500" />
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            className="w-full p-3 pl-10 border border-gray-300 rounded"
-                        />
-                    </div>
-                    <div className="flex items-center mb-4 relative">
-                        <FaLock className="absolute left-3 text-gray-500" />
-                        <input
-                            type="password"
-                            placeholder="Fjalëkalimi"
-                            className="w-full p-3 pl-10 border border-gray-300 rounded"
-                        />
-                    </div>
+
                     <h2 className="text-2xl mb-4">Menyra Pageses</h2>
                     <div className="mb-4">
                         <label className="mr-4">
@@ -108,8 +126,7 @@ const CheckoutPage: React.FC = () => {
                     </div>
                     <button
                         className="w-1/2 px-4 py-2 bg-green-500 text-white rounded-lg"
-                        onClick={goBack}
-                    >
+                        onClick={goBack}>
                         Kthehu te porosia
                     </button>
                 </div>
@@ -117,7 +134,11 @@ const CheckoutPage: React.FC = () => {
                     <h2 className="text-2xl mb-4">Porosia jote</h2>
                     {Object.values(cart).map((item: CartItem) => (
                         <div key={item.name} className="flex items-center mb-4">
-                            <img src={item.image} alt={item.name} className="w-20 h-20 rounded-lg object-cover" />
+                            <img
+                                src={item.image}
+                                alt={item.name}
+                                className="w-20 h-20 rounded-lg object-cover"
+                            />
                             <div className="ml-4">
                                 <h3 className="text-xl">{item.name}</h3>
                                 <p className="text-gray-600">{item.description}</p>
@@ -132,8 +153,11 @@ const CheckoutPage: React.FC = () => {
                     </div>
                     <button
                         className="w-full px-4 py-2 bg-green-500 text-white rounded-lg mt-4"
-                        onClick={() => alert('Porosia u krye!')}
-                    >
+                        onClick={() => {
+                            alert('Porosia u krye!');
+
+                            handleOrderDone();
+                        }}>
                         Kryej porosinë
                     </button>
                 </div>

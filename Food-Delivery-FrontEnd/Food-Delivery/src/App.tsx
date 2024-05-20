@@ -41,11 +41,8 @@ import Alert from './component/General/Alert';
 const App = () => {
     const initialOrder: Order = {};
 
-    const initialRestaurant: Restaurant = {};
-
     const [isSpecificOrder, setSpecificOrder] = useState(false);
     const [order, setOrder] = useState<Order>(initialOrder);
-    const [restaurantt, setRestaurant] = useState<Restaurant>(initialRestaurant);
 
     return (
         <>
@@ -95,14 +92,8 @@ const App = () => {
                 <Route path="prova2" element={<RestaurantOrderPage />} />
                 <Route path="/Client/FoodGallery" element={<FoodGallery />} />
                 <Route path="/Client/Checkout" element={<CheckoutPage />} />
-                <Route
-                    path="/Client/SpecificRestaurant"
-                    element={<SpecificRestaurant restaurantData={restaurantt} />}
-                />
-                <Route
-                    path="/Client/RestaurantEntry"
-                    element={<RestaurantsEntryPage setRestaurant={setRestaurant} />}
-                />
+                <Route path="/Client/SpecificRestaurant" element={<SpecificRestaurant />} />
+                <Route path="/Client/RestaurantEntry" element={<RestaurantsEntryPage />} />
                 <Route
                     path="prova4"
                     element={<Alert title={'provaTitle'} message={'provaMess'} />}

@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Restaurant } from 'src/types/Restaurant';
 import { retrieveAllRestaurant } from 'src/api/localhost/Administrator/restaurantsApi';
 
-function RestaurantsEntryPage({ setRestaurant }: { setRestaurant: any }) {
+function RestaurantsEntryPage() {
     const [allRestaurants, setAllRestaurants] = useState<Restaurant[]>();
     const navigate = useNavigate();
 
     const handleRestaurantClick = (restaurant: Restaurant) => {
-        setRestaurant(restaurant);
-        console.log('Restorant nidhi david keci ', restaurant);
+        localStorage.setItem('CurrentRestaurant', JSON.stringify(restaurant));
+
         navigate('/Client/SpecificRestaurant');
     };
 

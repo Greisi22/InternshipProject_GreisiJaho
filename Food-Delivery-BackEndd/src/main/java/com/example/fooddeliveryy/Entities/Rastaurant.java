@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "restaurant")
@@ -19,13 +20,15 @@ public class Rastaurant {
 
     private String address;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonBackReference("restaurant-products")
+
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
+            name = "restaurant_product",
             joinColumns = @JoinColumn(name = "restaurant_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
+
     private List<String> openingHours;
     private String phoneNumber;
     private String website;
@@ -262,7 +265,7 @@ public class Rastaurant {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
-                ", products=" + products +
+                ", products=" + (products != null ? products.stream().map(Product::getId).collect(Collectors.toList()) : null) +
                 ", openingHours=" + openingHours +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", website='" + website + '\'' +

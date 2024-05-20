@@ -1,17 +1,22 @@
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import { Order, Restaurant } from 'src/types/Restaurant';
 
-function OrderWebSocket(
-    products: any,
-    orderTime: any,
-    orderStatus: any,
-    usedId: any,
-    restorantId: any,
-) {
-    console.log("here")
-    const restaurantId = 1; // Hardcoded restaurant ID
+function OrderWebSocket(order: Order) {
+    console.log('here');
+    const restaurant = localStorage.getItem('CurrentRestaurant'); // Hardcoded restaurant ID
     let orders = [];
     let stompClient: any = null;
+    let restaurantId: number = -1;
+
+    if (restaurant != null) {
+        const restaurantt: Restaurant = JSON.parse(restaurant);
+        if (restaurantt.id != undefined) {
+            restaurantId = restaurantt.id;
+        }
+    }
+
+    console.log('ID RESTORANTIT ', restaurantId);
 
     const connectToWebSocket = (onConnect: any) => {
         const socketUrl = 'http://localhost:8080/ws'; // Replace with your WebSocket endpoint
@@ -34,16 +39,6 @@ function OrderWebSocket(
 
     const placeOrder = () => {
         if (stompClient) {
-            const order = {
-                products: products,
-                orderTime: orderTime,
-                user: {
-                    userId: 1,
-                },
-                restaurant: {
-                    id: 1,
-                },
-            };
             stompClient.send(`/app/orders`, {}, JSON.stringify(order));
         }
     };

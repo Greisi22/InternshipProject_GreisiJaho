@@ -7,6 +7,7 @@ import { Order } from 'src/types/Restaurant';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import Cookies from 'js-cookie';
+import { retrieveAllOrders } from 'src/api/localhost/Order/OrderApi';
 
 function AllOrders({ setSpecificOrder, setOrder }: { setSpecificOrder: any; setOrder: any }) {
     const [selected, setSelected] = useState(5);
@@ -22,7 +23,7 @@ function AllOrders({ setSpecificOrder, setOrder }: { setSpecificOrder: any; setO
     };
 
     const fetchData = async () => {
-        const result = Orders;
+        const result = await retrieveAllOrders();
         console.log('Orders ', result);
         setOrders(result);
     };
@@ -39,7 +40,7 @@ function AllOrders({ setSpecificOrder, setOrder }: { setSpecificOrder: any; setO
             console.log('Connected to WebSocket');
             setStompClient(stomp);
 
-            stomp.subscribe(`/topic/restaurant-${restaurantId}-orders`, (message) => {
+            stomp.subscribe(`/topic/restaurant-${1}-orders`, (message) => {
                 const newOrder = JSON.parse(message.body);
                 setOrders((prevOrders) => [...(prevOrders ?? []), newOrder]);
             });

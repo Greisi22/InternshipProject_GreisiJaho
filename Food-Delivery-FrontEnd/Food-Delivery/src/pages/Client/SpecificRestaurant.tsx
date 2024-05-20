@@ -1,5 +1,5 @@
 import { Restaurant } from 'src/types/Restaurant';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface CartItem {
@@ -10,14 +10,31 @@ interface CartItem {
     quantity: number;
 }
 
-function SpecificRestaurant({ restaurantData }: { restaurantData: Restaurant }) {
-    console.log('Restaurant Data  ', restaurantData);
+function SpecificRestaurant() {
     const navigate = useNavigate();
     const [cart, setCart] = useState<{ [key: string]: CartItem }>({});
     const [total, setTotal] = useState(0);
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const [restaurantData, setRestaurantData] = useState<Restaurant>();
+
+    useEffect(() => {
+        const restaurant = localStorage.getItem('CurrentRestaurant');
+        if (restaurant != null) {
+            console.log('Na u ca menerja ', JSON.parse(restaurant));
+            setRestaurantData(JSON.parse(restaurant));
+        }
+    }, []);
 
     const addToCart = (item: any) => {
+        const productt = localStorage.getItem('ProductItem');
+        let existingCartItems = []; // Initialize as empty array by default
+        if (productt != null) {
+            existingCartItems = JSON.parse(productt);
+        }
+
+        const updatedCartItems = [...existingCartItems, item];
+        localStorage.setItem('ProductItem', JSON.stringify(updatedCartItems));
+
         setCart((prevCart) => {
             const newCart = { ...prevCart };
             if (newCart[item.name]) {
@@ -98,7 +115,7 @@ function SpecificRestaurant({ restaurantData }: { restaurantData: Restaurant }) 
                                 </button>
                             </div>
                             <h2 className="text-2xl mb-4">Menu Items</h2>
-                            {restaurantData.products &&
+                            {restaurantData?.products &&
                                 restaurantData.products.map(
                                     (item) =>
                                         (selectedCategory === 'All' ||

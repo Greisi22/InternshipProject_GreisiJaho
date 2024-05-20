@@ -24,7 +24,7 @@ public class OrderControllerr {
 
         String notification = "New order received: Order ID " + order.getId() + " from User ID " + order;
         System.out.println("Notification: "+ notification);
-        messagingTemplate.convertAndSend("/topic/restaurant-" + restaurantId + "-orders", order);
+        messagingTemplate.convertAndSend("/topic/restaurant-" + 1 + "-orders", order);
 
 
         return ResponseEntity.ok().build();

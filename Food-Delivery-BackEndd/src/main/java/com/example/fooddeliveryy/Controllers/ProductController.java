@@ -80,6 +80,10 @@ public class ProductController {
         return ResponseEntity.ok(productReceived);
     }
 
+    @PostMapping("/createprodcut")
+    public ResponseEntity<?> createProduct1(@RequestBody Product productReceived){
+        return ResponseEntity.ok(productRepository.save(productReceived));
+    }
 
     @GetMapping("/getProductById/{productId}")
     public ResponseEntity<?> getProduct(@PathVariable long productId) {
@@ -116,6 +120,17 @@ public class ProductController {
         }
     }
 
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateProduct1(@RequestBody Product productReceived) {
+//        Product product = productService.updateProduct(productReceived);
+        Product product = productRepository.save(productReceived);
+        if (product != null) {
+            return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PutMapping("/update/{productId}")
     public ResponseEntity<?> updateProduct(@PathVariable long productId, @RequestBody Product productReceived) {

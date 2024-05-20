@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -113,6 +112,7 @@ public class ProductController {
     @GetMapping("/get/all")
     public ResponseEntity<?> getAllProduct() {
         List<Product> product = productService.getAllProducts();
+        System.out.println("products: " + product);
         if (product != null) {
             return ResponseEntity.ok(product);
         } else {

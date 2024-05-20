@@ -1,7 +1,9 @@
 package com.example.fooddeliveryy.Entities;
 
 import com.example.fooddeliveryy.Entities.Enums.ProductType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -22,6 +24,7 @@ public class Product {
     @Column(nullable = true)
     private int amount;
     @ManyToMany(mappedBy = "products")
+    @JsonBackReference("restaurants")
     private List<Rastaurant> restaurants;
     @ManyToMany(mappedBy = "products")
     private List<Order> ordered;

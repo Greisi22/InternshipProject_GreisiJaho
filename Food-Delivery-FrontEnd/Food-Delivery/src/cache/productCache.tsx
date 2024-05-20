@@ -17,8 +17,9 @@ async function putProductCache() {
     return ProductCache;
 }
 
-export async function getProductCategoryCache(category: string) {
-    if (allProducts.length == 0) {
+export async function getProductCategoryCache(category: string, updateCashe: boolean) {
+    if (allProducts.length == 0 || updateCashe) {
+        console.log('hereee');
         await putProductCache();
     }
 

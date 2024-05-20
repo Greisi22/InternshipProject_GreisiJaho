@@ -11,8 +11,7 @@ interface CartItem {
 }
 
 function SpecificRestaurant({ restaurantData }: { restaurantData: Restaurant }) {
-    
-
+    console.log('Restaurant Data  ', restaurantData);
     const navigate = useNavigate();
     const [cart, setCart] = useState<{ [key: string]: CartItem }>({});
     const [total, setTotal] = useState(0);

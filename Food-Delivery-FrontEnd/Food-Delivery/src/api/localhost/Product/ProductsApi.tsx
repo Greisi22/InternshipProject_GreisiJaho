@@ -34,9 +34,14 @@ export async function revtrieveSpecificProduct(id: number) {
     }
 }
 
-export async function updateProduct(id: number) {
+export async function updateProduct(product: Product) {
     try {
-        const response = await axiosInstance.put<ApiResponse>(`/product/update/${id}`);
+        const response = await axiosInstance.put<ApiResponse>(`/product/update`, product, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+        });
         console.log('Response: ', response);
         return response.data;
     } catch (error) {

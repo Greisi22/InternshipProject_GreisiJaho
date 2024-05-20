@@ -5,7 +5,7 @@ import pizzaImage from 'src/assets/pizzaa.png'; // Corrected image import path
 import { getProductCategoryCache } from 'src/cache/productCache';
 import { Product } from 'src/types/Restaurant';
 import ProductForm from '../Administrator/ProductForm';
-import { deleteProduct } from 'src/api/localhost/Product/ProductsApi';
+import { deleteProduct, retrieveAllProducts } from 'src/api/localhost/Product/ProductsApi';
 
 function MultiFilters() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -17,16 +17,19 @@ function MultiFilters() {
     const [isEdited, setEditedProduct] = useState(false);
     const [isProductClicked, setNewProductClicked] = useState(false);
     const [specificProduct, setSpecificProduct] = useState<Product>();
-
+    const [updateCashe, setUpdatesCashe] = useState(false);
     const categories = ['All', 'Food', 'Drink', 'Pasta', 'Soup']; // Define categories
 
+    const fetchDataAndUpdateData = async () => {
+        setLoading(true);
+
+        const categoryData = await getProductCategoryCache(selectedCategory, updateCashe);
+        console.log('Fetchhhh ', data);
+        setData(categoryData);
+        setLoading(false);
+    };
+
     useEffect(() => {
-        const fetchDataAndUpdateData = async () => {
-            setLoading(true);
-            const categoryData = await getProductCategoryCache(selectedCategory);
-            setData(categoryData);
-            setLoading(false);
-        };
         fetchDataAndUpdateData();
     }, [selectedCategory]);
 
@@ -34,6 +37,19 @@ function MultiFilters() {
         setSelectedCategory(category);
         setCurrentPage(1);
     };
+
+    const fetchDatFromDb = async () => {
+        setLoading(true);
+        const categoryData = await retrieveAllProducts();
+        setData(categoryData);
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        if (isEdited == false && isProductClicked == false) {
+            fetchDatFromDb();
+        }
+    }, [isEdited, isProductClicked]);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);

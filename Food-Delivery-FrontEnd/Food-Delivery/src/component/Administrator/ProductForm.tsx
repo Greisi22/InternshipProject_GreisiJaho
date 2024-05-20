@@ -60,6 +60,7 @@ function ProductForm({
                 category: category,
             };
             await updateProduct(productData);
+            
             console.log('2');
         }
         handleCancel();

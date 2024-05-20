@@ -20,7 +20,7 @@ public class Rastaurant {
     private String address;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonBackReference("products")
+    @JsonBackReference("restaurant-products")
     @JoinTable(
             joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
@@ -262,7 +262,7 @@ public class Rastaurant {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
-
+                ", products=" + products +
                 ", openingHours=" + openingHours +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", website='" + website + '\'' +

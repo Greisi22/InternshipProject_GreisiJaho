@@ -24,9 +24,10 @@ public class Product {
     @Column(nullable = true)
     private int amount;
     @ManyToMany(mappedBy = "products")
-    @JsonBackReference
+    @JsonBackReference(value = "restaurant-products")
     private List<Rastaurant> restaurants;
     @ManyToMany(mappedBy = "products")
+    @JsonBackReference(value = "order-products")
     private List<Order> ordered;
 
     @Column(nullable = true)

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "order")
@@ -20,7 +21,7 @@ public class Order {
     @JoinColumn(name = "restaurant_id")
     private Rastaurant restaurant;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "order_product",
             joinColumns = @JoinColumn(name = "order_id"),
@@ -154,7 +155,7 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", restaurant=" + restaurant +
-                ", products=" + products +
+                ", products=" +  (products != null ? products.stream().map(Product::getId).collect(Collectors.toList()) : null)+
                 ", orderTime=" + orderTime +
                 ", totalPrice=" + totalPrice +
                 ", user=" + user +

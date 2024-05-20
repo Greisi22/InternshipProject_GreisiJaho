@@ -25,7 +25,6 @@ import ManagerDashboardPage from './pages/RestaurantManager/ManagerDashboardPage
 import UserOrderPage from './websocket/UserOrderPage';
 import RestaurantOrderPage from './websocket/RestaurantOrderPage';
 import AllOrders from './component/RestaurantManager/AllOrders';
-
 import SpecificRestaurant from './pages/Client/SpecificRestaurant';
 import { Restauran } from 'src/data/MockData';
 import FoodGallery from './component/Client/FoodGallery';

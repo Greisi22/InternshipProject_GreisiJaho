@@ -74,7 +74,7 @@ export enum PaymentMethod {
 
 export interface Order {
     id?: number;
-    restaurantId?: number;
+    restaurant?: Restaurant;
     products?: Product[];
     orderTime?: string;
     totalPrice?: number;

@@ -21,7 +21,7 @@ public class Order {
     @JoinColumn(name = "restaurant_id")
     private Rastaurant restaurant;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     @JoinTable(
             name = "order_product",
             joinColumns = @JoinColumn(name = "order_id"),

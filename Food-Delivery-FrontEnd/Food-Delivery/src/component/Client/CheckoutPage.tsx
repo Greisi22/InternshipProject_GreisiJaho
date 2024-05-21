@@ -56,7 +56,9 @@ const CheckoutPage: React.FC = () => {
             product = JSON.parse(productt);
         }
         const order: Order = {
-            restaurantId: getRestaurant()?.id,
+            restaurant: {
+                id: getRestaurant()?.id,
+            },
             products: product,
             orderTime: new Date().toISOString(),
             totalPrice: total,

@@ -10,13 +10,16 @@ function RestaurantForm() {
     const [address, setRestaurantAddress] = useState<string>('');
     const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [website, setWebsite] = useState<string>('');
-    const [imageFiles, setImageFiles] = useState<File[]>([]);
+    const [imageFiles, setImageFiles] = useState<string[]>([]);
     const [category, setRestaurantCategory] = useState<string>('');
     const navigate = useNavigate();
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
-            setImageFiles(Array.from(event.target.files));
+            const newImageFiles = Array.from(event.target.files).map((file) => file.name);
+            console.log('Image file ', newImageFiles);
+
+            setImageFiles((prevImageFiles) => [...prevImageFiles, ...newImageFiles]);
         }
     };
 
@@ -25,22 +28,25 @@ function RestaurantForm() {
 
         const categoryArray = category.split(',').map((cat) => cat.trim());
 
-        const imageUrls = imageFiles.map((file) => URL.createObjectURL(file)); // Placeholder, replace with actual URL handling
-
         const restaurant: Restaurant = {
             name: restaurantName,
             address: address,
             phoneNumber: phoneNumber,
             website: website,
-            images: imageUrls,
+            images: imageFiles,
             category: categoryArray,
         };
 
-      const restorant = await createRestaurant(restaurant);
-      console.log(restorant)
+        const restorant = await createRestaurant(restaurant);
 
-      
-      navigate('/prova4');
+        localStorage.setItem('restaurantCreated', JSON.stringify(restorant));
+        console.log(restorant);
+
+        //Krijo nje funksion qe krijon nje folder te ri qe quhet Restaurant_{id-> e restorantit qe ndodhet ne local storage}.
+        // Ai folderi do permbaje te gjitha fotot e ktij specific restoranti.
+        //Funksioni vetem do thirret ktu dhe do krijohet tek Utils/Functionalities/Restaurant.tsx
+        
+        navigate('/prova4');
     };
 
     const handleCancel = () => {
@@ -130,7 +136,7 @@ function RestaurantForm() {
                         Images
                     </label>
                     <div className="flex justify-between items-center space-x-2">
-                        <div>{imageFiles.at(0)?.name}</div>
+                        <div>{imageFiles}</div>
                         <input
                             type="file"
                             id="upload-image"

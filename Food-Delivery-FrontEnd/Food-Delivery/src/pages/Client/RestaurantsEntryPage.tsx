@@ -23,6 +23,11 @@ function RestaurantsEntryPage() {
     }, []);
 
     return (
+
+        //Krijo nje menu bar qe te ndahet pjesa e fotove te restoranteve me te. 
+        //Mund ta dizenjosh si te duash por permbaju menu barit tek faqja hyrese e programit.
+        //Duhet te kete nje search bar, log out, tasty rush icons dhe search bari te jete me suggestions qe te gjesh restorantin perkates.
+        
         <div className="container mx-auto p-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {allRestaurants &&

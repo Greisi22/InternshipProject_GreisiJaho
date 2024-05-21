@@ -36,8 +36,11 @@ function RestaurantForm() {
             category: categoryArray,
         };
 
-        await createRestaurant(restaurant);
-        navigate('/prova4');
+      const restorant = await createRestaurant(restaurant);
+      console.log(restorant)
+
+      
+      navigate('/prova4');
     };
 
     const handleCancel = () => {

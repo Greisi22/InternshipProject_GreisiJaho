@@ -148,14 +148,14 @@ export async function getRestaurantByUserIt(id: string) {
 export async function createRestaurant(restaurant: Restaurant) {
     console.log(restaurant);
     try {
-        const response = await axiosInstance.post<ApiResponse>('/restaurant/create', restaurant, {
+        const response = await axiosInstance.post<Restaurant>('/restaurant/create', restaurant, {
             headers: {
                 'Content-Type': 'application/json',
             },
             withCredentials: true,
         });
 
-        return response.status;
+        return response.data;
     } catch (error: unknown) {
         if ((error as AxiosError).response) {
             console.log('Here');

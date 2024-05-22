@@ -145,25 +145,37 @@ export async function getRestaurantByUserIt(id: string) {
     }
 }
 
-export async function createRestaurant(restaurant: Restaurant, files: File[]) {
+import axios from 'axios';
+
+
+
+
+
+export async function createRestaurant(restaurant: Restaurant, files:File[]) {
     try {
-        const response = await axiosInstance.post<Restaurant>('/create', restaurant, {
+        const formData = new FormData();
+        for (let file of files) {
+            formData.append('files', file);
+        }
+        // If you want to send additional data like name
+        formData.append('restaurant', JSON.stringify(restaurant));
+
+        const response = await axios.post('http://localhost:8080/restaurant/create', formData, {
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
             },
             withCredentials: true,
         });
 
         console.log('Created restaurant:', response.data);
         return response.data;
-    } catch (error: unknown) {
-        if ((error as AxiosError).response) {
-            const axiosError = error as AxiosError;
-            console.log('Error status:', axiosError.response?.status);
-            return axiosError.response?.status;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log('Error status:', error.response?.status);
+            return error.response?.status;
         } else {
             console.error('Error:', error);
-            throw new Error('Failed to fetch data');
+            throw new Error('Failed to create restaurant');
         }
     }
 }

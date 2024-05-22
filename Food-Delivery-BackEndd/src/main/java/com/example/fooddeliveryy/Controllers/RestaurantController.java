@@ -3,7 +3,6 @@ package com.example.fooddeliveryy.Controllers;
 import com.example.fooddeliveryy.Configuration.JWT.CookiesUtil;
 import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.DTO.RestaurantDTO;
-import com.example.fooddeliveryy.Entities.Images;
 import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Entities.User;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
@@ -22,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -39,67 +37,67 @@ public class RestaurantController {
 
     private final JwtTokenProvider jwtTokenProvider;
 
+    private final ObjectMapper objectMapper;
 
 
     @Autowired
-    public RestaurantController(RestaurantService restaurantService, RestaurantMapper restaurantMapper, RestaurantRepo restaurantRepo, UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
+    public RestaurantController(RestaurantService restaurantService, RestaurantMapper restaurantMapper, RestaurantRepo restaurantRepo, UserRepository userRepository, JwtTokenProvider jwtTokenProvider, ObjectMapper objectMapper) {
         this.restaurantService = restaurantService;
         this.restaurantMapper = restaurantMapper;
         this.restaurantRepo = restaurantRepo;
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.objectMapper = objectMapper;
     }
 
 
     @PostMapping("/create")
-    public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant, @RequestParam("files") MultipartFile[] files, HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("Restaurant: " + restaurant);
-        Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
-        System.out.println("Created restaurant " + createdRestaurant);
-
-        String token = CookiesUtil.getTokenFromCookies(request);
-        long userId = jwtTokenProvider.getIdFromToken(token);
-
-        Optional<User> optionalUser = userRepository.findByUserId(userId);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.setManagedRestaurant(restaurant);
-            System.out.println("User: " + user);
-            try {
-                userRepository.save(user);
-            } catch (DataIntegrityViolationException e) {
-                userRepository.update(user);
-            }
-        }
-
-        String restaurantInfo;
+    public ResponseEntity<?> createRestaurant(@RequestParam("files") MultipartFile[] files,
+                                              @RequestPart("restaurant") String restaurantJson, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
         try {
-            restaurantInfo = URLEncoder.encode(new ObjectMapper().writeValueAsString(createdRestaurant), StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException | JsonProcessingException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null); // Handle encoding exception
+            Rastaurant restaurant = objectMapper.readValue(restaurantJson, Rastaurant.class);
+
+
+            Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
+            System.out.println("Created restaurant " + createdRestaurant);
+
+            String token = CookiesUtil.getTokenFromCookies(request);
+            long userId = jwtTokenProvider.getIdFromToken(token);
+
+            Optional<User> optionalUser = userRepository.findByUserId(userId);
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                user.setManagedRestaurant(restaurant);
+                System.out.println("O user nishi " + user);
+                try {
+                    userRepository.save(user);
+                } catch (DataIntegrityViolationException e) {
+                    userRepository.update(user);
+                }
+            }
+
+            String restaurantInfo;
+
+                restaurantInfo = URLEncoder.encode(new ObjectMapper().writeValueAsString(createdRestaurant), StandardCharsets.UTF_8.toString());
+
+
+
+            Cookie restaurantCookie = new Cookie("restaurant-info", restaurantInfo);
+            restaurantCookie.setMaxAge(86400); // 1 day
+            restaurantCookie.setSecure(true); // Set to true in production
+            restaurantCookie.setHttpOnly(true);
+            restaurantCookie.setPath("/");
+            restaurantCookie.setDomain("localhost");
+
+            response.addCookie(restaurantCookie);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error!!");
         }
 
-        Cookie restaurantCookie = new Cookie("restaurant-info", restaurantInfo);
-        restaurantCookie.setMaxAge(86400); // 1 day
-        restaurantCookie.setSecure(true); // Set to true in production
-        restaurantCookie.setHttpOnly(true);
-        restaurantCookie.setPath("/");
-        restaurantCookie.setDomain("localhost");
-
-        response.addCookie(restaurantCookie);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
     }
 
-
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Rastaurant> getRestaurantById(@PathVariable long id) {
-        System.out.println("okokooookok");
-        Rastaurant restaurant = restaurantService.getRestaurantById(id);
-        System.out.println("Restoranti qe duhet par " + restaurant);
-        return ResponseEntity.ok().body(restaurant);
-    }
-
-    @GetMapping("/all")
+            @GetMapping("/all")
     public ResponseEntity<List<Rastaurant>> getAllRestaurants(HttpServletRequest request) {
         System.out.println("Greisiiuuu ");
         String token = CookiesUtil.getTokenFromCookies(request);

@@ -6,12 +6,9 @@ function SideBarManager({ selected }: { selected: string }) {
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-
     const toggleSidebar = () => {
         setIsSidebarOpen((prevState) => !prevState);
     };
-
-
 
     const handleItemClick = (item: string) => {
         switch (item) {
@@ -100,7 +97,6 @@ function SideBarManager({ selected }: { selected: string }) {
                                 <span className="ms-3">Dashboard</span>
                             </a>
                         </li>
-
                         <li>
                             <a
                                 onClick={() => handleItemClick('2')}

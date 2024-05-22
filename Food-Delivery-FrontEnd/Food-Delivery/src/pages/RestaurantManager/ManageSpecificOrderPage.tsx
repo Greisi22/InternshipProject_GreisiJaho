@@ -13,9 +13,8 @@ function ManageSpecificOrderPage({ order }: { order: Order }) {
                     <SpecificOrderCard order={order} />
                 </div>
             </div>
-            <div className="ml-[280px] mt-[100px]">
-                <SideBarManager selected={'2'} />
-            </div>
+
+            <SideBarManager selected={'2'} />
         </div>
     );
 }

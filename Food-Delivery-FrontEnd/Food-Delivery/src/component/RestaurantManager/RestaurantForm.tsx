@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Restaurant } from 'src/types/Restaurant';
 import { createRestaurant } from 'src/api/localhost/Administrator/restaurantsApi';
-import { putFiles } from 'src/utils/Functinalities/Restaurant'; 
+
 import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
-import { createRestaurant1 } from 'src/utils/Functinalities/Restaurant';
-
- 
 
 function RestaurantForm() {
     const [restaurantName, setRestaurantName] = useState<string>('');
@@ -27,7 +24,7 @@ function RestaurantForm() {
         }
     };
 
-     const handleSubmit = async (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         const categoryArray = category.split(',').map((cat) => cat.trim());
@@ -48,7 +45,7 @@ function RestaurantForm() {
         // Call the function to create the folder and store the image files
         // await putFiles("1" , imageFiles);
 
-        navigate('/prova4');
+        // navigate('/prova4');
     };
     const handleCancel = () => {
         setRestaurantName('');
@@ -66,7 +63,9 @@ function RestaurantForm() {
                 onSubmit={handleSubmit}>
                 <h2 className="text-2xl font-bold mb-4 text-center">Restaurant Form</h2>
                 <div className="mb-4">
-                    <label htmlFor="restaurant-name" className="block mb-2 font-medium text-gray-800">
+                    <label
+                        htmlFor="restaurant-name"
+                        className="block mb-2 font-medium text-gray-800">
                         Restaurant Name
                     </label>
                     <input
@@ -135,7 +134,7 @@ function RestaurantForm() {
                         Images
                     </label>
                     <div className="flex justify-between items-center space-x-2">
-                        <div>{imageFiles.map(file => file.name).join(', ')}</div>
+                        <div>{imageFiles.map((file) => file.name).join(', ')}</div>
                         <input
                             type="file"
                             id="upload-image"

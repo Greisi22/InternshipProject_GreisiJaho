@@ -3,6 +3,7 @@ package com.example.fooddeliveryy.Controllers;
 import com.example.fooddeliveryy.Configuration.JWT.CookiesUtil;
 import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.DTO.RestaurantDTO;
+import com.example.fooddeliveryy.Entities.Images;
 import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Entities.User;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
@@ -21,10 +22,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequestMapping("/restaurant")
 @RestController
@@ -53,51 +59,55 @@ public class RestaurantController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createRestaurant(@RequestParam("files") MultipartFile[] files,
-                                              @RequestPart("restaurant") String restaurantJson, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
+                                              @RequestPart("restaurant") String restaurantJson,
+                                              HttpServletRequest request,
+                                              HttpServletResponse response) throws JsonProcessingException {
+        System.out.println("Received restaurant data: " + restaurantJson);
         try {
+            // Deserialize the restaurant JSON to a Rastaurant entity
             Rastaurant restaurant = objectMapper.readValue(restaurantJson, Rastaurant.class);
 
-
-            Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
-            System.out.println("Created restaurant " + createdRestaurant);
-
-            String token = CookiesUtil.getTokenFromCookies(request);
-            long userId = jwtTokenProvider.getIdFromToken(token);
-
-            Optional<User> optionalUser = userRepository.findByUserId(userId);
-            if (optionalUser.isPresent()) {
-                User user = optionalUser.get();
-                user.setManagedRestaurant(restaurant);
-                System.out.println("O user nishi " + user);
-                try {
-                    userRepository.save(user);
-                } catch (DataIntegrityViolationException e) {
-                    userRepository.update(user);
-                }
+            // Validate restaurant data
+            if (restaurant.getName() == null || restaurant.getName().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Restaurant name is required.");
             }
 
-            String restaurantInfo;
+            // Process and convert the uploaded files to Images entities
+            List<Images> images = Arrays.stream(files)
+                    .map(file -> {
+                        try {
+                            Images image = new Images();
+                            image.setName(file.getOriginalFilename());
+                            image.setType(file.getContentType());
+                            image.setData(file.getBytes());
+                            image.setRastaurant(restaurant); // Associate the image with the restaurant
+                            return image;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    })
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
 
-                restaurantInfo = URLEncoder.encode(new ObjectMapper().writeValueAsString(createdRestaurant), StandardCharsets.UTF_8.toString());
+            // Set the images to the restaurant
+            restaurant.setImages(images);
 
+            // Save the restaurant (this will also save the associated images)
+            Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
+            System.out.println("Created restaurant: " + createdRestaurant);
 
-
-            Cookie restaurantCookie = new Cookie("restaurant-info", restaurantInfo);
-            restaurantCookie.setMaxAge(86400); // 1 day
-            restaurantCookie.setSecure(true); // Set to true in production
-            restaurantCookie.setHttpOnly(true);
-            restaurantCookie.setPath("/");
-            restaurantCookie.setDomain("localhost");
-
-            response.addCookie(restaurantCookie);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Server Error!!");
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid restaurant data format.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server Error!!");
         }
-
     }
 
-            @GetMapping("/all")
+    @GetMapping("/all")
     public ResponseEntity<List<Rastaurant>> getAllRestaurants(HttpServletRequest request) {
         System.out.println("Greisiiuuu ");
         String token = CookiesUtil.getTokenFromCookies(request);

@@ -37,7 +37,10 @@ public class Rastaurant {
     @OneToMany(mappedBy = "restaurant")
     @JsonBackReference("reviewsBackReference")
     private List<Review> reviews;
-    private List<String> images;
+
+    @OneToMany(mappedBy = "rastaurant")
+    private List<Images> images;
+
 
 
     @OneToMany
@@ -66,7 +69,9 @@ public class Rastaurant {
     public Rastaurant() {
     }
 
-    public Rastaurant(long id, String name, String email, String address, List<Product> products, List<String> openingHours, String phoneNumber, String website, double averageRating, boolean isOpen, List<Review> reviews, List<String> images, List<User> restaurantManagers, int discount, List<Order> order, List<String> category, List<RestaurantPayment> restaurantPayments, boolean isAproved, boolean isActive, Revenue revenue, Documentation documentation) {
+    public Rastaurant(long id, String name, String email, String address, List<Product> products,
+                      List<String> openingHours, String phoneNumber, String website,
+                      double averageRating, boolean isOpen, List<Review> reviews, List<Images> images, List<User> restaurantManagers, int discount, List<Order> order, List<String> category, List<RestaurantPayment> restaurantPayments, boolean isAproved, boolean isActive, Revenue revenue, Documentation documentation) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -178,11 +183,11 @@ public class Rastaurant {
         this.reviews = reviews;
     }
 
-    public List<String> getImages() {
+    public List<Images> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<Images> images) {
         this.images = images;
     }
 

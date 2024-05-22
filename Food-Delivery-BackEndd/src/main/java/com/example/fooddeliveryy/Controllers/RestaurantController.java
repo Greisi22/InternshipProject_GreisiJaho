@@ -3,12 +3,14 @@ package com.example.fooddeliveryy.Controllers;
 import com.example.fooddeliveryy.Configuration.JWT.CookiesUtil;
 import com.example.fooddeliveryy.Configuration.JWT.JwtTokenProvider;
 import com.example.fooddeliveryy.DTO.RestaurantDTO;
+import com.example.fooddeliveryy.Entities.Images;
 import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Entities.User;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import com.example.fooddeliveryy.Repositories.UserRepository;
 import com.example.fooddeliveryy.Services.RestaurantService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +20,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -35,6 +39,8 @@ public class RestaurantController {
 
     private final JwtTokenProvider jwtTokenProvider;
 
+
+
     @Autowired
     public RestaurantController(RestaurantService restaurantService, RestaurantMapper restaurantMapper, RestaurantRepo restaurantRepo, UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
         this.restaurantService = restaurantService;
@@ -46,19 +52,19 @@ public class RestaurantController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant, HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("Provasvsgdv: " + restaurant);
+    public ResponseEntity<Rastaurant> createRestaurant(@RequestBody Rastaurant restaurant, @RequestParam("files") MultipartFile[] files, HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("Restaurant: " + restaurant);
         Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
-        System.out.println("Created restaurant "+createdRestaurant);
+        System.out.println("Created restaurant " + createdRestaurant);
 
         String token = CookiesUtil.getTokenFromCookies(request);
         long userId = jwtTokenProvider.getIdFromToken(token);
-       
+
         Optional<User> optionalUser = userRepository.findByUserId(userId);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setManagedRestaurant(restaurant);
-            System.out.println("O user nishi " + user);
+            System.out.println("User: " + user);
             try {
                 userRepository.save(user);
             } catch (DataIntegrityViolationException e) {
@@ -69,10 +75,9 @@ public class RestaurantController {
         String restaurantInfo;
         try {
             restaurantInfo = URLEncoder.encode(new ObjectMapper().writeValueAsString(createdRestaurant), StandardCharsets.UTF_8.toString());
-        } catch (Exception e) {
+        } catch (UnsupportedEncodingException | JsonProcessingException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null); // Handle encoding exception
         }
-
 
         Cookie restaurantCookie = new Cookie("restaurant-info", restaurantInfo);
         restaurantCookie.setMaxAge(86400); // 1 day
@@ -140,6 +145,10 @@ public class RestaurantController {
     public ResponseEntity<?> getRestaurantWithDiscount() {
         List<Rastaurant> restaurantsWithDiscount = restaurantService.getRestaurantsWithDiscount();
         List<RestaurantDTO> restaurantDTOS = restaurantMapper.mapToApprovedRestaurantDTOs(restaurantsWithDiscount);
+        System.out.println("OOKKOKOK "+ restaurantDTOS.size()
+        );
+        System.out.println("yeyeyeyyeyey "+ restaurantsWithDiscount.size()
+        );
         return ResponseEntity.ok().body(restaurantDTOS);
     }
 

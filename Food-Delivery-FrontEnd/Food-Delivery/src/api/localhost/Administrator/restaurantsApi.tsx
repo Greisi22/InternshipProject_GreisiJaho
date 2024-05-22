@@ -145,21 +145,21 @@ export async function getRestaurantByUserIt(id: string) {
     }
 }
 
-export async function createRestaurant(restaurant: Restaurant) {
-    console.log(restaurant);
+export async function createRestaurant(restaurant: Restaurant, files: File[]) {
     try {
-        const response = await axiosInstance.post<Restaurant>('/restaurant/create', restaurant, {
+        const response = await axiosInstance.post<Restaurant>('/create', restaurant, {
             headers: {
                 'Content-Type': 'application/json',
             },
             withCredentials: true,
         });
 
+        console.log('Created restaurant:', response.data);
         return response.data;
     } catch (error: unknown) {
         if ((error as AxiosError).response) {
-            console.log('Here');
             const axiosError = error as AxiosError;
+            console.log('Error status:', axiosError.response?.status);
             return axiosError.response?.status;
         } else {
             console.error('Error:', error);

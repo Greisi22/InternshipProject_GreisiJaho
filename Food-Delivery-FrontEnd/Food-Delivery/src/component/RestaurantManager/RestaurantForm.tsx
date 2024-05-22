@@ -37,17 +37,16 @@ function RestaurantForm() {
             address: address,
             phoneNumber: phoneNumber,
             website: website,
-            images: imageFiles.map(file => file.name), 
             category: categoryArray,
         };
 
-        const createdRestaurant = await createRestaurant1(restaurant, imageFiles);
+        const createdRestaurant = await createRestaurant(restaurant, imageFiles);
 
         localStorage.setItem('restaurantCreated', JSON.stringify(createdRestaurant));
         console.log(createdRestaurant);
 
         // Call the function to create the folder and store the image files
-        await putFiles("1" , imageFiles);
+        // await putFiles("1" , imageFiles);
 
         navigate('/prova4');
     };

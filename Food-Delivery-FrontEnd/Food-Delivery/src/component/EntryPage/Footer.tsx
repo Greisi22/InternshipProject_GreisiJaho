@@ -1,5 +1,6 @@
 // import logo2 from '../../assets/logo2.png';
 import './style/Footer.css';
+import logo from 'src/assets/Icons/EntryPage/logo.jpeg';
 
 export default function App() {
     return (
@@ -13,11 +14,7 @@ export default function App() {
                     {/* First column  */}
                     <div>
                         <h6 className="mb-4 flex items-center justify-center font-semibold uppercase md:justify-start">
-                            <img
-                                src={'../../assets/logo2.png'}
-                                alt="Logo"
-                                className="mr-3 h-4 w-4"
-                            />{' '}
+                            <img src={logo} alt="Logo" className="mr-3 h-4 w-4" />{' '}
                             {/* Replacing the SVG with the logo2 */}
                             Tasty Rush
                         </h6>

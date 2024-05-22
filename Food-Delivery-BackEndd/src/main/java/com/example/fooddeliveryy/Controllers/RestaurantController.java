@@ -7,6 +7,7 @@ import com.example.fooddeliveryy.Entities.Images;
 import com.example.fooddeliveryy.Entities.Rastaurant;
 import com.example.fooddeliveryy.Entities.User;
 import com.example.fooddeliveryy.Mapping.RestaurantMapper;
+import com.example.fooddeliveryy.Repositories.ImageRepository;
 import com.example.fooddeliveryy.Repositories.RestaurantRepo;
 import com.example.fooddeliveryy.Repositories.UserRepository;
 import com.example.fooddeliveryy.Services.RestaurantService;
@@ -16,20 +17,13 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequestMapping("/restaurant")
@@ -44,16 +38,18 @@ public class RestaurantController {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final ObjectMapper objectMapper;
+    private final ImageRepository imageRepository;
 
 
     @Autowired
-    public RestaurantController(RestaurantService restaurantService, RestaurantMapper restaurantMapper, RestaurantRepo restaurantRepo, UserRepository userRepository, JwtTokenProvider jwtTokenProvider, ObjectMapper objectMapper) {
+    public RestaurantController(RestaurantService restaurantService, RestaurantMapper restaurantMapper, RestaurantRepo restaurantRepo, UserRepository userRepository, JwtTokenProvider jwtTokenProvider, ObjectMapper objectMapper, ImageRepository imageRepository) {
         this.restaurantService = restaurantService;
         this.restaurantMapper = restaurantMapper;
         this.restaurantRepo = restaurantRepo;
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.objectMapper = objectMapper;
+        this.imageRepository = imageRepository;
     }
 
 
@@ -72,16 +68,22 @@ public class RestaurantController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Restaurant name is required.");
             }
 
-            // Process and convert the uploaded files to Images entities
+            Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
+            System.out.println("Created restaurant: " + createdRestaurant);
             List<Images> images = Arrays.stream(files)
                     .map(file -> {
                         try {
+                            String base64Image = Base64.getEncoder().encodeToString(file.getBytes());
                             Images image = new Images();
+
                             image.setName(file.getOriginalFilename());
                             image.setType(file.getContentType());
-                            image.setData(file.getBytes());
-                            image.setRastaurant(restaurant); // Associate the image with the restaurant
-                            return image;
+                            image.setImageData(base64Image);
+                            image.setRastaurant(createdRestaurant);
+
+                            Images i = imageRepository.save(image);
+                            // Associate the image with the restaurant
+                            return i;
                         } catch (IOException e) {
                             e.printStackTrace();
                             return null;
@@ -91,11 +93,13 @@ public class RestaurantController {
                     .collect(Collectors.toList());
 
             // Set the images to the restaurant
-            restaurant.setImages(images);
+            System.out.println("imazhii " + images);
+            createdRestaurant.setImages(images);
+            Rastaurant createdRestaurant1 = restaurantRepo.save(createdRestaurant);
+            System.out.println("Created restaurant: " + createdRestaurant1);
 
             // Save the restaurant (this will also save the associated images)
-            Rastaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
-            System.out.println("Created restaurant: " + createdRestaurant);
+
 
             return ResponseEntity.status(HttpStatus.CREATED).body(createdRestaurant);
         } catch (JsonProcessingException e) {

@@ -19,7 +19,6 @@ const instance: AxiosInstance = axios.create({
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
-    // 'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
   }
 });
 

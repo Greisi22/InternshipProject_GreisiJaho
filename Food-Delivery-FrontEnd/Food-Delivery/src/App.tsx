@@ -26,7 +26,7 @@ import RestaurantOrderPage from './websocket/RestaurantOrderPage';
 
 import SpecificRestaurant from './pages/Client/SpecificRestaurant';
 
-import FoodGallery from './component/Client/FoodGallery';
+// import FoodGallery from './component/Client/FoodGallery';
 import CheckoutPage from './component/Client/CheckoutPage';
 
 import { Order, Restaurant } from 'src/types/Restaurant';
@@ -80,9 +80,10 @@ const App = () => {
                     }
                 />
                 <Route
-                    path="/RestaurantManager/SpecificOrderr" element={<ManageSpecificOrderPage order={order} />}
+                    path="/RestaurantManager/SpecificOrderr"
+                    element={<ManageSpecificOrderPage order={order} />}
                 />
-                  <Route path="/RestaurantManager/RestaurantForm" element={<RestaurantForm />} />
+                <Route path="/RestaurantManager/RestaurantForm" element={<RestaurantForm />} />
                 <Route path="/RestaurantManager/Product" element={<ManagerProductsPage />} />
                 <Route
                     path="/RestaurantManager/RestaurantDocumentation"
@@ -90,7 +91,7 @@ const App = () => {
                 />
                 <Route path="prova1" element={<Tamporary />} />
                 <Route path="prova2" element={<RestaurantOrderPage />} />
-                <Route path="/Client/FoodGallery" element={<FoodGallery />} />
+                {/* <Route path="/Client/FoodGallery" element={<FoodGallery />} /> */}
                 <Route path="/Client/Checkout" element={<CheckoutPage />} />
                 <Route path="/Client/SpecificRestaurant" element={<SpecificRestaurant />} />
                 <Route path="/Client/RestaurantEntry" element={<RestaurantsEntryPage />} />

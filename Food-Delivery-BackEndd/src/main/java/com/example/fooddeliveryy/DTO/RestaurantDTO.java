@@ -1,6 +1,7 @@
 package com.example.fooddeliveryy.DTO;
 
 import com.example.fooddeliveryy.Entities.Documentation;
+import com.example.fooddeliveryy.Entities.Images;
 import com.example.fooddeliveryy.Entities.Product;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public class RestaurantDTO {
     private String name;
     private int discount;
     private String email;
-    private List<String> images;
+//    private List<Images> images;
     private List<String> category;
     private Documentation documentation;
     private List<Product> products;
@@ -39,13 +40,13 @@ public class RestaurantDTO {
         this.email = email;
     }
 
-    public List<String> getImages() {
-        return images;
-    }
-
-    public void setImages(List<String> images) {
-        this.images = images;
-    }
+//    public List<Images> getImages() {
+//        return images;
+//    }
+//
+//    public void setImages(List<Images> images) {
+//        this.images = images;
+//    }
 
     public List<String> getCategory() {
         return category;

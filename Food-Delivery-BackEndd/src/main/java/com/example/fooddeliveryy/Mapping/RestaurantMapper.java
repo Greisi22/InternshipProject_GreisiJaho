@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public interface RestaurantMapper {
 
     @Mapping(source = "name", target = "name")
-    @Mapping(source = "images", target = "images")
+//    @Mapping(source = "images", target = "images")
     @Mapping(source = "discount", target = "discount")
     @Mapping(source = "category", target = "category")
     @Mapping(source = "products", target = "products")
@@ -24,7 +24,7 @@ public interface RestaurantMapper {
     @Named("notApprovedRestaurant")
     @Mapping(source = "name", target = "name")
     @Mapping(source = "discount", target = "discount")
-    @Mapping(target = "category", ignore = true) // Exclude category attribute
+    @Mapping(target = "category", ignore = true)
     @Mapping(source = "products", target = "products")
     RestaurantDTO mapToNotApprovedRestaurantDTO(Rastaurant restaurant);
 

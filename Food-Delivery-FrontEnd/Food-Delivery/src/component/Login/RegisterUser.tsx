@@ -1,6 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { registerAdminUser } from 'src/api/localhost/Login/RegisterAPI';
+import logo from 'src/assets/Icons/EntryPage/logo.jpeg';
 
 function RegisterUser({
     setUsersRagister,
@@ -54,7 +55,7 @@ function RegisterUser({
                         <a
                             href="#"
                             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                            <img className="w-8 h-8 mr-2" src="" alt="logo" />
+                            <img className="w-8 h-8 mr-2" src={logo} alt="logo" />
                             Register
                         </a>
                         <div className="relative shadow-3xl w-full bg-white border border-gray-500 rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 overflow-auto">

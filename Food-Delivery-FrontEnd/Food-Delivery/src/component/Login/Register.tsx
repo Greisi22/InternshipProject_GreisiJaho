@@ -2,6 +2,7 @@ import DropDown from '../General/DropDown';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { RegisterHelper } from 'src/utils/Functinalities/RegisterHelper';
+import logo from 'src/assets/Icons/EntryPage/logo.jpeg';
 
 function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
     const [error, setError] = useState('');
@@ -11,9 +12,7 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
     const [role, setRole] = useState('');
 
     const handleFunction = (name: string) => {
-        if (name === 'AdminiStrator') {
-            setRole('ROLE_ADMIN');
-        } else if (name === 'Client') {
+        if (name === 'Client') {
             setRole('ROLE_CLIENT');
         } else {
             setRole('ROLE_RESTAURANT_MANAGER');
@@ -30,15 +29,11 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
             function: handleFunction,
             name: 'Restorant Manger',
         },
-        {
-            function: handleFunction,
-            name: 'AdminiStrator',
-        },
     ];
 
     async function handleRegister() {
         const result = await RegisterHelper(email, password, r_password, role);
-     
+
         console.log(result === 409);
         if (result === 200) {
             setError('You are succesfully register');
@@ -77,8 +72,8 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                         <a
                             href="#"
                             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                            <img className="w-8 h-8 mr-2" src="" alt="logo" />
-                            Register
+                            <img className="w-8 h-8 mr-2" src={logo} alt="logo" />
+                            Tasty Rush
                         </a>
                         <div className="relative shadow-3xl w-full bg-white border border-gray-500 rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 overflow-auto">
                             <div
@@ -91,7 +86,7 @@ function Register({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                             </div>
                             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                                    Sign in to your account
+                                    Register to your account
                                 </h1>
                                 <form className="space-y-4 md:space-y-6">
                                     <div className="text-red-700">{error}</div>

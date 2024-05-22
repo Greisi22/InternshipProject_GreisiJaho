@@ -2,8 +2,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkLogin } from 'src/api/localhost/Login/LoginAPI';
-import { getRestaurantByUserIt } from 'src/api/localhost/Administrator/restaurantsApi';
 import Cookies from 'js-cookie';
+import logo from 'src/assets/Icons/EntryPage/logo.jpeg';
 
 function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
     const [error, setError] = useState('');
@@ -69,8 +69,8 @@ function Login({ setLogin, setSignup }: { setLogin: any; setSignup: any }) {
                     <a
                         href="#"
                         className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                        <img className="w-8 h-8 mr-2" src="" alt="logo" />
-                        Testy Rush
+                        <img className="w-8 h-8 mr-2" src={logo} alt="logo" />
+                        Tasty Rush
                     </a>
                     <div className="relative shadow-3xl w-full bg-white border border-gray-500 rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 ">
                         <div

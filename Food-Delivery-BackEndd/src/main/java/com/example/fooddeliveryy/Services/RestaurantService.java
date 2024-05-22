@@ -45,14 +45,18 @@ public class RestaurantService {
     public List<Rastaurant> getRestaurantsWithDiscount() {
 
         List<Rastaurant> restaurants = restaurantRepo.findAll();
+        System.out.println("Restorantet "+ restaurants.size());
 
         List<Rastaurant> restaurantWithDiscount = new ArrayList<>();
 
         for (Rastaurant res : restaurants) {
+            System.out.println("With discount "+res.getName()+ " discount" + res.getDiscount());
             if (res.getDiscount() != 0) {
                 restaurantWithDiscount.add(res);
+
             }
         }
+        System.out.println("With discount "+restaurantWithDiscount.size());
         return restaurantWithDiscount;
     }
 

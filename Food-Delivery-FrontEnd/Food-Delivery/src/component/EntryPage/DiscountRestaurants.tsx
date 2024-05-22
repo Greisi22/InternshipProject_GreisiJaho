@@ -1,9 +1,9 @@
-import {  useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './style/DiscountRestaurant.css';
 import NavBar from './navBarDiscRes';
 import { getDiscountRestaurantCache } from 'src/cache/entry';
 import { Restaurant } from 'src/types/Restaurant';
-import Restorant1 from 'src/assets/Restaurant1.webp'
+import Restorant1 from 'src/assets/Restaurant1.webp';
 
 const DiscountRestaurants = () => {
     const [restaurant, setRestaurant] = useState<Restaurant[]>([]);
@@ -11,10 +11,11 @@ const DiscountRestaurants = () => {
     async function handleRestorants(categ: string) {
         const responeRestorant = await getDiscountRestaurantCache(categ);
         setRestaurant(responeRestorant);
+        console.log('Restaurants with discount ', responeRestorant);
     }
 
     useEffect(() => {
-        handleRestorants('vegan');
+        handleRestorants('Italian');
     }, []);
 
     return (

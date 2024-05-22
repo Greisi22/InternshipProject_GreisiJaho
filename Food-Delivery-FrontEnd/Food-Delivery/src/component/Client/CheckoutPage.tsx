@@ -151,16 +151,16 @@ const CheckoutPage: React.FC = () => {
                     ))}
                     <div className="mt-4">
                         <p>Delivery: 120 L</p>
-                        <p>Totali për të paguar: {total + 120} L</p>
+                        <p>Total price: {total + 120} L</p>
                     </div>
                     <button
-                        className="w-full px-4 py-2 bg-green-500 text-white rounded-lg mt-4"
+                        className="w-full px-4 py-2 bg-red-500 text-white rounded-lg mt-4"
                         onClick={() => {
                             alert('Porosia u krye!');
 
                             handleOrderDone();
                         }}>
-                        Kryej porosinë
+                        Check Out
                     </button>
                 </div>
             </div>

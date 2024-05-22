@@ -75,7 +75,7 @@ function SpecificRestaurant() {
         <div className="container mx-auto p-4">
             <div>
                 <div className="bg-red-500 p-4 rounded-t-lg">
-                    <h1 className="text-white text-2xl">MUGO</h1>
+                    <h1 className="text-white text-2xl font-semibold tracking-wide">MUGO</h1>
                 </div>
                 <div className="flex flex-col md:flex-row mt-4">
                     <div className="flex-1">
@@ -86,89 +86,96 @@ function SpecificRestaurant() {
                             </div>
                         </div>
                         <div className="p-4">
-                            <h2 className="text-2xl mb-4">Filter by Category</h2>
+                            <h2 className="text-2xl mb-4 font-semibold">Filter by Category</h2>
                             <div className="flex space-x-4 mb-4">
-                                <button
-                                    className={`px-4 py-2 border border-gray-300 rounded ${selectedCategory === 'All' && 'bg-gray-200'}`}
-                                    onClick={() => filterItems('All')}>
+                                <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-200 transition-colors focus:outline-none">
                                     All
                                 </button>
-                                <button
-                                    className={`px-4 py-2 border border-gray-300 rounded ${selectedCategory === 'Pizza' && 'bg-gray-200'}`}
-                                    onClick={() => filterItems('Pizza')}>
+                                <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-200 transition-colors focus:outline-none">
                                     Pizza
                                 </button>
-                                <button
-                                    className={`px-4 py-2 border border-gray-300 rounded ${selectedCategory === 'Burger' && 'bg-gray-200'}`}
-                                    onClick={() => filterItems('Burger')}>
+                                <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-200 transition-colors focus:outline-none">
                                     Burger
                                 </button>
-                                <button
-                                    className={`px-4 py-2 border border-gray-300 rounded ${selectedCategory === 'Drinks' && 'bg-gray-200'}`}
-                                    onClick={() => filterItems('Drinks')}>
+                                <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-200 transition-colors focus:outline-none">
                                     Drinks
                                 </button>
-                                <button
-                                    className={`px-4 py-2 border border-gray-300 rounded ${selectedCategory === 'Desserts' && 'bg-gray-200'}`}
-                                    onClick={() => filterItems('Desserts')}>
+                                <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-200 transition-colors focus:outline-none">
                                     Desserts
                                 </button>
                             </div>
-                            <h2 className="text-2xl mb-4">Menu Items</h2>
-                            {restaurantData?.products &&
-                                restaurantData.products.map(
-                                    (item) =>
-                                        (selectedCategory === 'All' ||
-                                            item.category === selectedCategory) && (
-                                            <div key={item.name} className="flex items-center mb-4">
-                                                <img
-                                                    src={item.image}
-                                                    alt={item.name}
-                                                    className="w-20 h-20 rounded-lg object-cover"
-                                                />
-                                                <div className="ml-4">
-                                                    <h3 className="text-xl">{item.name}</h3>
-                                                    <p className="text-gray-600">
-                                                        {item.description}
-                                                    </p>
-                                                    <p className="text-lg font-bold">
-                                                        {item.price} L
-                                                    </p>
-                                                    <div className="flex items-center space-x-2 mt-2">
-                                                        <button
-                                                            className="px-2 py-1 border border-gray-300 rounded"
-                                                            onClick={() => removeFromCart(item)}
-                                                            disabled={
-                                                                !cart[item.name] ||
-                                                                cart[item.name].quantity === 0
-                                                            }>
-                                                            -
-                                                        </button>
-                                                        <span>
-                                                            {cart[item.name]?.quantity || 0}
-                                                        </span>
-                                                        <button
-                                                            className="px-2 py-1 border border-gray-300 rounded"
-                                                            onClick={() => addToCart(item)}>
-                                                            +
-                                                        </button>
+                            <h2 className="text-3xl font-semibold mb-4 text-gray-800">Menu Items</h2>
+                            <div className="grid grid-cols-2 gap-8">
+                                {restaurantData?.products &&
+                                    restaurantData.products.map(
+                                        (item) =>
+                                            (selectedCategory === 'All' ||
+                                                item.category === selectedCategory) && (
+                                                <div key={item.name} className="flex items-center">
+                                                    <img
+                                                        src={item.image}
+                                                        alt={item.name}
+                                                        className="w-32 h-32 object-cover rounded-md shadow-md"
+                                                    />
+                                                    <div className="ml-6">
+                                                        <h3 className="text-2l font-semibold">
+                                                            {item.name}
+                                                        </h3>
+                                                        <p className="text-gray-600 text-lg mt-2">
+                                                            {item.description}
+                                                        </p>
+                                                        <p className="text-xl font-semibold mt-4">
+                                                            {item.price} L
+                                                        </p>
+                                                        <div className="flex items-center space-x-3 mt-3">
+                                                            <button
+                                                                className="px-3 py-2 bg-gray-200 rounded-md text-gray-700"
+                                                                onClick={() => removeFromCart(item)}
+                                                                disabled={
+                                                                    !cart[item.name] ||
+                                                                    cart[item.name].quantity === 0
+                                                                }>
+                                                                Remove
+                                                            </button>
+                                                            <button
+                                                                className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
+                                                                onClick={() => addToCart(item)}>
+                                                                Add to Cart
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ),
-                                )}
+                                            ),
+                                    )}
+                            </div>
                         </div>
                     </div>
                     <div className="w-full md:w-1/3 p-4 border-l border-gray-200">
-                        <h2 className="text-2xl mb-4">Porosia te MUGO</h2>
-                        <div className="p-4 bg-gray-100 rounded-lg">
-                            <h3 className="text-xl mb-4">Totali</h3>
-                            <p className="mt-2">Delivery: 120 L</p>
-                            <p className="mt-2 font-bold">Totali për të paguar: {total + 120} L</p>
+                        <h2 className="text-3xl font-bold mb-4 text-gray-800">Mugo's Order</h2>
+                        <div className="p-4 bg-white rounded-lg shadow-md">
+                            <h3 className="text-2xl mb-6 font-semibold text-gray-700">
+                                Your Order
+                            </h3>
+                            <div className="border-t border-b border-gray-200 py-4">
+                                <div className="flex justify-between items-center mb-4">
+                                    <p className="text-lg text-gray-700">Subtotal</p>
+                                    <p className="text-lg font-semibold text-gray-800">{total} L</p>
+                                </div>
+                                <div className="flex justify-between items-center mb-4">
+                                    <p className="text-lg text-gray-700">Delivery</p>
+                                    <p className="text-lg text-gray-800">120 L</p>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <p className="text-lg text-gray-700">Total</p>
+                                    <p className="text-xl font-semibold text-red-600">
+                                        {total + 120} L
+                                    </p>
+                                </div>
+                            </div>
                             <button
-                                className="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg"
+                                className="mt-8 w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg focus:outline-none focus:ring focus:border-red-300"
                                 onClick={goToCheckout}>
-                                Kryej Porosinë
+                                Proceed to Checkout
                             </button>
                         </div>
                     </div>

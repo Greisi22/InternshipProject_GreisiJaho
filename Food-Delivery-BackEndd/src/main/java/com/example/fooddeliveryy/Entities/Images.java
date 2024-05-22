@@ -1,8 +1,7 @@
 package com.example.fooddeliveryy.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
-import java.util.Arrays;
 
 @Entity
 public class Images {
@@ -15,11 +14,12 @@ public class Images {
     private String type;
 
     @Lob
-    private byte[] data;
+    private String imageData;
 
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
+    @JsonBackReference
     private Rastaurant rastaurant;
 
 
@@ -27,11 +27,11 @@ public class Images {
 
     }
 
-    public Images(Long id, String name, String type, byte[] data, Rastaurant rastaurant) {
+    public Images(Long id, String name, String type, String imageData, Rastaurant rastaurant) {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.data = data;
+        this.imageData = imageData;
         this.rastaurant = rastaurant;
     }
 
@@ -59,12 +59,12 @@ public class Images {
         this.type = type;
     }
 
-    public byte[] getData() {
-        return data;
+    public String getImageData() {
+        return imageData;
     }
 
-    public void setData(byte[] data) {
-        this.data = data;
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
     }
 
     public Rastaurant getRastaurant() {
@@ -75,14 +75,14 @@ public class Images {
         this.rastaurant = rastaurant;
     }
 
+
     @Override
     public String toString() {
         return "Images{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
-                ", data=" + Arrays.toString(data) + '\'' +
-//                ", restaurant="+rastaurant+
+//                ", imageData='" + imageData + '\'' +
                 '}';
     }
 }

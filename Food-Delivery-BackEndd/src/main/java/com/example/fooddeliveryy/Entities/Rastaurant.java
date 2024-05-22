@@ -1,6 +1,7 @@
 package com.example.fooddeliveryy.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class Rastaurant {
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "rastaurant")
+    @JsonManagedReference
     private List<Images> images;
 
 

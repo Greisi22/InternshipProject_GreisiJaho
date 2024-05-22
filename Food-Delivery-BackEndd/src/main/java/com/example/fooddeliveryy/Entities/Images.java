@@ -82,7 +82,7 @@ public class Images {
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", data=" + Arrays.toString(data) + '\'' +
-                ", restaurant="+rastaurant+
+//                ", restaurant="+rastaurant+
                 '}';
     }
 }

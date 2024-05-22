@@ -80,9 +80,9 @@ const App = () => {
                     }
                 />
                 <Route
-                    path="/RestaurantManager/SpecificOrderr"
-                    element={<ManageSpecificOrderPage order={order} />}
+                    path="/RestaurantManager/SpecificOrderr" element={<ManageSpecificOrderPage order={order} />}
                 />
+                  <Route path="/RestaurantManager/RestaurantForm" element={<RestaurantForm />} />
                 <Route path="/RestaurantManager/Product" element={<ManagerProductsPage />} />
                 <Route
                     path="/RestaurantManager/RestaurantDocumentation"

@@ -48,6 +48,7 @@ public class ProductController {
                 if ("restaurant-info".equals(cookie.getName())) {
                     try {
                         String restaurantJson = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8.toString());
+                        System.out.println("Hyra brendaa");
                         restaurant = new ObjectMapper().readValue(restaurantJson, Rastaurant.class);
                     } catch (Exception e) {
                         e.printStackTrace();

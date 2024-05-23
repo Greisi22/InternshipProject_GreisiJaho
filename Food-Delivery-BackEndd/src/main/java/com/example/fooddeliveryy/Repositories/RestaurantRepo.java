@@ -17,6 +17,7 @@ public interface RestaurantRepo extends JpaRepository<Rastaurant, Long> {
 
     Rastaurant findByName(String name);
 
-
+    @Query("SELECT r FROM Rastaurant r LEFT JOIN FETCH r.images WHERE r.id = :id")
+    Rastaurant findByIdWithImages(@Param("id") Long id);
 
 }

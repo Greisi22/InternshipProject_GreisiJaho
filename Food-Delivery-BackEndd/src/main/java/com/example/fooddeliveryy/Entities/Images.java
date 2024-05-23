@@ -22,17 +22,20 @@ public class Images {
     @JsonBackReference
     private Rastaurant rastaurant;
 
+    @OneToOne
+    private Product product;
 
     public Images(){
 
     }
 
-    public Images(Long id, String name, String type, String imageData, Rastaurant rastaurant) {
+    public Images(Long id, String name, String type, String imageData, Rastaurant rastaurant, Product product) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.imageData = imageData;
         this.rastaurant = rastaurant;
+        this.product = product;
     }
 
     public Long getId() {
@@ -75,6 +78,13 @@ public class Images {
         this.rastaurant = rastaurant;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     @Override
     public String toString() {

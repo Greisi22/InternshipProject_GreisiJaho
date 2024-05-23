@@ -137,6 +137,7 @@ function RestaurantsEntryPage() {
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [suggestions, setSuggestions] = useState<Restaurant[]>([]);
     const navigate = useNavigate();
+    const [imagesss, setImages] = useState<any[]>([]);
 
     const handleRestaurantClick = (restaurant: Restaurant) => {
         localStorage.setItem('CurrentRestaurant', JSON.stringify(restaurant));
@@ -158,9 +159,27 @@ function RestaurantsEntryPage() {
     };
 
     const fetchData = async () => {
-        const allRestaurants = await retrieveAllRestaurant();
-        setAllRestaurants(allRestaurants);
-        setFilteredRestaurants(allRestaurants); // Initially show all restaurants
+        try {
+            const allRestaurantsData = await retrieveAllRestaurant();
+            const processedRestaurants = allRestaurantsData.map((restaurant) => ({
+                ...restaurant,
+                images: restaurant.images.map((image) => ({
+                    ...image,
+                    imageData: `data:${image.type};base64,${image.imageData}`,
+                })),
+            }));
+            setAllRestaurants(processedRestaurants);
+            setFilteredRestaurants(processedRestaurants);
+
+            // Extract images and save them in imagesss
+            const images = processedRestaurants.reduce((acc, curr) => {
+                acc.push(...curr.images);
+                return acc;
+            }, []);
+            setImages(images);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     };
 
     useEffect(() => {
@@ -183,9 +202,14 @@ function RestaurantsEntryPage() {
                             className="cursor-pointer flex flex-col border border-gray-200 rounded-lg shadow hover:bg-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 active:bg-gray-200">
                             <img
                                 className="object-cover w-full rounded-t-lg h-48"
-                                src={restaurant.images && restaurant.images[0]}
+                                src={
+                                    restaurant.images &&
+                                    restaurant.images[0] &&
+                                    restaurant.images[0].imageData
+                                }
                                 alt={restaurant.name || 'Restaurant'}
                             />
+
                             <div className="p-4">
                                 <h5 className="text-lg font-bold text-gray-900 dark:text-white">
                                     {restaurant.name || 'Unnamed Restaurant'}

@@ -15,13 +15,14 @@ function ProductForm({
     specificProduct?: Product;
 }) {
     const [productName, setProductName] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState();
     const [ingredients, setIngredients] = useState<string[]>([]);
     const [price, setPrice] = useState<number>(-1);
     const [id, setId] = useState<number>();
     const [category, setCategory] = useState('');
     const [error, setError] = useState('');
     const [isnewProduct, setnewProduct] = useState(false);
+    const [imageFiles, setImageFiles] = useState<File>();
 
     useEffect(() => {
         if (specificProduct) {
@@ -48,7 +49,9 @@ function ProductForm({
                 price: price,
                 category: category,
             };
-            await createProduct(productData);
+            if (imageFiles != undefined) {
+                await createProduct(productData, imageFiles);
+            }
             console.log('1');
         } else {
             const productData: Product = {
@@ -60,7 +63,7 @@ function ProductForm({
                 category: category,
             };
             await updateProduct(productData);
-            
+
             console.log('2');
         }
         handleCancel();
@@ -71,7 +74,12 @@ function ProductForm({
     };
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setImage(event.target.value);
+        if (event.target.files && event.target.files.length > 0) {
+            const newImageFile = event.target.files[0];
+            console.log('Selected file:', newImageFile);
+
+            setImageFiles(newImageFile); // Replace the previous file with the new one
+        }
     };
     const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCategory(event.target.value);
@@ -129,30 +137,26 @@ function ProductForm({
                                     value={productName}
                                 />
                             </div>
-                            <div>
+                            <div className="mb-4">
                                 <label
                                     htmlFor="image"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Image
+                                    className="block mb-2 font-medium text-gray-800">
+                                    Images
                                 </label>
-                                <div className="flex items-center space-x-2">
+                                <div className="flex justify-between items-center space-x-2">
+                                    <div>{imageFiles?.name}</div>
                                     <input
+                                        type="file"
+                                        id="upload-image"
+                                        style={{ display: 'none' }}
                                         onChange={handleImageChange}
-                                        type="text"
-                                        name="image"
-                                        id="image"
-                                        className="flex-grow bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Image URL"
-                                        value={image}
+                                        multiple
                                     />
-                                    <IconButton component="label" htmlFor="upload-image">
-                                        <CloudUploadIcon />
-                                        <input
-                                            type="file"
-                                            id="upload-image"
-                                            style={{ display: 'none' }}
-                                        />
-                                    </IconButton>
+                                    <label htmlFor="upload-image">
+                                        <IconButton component="span">
+                                            <CloudUploadIcon />
+                                        </IconButton>
+                                    </label>
                                 </div>
                             </div>
                             <div>

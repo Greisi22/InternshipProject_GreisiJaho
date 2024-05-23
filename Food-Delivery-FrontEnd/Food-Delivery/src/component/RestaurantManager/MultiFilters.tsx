@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Pagination } from 'antd';
 import { Delete } from '@mui/icons-material';
-import pizzaImage from 'src/assets/pizzaa.png'; // Corrected image import path
 import { getProductCategoryCache } from 'src/cache/productCache';
 import { Product } from 'src/types/Restaurant';
 import ProductForm from '../Administrator/ProductForm';
@@ -38,16 +37,27 @@ function MultiFilters() {
         setCurrentPage(1);
     };
 
-    const fetchDatFromDb = async () => {
+    const fetchDataFromDb = async () => {
         setLoading(true);
-        const categoryData = await retrieveAllProducts();
-        setData(categoryData);
-        setLoading(false);
+        try {
+            const categoryData = await retrieveAllProducts();
+            const processedProducts = categoryData.map((product) => ({
+                ...product,
+                image: `data:${product.image.type};base64,${product.image.imageData}`,
+            }));
+            console.log('Proceeded products ', processedProducts);
+
+            setData(processedProducts);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
         if (isEdited == false && isProductClicked == false) {
-            fetchDatFromDb();
+            fetchDataFromDb();
         }
     }, [isEdited, isProductClicked]);
 
@@ -179,7 +189,7 @@ function MultiFilters() {
                                     <td className="px-6 whitespace-nowrap">{product.name}</td>
                                     <td className="px-6 whitespace-nowrap">
                                         <img
-                                            src={pizzaImage}
+                                            src={product.image.imageData}
                                             alt={product.name}
                                             className="h-12 w-12"
                                         />

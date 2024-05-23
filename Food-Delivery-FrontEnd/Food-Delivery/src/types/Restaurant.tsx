@@ -9,7 +9,7 @@ export interface Restaurant {
     averageRating?: number;
     open?: boolean;
     reviews?: Review[];
-    images?: string[];
+    images: RestaurantImage[];
     restaurantManager?: User;
     discount?: number;
     order?: Order[];
@@ -120,13 +120,27 @@ export interface RestaurantNotAproved {
     documentation: Documentation;
 }
 
-export interface RestaurantAproved {
+// export interface RestaurantAproved {
+//     name: string;
+//     discount: number;
+//     images: string[];
+//     email: string;
+//     category: string[];
+//     documentation: Documentation;
+// }
+interface RestaurantImage {
+    id: number;
     name: string;
-    discount: number;
-    images: string[];
+    type: string;
+    imageData: string; // Base64-encoded image data
+}
+
+export interface RestaurantAproved {
+    id: number;
+    name: string;
+    phoneNumber: string;
     email: string;
-    category: string[];
-    documentation: Documentation;
+    images: RestaurantImage[];
 }
 
 type HandleRestorantsFunction = (category: string) => void;
@@ -143,5 +157,5 @@ export interface Product {
     ingredients: string[];
     category: string;
     amount?: number;
-    image: string;
+    image:RestaurantImage;
 }

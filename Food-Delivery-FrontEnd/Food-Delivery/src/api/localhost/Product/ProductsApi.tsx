@@ -57,12 +57,19 @@ export async function updateProduct(product: Product) {
 
 import { AxiosError } from 'axios';
 
-export async function createProduct(product: Product) {
+export async function createProduct(product: Product, files: File) {
     console.log('Produkti ne db ', product);
     try {
-        const response = await axiosInstance.post<ApiResponse>('/product/create', product, {
+        const formData = new FormData();
+
+        formData.append('files', files);
+
+        // If you want to send additional data like name
+        formData.append('product', JSON.stringify(product));
+
+        const response = await axiosInstance.post<ApiResponse>('/product/create', formData, {
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
             },
             withCredentials: true,
         });

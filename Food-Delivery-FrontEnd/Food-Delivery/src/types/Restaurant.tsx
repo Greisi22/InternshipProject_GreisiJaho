@@ -157,5 +157,5 @@ export interface Product {
     ingredients: string[];
     category: string;
     amount?: number;
-    image: string;
+    image:RestaurantImage;
 }

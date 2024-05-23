@@ -2,6 +2,7 @@ package com.example.fooddeliveryy.Entities;
 
 import com.example.fooddeliveryy.Entities.Enums.ProductType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -30,14 +31,16 @@ public class Product {
     @JsonBackReference(value = "order-products")
     private List<Order> ordered;
 
-    @Column(nullable = true)
-    private String image;
+
+    @OneToOne
+    @JsonManagedReference
+    private Images image;
 
 
     public Product() {}
 
 
-    public Product(long id, String name, String description, double price, List<String> ingredients, ProductType category, int amount, List<Rastaurant> restaurants, List<Order> ordered, String image) {
+    public Product(long id, String name, String description, double price, List<String> ingredients, ProductType category, int amount, List<Rastaurant> restaurants, List<Order> ordered, Images image) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -123,11 +126,11 @@ public class Product {
         this.ordered = ordered;
     }
 
-    public String getImage() {
+    public Images getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Images image) {
         this.image = image;
     }
 
@@ -144,6 +147,7 @@ public class Product {
                 ", restaurants=" + restaurants +
                 ", ordered=" + ordered +
                 ", image='" + image + '\'' +
+
                 '}';
     }
 }

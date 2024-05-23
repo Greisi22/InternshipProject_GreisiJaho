@@ -12,10 +12,10 @@ export async function registerUser(email: string, password: string, role: string
         };
 
         const response = await axiosInstance.post<User[]>('/user/register', requestData, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true
+            // headers: {
+            //     'Content-Type': 'application/json',
+            // },
+            withCredentials: true,
         });
 
         return response.status; // Return status if request is successful

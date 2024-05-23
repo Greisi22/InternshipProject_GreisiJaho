@@ -144,15 +144,15 @@ public ResponseEntity<?> createRestaurant(@RequestParam("files") MultipartFile[]
     @GetMapping("/all")
     public ResponseEntity<List<Rastaurant>> getAllRestaurants(HttpServletRequest request) {
         System.out.println("Greisiiuuu ");
-        String token = CookiesUtil.getTokenFromCookies(request);
-        System.out.println("Greisiiuuu "+token);
-        if (token == null) {
-            return ResponseEntity.status(401).body(null); // Unauthorized
-        }
-
-        String userEmail = jwtTokenProvider.getEmailFromToken(token);
+//        String token = CookiesUtil.getTokenFromCookies(request);
+//        System.out.println("Greisiiuuu "+token);
+//        if (token == null) {
+//            return ResponseEntity.status(401).body(null); // Unauthorized
+//        }
+//
+//        String userEmail = jwtTokenProvider.getEmailFromToken(token);
         // You now have the userEmail, and you can use it as needed.
-        System.out.println("Logged in user: " + userEmail);
+//        System.out.println("Logged in user: " + userEmail);
 
         List<Rastaurant> restaurants = restaurantService.getAllRestaurants();
         return ResponseEntity.ok().body(restaurants);

@@ -88,7 +88,7 @@ public class ProductController {
             image.setName(file.getOriginalFilename());
             image.setType(file.getContentType());
             image.setImageData(base64Image);
-            image.setProduct(finalProductReceived);
+//            image.setProduct(finalProductReceived);
 
             Images savedImage = imageRepository.save(image);
             finalProductReceived.setImage(savedImage);

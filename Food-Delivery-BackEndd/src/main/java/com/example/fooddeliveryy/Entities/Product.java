@@ -33,7 +33,7 @@ public class Product {
 
 
     @OneToOne
-    @JsonManagedReference
+//    @JsonManagedReference
     private Images image;
 
 
